@@ -12,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -162,6 +161,6 @@ public class MainWindow extends UiPart<Region> {
      */
     @FXML
     private void handleExit() {
-        raise(new ExitAppRequestEvent());
+        // TODO: (level3) exit event
     }
 }

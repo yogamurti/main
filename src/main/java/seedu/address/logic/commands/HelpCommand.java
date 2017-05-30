@@ -1,9 +1,5 @@
 package seedu.address.logic.commands;
 
-
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-
 /**
  * Format full help instructions for every command for display.
  */
@@ -18,7 +14,7 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent());
+        // TODO: (level3) show help event
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 }

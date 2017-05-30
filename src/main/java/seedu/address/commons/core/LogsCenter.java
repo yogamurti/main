@@ -8,8 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import seedu.address.commons.events.BaseEvent;
-
 /**
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>
@@ -97,19 +95,5 @@ public class LogsCenter {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(currentLogLevel);
         return consoleHandler;
-    }
-
-    /**
-     * Decorates the given string to create a log message suitable for logging event handling methods.
-     */
-    public static String getEventHandlingLogMessage(BaseEvent e, String message) {
-        return "---[Event handled][" + e + "]" + message;
-    }
-
-    /**
-     * @see #getEventHandlingLogMessage(BaseEvent, String)
-     */
-    public static String getEventHandlingLogMessage(BaseEvent e) {
-        return getEventHandlingLogMessage(e, "");
     }
 }
