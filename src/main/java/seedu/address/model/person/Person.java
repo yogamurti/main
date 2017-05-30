@@ -12,7 +12,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Person implements ReadOnlyPerson {
+public class Person {
 
     private Name name;
     private Phone phone;
@@ -36,7 +36,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Creates a copy of the given ReadOnlyPerson.
      */
-    public Person(ReadOnlyPerson source) {
+    public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
                 source.getTags());
     }
@@ -46,7 +46,6 @@ public class Person implements ReadOnlyPerson {
         this.name = name;
     }
 
-    @Override
     public Name getName() {
         return name;
     }
@@ -56,7 +55,6 @@ public class Person implements ReadOnlyPerson {
         this.phone = phone;
     }
 
-    @Override
     public Phone getPhone() {
         return phone;
     }
@@ -66,7 +64,6 @@ public class Person implements ReadOnlyPerson {
         this.email = email;
     }
 
-    @Override
     public Email getEmail() {
         return email;
     }
@@ -76,7 +73,6 @@ public class Person implements ReadOnlyPerson {
         this.address = address;
     }
 
-    @Override
     public Address getAddress() {
         return address;
     }
@@ -85,7 +81,6 @@ public class Person implements ReadOnlyPerson {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.toSet());
     }
@@ -100,7 +95,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Updates this person with the details of {@code replacement}.
      */
-    public void resetData(ReadOnlyPerson replacement) {
+    public void resetData(Person replacement) {
         assert replacement != null;
 
         this.setName(replacement.getName());
@@ -113,8 +108,8 @@ public class Person implements ReadOnlyPerson {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyPerson // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyPerson) other));
+                || (other instanceof Person // instanceof handles nulls
+                && this.isSameStateAs((Person) other));
     }
 
     @Override
@@ -128,4 +123,32 @@ public class Person implements ReadOnlyPerson {
         return getAsText();
     }
 
+    /**
+     * Returns true if both have the same state. (interfaces cannot override .equals)
+     */
+    private boolean isSameStateAs(Person other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getPhone().equals(this.getPhone())
+                && other.getEmail().equals(this.getEmail())
+                && other.getAddress().equals(this.getAddress()));
+    }
+
+    /**
+     * Formats the person as text, showing all contact details.
+     */
+    private String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 }

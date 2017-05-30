@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
@@ -17,16 +17,16 @@ import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
-public class ModelManager extends ComponentManager implements Model {
+public class ModelManager extends ComponentManager {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<ReadOnlyPerson> filteredPersons;
+    private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
         super();
         assert !CollectionUtil.isAnyNull(addressBook, userPrefs);
 
@@ -40,14 +40,12 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(AddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public AddressBook getAddressBook() {
         return addressBook;
     }
 
@@ -56,21 +54,18 @@ public class ModelManager extends ComponentManager implements Model {
         // TODO: (level3) address book change event
     }
 
-    @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
-    @Override
-    public synchronized void addPerson(ReadOnlyPerson person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
-    @Override
-    public void updatePerson(int filteredPersonListIndex, ReadOnlyPerson editedPerson)
+    public void updatePerson(int filteredPersonListIndex, Person editedPerson)
             throws UniquePersonList.DuplicatePersonException {
         assert editedPerson != null;
 
@@ -84,17 +79,14 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Return a list of {@code ReadOnlyPerson} backed by the internal list of {@code addressBook}
      */
-    @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
+    public UnmodifiableObservableList<Person> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-    @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
     }
 
-    @Override
     public void updateFilteredPersonList(Set<String> keywords) {
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
@@ -106,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering =================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
+        boolean satisfies(Person person);
         String toString();
     }
 
@@ -119,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyPerson person) {
+        public boolean satisfies(Person person) {
             return qualifier.run(person);
         }
 
@@ -130,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyPerson person);
+        boolean run(Person person);
         String toString();
     }
 
@@ -142,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyPerson person) {
+        public boolean run(Person person) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
                     .findAny()

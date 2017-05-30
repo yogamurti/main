@@ -12,32 +12,31 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.UserPrefs;
 
 /**
  * The manager of the UI component.
  */
-public class UiManager extends ComponentManager implements Ui {
+public class UiManager extends ComponentManager {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private Logic logic;
+    private LogicManager logic;
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(LogicManager logic, Config config, UserPrefs prefs) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
     }
 
-    @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         primaryStage.setTitle(config.getAppTitle());
@@ -56,7 +55,6 @@ public class UiManager extends ComponentManager implements Ui {
         }
     }
 
-    @Override
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();

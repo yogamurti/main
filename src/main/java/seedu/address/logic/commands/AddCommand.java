@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -38,7 +37,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code ReadOnlyPerson}
      */
-    public AddCommand(ReadOnlyPerson person) {
+    public AddCommand(Person person) {
         toAdd = new Person(person);
     }
 

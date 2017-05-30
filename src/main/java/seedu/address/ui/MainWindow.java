@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -28,7 +28,7 @@ public class MainWindow extends UiPart<Region> {
     private static final int MIN_WIDTH = 450;
 
     private Stage primaryStage;
-    private Logic logic;
+    private LogicManager logic;
 
     // Independent Ui parts residing in this Ui container
     private Config config;
@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, LogicManager logic) {
         super(FXML);
 
         // Set dependencies

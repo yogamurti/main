@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,12 +20,12 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private final Logic logic;
+    private final LogicManager logic;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
+    public CommandBox(Pane commandBoxPlaceholder, LogicManager logic) {
         super(FXML);
         this.logic = logic;
         addToPlaceholder(commandBoxPlaceholder);

@@ -24,7 +24,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(Person toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -34,7 +34,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(ReadOnlyPerson toAdd) throws DuplicatePersonException {
+    public void add(Person toAdd) throws DuplicatePersonException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -49,7 +49,7 @@ public class UniquePersonList implements Iterable<Person> {
      *      another existing person in the list.
      * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
      */
-    public void updatePerson(int index, ReadOnlyPerson editedPerson) throws DuplicatePersonException {
+    public void updatePerson(int index, Person editedPerson) throws DuplicatePersonException {
         assert editedPerson != null;
 
         Person personToUpdate = internalList.get(index);
@@ -69,7 +69,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(Person toRemove) throws PersonNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
@@ -82,9 +82,9 @@ public class UniquePersonList implements Iterable<Person> {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
+    public void setPersons(List<? extends Person> persons) throws DuplicatePersonException {
         final UniquePersonList replacement = new UniquePersonList();
-        for (final ReadOnlyPerson person : persons) {
+        for (final Person person : persons) {
             replacement.add(new Person(person));
         }
         setPersons(replacement);

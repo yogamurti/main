@@ -10,7 +10,7 @@ import seedu.address.model.UserPrefs;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage {
+public class JsonUserPrefsStorage {
 
     private String filePath;
 
@@ -18,12 +18,10 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         this.filePath = filePath;
     }
 
-    @Override
     public String getUserPrefsFilePath() {
         return filePath;
     }
 
-    @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return readUserPrefs(filePath);
     }
@@ -37,7 +35,6 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
     }
 
-    @Override
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
         JsonUtil.saveJsonFile(userPrefs, filePath);
     }
