@@ -16,7 +16,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,28 +32,14 @@ public class MainWindow extends UiPart<Region> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -72,16 +57,10 @@ public class MainWindow extends UiPart<Region> {
         setWindowDefaultSize(prefs);
         Scene scene = new Scene(getRoot());
         primaryStage.setScene(scene);
-
-        setAccelerators();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -115,10 +94,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(browserPlaceholder);
-        personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
         new ResultDisplay(getResultDisplayPlaceholder());
-        new StatusBarFooter(getStatusbarPlaceholder(), prefs.getAddressBookFilePath());
         new CommandBox(getCommandBoxPlaceholder(), logic);
     }
 
@@ -126,16 +102,8 @@ public class MainWindow extends UiPart<Region> {
         return commandBoxPlaceholder;
     }
 
-    private StackPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
     private StackPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
-    }
-
-    private StackPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
     }
 
     void hide() {
@@ -196,17 +164,4 @@ public class MainWindow extends UiPart<Region> {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
-    }
-
-    void loadPersonPage(ReadOnlyPerson person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
 }
