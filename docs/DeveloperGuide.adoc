@@ -370,11 +370,11 @@ ____
 .  Should handle at least 100 tasks without a noticeable decline in performance.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most tasks faster using commands than using the mouse.
 .  Should have automated unit tests and open source code.
-.  Should not require more than 2 seconds to startup.
+.  Should have user-friendly commands.
+.  Should not require more than 3 seconds to startup.
 .  Should not require more than 2 seconds to respond to a user request.
 .  Should not require internet connection.
-.  Should not take up significant system resources to run.
-.  Should store the to-do list details in a permanent location in the OS.
+
 
 
 [appendix]
