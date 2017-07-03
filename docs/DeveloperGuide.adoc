@@ -316,20 +316,77 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use 2Do
 
-|`* * *` |user |add a new person |
+|`* * *` |user |undo the last action |correct a mistake
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add tasks without specifying a date |add floating tasks
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |define recurring tasks |not need to add the same task every time it repeats
 
-|`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |describe my tasks in detail |add more information about the tasks, such as the venue
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |delete tasks |remove tasks that have been cancelled
+
+|`* * *` |user |edit tasks |update my tasks’ details for unforeseen circumstances, such as postponing a deadline
+
+|`* * *` |user |add deadlines to my floating tasks |update floating tasks if they then require a deadline
+
+|`* * *` |user |mark my tasks as completed |stop being reminded for tasks I have done
+
+|`* * *` |user |mark completed tasks as uncompleted again |appropriately update my to-do list if the task then requires more follow-up action
+
+|`* * *` |user |mark tasks as cannot do |properly take them out of my to-do list
+
+|`* * *` |user |see incomplete tasks |know what I need to do
+
+|`* * *` |user |find tasks by deadline |know which tasks are most urgent
+
+|`* * *` |user |see tasks that are related |know related tasks easily
+
+|`* * *` |user |search for tasks using keywords |find details of specific tasks
+
+|`* * *` |user |list all tasks |see all of my tasks in a convenient manner
+
+|`* * *` |user |list tasks this week or month |see only tasks with urgent deadlines to prevent clutter
+
+|`* * *` |user |set a reminder on tasks |be reminded of my tasks closer to their deadline
+
+|`* * *` |user |have a global reminder setting |not need to set reminders for each task manually
+
+|`* * *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
+
+|`* * *` |user |specify storage location |access my to-do list using different devices
+
+|`* *` |user |have flexible command formats |execute actions in a more natural manner
+
+|`* *` |user |have command shortcuts |execute actions with ease and speed
+
+|`* *` |user |redo a command I have undone |redo any unintended undo actions
+
+|`* *` |user with many tagged tasks |clear all tasks that have a certain tag |conveniently clear all related tasks once a project or milestone is completed or cancelled
+
+|`* *` |user |be able to view my task history |look back at the tasks I have completed so far
+
+|`* *` |user |visualise my task as a calendar |more easily plan my schedule
+
+|`*` |user |launch the program quickly, by pressing a keyboard shortcut |conveniently launch the program
+
+|`*` |experienced user |create my own shortcuts for my most frequently used commands |more conveniently use the program
+
+|`*` |user with many tasks |sort tasks in different ways |gain a better understanding of the tasks at hand
+
+|`*` |user |link a location |get directions to the task’s location, from my current location, with the click of a button
+
+|`*` |user |block timeslots for events |stop scheduling events with conflicting timings
+
+|`*` |user |receive a warning if I try to schedule an event at a blocked timing |know of this timing conflict between events
+
+|`*` |user |unblock timeslots that have been blocked |schedule other events in that timeslot
+
+|`*` |user |synchronize my tasks with my google calendar |access my to-do list from public computers
 |=======================================================================
 
-{More to be added}
 
 [appendix]
 == Use Cases
@@ -374,7 +431,6 @@ ____
 .  Should not require more than 3 seconds to startup.
 .  Should not require more than 2 seconds to respond to a user request.
 .  Should not require internet connection.
-
 
 
 [appendix]
