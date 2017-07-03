@@ -367,10 +367,15 @@ ____
 == Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should handle at least 100 tasks without a noticeable decline in performance.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most tasks faster using commands than using the mouse.
+.  Should have automated unit tests and open source code.
+.  Should not require more than 2 seconds to startup.
+.  Should not require more than 2 seconds to respond to a user request.
+.  Should not require internet connection.
+.  Should not take up significant system resources to run.
+.  Should store the to-do list details in a permanent location in the OS.
 
-{More to be added}
 
 [appendix]
 == Glossary
