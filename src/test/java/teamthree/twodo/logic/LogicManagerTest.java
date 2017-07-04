@@ -55,9 +55,9 @@ import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.PersonBuilder;
 
@@ -229,7 +229,7 @@ public class LogicManagerTest {
                 + PREFIX_PHONE + "not_numbers "
                 + PREFIX_EMAIL + "valid@e.mail "
                 + PREFIX_ADDRESS + "valid, address",
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
+                Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_PHONE + "12345 "
@@ -464,7 +464,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
+            Deadline privatePhone = new Deadline("111111");
             Email email = new Email("adam@example.com");
             Address privateAddress = new Address("111, alpha street");
 
@@ -485,7 +485,7 @@ public class LogicManagerTest {
 
             return new Task(
                     new Name("Task " + seed),
-                    new Phone(phoneNumber),
+                    new Deadline(phoneNumber),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
                     getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));

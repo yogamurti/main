@@ -18,9 +18,9 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.commons.util.FileUtil;
 import teamthree.twodo.commons.util.XmlUtil;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 
@@ -55,15 +55,15 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                new Task(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@example.com"), new Address("4th street"), getTagSet()),
-                new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@example.com"), new Address("81th street"), getTagSet()),
-                new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@example.com"), new Address("wall street"), getTagSet()),
-                new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@example.com"), new Address("10th street"), getTagSet()),
-                new Task(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@example.com"), new Address("michegan ave"), getTagSet()),
-                new Task(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@example.com"), new Address("little tokyo"), getTagSet()),
-                new Task(new Name("George Best"), new Phone("9482442"), new Email("anna@example.com"), new Address("4th street"), getTagSet()),
-                new Task(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@example.com"), new Address("little india"), getTagSet()),
-                new Task(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@example.com"), new Address("chicago ave"), getTagSet())
+                new Task(new Name("Ali Muster"), new Deadline("9482424"), new Email("hans@example.com"), new Address("4th street"), getTagSet()),
+                new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Email("ruth@example.com"), new Address("81th street"), getTagSet()),
+                new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Email("heinz@example.com"), new Address("wall street"), getTagSet()),
+                new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Email("cornelia@example.com"), new Address("10th street"), getTagSet()),
+                new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Email("werner@example.com"), new Address("michegan ave"), getTagSet()),
+                new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Email("lydia@example.com"), new Address("little tokyo"), getTagSet()),
+                new Task(new Name("George Best"), new Deadline("9482442"), new Email("anna@example.com"), new Address("4th street"), getTagSet()),
+                new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Email("stefan@example.com"), new Address("little india"), getTagSet()),
+                new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Email("hans@example.com"), new Address("chicago ave"), getTagSet())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {

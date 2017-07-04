@@ -15,9 +15,9 @@ import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 
@@ -41,12 +41,12 @@ public class AddCommandParser {
 
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
+            Deadline deadline = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-            ReadOnlyTask person = new Task(name, phone, email, address, tagList);
+            ReadOnlyTask person = new Task(name, deadline, email, address, tagList);
 
             return new AddCommand(person);
         } catch (IllegalValueException ive) {

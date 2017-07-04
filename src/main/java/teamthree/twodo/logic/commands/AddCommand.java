@@ -17,7 +17,8 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    //Command word can be any one of the three
+    public static final String COMMAND_WORD = "add |+ |-a ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "

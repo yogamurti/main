@@ -20,9 +20,9 @@ import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.PersonBuilder;
 
@@ -107,7 +107,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
-        assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertResultMessage(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
 
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);

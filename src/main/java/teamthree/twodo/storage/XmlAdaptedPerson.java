@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlElement;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 
@@ -67,10 +67,10 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
+        final Deadline deadline = new Deadline(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
         final Set<Tag> tags = new HashSet<>(personTags);
-        return new Task(name, phone, email, address, tags);
+        return new Task(name, deadline, email, address, tags);
     }
 }

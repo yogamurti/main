@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.tag.UniqueTagList;
 
@@ -17,7 +18,7 @@ import teamthree.twodo.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Phone phone;
+    private Deadline deadline;
     private Email email;
     private Address address;
 
@@ -26,13 +27,28 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Task(Name name, Deadline deadline, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, deadline, email, address, tags);
         this.name = name;
-        this.phone = phone;
+        this.deadline = deadline;
         this.email = email;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    /**
+     * Constructor for floating Task
+     * @param name
+     */
+    public Task(Name name) {
+        this.name = name;
+        try {
+            this.deadline = new Deadline("");
+            this.email = new Email("");
+            this.address = new Address("");
+            this.tags = new UniqueTagList();
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -52,13 +68,13 @@ public class Task implements ReadOnlyTask {
         return name;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = requireNonNull(phone);
+    public void setPhone(Deadline deadline) {
+        this.deadline = requireNonNull(deadline);
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Deadline getPhone() {
+        return deadline;
     }
 
     public void setEmail(Email email) {
@@ -118,7 +134,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, deadline, email, address, tags);
     }
 
     @Override

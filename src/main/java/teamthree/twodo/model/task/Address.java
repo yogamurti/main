@@ -28,9 +28,6 @@ public class Address {
      */
     public Address(String address) throws IllegalValueException {
         requireNonNull(address);
-        if (!isValidAddress(address)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
-        }
         this.value = address;
     }
 

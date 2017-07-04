@@ -5,9 +5,9 @@ import java.util.Set;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.util.SampleDataUtil;
@@ -27,7 +27,7 @@ public class PersonBuilder {
 
     public PersonBuilder() throws IllegalValueException {
         Name defaultName = new Name(DEFAULT_NAME);
-        Phone defaultPhone = new Phone(DEFAULT_PHONE);
+        Deadline defaultPhone = new Deadline(DEFAULT_PHONE);
         Email defaultEmail = new Email(DEFAULT_EMAIL);
         Address defaultAddress = new Address(DEFAULT_ADDRESS);
         Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
@@ -57,7 +57,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setPhone(new Phone(phone));
+        this.task.setPhone(new Deadline(phone));
         return this;
     }
 

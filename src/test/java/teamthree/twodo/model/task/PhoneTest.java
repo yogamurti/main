@@ -10,16 +10,16 @@ public class PhoneTest {
     @Test
     public void isValidPhone() {
         // invalid phone numbers
-        assertFalse(Phone.isValidPhone("")); // empty string
-        assertFalse(Phone.isValidPhone(" ")); // spaces only
-        assertFalse(Phone.isValidPhone("91")); // less than 3 numbers
-        assertFalse(Phone.isValidPhone("phone")); // non-numeric
-        assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
+        assertFalse(Deadline.isValidDeadline("")); // empty string
+        assertFalse(Deadline.isValidDeadline(" ")); // spaces only
+        assertFalse(Deadline.isValidDeadline("91")); // less than 3 numbers
+        assertFalse(Deadline.isValidDeadline("phone")); // non-numeric
+        assertFalse(Deadline.isValidDeadline("9011p041")); // alphabets within digits
+        assertFalse(Deadline.isValidDeadline("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Phone.isValidPhone("93121534"));
-        assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
+        assertTrue(Deadline.isValidDeadline("911")); // exactly 3 numbers
+        assertTrue(Deadline.isValidDeadline("93121534"));
+        assertTrue(Deadline.isValidDeadline("124293842033123")); // long phone numbers
     }
 }

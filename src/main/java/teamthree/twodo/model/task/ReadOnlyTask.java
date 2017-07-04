@@ -11,7 +11,7 @@ import teamthree.twodo.model.tag.Tag;
 public interface ReadOnlyTask {
 
     Name getName();
-    Phone getPhone();
+    Deadline getPhone();
     Email getEmail();
     Address getAddress();
     Set<Tag> getTags();
@@ -34,7 +34,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append(" Deadline: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())

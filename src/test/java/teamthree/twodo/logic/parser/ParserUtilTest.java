@@ -19,9 +19,9 @@ import org.junit.rules.ExpectedException;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Phone;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -106,8 +106,8 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_validValue_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of(VALID_PHONE));
+        Deadline expectedPhone = new Deadline(VALID_PHONE);
+        Optional<Deadline> actualPhone = ParserUtil.parsePhone(Optional.of(VALID_PHONE));
 
         assertEquals(expectedPhone, actualPhone.get());
     }
