@@ -42,10 +42,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will display all commands availabl
 ====
 *Legend*
 
-| 												|
-| :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+<table>
+	<tr>
+		<th col span="2"> Arguments</th>
+	</tr>
+	<tr>
+		<td> {} </td>
+		<td> compulsory argument </td>
+	<tr>
+</table>
 
 ====
 
