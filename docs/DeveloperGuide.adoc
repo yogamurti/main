@@ -412,9 +412,7 @@ ____
 
 Use case ends
 ____
-
 1b. User enters an end time that is earlier than the start time
-
 ____
 1b1. 2Do automatically adjusts the end time to the following day
 
@@ -452,6 +450,12 @@ ____
 Use case resumes at step 2
 ____
 
+3a. User does not confirm the request
+
+____
+Use case ends
+____
+
 [discrete]
 === Use case: List tasks
 
@@ -480,6 +484,8 @@ ____
 1. User requests to find a task using a keyword
 2. 2Do displays all relevant tasks
 
+Use case ends
+
 *Extensions*
 
 1a. User input is invalid
@@ -505,6 +511,8 @@ ____
 
 1. User requests to undo the last action
 2. 2Do undos the last action and returns the to-do list to its previous state
+
+Use case ends
 
 *Extensions*
 
@@ -597,10 +605,12 @@ ____
 
 *MSS*
 
-1. User searches for a task using list or find
+1. User searches for a task using *list* or *find*
 2. 2Do displays all relevant tasks
 3. User requests to mark the task as complete by using its index
 4. 2Do updates the task and shows a success message
+
+Use case ends
 
 *Extensions*
 
@@ -636,6 +646,152 @@ ____
 Use case ends
 ____
 
+[discrete]
+=== Use case: Mark task as incomplete
+
+*MSS*
+
+1. User searches for a completed task using *list -h* or *find -h*
+2. 2Do displays all relevant tasks
+3. User requests to mark the task as incomplete by using its index
+4. 2Do updates the task and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+2b. No tasks to display 
+
+____
+2b1. 2Do displays a “No task to display” message
+
+Use case ends
+____
+
+3a. User input is invalid
+
+____
+3a1. 2Do displays an error message
+
+Use case resumes at step 2
+____
+
+3b. Task is already marked as complete
+
+____
+3b1. 2Do displays an error message
+
+Use case ends
+____
+
+[discrete]
+=== Use case: Display help guide
+
+*MSS*
+
+1. User requests for help guide
+2. 2Do displays help guide
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+[discrete]
+=== Use case: Display options
+
+*MSS*
+
+1. User requests to view the general options available on 2Do
+2. 2Do displays its general options
+3. User requests to change the general options
+4. 2Do updates its general options
+
+Use case ends
+
+*Extensions*
+
+3a. User input is invalid
+
+____
+3a1. 2Do displays an error message
+
+Use case ends
+____
+
+[discrete]
+=== Use case: Save to-do list
+
+*MSS*
+
+1. User requests to save the to-do list
+2. 2Do saves the current to-do list and exports it as a text file in the directory specified
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+[discrete]
+=== Use case: Clear to-do list
+
+*MSS*
+
+1. User requests to clear the to-do list
+2. 2Do prompts the user to confirm the clear request
+3. User confirms the clear request
+4. 2Do clears the to-do list and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+3a. User does not confirm the request
+
+____
+Use case ends
+____
+
+[discrete]
+=== Use case:
+
+*MSS*
+
+1. User requests to quit 2Do
+2. 2Do shuts down
+
+Use case ends
+
 [appendix]
 == Non Functional Requirements
 
@@ -667,6 +823,7 @@ ____
 
 [[recurring-task]]
 Recurring task
+
 ____
 Task that repeatedly needs to be done every week, month or year
 ____
