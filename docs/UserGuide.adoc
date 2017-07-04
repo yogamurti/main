@@ -53,7 +53,25 @@ Dates
 ****
 * Format 1: ddmmyy +
 `Example: 050417`
-* Non-italic: Actual representation of argument
+* Format 2: day month +
+`Example: 5 jan`
+* Format 3: month day +
+` Example: dec 31
+****
+
+Time
+
+****
+* Format 1: 24HR
+`Example: 1759`
+****
+
+Reccurence
+****
+* Format 1: days / hours +
+`Example: 4 days`
+* Format 2: keyword +
+`Example: daily / weekly / yearly / annually`
 ****
 
 ====
