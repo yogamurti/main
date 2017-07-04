@@ -183,8 +183,8 @@ Example: `option p/ DO {main} NOW!`
 * Default reminder alarm timing before the deadline can be edited +
 Range value for reminders: 1 minute <= reminder <= 7 days +
 Default setting is 7 days
-* Default prompt message for reminders can be edited +
-Default message is _{main} needs to be completed soon!_
+* Default prompt message for reminders can be edited
+** Default message is _{main} needs to be completed soon!_
 * Default automatic mark for completion setting can be edited +
 Default setting will prompt user requesting if the activity was completed +
 This can be changed to automatically marking the activity as complete instead of prompting +
