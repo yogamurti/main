@@ -473,6 +473,32 @@ Use case ends
 ____
 
 [discrete]
+=== Use case: Find task
+
+*MSS*
+
+1. User requests to find a task using a keyword
+2. 2Do displays all relevant tasks
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+1b. No tasks to display 
+
+____
+1b1. 2Do displays a “No task to display” message
+
+Use case ends
+____
+
+[discrete]
 === Use case: Edit task
 
 *MSS*
