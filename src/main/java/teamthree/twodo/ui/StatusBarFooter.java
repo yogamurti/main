@@ -11,7 +11,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import teamthree.twodo.commons.core.LogsCenter;
-import teamthree.twodo.commons.events.model.AddressBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -71,7 +71,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleAddressBookChangedEvent(TaskBookChangedEvent abce) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));

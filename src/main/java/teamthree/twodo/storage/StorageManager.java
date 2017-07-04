@@ -8,7 +8,7 @@ import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
-import teamthree.twodo.commons.events.model.AddressBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -80,7 +80,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);

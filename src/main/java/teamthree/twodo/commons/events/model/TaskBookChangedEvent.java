@@ -4,11 +4,11 @@ import teamthree.twodo.commons.events.BaseEvent;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 
 /** Indicates the TaskBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class TaskBookChangedEvent extends BaseEvent {
 
     public final ReadOnlyTaskBook data;
 
-    public AddressBookChangedEvent(ReadOnlyTaskBook data) {
+    public TaskBookChangedEvent(ReadOnlyTaskBook data) {
         this.data = data;
     }
 

@@ -9,7 +9,7 @@ import javafx.collections.transformation.FilteredList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
-import teamthree.twodo.commons.events.model.AddressBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
@@ -55,7 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(taskBook));
+        raise(new TaskBookChangedEvent(taskBook));
     }
 
     @Override

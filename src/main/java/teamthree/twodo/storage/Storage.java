@@ -3,7 +3,7 @@ package teamthree.twodo.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import teamthree.twodo.commons.events.model.AddressBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -34,5 +34,5 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleAddressBookChangedEvent(TaskBookChangedEvent abce);
 }

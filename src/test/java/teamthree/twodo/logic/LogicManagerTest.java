@@ -32,7 +32,7 @@ import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.index.Index;
-import teamthree.twodo.commons.events.model.AddressBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.ui.JumpToListRequestEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
@@ -79,7 +79,7 @@ public class LogicManagerTest {
     private Index targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+    private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
         latestSavedAddressBook = new TaskBook(abce.data);
     }
 
