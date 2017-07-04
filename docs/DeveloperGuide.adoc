@@ -488,7 +488,7 @@ ____
 
 *Google Calendar*
 
-Author: ...
+Author: Ang Lang Yi
 
 Pros:
 
@@ -501,22 +501,22 @@ Pros:
 
 Cons:
 
-* Floating tasks are difficult to schedule 
+* link:#floating-task[Floating tasks are difficult to schedule] 
 * Navigation requires mouse usage instead of command line
 * Internet connection is required
 
 *Todoist*
 
-Author: ...
+Author: Teo Shu Qi
 
 Pros:
 
 * Features are easy to understand and use
 * Different categories are available to separate different kinds of tasks
 * Each category allows a weekly and daily view of its tasks
-* Recurring tasks can be added
+* link:#recurring-task[Recurring tasks] can be added
 * Different priority levels can be set for tasks
-* Filter and find tasks according to priority level and floating tasks
+* Filter and find tasks according to priority level and link:#floating-task[floating tasks]
 
 Cons:
 
@@ -527,7 +527,7 @@ Cons:
 
 *Trello*
 
-Author: ...
+Author: V Narendar Nag
 
 Pros:
 
@@ -542,13 +542,13 @@ Cons:
 
 * Features are not intuitive and requires reference to a guide to learn
 * Troublesome to setup the calendar
-* Recurring tasks cannot be added
+* link:#recurring-task[Recurring tasks] cannot be added
 * A command line interface is not available
 * Internet connection is required
 
 *Wunderlist*
 
-Author: ...
+Author: Yogamurti Sutanto
 
 Pros:
 
