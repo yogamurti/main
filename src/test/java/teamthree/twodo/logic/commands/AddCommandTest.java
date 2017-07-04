@@ -51,7 +51,7 @@ public class AddCommandTest {
         Task validPerson = new PersonBuilder().build();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 
         getAddCommandForPerson(validPerson, modelStub).execute();
     }
@@ -70,7 +70,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(ReadOnlyTask person) throws DuplicateTaskException {
+        public void addTask(ReadOnlyTask person) throws DuplicateTaskException {
             fail("This method should not be called.");
         }
 
@@ -86,12 +86,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(ReadOnlyTask target) throws TaskNotFoundException {
+        public void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
             fail("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(ReadOnlyTask target, ReadOnlyTask editedPerson)
+        public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
                 throws DuplicateTaskException {
             fail("This method should not be called.");
         }
@@ -108,7 +108,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Set<String> keywords) {
+        public void updateFilteredTaskList(Set<String> keywords) {
             fail("This method should not be called.");
         }
     }
@@ -118,7 +118,7 @@ public class AddCommandTest {
      */
     private class ModelStubThrowingDuplicatePersonException extends ModelStub {
         @Override
-        public void addPerson(ReadOnlyTask person) throws DuplicateTaskException {
+        public void addTask(ReadOnlyTask person) throws DuplicateTaskException {
             throw new DuplicateTaskException();
         }
     }
@@ -130,7 +130,7 @@ public class AddCommandTest {
         final ArrayList<Task> personsAdded = new ArrayList<>();
 
         @Override
-        public void addPerson(ReadOnlyTask person) throws DuplicateTaskException {
+        public void addTask(ReadOnlyTask person) throws DuplicateTaskException {
             personsAdded.add(new Task(person));
         }
     }

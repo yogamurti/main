@@ -40,7 +40,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        modelManager.updateFilteredPersonList(new HashSet<>(
+        modelManager.updateFilteredTaskList(new HashSet<>(
                 Arrays.asList(typicalPersons.alice.getName().fullName.split(" "))));
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests

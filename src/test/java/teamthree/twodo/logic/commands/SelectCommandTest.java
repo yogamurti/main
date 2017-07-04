@@ -88,7 +88,7 @@ public class SelectCommandTest {
     private void showFirstPersonOnly(Model model) {
         ReadOnlyTask person = model.getAddressBook().getTaskList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 
         assertTrue(model.getFilteredPersonList().size() == 1);
     }

@@ -32,7 +32,7 @@ public class AddCommandIntegrationTest {
         Task validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addTask(validPerson);
 
         CommandResult commandResult = prepareCommand(validPerson, model).execute();
 
@@ -50,7 +50,7 @@ public class AddCommandIntegrationTest {
             prepareCommand(personInList, model).execute();
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
-            assertEquals(AddCommand.MESSAGE_DUPLICATE_PERSON, ce.getMessage());
+            assertEquals(AddCommand.MESSAGE_DUPLICATE_TASK, ce.getMessage());
             assertEquals(expectedModel, model);
         }
     }

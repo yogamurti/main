@@ -192,9 +192,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addPerson(helper.generatePerson(1));
-        model.addPerson(helper.generatePerson(2));
-        model.addPerson(helper.generatePerson(3));
+        model.addTask(helper.generatePerson(1));
+        model.addTask(helper.generatePerson(2));
+        model.addTask(helper.generatePerson(3));
 
         assertCommandSuccess(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
     }
@@ -251,7 +251,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         Model expectedModel = new ModelManager();
-        expectedModel.addPerson(toBeAdded);
+        expectedModel.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandSuccess(helper.generateAddCommand(toBeAdded),
@@ -266,10 +266,10 @@ public class LogicManagerTest {
         Task toBeAdded = helper.adam();
 
         // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
-        assertCommandException(helper.generateAddCommand(toBeAdded), AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandException(helper.generateAddCommand(toBeAdded), AddCommand.MESSAGE_DUPLICATE_TASK);
 
     }
 
@@ -316,7 +316,7 @@ public class LogicManagerTest {
         // set AB state to 2 persons
         model.resetData(new TaskBook());
         for (Task p : personList) {
-            model.addPerson(p);
+            model.addTask(p);
         }
 
         assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(), expectedMessage);
@@ -365,7 +365,7 @@ public class LogicManagerTest {
         List<Task> threePersons = helper.generatePersonList(3);
 
         Model expectedModel = new ModelManager(helper.generateAddressBook(threePersons), new UserPrefs());
-        expectedModel.deletePerson(threePersons.get(1));
+        expectedModel.deleteTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
@@ -389,7 +389,7 @@ public class LogicManagerTest {
 
         List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new HashSet<>(Collections.singletonList("KEY")));
+        expectedModel.updateFilteredTaskList(new HashSet<>(Collections.singletonList("KEY")));
         helper.addToModel(model, fourPersons);
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
@@ -423,7 +423,7 @@ public class LogicManagerTest {
 
         List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new HashSet<>(Arrays.asList("key", "rAnDoM")));
+        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList("key", "rAnDoM")));
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
@@ -558,7 +558,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Task> personsToAdd) throws Exception {
             for (Task p: personsToAdd) {
-                model.addPerson(p);
+                model.addTask(p);
             }
         }
 

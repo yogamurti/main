@@ -31,9 +31,9 @@ public class Deadline {
     public Deadline(String phone) throws IllegalValueException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!isValidDeadline(trimmedPhone)) {
+        /*if (!isValidDeadline(trimmedPhone)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
-        }
+        }*/
         this.value = trimmedPhone;
     }
 

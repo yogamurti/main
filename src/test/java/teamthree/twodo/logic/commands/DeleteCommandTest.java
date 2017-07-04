@@ -34,7 +34,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deleteTask(personToDelete);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -57,7 +57,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deleteTask(personToDelete);
         showNoPerson(expectedModel);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -91,7 +91,7 @@ public class DeleteCommandTest {
     private void showFirstPersonOnly(Model model) {
         ReadOnlyTask person = model.getAddressBook().getTaskList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 
         assert model.getFilteredPersonList().size() == 1;
     }
@@ -100,7 +100,7 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(Collections.emptySet());
+        model.updateFilteredTaskList(Collections.emptySet());
 
         assert model.getFilteredPersonList().isEmpty();
     }

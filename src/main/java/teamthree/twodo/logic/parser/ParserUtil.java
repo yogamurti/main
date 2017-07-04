@@ -38,6 +38,10 @@ public class ParserUtil {
     }
 
     /**
+     * All Parse Methods below @return non-empty Optional objects
+     */
+
+    /**
      * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
      */
     public static Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
@@ -50,7 +54,7 @@ public class ParserUtil {
      */
     public static Optional<Deadline> parsePhone(Optional<String> phone) throws IllegalValueException {
         requireNonNull(phone);
-        return phone.isPresent() ? Optional.of(new Deadline(phone.get())) : Optional.empty();
+        return phone.isPresent() ? Optional.of(new Deadline(phone.get())) : Optional.of(new Deadline(""));
     }
 
     /**
@@ -58,7 +62,7 @@ public class ParserUtil {
      */
     public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
-        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
+        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.of(new Address(""));
     }
 
     /**
@@ -66,7 +70,7 @@ public class ParserUtil {
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
-        return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
+        return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.of(new Email(""));
     }
 
     /**

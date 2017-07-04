@@ -17,11 +17,11 @@ public interface Model {
     /** Returns the TaskBook */
     ReadOnlyTaskBook getAddressBook();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyTask target) throws TaskNotFoundException;
+    /** Deletes the given task. */
+    void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(ReadOnlyTask person) throws DuplicateTaskException;
+    /** Adds the given task. */
+    void addTask(ReadOnlyTask person) throws DuplicateTaskException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -30,7 +30,7 @@ public interface Model {
      *      another existing person in the list.
      * @throws TaskNotFoundException if {@code target} could not be found in the list.
      */
-    void updatePerson(ReadOnlyTask target, ReadOnlyTask editedPerson)
+    void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
             throws DuplicateTaskException, TaskNotFoundException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
@@ -40,6 +40,6 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords);
 
 }
