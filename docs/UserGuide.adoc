@@ -186,8 +186,8 @@ Default setting is 7 days
 * Default prompt message for reminders can be edited +
 Default message is _{main} needs to be completed soon!_
 * Default automatic mark for completion setting can be edited +
-Default setting will prompt user requesting if the activity was completed
-This can be changed to automatically marking the activity as complete instead of prompting
+Default setting will prompt user requesting if the activity was completed +
+This can be changed to automatically marking the activity as complete instead of prompting +
 Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
 ****
 
@@ -216,14 +216,6 @@ Format: `quit` +
 Example: `quit`
 ****
 * Closes the 2Do application
-****
-
-===  : ``
-
-Format: `` +
-Example: ``
-****
-* 
 ****
 
 == FAQ
