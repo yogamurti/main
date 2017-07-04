@@ -330,7 +330,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |edit tasks |update my tasks’ details for unforeseen circumstances, such as postponing a deadline
 
-|`* * *` |user |add deadlines to my #floating-task[floating tasks] |update #floating-task[floating tasks] if they then require a deadline
+|`* * *` |user |add deadlines to my link:#floating-task[floating tasks] |update link:#floating-task[floating tasks] if they then require a deadline
 
 |`* * *` |user |mark my tasks as completed |stop being reminded for tasks I have done
 
