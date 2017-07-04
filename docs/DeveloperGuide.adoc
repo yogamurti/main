@@ -501,7 +501,7 @@ Pros:
 
 Cons:
 
-* link:#floating-task[Floating tasks are difficult to schedule] 
+* link:#floating-task[Floating tasks] are difficult to schedule
 * Navigation requires mouse usage instead of command line
 * Internet connection is required
 
