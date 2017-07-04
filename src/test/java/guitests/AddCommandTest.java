@@ -8,8 +8,7 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TestUtil;
 
 public class AddCommandTest extends AddressBookGuiTest {
@@ -17,8 +16,8 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() {
         //add one person
-        Person[] currentList = td.getTypicalPersons();
-        Person personToAdd = td.hoon;
+        Task[] currentList = td.getTypicalPersons();
+        Task personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
@@ -41,7 +40,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(Person personToAdd, Person... currentList) {
+    private void assertAddSuccess(Task personToAdd, Task... currentList) {
         commandBox.runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
@@ -49,7 +48,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        Person[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        Task[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 

@@ -18,12 +18,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Address;
+import seedu.address.model.task.Email;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Phone;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
@@ -31,7 +31,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     // The list of persons in the person list panel is expected to match this list.
     // This list is updated with every successful call to assertEditSuccess().
-    private Person[] expectedPersonsList = td.getTypicalPersons();
+    private Task[] expectedPersonsList = td.getTypicalPersons();
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
@@ -41,7 +41,7 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_TAG + "husband";
         Index addressBookIndex = INDEX_FIRST_PERSON;
 
-        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
+        Task editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                 .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
@@ -53,8 +53,8 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_TAG + "bestie";
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+        Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
+        Task editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -64,8 +64,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = PREFIX_TAG.getPrefix();
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
+        Task editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -77,8 +77,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = PREFIX_NAME + "Carrle";
         Index addressBookIndex = INDEX_THIRD_PERSON;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Person editedPerson = new PersonBuilder(personToEdit).withName("Carrle").build();
+        Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
+        Task editedPerson = new PersonBuilder(personToEdit).withName("Carrle").build();
 
         assertEditSuccess(INDEX_FIRST_PERSON, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -140,7 +140,7 @@ public class EditCommandTest extends AddressBookGuiTest {
      * @param editedPerson the expected person after editing the person's details
      */
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
-                                    String detailsToEdit, Person editedPerson) {
+                                    String detailsToEdit, Task editedPerson) {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " "
                 + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 

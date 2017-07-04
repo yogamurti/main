@@ -17,14 +17,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws Exception {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(typicalPersons.alice)
+        TaskBook taskBook = new AddressBookBuilder().withPerson(typicalPersons.alice)
                 .withPerson(typicalPersons.benson).build();
-        AddressBook differentAddressBook = new AddressBook();
+        TaskBook differentAddressBook = new TaskBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(taskBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(taskBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -42,12 +42,12 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         modelManager.updateFilteredPersonList(new HashSet<>(
                 Arrays.asList(typicalPersons.alice.getName().fullName.split(" "))));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookName("differentName");
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(taskBook, differentUserPrefs)));
     }
 }

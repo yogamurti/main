@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TestUtil;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
@@ -17,7 +17,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     public void delete() {
 
         //delete the first in the list
-        Person[] currentList = td.getTypicalPersons();
+        Task[] currentList = td.getTypicalPersons();
         Index targetIndex = INDEX_FIRST_PERSON;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -41,9 +41,9 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * Runs the delete command to delete the person at {@code index} and confirms the result is correct.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertDeleteSuccess(Index index, final Person[] currentList) {
-        Person personToDelete = currentList[index.getZeroBased()];
-        Person[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
+    private void assertDeleteSuccess(Index index, final Task[] currentList) {
+        Task personToDelete = currentList[index.getZeroBased()];
+        Task[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
 
         commandBox.runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 

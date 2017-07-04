@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * Panel containing the list of persons.
@@ -20,14 +20,14 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<ReadOnlyTask> personListView;
 
-    public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(ObservableList<ReadOnlyTask> personList) {
         super(FXML);
         setConnections(personList);
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
+    private void setConnections(ObservableList<ReadOnlyTask> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -50,10 +50,10 @@ public class PersonListPanel extends UiPart<Region> {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<ReadOnlyTask> {
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+        protected void updateItem(ReadOnlyTask person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {

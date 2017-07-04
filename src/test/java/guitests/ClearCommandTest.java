@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.testutil.PersonUtil;
 
 public class ClearCommandTest extends AddressBookGuiTest {
 

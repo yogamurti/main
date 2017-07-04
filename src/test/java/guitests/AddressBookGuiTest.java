@@ -25,13 +25,12 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.TaskBook;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskBook.
  */
 public abstract class AddressBookGuiTest {
 
@@ -88,8 +87,8 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = new AddressBook();
+    protected TaskBook getInitialData() {
+        TaskBook ab = new TaskBook();
         TypicalPersons.loadAddressBookWithSampleData(ab);
         return ab;
     }

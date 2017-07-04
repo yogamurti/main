@@ -17,12 +17,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.Address;
+import seedu.address.model.task.Email;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Phone;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
 /**
  * A utility class for test cases.
@@ -34,7 +34,7 @@ public class TestUtil {
      */
     public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
+    public static final Task[] SAMPLE_PERSON_DATA = getSamplePersonData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -51,19 +51,19 @@ public class TestUtil {
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
 
-    private static Person[] getSamplePersonData() {
+    private static Task[] getSamplePersonData() {
         try {
             //CHECKSTYLE.OFF: LineLength
-            return new Person[]{
-                new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@example.com"), new Address("4th street"), getTagSet()),
-                new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@example.com"), new Address("81th street"), getTagSet()),
-                new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@example.com"), new Address("wall street"), getTagSet()),
-                new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@example.com"), new Address("10th street"), getTagSet()),
-                new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@example.com"), new Address("michegan ave"), getTagSet()),
-                new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@example.com"), new Address("little tokyo"), getTagSet()),
-                new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@example.com"), new Address("4th street"), getTagSet()),
-                new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@example.com"), new Address("little india"), getTagSet()),
-                new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@example.com"), new Address("chicago ave"), getTagSet())
+            return new Task[]{
+                new Task(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@example.com"), new Address("4th street"), getTagSet()),
+                new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@example.com"), new Address("81th street"), getTagSet()),
+                new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@example.com"), new Address("wall street"), getTagSet()),
+                new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@example.com"), new Address("10th street"), getTagSet()),
+                new Task(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@example.com"), new Address("michegan ave"), getTagSet()),
+                new Task(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@example.com"), new Address("little tokyo"), getTagSet()),
+                new Task(new Name("George Best"), new Phone("9482442"), new Email("anna@example.com"), new Address("4th street"), getTagSet()),
+                new Task(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@example.com"), new Address("little india"), getTagSet()),
+                new Task(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@example.com"), new Address("chicago ave"), getTagSet())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
@@ -73,7 +73,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
+    public static List<Task> generateSamplePersonData() {
         return Arrays.asList(SAMPLE_PERSON_DATA);
     }
 
@@ -123,10 +123,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static Person[] removePersonsFromList(final Person[] persons, Person... personsToRemove) {
-        List<Person> listOfPersons = asList(persons);
+    public static Task[] removePersonsFromList(final Task[] persons, Task... personsToRemove) {
+        List<Task> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new Person[listOfPersons.size()]);
+        return listOfPersons.toArray(new Task[listOfPersons.size()]);
     }
 
 
@@ -134,7 +134,7 @@ public class TestUtil {
      * Returns a copy of the list with the person at specified index removed.
      * @param list original list to copy from
      */
-    public static Person[] removePersonFromList(final Person[] list, Index index) {
+    public static Task[] removePersonFromList(final Task[] list, Index index) {
         return removePersonsFromList(list, list[index.getZeroBased()]);
     }
 
@@ -144,10 +144,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static Person[] addPersonsToList(final Person[] persons, Person... personsToAdd) {
-        List<Person> listOfPersons = asList(persons);
+    public static Task[] addPersonsToList(final Task[] persons, Task... personsToAdd) {
+        List<Task> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new Person[listOfPersons.size()]);
+        return listOfPersons.toArray(new Task[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -158,7 +158,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 

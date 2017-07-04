@@ -11,7 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalPersons;
 
@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() throws Exception {
-        Person validPerson = new PersonBuilder().build();
+        Task validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person personInList = new Person(model.getAddressBook().getPersonList().get(0));
+        Task personInList = new Task(model.getAddressBook().getTaskList().get(0));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
@@ -58,8 +58,8 @@ public class AddCommandIntegrationTest {
     /**
      * Generates a new {@code AddCommand} which upon execution, adds {@code person} into the {@code model}.
      */
-    private AddCommand prepareCommand(Person person, Model model) {
-        AddCommand command = new AddCommand(person);
+    private AddCommand prepareCommand(Task task, Model model) {
+        AddCommand command = new AddCommand(task);
         command.setData(model, new CommandHistory());
         return command;
     }

@@ -8,7 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 public class FindCommandTest extends AddressBookGuiTest {
 
@@ -34,7 +34,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, Person... expectedHits) {
+    private void assertFindResult(String command, Task... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");

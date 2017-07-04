@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart<Region> {
 
@@ -16,7 +16,7 @@ public class PersonCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on TaskBook level 4</a>
      */
 
     @FXML
@@ -34,7 +34,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
+    public PersonCard(ReadOnlyTask person, int displayedIndex) {
         super(FXML);
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
@@ -44,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
         initTags(person);
     }
 
-    private void initTags(ReadOnlyPerson person) {
+    private void initTags(ReadOnlyTask person) {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 }
