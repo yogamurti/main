@@ -783,7 +783,7 @@ Use case ends
 ____
 
 [discrete]
-=== Use case:
+=== Use case: Quit 2Do
 
 *MSS*
 
