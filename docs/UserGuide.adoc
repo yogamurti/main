@@ -40,12 +40,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will display all commands availabl
 == Features
 
 ====
-*Command Format*
+*Legend*
 
-* Words in `UPPER_CASE` are the parameters.
-* Items in `SQUARE_BRACKETS` are optional.
-* Items with `...` after them can have multiple instances.
-* Parameters can be in any order.
+| 												|
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+
 ====
 
 === Viewing help : `help`
