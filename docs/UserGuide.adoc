@@ -42,11 +42,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will display all commands availabl
 ====
 **Legend**
 
-*Arguments*
-.  {} Compulsory argument
-.  []: Optional argument
-.  Non-italic: Actual representation of argument
-
+Arguments
+****
+* {} Compulsory argument
+* []: Optional argument
+* Non-italic: Actual representation of argument
+****
 ====
 
 === Viewing help : `help`
