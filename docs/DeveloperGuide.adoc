@@ -421,6 +421,7 @@ ____
 Use case ends
 ____
 
+[discrete]
 === Use case: Delete task
 
 *MSS*
@@ -451,6 +452,7 @@ ____
 Use case resumes at step 3
 ____
 
+[discrete]
 === Use case: 
 
 *MSS*
