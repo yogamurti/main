@@ -401,14 +401,14 @@ For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, un
 1. User requests to add a task with a title and optional details
 2. 2Do adds the task and shows a success message
 
-Use case ends.
+Use case ends
 
 *Extensions*
 
 1a. User input is invalid 
 
 ____
-1a1. 2Do displays error message
+1a1. 2Do displays an error message
 
 Use case ends
 ____
@@ -421,11 +421,41 @@ ____
 Use case ends
 ____
 
+=== Use case: Delete task
+
+*MSS*
+
+1. User requests to delete a task using its title
+2. 2Do prompts the user to confirm deletion
+3. User confirms deletion
+4. 2Do deletes the task and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+1a. Multiple tasks with same name has been detected
+
+____
+1b1. 2Do displays all the relevant tasks, and their indices, and prompts the user to choose the intended task to delete
+1b2. User chooses the task index
+
+Use case resumes at step 3
+____
+
 === Use case: 
 
 *MSS*
 
-1.  
+1. 
 
 *Extensions*
 
