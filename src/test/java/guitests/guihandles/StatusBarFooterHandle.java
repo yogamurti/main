@@ -4,7 +4,7 @@ import org.controlsfx.control.StatusBar;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
+import teamthree.twodo.TestApp;
 
 /**
  * A handle for the status bar at the footer of the application.

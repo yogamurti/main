@@ -1,14 +1,14 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.person.ReadOnlyPerson;
+import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.logic.commands.ClearCommand;
+import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.model.task.ReadOnlyTask;
 
 public class SelectCommandTest extends AddressBookGuiTest {
 
@@ -45,13 +45,13 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionSuccess(Index index) {
         commandBox.runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertResultMessage("Selected Person: " + index.getOneBased());
+        assertResultMessage("Selected Task: " + index.getOneBased());
         assertPersonSelected(index);
     }
 
     private void assertPersonSelected(Index index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
+        ReadOnlyTask selectedPerson = personListPanel.getSelectedPersons().get(0);
         assertEquals(personListPanel.getPerson(index.getZeroBased()), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
