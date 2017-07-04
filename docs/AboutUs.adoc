@@ -6,7 +6,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== https://github.com/radneran[Damith C. Rajapakse]
+=== https://github.com/radneran[V Narendar Nag]
 image::NarenV.jpg[width="150", align="left"]
 
 Role: Developer +
@@ -15,7 +15,7 @@ Responsibilities: Team Leader, Scheduling and Tracking, Model
 '''
 
 === https://github.com/maltiso[Ang Lang Yi]
-image::Joel Ang.jpg[width="150", align="left"]
+image::JoelAng.jpg[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: GUI + Testing _Documentationem
@@ -23,7 +23,7 @@ Responsibilities: GUI + Testing _Documentationem
 '''
 
 === https://github.com/teoshuqi[Teo Shu Qi]
-image::teoshuqi.jpg[width="150", align="left"]
+image::teoshuqi.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Deliverables and deadline, Code quality, Logic
