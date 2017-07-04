@@ -77,7 +77,7 @@ Reccurence
 
 === Viewing help : `help / -h`
 
-Format: `help [name of command]`
+Format: `help [name of command]` +
 Example: `help add`
 ****
 * Help without arguments will show the list of all commands along with the usage information
