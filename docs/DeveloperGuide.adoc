@@ -439,18 +439,18 @@ ____
 Main
 
 ____
-Title of Task
+Title of task
 ____
 
 [[floating-task]]
-Floating Task
+Floating task
 
 ____
 Task without a fixed deadline
 ____
 
 [[recurring-task]]
-Recurring Task
+Recurring task
 ____
 Task that repeatedly needs to be done every week, month or year
 ____
@@ -459,7 +459,7 @@ ____
 Index
 
 ____
-Number assigned to a task to ease the operation of commands (e.g. add, delete, edit,view, mark as complete)
+Number assigned to a task to ease the operation of commands (E.g. add, delete, edit)
 ____
 
 [[last-action]]
@@ -473,7 +473,7 @@ ____
 History
 
 ____
-Completed Tasks
+Completed tasks
 ____
 
 [[mainstream-os]]
@@ -486,16 +486,82 @@ ____
 [appendix]
 == Product Survey
 
-*Product Name*
+*Google Calendar*
 
 Author: ...
 
 Pros:
 
-* ...
-* ...
+* User friendly commands
+* Simple interface that makes it easy to navigate around
+* Calendar interface allows the user to easily find empty slots to schedule tasks
+* Calendar can be viewed in a year, month, day or agenda format
+* Import and view other people’s calendars for better collaboration
+* Reminders can be set to a task
 
 Cons:
 
-* ...
-* ...
+* Floating tasks are difficult to schedule 
+* Navigation requires mouse usage instead of command line
+* Internet connection is required
+
+*Todoist*
+
+Author: ...
+
+Pros:
+
+* Features are easy to understand and use
+* Different categories are available to separate different kinds of tasks
+* Each category allows a weekly and daily view of its tasks
+* Recurring tasks can be added
+* Different priority levels can be set for tasks
+* Filter and find tasks according to priority level and floating tasks
+
+Cons:
+
+* Only tasks due for the next 7 days can be seen
+* Some features (e.g. comments)  require a monthly subscription
+* Navigation requires mouse usage instead of command line
+* Internet connection is required
+
+*Trello*
+
+Author: ...
+
+Pros:
+
+* Multiple boards can be added to segregate different categories of tasks
+* Lists can be added to a board to separate that category into even more sections
+* A team can collaborate on a board together
+* Reminders can be set to a task
+* Comments can be added to a task for additional notes
+* Images and attachments can be added to a task
+
+Cons:
+
+* Features are not intuitive and requires reference to a guide to learn
+* Troublesome to setup the calendar
+* Recurring tasks cannot be added
+* A command line interface is not available
+* Internet connection is required
+
+*Wunderlist*
+
+Author: ...
+
+Pros:
+
+* User friendly interface
+* Various backgrounds to suit the user's preferences
+* Sort uncompleted tasks in various ways
+* Tasks can be starred to indicate importance and segregate them from other tasks
+* Categories can be added to tasks for better organization
+* Multiple users can collaborate together on a particular category of the to-do list
+* Reminders can be set to a task
+* Subtask and notes can be added to a task
+
+Cons:
+
+* A command line interface is not available
+* Internet connection is required
