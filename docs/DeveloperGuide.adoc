@@ -391,34 +391,52 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add task
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person Use case ends.
+1. User requests to add a task with a title and optional details
+2. 2Do adds the task and shows a success message
+Use case ends.
 
 *Extensions*
 
-2a. The list is empty
+1a. User input is invalid 
+
+____
+1a1. 2Do displays error message
+Use case ends
+____
+
+1b. User enters an end time that is earlier than the start time
+
+____
+1b1. 2Do automatically adjusts the end time to the following day
+Use case ends
+____
+
+=== Use case: 
+
+*MSS*
+
+1.  
+
+*Extensions*
+
+2a. 
 
 ____
 Use case ends
 ____
 
-3a. The given index is invalid
+3a. 
 
 ____
-3a1. AddressBook shows an error message +
-Use case resumes at step 2
+3a1. 
 ____
-
-{More to be added}
 
 [appendix]
 == Non Functional Requirements
