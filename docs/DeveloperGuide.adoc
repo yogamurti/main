@@ -391,7 +391,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise.
 
 [discrete]
 === Use case: Add task
@@ -400,6 +400,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 1. User requests to add a task with a title and optional details
 2. 2Do adds the task and shows a success message
+
 Use case ends.
 
 *Extensions*
@@ -408,6 +409,7 @@ Use case ends.
 
 ____
 1a1. 2Do displays error message
+
 Use case ends
 ____
 
@@ -415,6 +417,7 @@ ____
 
 ____
 1b1. 2Do automatically adjusts the end time to the following day
+
 Use case ends
 ____
 
