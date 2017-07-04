@@ -44,8 +44,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will display all commands availabl
 
 Arguments
 ****
-* {} Compulsory argument
+* {}: Compulsory argument
 * []: Optional argument
+* [-h]: _[-h]_ could be added behind the command word to operate the command on the to-do list history(completed tasks)  +
+`Example: find [-h] 050517`
 ****
 
 Dates
@@ -61,7 +63,7 @@ Dates
 Time
 
 ****
-* Format 1: 24HR
+* Format: 24HR
 `Example: 1759`
 ****
 
@@ -98,7 +100,130 @@ Example: `add m/CS2103 Project V0.1 d/030517  n/Special Term t/10am tag/NUS a/02
 Format 2: `add [-h] {title} on {date} at {time}` +
 Example: `add project on friday at 2359`
 ****
-* Supports keywords _on_. and _at_. and _days_.
+* Supports keywords _on_, _at_ and _days_
+****
+
+=== Deleting a task : `delete / del / -d / -`
+
+Format 1: `delete [-h] {index}` +
+Example: `delete 1`
+****
+* Deletes task at that index (positive number) in the most recent call of list
+****
+
+Format 2: `delete [-h]  {title} on {date} at {time}` +
+Example: `delete CS2103 Project V0.1`
+****
+* Deletes task that has same name as the given
+* Prompts user to choose according to date and time
+****
+
+=== Listing all tasks : `list / -l`
+
+Format: `list [-h]` +
+Example: `list`
+****
+* Lists title and deadlines of all uncompleted tasks
+****
+
+=== Finding a task : `find / -f`
+
+Format: ` find [-h] {keyword}` +
+Example: `find work`
+****
+* Scans through all tasks to find for keyword in any attribute and list it
+****
+
+=== Undoing the last action : `undo / -u`
+
+Format: `undo` +
+Example: `undo`
+****
+* Undos the last successful action executed
+****
+
+=== Editing a task : `edit / -e`
+
+Format: `edit [-h] {index} m/[new main] d/[new date] n/[new note] tag/[new tags] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `edit 2 m/CS2103`
+****
+* Edits task at that index in the most recent call of list
+****
+
+=== Viewing a task : `view / -v`
+
+Format : `view [-h] {index}` +
+Example: `view 2`
+****
+* Displays the full details of the task
+****
+
+=== Marking a task as complete : `mark / -m`
+
+Format: `mark {index}` +
+Example: `mark 4`
+****
+* Marks the task at that index in the most recent call of a list as complete
+****
+
+=== Marking a task as incomplete : `unmark / -un`
+
+Format: `unmark {index}` +
+Example: `unmark 4`
+****
+* Marks a (completed) task as incomplete
+****
+
+=== Editing the default options : `option / -o`
+
+Format: `option a/[alarm] p/ [prompt] m/ [mark completion automatically]` +
+Example: `option p/ DO {main} NOW!  `
+****
+* Option without parameters will show the general options which the user can edit and their explanations
+* Default reminder alarm timing before the deadline can be edited +
+Range value for reminders: 1 minute <= reminder <= 7 days +
+Default setting is 7 days
+* Default prompt message for reminders can be edited +
+Default message is _{main} needs to be completed soon!_
+* Default automatic mark for completion setting can be edited +
+Default setting will prompt user requesting if the activity was completed
+This can be changed to automatically marking the activity as complete instead of prompting
+Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
+****
+
+=== Saving to-do list : `save / -s`
+
+Format: `save [directory]` +
+Example: `save C:\Program Files\Common Files\2Do.txt`
+****
+* Saves the current to-do list and exports it as a text file in the directory specified
+* By default, the file will be saved as to-do.txt on  _C:\Program Files_ +
+2Do creates the file if it does not exist
+****
+
+=== Clearing to-do list : `clear / -c`
+
+Format: `clear` +
+Example: `clear`
+****
+* Master resets the current to-do list
+* Local file containing the current to-do list will be wiped clean as well
+****
+
+=== Quitting 2Do : `quit / -q`
+
+Format: `quit` +
+Example: `quit`
+****
+* Closes the 2Do application
+****
+
+===  : ``
+
+Format: `` +
+Example: ``
+****
+* 
 ****
 
 == FAQ
