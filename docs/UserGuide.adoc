@@ -46,7 +46,6 @@ Arguments
 ****
 * {} Compulsory argument
 * []: Optional argument
-* Non-italic: Actual representation of argument
 ****
 
 Dates
@@ -76,9 +75,15 @@ Reccurence
 
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `help / -h`
 
-Format: `help`
+Format: `help [name of command]`
+Example: `help add`
+****
+* Help without arguments will show the list of all commands along with the usage information
+* Help with the name of a particular command will give information of that command
+* Usage information for the particular command will also be given in the case of incorrect usage
+****
 
 == FAQ
 *Q*: How do I save my to-do list?
