@@ -453,31 +453,11 @@ Use case resumes at step 2
 ____
 
 [discrete]
-=== Use case: List tasks
-
-*MSS*
-
-1. User requests to list all tasks
-2. 2Do displays all tasks
-
-Use case ends
-
-*Extensions*
-
-1a. No tasks to display 
-
-____
-1a1. 2Do displays a “No task to display” message
-
-Use case ends
-____
-
-[discrete]
 === Use case: Edit task
 
 *MSS*
 
-1. User searches for a task using **list** or _find_.
+1. User searches for a task using *list* or *find*
 2. 2Do displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
 4. 2Do updates the task and shows a success message
@@ -500,6 +480,26 @@ ____
 3a1. 2Do displays an error message
 
 Use case resumes at step 2
+____
+
+[discrete]
+=== Use case: List tasks
+
+*MSS*
+
+1. User requests to list all tasks
+2. 2Do displays all tasks
+
+Use case ends
+
+*Extensions*
+
+1a. No tasks to display 
+
+____
+1a1. 2Do displays a “No task to display” message
+
+Use case ends
 ____
 
 [discrete]
