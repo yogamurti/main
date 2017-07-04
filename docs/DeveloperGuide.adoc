@@ -446,10 +446,60 @@ ____
 1b. Multiple tasks with same name has been detected
 
 ____
-1b1. 2Do displays all the relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
+1b1. 2Do displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
 1b2. User chooses the task link:#index[index]
 
-Use case resumes at step 3
+Use case resumes at step 2
+____
+
+[discrete]
+=== Use case: List tasks
+
+*MSS*
+
+1. User requests to list all tasks
+2. 2Do displays all tasks
+
+Use case ends
+
+*Extensions*
+
+1a. No tasks to display 
+
+____
+1a1. 2Do displays a “No task to display” message
+
+Use case ends
+____
+
+[discrete]
+=== Use case: Edit task
+
+*MSS*
+
+1. User searches for a task using *list* or *find*
+2. 2Do displays all relevant tasks
+3. User requests to edit the task by using its link:#index[index]
+4. 2Do updates the task and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. 2Do displays an error message
+
+Use case ends
+____
+
+3a. User input is invalid
+
+____
+3a1. 2Do displays an error message
+
+Use case resumes at step 2
 ____
 
 [discrete]
@@ -467,10 +517,34 @@ ____
 Use case ends
 ____
 
-3a. 
+[discrete]
+=== Use case: 
+
+*MSS*
+
+1. 
+
+*Extensions*
+
+2a. 
 
 ____
-3a1. 
+Use case ends
+____
+
+[discrete]
+=== Use case: 
+
+*MSS*
+
+1. 
+
+*Extensions*
+
+2a. 
+
+____
+Use case ends
 ____
 
 [appendix]
