@@ -51,7 +51,7 @@ Arguments
 
 Dates
 ****
-* Format 1: ddmmyy
+* Format 1: ddmmyy +
   `Example: 050417`
 * Non-italic: Actual representation of argument
 ****
