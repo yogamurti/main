@@ -320,7 +320,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |undo the last action |correct a mistake
 
-|`* * *` |user |add tasks without specifying a date |add floating tasks
+|`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
 
 |`* * *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
@@ -330,7 +330,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |edit tasks |update my tasks’ details for unforeseen circumstances, such as postponing a deadline
 
-|`* * *` |user |add deadlines to my floating tasks |update floating tasks if they then require a deadline
+|`* * *` |user |add deadlines to my #floating-task[floating tasks] |update #floating-task[floating tasks] if they then require a deadline
 
 |`* * *` |user |mark my tasks as completed |stop being reminded for tasks I have done
 
