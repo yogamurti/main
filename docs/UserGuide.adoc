@@ -48,6 +48,14 @@ Arguments
 * []: Optional argument
 * Non-italic: Actual representation of argument
 ****
+
+Dates
+****
+* Format 1: ddmmyy
+  `Example: 050417`
+* Non-italic: Actual representation of argument
+****
+
 ====
 
 === Viewing help : `help`
