@@ -22,168 +22,226 @@ This app will not work with earlier versions of Java 8.
 +
 .  Download the latest `2Do.jar` from the link:../../../releases[releases] tab.
 .  Copy the file to the folder you want to use as the home folder for your to-do list.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
+.  <GUI IMAGE>
+.  When the application starts up, tasks due within a certain amount of time (the default is 7 days) will be displayed.
+.  To interact with the task manager, open the main application.
+.  You will then see a list of your tasks sorted by due date.
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Below the list, there is a command box. Type a command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will display all commands available.
 .  Some example commands you can try:
-
-* *`list`* : lists all uncompleted tasks
-* *`add`*
-* *`delete`* : 
-* *`exit`* : exits the app
-
+* *`add projectX`* : adds a task with *projectX* as its title
+* *`list`* : lists all tasks
+* *`delete 2`* : deletes the 2nd task shown in the current list
+* *`quit`* : quits 2Do
 .  Refer to the link:#features[Features] section below for details of each command.
 
 == Features
 
 ====
-*Command Format*
+**Legend**
 
-* Words in `UPPER_CASE` are the parameters.
-* Items in `SQUARE_BRACKETS` are optional.
-* Items with `...` after them can have multiple instances.
-* Parameters can be in any order.
+Arguments
+****
+* {}: Compulsory argument
+* []: Optional argument
+* [-h]: _[-h]_ could be added behind the command word to operate the command on the to-do list history(completed tasks)  +
+`Example: find [-h] 050517`
+****
+
+Dates
+****
+* Format 1: ddmmyy +
+`Example: 050417`
+* Format 2: day month +
+`Example: 5 jan`
+* Format 3: month day +
+` Example: dec 31`
+****
+
+Time
+
+****
+* Format: 24HR
+`Example: 1759`
+****
+
+Reccurence
+****
+* Format 1: days / hours +
+`Example: 4 days`
+* Format 2: keyword +
+`Example: daily / weekly / yearly / annually`
+****
+
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `help / -h`
 
-Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-Persons can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
+Format: `help [name of command]` +
+Example: `help add`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Help without arguments will show the list of all commands along with the usage information
+* Help with the name of a particular command will give information of that command
+* Usage information for the particular command will also be given in the case of incorrect usage
 ****
 
-Examples:
+=== Adding a task : `add / -a / +`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Finding all persons containing any keyword in their name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
+Format 1: `add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `add m/CS2103 Project V0.1 d/030517  n/Special Term t/10am tag/NUS a/020517 r/yearly u/true`
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans` will match `Hans Bo`
+* Creates a task with provided attributes and adds it to list
+* Floating tasks can be added with date, time field blank
+* For urgent tasks, u/true can be added. Or else, field can be left blank
 ****
 
-Examples:
-
-* `find John` +
-Returns `John Doe` but not `john`
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. Irreversible. +
-Format: `delete INDEX`
-
+Format 2: `add [-h] {title} on {date} at {time}` +
+Example: `add project on friday at 2359`
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Supports keywords _on_, _at_ and _days_
 ****
 
-Examples:
+=== Deleting a task : `delete / del / -d / -`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Select a person : `select`
-
-Selects the person identified by the index number used in the last person listing. +
-Format: `select INDEX`
-
+Format 1: `delete [-h] {index}` +
+Example: `delete 1`
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes task at that index (positive number) in the most recent call of list
 ****
 
-Examples:
+Format 2: `delete [-h]  {title} on {date} at {time}` +
+Example: `delete CS2103 Project V0.1`
+****
+* Deletes task that has same name as the given
+* Prompts user to choose according to date and time
+****
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+=== Listing all tasks : `list / -l`
 
-=== Listing entered commands : `history`
+Format: `list [-h]` +
+Example: `list`
+****
+* Lists title and deadlines of all uncompleted tasks
+****
 
-Lists all the commands that you have entered in chronological order. +
-Format: `history`
+=== Finding a task : `find / -f`
 
-=== Clearing all entries : `clear`
+Format: `find [-h] {keyword}` +
+Example: `find work`
+****
+* Scans through all tasks to find for keyword in any attribute and list it
+****
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Undoing the last action : `undo / -u`
 
-=== Exiting the program : `exit`
+Format: `undo` +
+Example: `undo`
+****
+* Undos the last successful action executed
+****
 
-Exits the program. +
-Format: `exit`
+=== Editing a task : `edit / -e`
 
-=== Saving the data
+Format: `edit [-h] {index} m/[new main] d/[new date] n/[new note] tag/[new tags] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `edit 2 m/CS2103`
+****
+* Edits task at that index in the most recent call of list
+****
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Viewing a task : `view / -v`
+
+Format : `view [-h] {index}` +
+Example: `view 2`
+****
+* Displays the full details of the task
+****
+
+=== Marking a task as complete : `mark / -m`
+
+Format: `mark {index}` +
+Example: `mark 4`
+****
+* Marks the task at that index in the most recent call of a list as complete
+****
+
+=== Marking a task as incomplete : `unmark / -un`
+
+Format: `unmark {index}` +
+Example: `unmark 4`
+****
+* Marks a (completed) task as incomplete
+****
+
+=== Editing the default options : `option / -o`
+
+Format: `option a/[alarm] p/ [prompt] m/ [mark completion automatically]` +
+Example: `option p/ DO {main} NOW!`
+****
+* Option without parameters will show the general options which the user can edit and their explanations
+* Default reminder alarm timing before the deadline can be edited
+** Range value for reminders: 1 minute <= reminder <= 7 days
+** Default setting is 7 days
+* Default prompt message for reminders can be edited
+** Default message is _{main} needs to be completed soon!_
+* Default automatic mark for completion setting can be edited 
+** Default setting will prompt user requesting if the activity was completed
+** This can be changed to automatically marking the activity as complete instead of prompting
+** Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
+****
+
+=== Saving to-do list : `save / -s`
+
+Format: `save [directory]` +
+Example: `save C:\Program Files\Common Files\2Do.txt`
+****
+* Saves the current to-do list and exports it as a text file in the directory specified
+* By default, the file will be saved as to-do.txt on  _C:\Program Files_ 
+** 2Do creates the file if it does not exist
+****
+
+=== Clearing to-do list : `clear / -c`
+
+Format: `clear` +
+Example: `clear`
+****
+* Master resets the current to-do list
+* Local file containing the current to-do list will be wiped clean as well
+****
+
+=== Quitting 2Do : `quit / -q`
+
+Format: `quit` +
+Example: `quit`
+****
+* Closes the 2Do application
+****
 
 == FAQ
+*Q*: How do I save my to-do list? +
+*A*: The data is saved in the hard disk automatically, by default as *C:\Program Files\2Do.txt*, after any command that changes the data. There is no need to save manually.
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous to-do list folder.
+*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous to-do list folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
+[width="80%",cols="33%, 33%, <33%",options="header"]
+|=======================================================================
+|Command|Format 1|Format 2
+|help / -h|help [name of command]|
+|add / -a /+|add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
+|delete / del / -d / -|delete [-h] {index}|delete[-h]  {title} on {date} at {time}
+|list / -l|list [-h]|
+|find / -f|find [-h] {keyword}|
+|undo / -u|undo|
+|edit / -e|edit [-h] {index} m/[new main] d/[new date] n/[new note] tag/[new tags] a/[alarm] r/[recurrence] u/[urgent]|
+|view / -v|view [-h] {index}|
+|mark / -m|mark {index}|
+|unmark / -un|unmark {index}|
+|option/ -o|option a/[alarm] p/ [prompt] m/ [mark completion automatically]|
+|save / -s|save [directory]|
+|clear / -c|clear|
+|quit / -q|quit|
+|=======================================================================
