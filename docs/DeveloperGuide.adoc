@@ -322,7 +322,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add tasks without specifying a date |add floating tasks
 
-|`* * *` |user |define recurring tasks |not need to add the same task every time it repeats
+|`* * *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
 |`* * *` |user |describe my tasks in detail |add more information about the tasks, such as the venue
 
@@ -432,9 +432,49 @@ ____
 .  Should not require more than 2 seconds to respond to a user request.
 .  Should not require internet connection.
 
-
 [appendix]
 == Glossary
+
+[[main]]
+Main
+
+____
+Title of Task.
+____
+
+[[floating-task]]
+Floating Task
+
+____
+Task without a fixed deadline.
+____
+
+[[recurring-task]]
+Recurring Task
+____
+Task that repeatedly needs to be done every week, month or year.
+____
+
+[[index]]
+Index
+
+____
+Number assigned to a task to ease the operation of commands (e.g. add, delete, edit,view, mark as compllte)-
+____
+
+[[last-action]]
+Last action
+
+____
+Last command executed.
+____
+
+[[history]]
+History
+
+____
+Completed Tasks.
+____
 
 [[mainstream-os]]
 Mainstream OS
@@ -442,13 +482,6 @@ Mainstream OS
 ____
 Windows, Linux, Unix, OS-X
 ____
-
-[[private-contact-detail]]
-Private contact detail
-
-_____
-A contact detail that is not meant to be shared with others
-_____
 
 [appendix]
 == Product Survey
