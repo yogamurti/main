@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::NarenV.jpg[width="150", align="left"]
 
 Role: Developer +
-Responsibilities: Team Leader, Scheduling and Tracking
+Responsibilities: Team Leader, Scheduling and Tracking, Model
 
 '''
 
@@ -18,7 +18,7 @@ Responsibilities: Team Leader, Scheduling and Tracking
 image::Joel Ang.jpg[width="150", align="left"]
 
 Role: Developer +
-Responsibilities: UI +Testing
+Responsibilities: GUI + Testing _Documentationem
 
 '''
 
@@ -26,16 +26,16 @@ Responsibilities: UI +Testing
 image::teoshuqi.jpg[width="150", align="left"]
 
 Role: Developer +
-Responsibilities: Deliverables and deadline, Code quality
+Responsibilities: Deliverables and deadline, Code quality, Logic
 
 
 '''
 
 === https://github.com/yogamurti[Yogamurti Sutanto]
-image::MartinChoo.jpg[width="150", align="left"]
+image::Yoga.jpg[width="150", align="left"]
 
 Role: Developer +
-Responsibilities: Documentationem,  Integration
+Responsibilities: Documentationem,  Integration, Storage
 
 
 '''
