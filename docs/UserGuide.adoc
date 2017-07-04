@@ -31,10 +31,10 @@ This app will not work with earlier versions of Java 8.
 .  Below the list, there is a command box. Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will display all commands available.
 .  Some example commands you can try:
-* *`list`* : add projectX: add a task with *projectX* as its title
-* *`add`* lists all tasks
+* *`add projectX`* : adds a task with *projectX* as its title
+* *`list`* : lists all tasks
 * *`delete 2`* : deletes the 2nd task shown in the current list
-* *`quit`* : quits the app
+* *`quit`* : quits 2Do
 .  Refer to the link:#features[Features] section below for details of each command.
 
 == Features
@@ -229,7 +229,19 @@ Example: `quit`
 
 [width="80%",cols="33%, 33%, <33%",options="header",]
 |=======================================================================
-|Command|Format 1|Format2
-|Command|Parameters|
-|bla|bla|bla
+|Command|Format 1|Format 2
+|help / -h|help [name of command]|
+|add / -a / +|add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
 |=======================================================================
