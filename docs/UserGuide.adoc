@@ -85,6 +85,22 @@ Example: `help add`
 * Usage information for the particular command will also be given in the case of incorrect usage
 ****
 
+=== Adding a task : `add / -a / +`
+
+Format 1: `add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `add m/CS2103 Project V0.1 d/030517  n/Special Term t/10am tag/NUS a/020517 r/yearly u/true`
+****
+* Creates a task with provided attributes and adds it to list
+* Floating tasks can be added with date, time field blank
+* For urgent tasks, u/true can be added. Or else, field can be left blank
+****
+
+Format 2: `add [-h] {title} on {date} at {time}` +
+Example: `add project on friday at 2359`
+****
+* Supports keywords _on_. and _at_. and _days_.
+****
+
 == FAQ
 *Q*: How do I save my to-do list?
 *A*: The data is saved in the hard disk automatically, by default as *C:\Program Files\2Do.txt*, after any command that changes the data. There is no need to save manually.
