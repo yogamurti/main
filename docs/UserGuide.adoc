@@ -180,15 +180,15 @@ Format: `option a/[alarm] p/ [prompt] m/ [mark completion automatically]` +
 Example: `option p/ DO {main} NOW!`
 ****
 * Option without parameters will show the general options which the user can edit and their explanations
-* Default reminder alarm timing before the deadline can be edited +
-Range value for reminders: 1 minute <= reminder <= 7 days +
-Default setting is 7 days
+* Default reminder alarm timing before the deadline can be edited
+** Range value for reminders: 1 minute <= reminder <= 7 days
+** Default setting is 7 days
 * Default prompt message for reminders can be edited
 ** Default message is _{main} needs to be completed soon!_
-* Default automatic mark for completion setting can be edited +
-Default setting will prompt user requesting if the activity was completed +
-This can be changed to automatically marking the activity as complete instead of prompting +
-Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
+* Default automatic mark for completion setting can be edited 
+** Default setting will prompt user requesting if the activity was completed
+** This can be changed to automatically marking the activity as complete instead of prompting
+** Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
 ****
 
 === Saving to-do list : `save / -s`
@@ -197,8 +197,8 @@ Format: `save [directory]` +
 Example: `save C:\Program Files\Common Files\2Do.txt`
 ****
 * Saves the current to-do list and exports it as a text file in the directory specified
-* By default, the file will be saved as to-do.txt on  _C:\Program Files_ +
-2Do creates the file if it does not exist
+* By default, the file will be saved as to-do.txt on  _C:\Program Files_ 
+** 2Do creates the file if it does not exist
 ****
 
 === Clearing to-do list : `clear / -c`
@@ -219,7 +219,7 @@ Example: `quit`
 ****
 
 == FAQ
-*Q*: How do I save my to-do list?
+*Q*: How do I save my to-do list? +
 *A*: The data is saved in the hard disk automatically, by default as *C:\Program Files\2Do.txt*, after any command that changes the data. There is no need to save manually.
 
 *Q*: How do I transfer my data to another Computer? +
