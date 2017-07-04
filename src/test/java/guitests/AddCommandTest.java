@@ -5,20 +5,20 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.TestUtil;
+import teamthree.twodo.commons.core.Messages;
+import teamthree.twodo.logic.commands.AddCommand;
+import teamthree.twodo.logic.commands.ClearCommand;
+import teamthree.twodo.model.task.Task;
+import teamthree.twodo.testutil.TaskUtil;
+import teamthree.twodo.testutil.TestUtil;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void add() {
         //add one person
-        Person[] currentList = td.getTypicalPersons();
-        Person personToAdd = td.hoon;
+        Task[] currentList = td.getTypicalPersons();
+        Task personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
@@ -28,8 +28,8 @@ public class AddCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
-        commandBox.runCommand(PersonUtil.getAddCommand(td.hoon));
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        commandBox.runCommand(TaskUtil.getAddCommand(td.hoon));
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
@@ -41,15 +41,15 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(Person personToAdd, Person... currentList) {
-        commandBox.runCommand(PersonUtil.getAddCommand(personToAdd));
+    private void assertAddSuccess(Task personToAdd, Task... currentList) {
+        commandBox.runCommand(TaskUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
         PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        Person[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        Task[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 

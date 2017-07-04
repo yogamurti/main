@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.testutil.PersonUtil;
+import teamthree.twodo.logic.commands.ClearCommand;
+import teamthree.twodo.logic.commands.DeleteCommand;
+import teamthree.twodo.testutil.TaskUtil;
 
 public class ClearCommandTest extends AddressBookGuiTest {
 
@@ -18,7 +18,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(PersonUtil.getAddCommand(td.hoon));
+        commandBox.runCommand(TaskUtil.getAddCommand(td.hoon));
         assertTrue(personListPanel.isListMatching(td.hoon));
         commandBox.runCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertListSize(0);

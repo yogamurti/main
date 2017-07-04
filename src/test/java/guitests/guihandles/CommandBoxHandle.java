@@ -3,9 +3,8 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.ui.CommandBox;
+import teamthree.twodo.logic.commands.HelpCommand;
+import teamthree.twodo.ui.CommandBox;
 
 /**
  * A handle to the Command Box in the GUI.
