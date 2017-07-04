@@ -40,12 +40,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will display all commands availabl
 == Features
 
 ====
-*Legend*
+**Legend**
 
-| argument     | means          |
-| :---         |     :---:      |
-| git status   | git status     |
-| git diff     | git diff       |
+*Arguments*
+.  {} Compulsory argument
+.  []: Optional argument
+.  Non-italic: Actual representation of argument
 
 ====
 
