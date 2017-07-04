@@ -423,14 +423,14 @@ ____
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
-.  Should handle at least 100 tasks without a noticeable decline in performance.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most tasks faster using commands than using the mouse.
-.  Should have automated unit tests and open source code.
-.  Should have user-friendly commands.
-.  Should not require more than 3 seconds to startup.
-.  Should not require more than 2 seconds to respond to a user request.
-.  Should not require internet connection.
+.  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed
+.  Should handle at least 100 tasks without a noticeable decline in performance
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most tasks faster using commands than using the mouse
+.  Should have automated unit tests and open source code
+.  Should have user-friendly commands
+.  Should not require more than 3 seconds to startup
+.  Should not require more than 2 seconds to respond to a user request
+.  Should not require internet connection
 
 [appendix]
 == Glossary
@@ -439,41 +439,41 @@ ____
 Main
 
 ____
-Title of Task.
+Title of Task
 ____
 
 [[floating-task]]
 Floating Task
 
 ____
-Task without a fixed deadline.
+Task without a fixed deadline
 ____
 
 [[recurring-task]]
 Recurring Task
 ____
-Task that repeatedly needs to be done every week, month or year.
+Task that repeatedly needs to be done every week, month or year
 ____
 
 [[index]]
 Index
 
 ____
-Number assigned to a task to ease the operation of commands (e.g. add, delete, edit,view, mark as compllte)-
+Number assigned to a task to ease the operation of commands (e.g. add, delete, edit,view, mark as complete)
 ____
 
 [[last-action]]
 Last action
 
 ____
-Last command executed.
+Last command executed
 ____
 
 [[history]]
 History
 
 ____
-Completed Tasks.
+Completed Tasks
 ____
 
 [[mainstream-os]]
