@@ -227,8 +227,9 @@ Example: `quit`
 
 == Command Summary
 
-[width="80%",cols="50%, 50%",options="header",]
+[width="80%",cols="33%, 33%, <33%",options="header",]
 |=======================================================================
-|Command|Parameters
-|Command|Parameters
+|Command|Format 1|Format2
+|Command|Parameters|
+|bla|bla|bla
 |=======================================================================
