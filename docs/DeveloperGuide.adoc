@@ -443,11 +443,11 @@ ____
 Use case ends
 ____
 
-1a. Multiple tasks with same name has been detected
+1b. Multiple tasks with same name has been detected
 
 ____
-1b1. 2Do displays all the relevant tasks, and their indices, and prompts the user to choose the intended task to delete
-1b2. User chooses the task index
+1b1. 2Do displays all the relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
+1b2. User chooses the task link:#index[index]
 
 Use case resumes at step 3
 ____
