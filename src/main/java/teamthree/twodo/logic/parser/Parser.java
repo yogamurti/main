@@ -47,6 +47,8 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD_QUICK:
+        case AddCommand.COMMAND_WORD_UNIXSTYLE:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:

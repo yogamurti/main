@@ -19,6 +19,8 @@ public class AddCommand extends Command {
 
     //Command word can be any one of the three
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD_QUICK = "+";
+    public static final String COMMAND_WORD_UNIXSTYLE = "-a";
 
     /*    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
