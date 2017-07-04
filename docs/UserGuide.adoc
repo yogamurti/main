@@ -128,7 +128,7 @@ Example: `list`
 
 === Finding a task : `find / -f`
 
-Format: ` find [-h] {keyword}` +
+Format: `find [-h] {keyword}` +
 Example: `find work`
 ****
 * Scans through all tasks to find for keyword in any attribute and list it
@@ -177,7 +177,7 @@ Example: `unmark 4`
 === Editing the default options : `option / -o`
 
 Format: `option a/[alarm] p/ [prompt] m/ [mark completion automatically]` +
-Example: `option p/ DO {main} NOW!  `
+Example: `option p/ DO {main} NOW!`
 ****
 * Option without parameters will show the general options which the user can edit and their explanations
 * Default reminder alarm timing before the deadline can be edited +
