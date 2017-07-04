@@ -22,17 +22,19 @@ This app will not work with earlier versions of Java 8.
 +
 .  Download the latest `2Do.jar` from the link:../../../releases[releases] tab.
 .  Copy the file to the folder you want to use as the home folder for your to-do list.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
+.  <GUI IMAGE>
+.  When the application starts up, tasks due within a certain amount of time (the default is 7 days) will be displayed.
+.  To interact with the task manager, open the main application.
+.  You will then see a list of your tasks sorted by due date.
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Below the list, there is a command box. Type a command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will display all commands available.
 .  Some example commands you can try:
-
-* *`list`* : lists all uncompleted tasks
-* *`add`*
-* *`delete`* : 
-* *`exit`* : exits the app
-
+* *`list`* : add projectX: add a task with *projectX* as its title
+* *`add`* lists all tasks
+* *`delete 2`* : deletes the 2nd task shown in the current list
+* *`quit`* : quits the app
 .  Refer to the link:#features[Features] section below for details of each command.
 
 == Features
