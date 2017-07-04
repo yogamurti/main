@@ -477,7 +477,7 @@ ____
 
 *MSS*
 
-1. User searches for a task using *list* or *find*
+1. User searches for a task using **list** or _find_.
 2. 2Do displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
 4. 2Do updates the task and shows a success message
