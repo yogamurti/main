@@ -1,30 +1,30 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_PHONE;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
+import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Address;
-import seedu.address.model.task.Email;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Phone;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.PersonBuilder;
+import teamthree.twodo.commons.core.Messages;
+import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.logic.commands.EditCommand;
+import teamthree.twodo.logic.commands.FindCommand;
+import teamthree.twodo.model.tag.Tag;
+import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Email;
+import teamthree.twodo.model.task.Name;
+import teamthree.twodo.model.task.Phone;
+import teamthree.twodo.model.task.Task;
+import teamthree.twodo.testutil.PersonBuilder;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends AddressBookGuiTest {

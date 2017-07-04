@@ -22,12 +22,13 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.TaskBook;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalPersons;
+import teamthree.twodo.TestApp;
+import teamthree.twodo.commons.core.EventsCenter;
+import teamthree.twodo.commons.events.BaseEvent;
+import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.testutil.TestUtil;
+import teamthree.twodo.testutil.TypicalPersons;
 
 /**
  * A GUI Test class for TaskBook.
@@ -108,7 +109,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.ui.CommandBox;
+import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.ui.CommandBox;
 
 public class CommandBoxTest extends AddressBookGuiTest {
 

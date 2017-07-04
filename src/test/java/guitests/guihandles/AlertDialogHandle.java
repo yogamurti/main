@@ -1,11 +1,11 @@
 package guitests.guihandles;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import static teamthree.twodo.commons.util.AppUtil.checkArgument;
 
 import guitests.GuiRobot;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
-import seedu.address.ui.UiManager;
+import teamthree.twodo.ui.UiManager;
 
 /**
  * A handle for the AlertDialog of the UI

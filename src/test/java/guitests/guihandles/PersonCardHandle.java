@@ -9,8 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.ReadOnlyTask;
+import teamthree.twodo.model.tag.Tag;
+import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
  * Provides a handle to a person card in the person list panel.

@@ -1,15 +1,15 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.TestUtil;
+import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.logic.commands.DeleteCommand;
+import teamthree.twodo.model.task.Task;
+import teamthree.twodo.testutil.TestUtil;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 

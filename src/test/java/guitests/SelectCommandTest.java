@@ -1,14 +1,14 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.task.ReadOnlyTask;
+import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.logic.commands.ClearCommand;
+import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.model.task.ReadOnlyTask;
 
 public class SelectCommandTest extends AddressBookGuiTest {
 
