@@ -231,17 +231,17 @@ Example: `quit`
 |=======================================================================
 |Command|Format 1|Format 2
 |help / -h|help [name of command]|
-|add / -a / +|add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
+|add / -a /+|add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
+|delete / del / -d / -|delete [-h] {index}|delete[-h]  {title} on {date} at {time}
+|list / -l|list [-h]|
+|find / -f|find [-h] {keyword}|
+|undo / -u|undo|
+|edit / -e|edit [-h] {index} m/[new main] d/[new date] n/[new note] tag/[new tags] a/[alarm] r/[recurrence] u/[urgent]|
+|view / -v|view [-h] {index}|
+|mark / -m|mark {index}|
+|unmark / -un|unmark {index}|
+|option/ -o|option a/[alarm] p/ [prompt] m/ [mark completion automatically]|
+|save / -s|save [directory]|
+|clear / -c|clear|
+|quit / -q|quit|
 |=======================================================================
