@@ -464,10 +464,10 @@ Use case ends
 
 *Extensions*
 
-1a. No tasks to display 
+2a. No tasks to display 
 
 ____
-1a1. 2Do displays a “No task to display” message
+2a1. 2Do displays a “No task to display” message
 
 Use case ends
 ____
@@ -490,10 +490,28 @@ ____
 Use case ends
 ____
 
-1b. No tasks to display 
+2b. No tasks to display 
 
 ____
-1b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a “No task to display” message
+
+Use case ends
+____
+
+[discrete]
+=== Use case: Undo last action
+
+*MSS*
+
+1. User requests to undo the last action
+2. 2Do undos the last action and returns the to-do list to its previous state
+
+*Extensions*
+
+2a. No actions were done previously
+
+____
+2a1. 2Do displays an error message
 
 Use case ends
 ____
@@ -520,10 +538,10 @@ ____
 Use case ends
 ____
 
-1b. No tasks to display 
+2b. No tasks to display 
 
 ____
-1b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a “No task to display” message
 
 Use case ends
 ____
@@ -558,10 +576,10 @@ ____
 Use case ends
 ____
 
-1b. No tasks to display 
+2b. No tasks to display 
 
 ____
-1b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a “No task to display” message
 
 Use case ends
 ____
@@ -575,32 +593,46 @@ Use case resumes at step 2
 ____
 
 [discrete]
-=== Use case: 
+=== Use case: Mark task as complete
 
 *MSS*
 
-1. 
+1. User searches for a task using list or find
+2. 2Do displays all relevant tasks
+3. User requests to mark the task as complete by using its index
+4. 2Do updates the task and shows a success message
 
 *Extensions*
 
-2a. 
+1a. User input is invalid
 
 ____
+1a1. 2Do displays an error message
+
 Use case ends
 ____
 
-[discrete]
-=== Use case: 
-
-*MSS*
-
-1. 
-
-*Extensions*
-
-2a. 
+2b. No tasks to display 
 
 ____
+2b1. 2Do displays a “No task to display” message
+
+Use case ends
+____
+
+3a. User input is invalid
+
+____
+3a1. 2Do displays an error message
+
+Use case resumes at step 2
+____
+
+3b. Task is already marked as complete
+
+____
+3b1. 2Do displays an error message
+
 Use case ends
 ____
 
