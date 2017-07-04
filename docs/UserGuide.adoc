@@ -230,6 +230,7 @@ Example: `quit`
 [width="80%",cols="33%, 33%, <33%",options="header",]
 |=======================================================================
 |Command|Format 1|Format 2
+|     :---:      |     :---:      |     :---:      
 |help / -h|help [name of command]|
 |add / -a /+|add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
 |delete / del / -d / -|delete [-h] {index}|delete[-h]  {title} on {date} at {time}
