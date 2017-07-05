@@ -5,6 +5,7 @@ import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
@@ -12,27 +13,22 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the note book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Deadline deadline;
-    private Email email;
-    private Address address;
-
+    private Note note;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Deadline deadline, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, deadline, email, address, tags);
+    public Task(Name name, Note note, Set<Tag> tags) {
+        requireAllNonNull(name, note, tags);
         this.name = name;
-        this.deadline = deadline;
-        this.email = email;
-        this.address = address;
+        this.note = note;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     /**
@@ -42,9 +38,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name) {
         this.name = name;
         try {
-            this.deadline = new Deadline("");
-            this.email = new Email("");
-            this.address = new Address("");
+            this.note = new Note("");
             this.tags = new UniqueTagList();
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -55,8 +49,7 @@ public class Task implements ReadOnlyTask {
      * Creates a copy of the given ReadOnlyTask.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getTags());
+        this(source.getName(), source.getAddress(), source.getTags());
     }
 
     public void setName(Name name) {
@@ -68,31 +61,13 @@ public class Task implements ReadOnlyTask {
         return name;
     }
 
-    public void setPhone(Deadline deadline) {
-        this.deadline = requireNonNull(deadline);
+    public void setAddress(Note note) {
+        this.note = requireNonNull(note);
     }
 
     @Override
-    public Deadline getPhone() {
-        return deadline;
-    }
-
-    public void setEmail(Email email) {
-        this.email = requireNonNull(email);
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    public void setAddress(Address address) {
-        this.address = requireNonNull(address);
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
+    public Note getAddress() {
+        return note;
     }
 
     /**
@@ -118,8 +93,6 @@ public class Task implements ReadOnlyTask {
         requireNonNull(replacement);
 
         this.setName(replacement.getName());
-        this.setPhone(replacement.getPhone());
-        this.setEmail(replacement.getEmail());
         this.setAddress(replacement.getAddress());
         this.setTags(replacement.getTags());
     }
@@ -134,12 +107,16 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, email, address, tags);
+        return Objects.hash(name, note, tags);
     }
 
     @Override
     public String toString() {
         return getAsText();
+    }
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return Optional.empty();
     }
 
 }

@@ -4,7 +4,7 @@ import java.util.Set;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -29,7 +29,7 @@ public class PersonBuilder {
         Name defaultName = new Name(DEFAULT_NAME);
         Deadline defaultPhone = new Deadline(DEFAULT_PHONE);
         Email defaultEmail = new Email(DEFAULT_EMAIL);
-        Address defaultAddress = new Address(DEFAULT_ADDRESS);
+        Note defaultAddress = new Note(DEFAULT_ADDRESS);
         Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
         this.task = new Task(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
     }
@@ -52,7 +52,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
+        this.task.setAddress(new Note(address));
         return this;
     }
 

@@ -7,34 +7,60 @@ import java.util.Date;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
+ * Represents a Task's phone number in the address book. Guarantees: immutable;
+ * is valid as declared in {@link #isValidDeadline(String)}
  */
 public class Deadline {
 
-
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS =
-            "Deadline numbers can only contain numbers, and should be at least 3 digits long";
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS_STRICT = "Dates should be of the format MM/DD/YY,"
+            + " and Time should be 24HR format";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
-    public static final String DATE_PARSING_REGEX = "\\d{6}"; //Date should be mmddyyyy
+    public static final String DATE_PARSING_REGEX = "\\d{6}"; // Date should be mmddyyyy
     public static final String TIME_PARSING_REGEX = "\\d{4}";
     public final String value;
-    //Java Date contains both time and date so don't need separate Time object.
-    private Date deadline;
-
+    // Java Date contains both time and date so don't need separate Time object.
+    private Date startDate;
+    private Date endDate;
+    private Date notificationDate;
 
     /**
      * Validates given phone number.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException
+     *             if given phone string is invalid.
      */
-    public Deadline(String phone) throws IllegalValueException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        /*if (!isValidDeadline(trimmedPhone)) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
-        }*/
-        this.value = trimmedPhone;
+    public Deadline(String deadline) throws IllegalValueException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        /*
+         * if (!isValidDeadline(trimmedPhone)) { throw new
+         * IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS); }
+         */
+        this.value = trimmedDeadline;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public Date getNotificationDate() {
+        return notificationDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setNotificationDate(Date notificationDate) {
+        this.notificationDate = notificationDate;
     }
 
     /**
@@ -53,7 +79,7 @@ public class Deadline {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls
-                && this.value.equals(((Deadline) other).value)); // state check
+                        && this.value.equals(((Deadline) other).value)); // state check
     }
 
     @Override

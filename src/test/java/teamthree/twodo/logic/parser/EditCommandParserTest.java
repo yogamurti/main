@@ -3,10 +3,10 @@ package teamthree.twodo.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NOTE;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_PHONE;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_ADDRESS_AMY;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_ADDRESS_BOB;
@@ -29,7 +29,7 @@ import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.logic.commands.EditCommand.EditPersonDescriptor;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -38,20 +38,20 @@ import teamthree.twodo.testutil.EditPersonDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    private static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    private static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    private static final String PHONE_DESC_AMY = " " + PREFIX_DEADLINE_START + VALID_PHONE_AMY;
+    private static final String PHONE_DESC_BOB = " " + PREFIX_DEADLINE_START + VALID_PHONE_BOB;
     private static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     private static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    private static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    private static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    private static final String ADDRESS_DESC_AMY = " " + PREFIX_NOTE + VALID_ADDRESS_AMY;
+    private static final String ADDRESS_DESC_BOB = " " + PREFIX_NOTE + VALID_ADDRESS_BOB;
     private static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     private static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    private static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    private static final String INVALID_PHONE_DESC = " " + PREFIX_DEADLINE_START + "911a"; // 'a' not allowed in phones
     private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_NOTE; // empty string not allowed for addresses
     private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     private static final String MESSAGE_INVALID_FORMAT =
@@ -89,17 +89,17 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure("1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure("1" + INVALID_PHONE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS); // invalid phone
+        assertParseFailure("1" + INVALID_PHONE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT); // invalid phone
         assertParseFailure("1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
-        assertParseFailure("1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
+        assertParseFailure("1" + INVALID_ADDRESS_DESC, Note.MESSAGE_NOTE_CONSTRAINTS); // invalid address
         assertParseFailure("1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure("1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        assertParseFailure("1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure("1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        assertParseFailure("1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Task} being edited,
         // parsing it together with a valid tag results in error

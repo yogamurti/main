@@ -1,5 +1,6 @@
 package teamthree.twodo.model.task;
 
+import java.util.Optional;
 import java.util.Set;
 
 import teamthree.twodo.model.tag.Tag;
@@ -11,11 +12,9 @@ import teamthree.twodo.model.tag.Tag;
 public interface ReadOnlyTask {
 
     Name getName();
-    Deadline getPhone();
-    Email getEmail();
-    Address getAddress();
+    Note getAddress();
     Set<Tag> getTags();
-
+    Optional<Deadline> getDeadline();
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -23,8 +22,6 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress()));
     }
 
@@ -34,11 +31,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Deadline: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
+                .append(" Note: ")
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

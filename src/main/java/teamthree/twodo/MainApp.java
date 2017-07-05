@@ -26,12 +26,12 @@ import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.util.SampleDataUtil;
-import teamthree.twodo.storage.AddressBookStorage;
 import teamthree.twodo.storage.JsonUserPrefsStorage;
 import teamthree.twodo.storage.Storage;
 import teamthree.twodo.storage.StorageManager;
+import teamthree.twodo.storage.TaskBookStorage;
 import teamthree.twodo.storage.UserPrefsStorage;
-import teamthree.twodo.storage.XmlAddressBookStorage;
+import teamthree.twodo.storage.XmlTaskBookStorage;
 import teamthree.twodo.ui.Ui;
 import teamthree.twodo.ui.UiManager;
 
@@ -61,8 +61,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TaskBookStorage taskBookStorage = new XmlTaskBookStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(taskBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -84,7 +84,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskBook> addressBookOptional;
         ReadOnlyTaskBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readTaskBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TaskBook");
             }
@@ -174,7 +174,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Note Book ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

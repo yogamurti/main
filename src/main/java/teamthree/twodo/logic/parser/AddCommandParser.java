@@ -1,10 +1,10 @@
 package teamthree.twodo.logic.parser;
 
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NOTE;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_PHONE;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -14,7 +14,7 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -33,9 +33,9 @@ public class AddCommandParser {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE_START, PREFIX_EMAIL, PREFIX_NOTE, PREFIX_TAG);
 
-        /*if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)) {
+        /*if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NOTE, PREFIX_DEADLINE_START, PREFIX_EMAIL)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }*/
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
@@ -43,12 +43,12 @@ public class AddCommandParser {
         }
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
-            Deadline deadline = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
+            Deadline deadline = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_DEADLINE_START)).get();
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
+            Note note = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOTE)).get();
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-            ReadOnlyTask person = new Task(name, deadline, email, address, tagList);
+            ReadOnlyTask person = new Task(name, deadline, email, note, tagList);
 
             return new AddCommand(person);
         } catch (IllegalValueException ive) {

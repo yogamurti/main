@@ -10,10 +10,22 @@ public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
+    //Default notification period of 1 day. Can be changed by user.
+    private static long notificationPeriod = 1000 * 60 * 60 * 24;
     // Config values customizable through config file
-    private String appTitle = "Address App";
+    private String appTitle = "Note App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
+
+
+    public static long getDefaultNotificationPeriod() {
+        return notificationPeriod;
+    }
+
+    public static void setDefaultNotificationPeriod(long newNotificationPeriod) {
+        notificationPeriod = newNotificationPeriod;
+    }
+
 
     public String getAppTitle() {
         return appTitle;

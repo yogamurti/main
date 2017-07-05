@@ -29,7 +29,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(ReadOnlyTask person) throws IllegalValueException {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
+        descriptor.setPhone(person.getDeadline());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());

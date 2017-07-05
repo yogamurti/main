@@ -2,10 +2,10 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_PHONE;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NOTE;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
@@ -19,10 +19,10 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.PersonBuilder;
 
@@ -35,9 +35,9 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
-        String detailsToEdit = PREFIX_NAME + "Bobby " + PREFIX_PHONE + "91234567 "
+        String detailsToEdit = PREFIX_NAME + "Bobby " + PREFIX_DEADLINE_START + "91234567 "
                 + PREFIX_EMAIL + "bobby@example.com "
-                + PREFIX_ADDRESS + "Block 123, Bobby Street 3 "
+                + PREFIX_NOTE + "Block 123, Bobby Street 3 "
                 + PREFIX_TAG + "husband";
         Index addressBookIndex = INDEX_FIRST_PERSON;
 
@@ -106,14 +106,14 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "*&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
-        assertResultMessage(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_DEADLINE_START + "abcd");
+        assertResultMessage(Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
 
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
-        assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NOTE.getPrefix());
+        assertResultMessage(Note.MESSAGE_NOTE_CONSTRAINTS);
 
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
@@ -122,10 +122,10 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_duplicatePerson_failure() {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 "
-                + PREFIX_PHONE + "85355255 "
+                + PREFIX_DEADLINE_START + "85355255 "
                 + PREFIX_EMAIL + "alice@example.com "
                 + PREFIX_NAME + "Alice Pauline "
-                + PREFIX_ADDRESS + "123, Jurong West Ave 6, #08-111 "
+                + PREFIX_NOTE + "123, Jurong West Ave 6, #08-111 "
                 + PREFIX_TAG + "friends");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
     }

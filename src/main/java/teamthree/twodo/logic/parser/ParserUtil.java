@@ -11,7 +11,7 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -58,11 +58,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
+     * Parses a {@code Optional<String> address} into an {@code Optional<Note>} if {@code address} is present.
      */
-    public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
+    public static Optional<Note> parseAddress(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
-        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.of(new Address(""));
+        return address.isPresent() ? Optional.of(new Note(address.get())) : Optional.of(new Note(""));
     }
 
     /**

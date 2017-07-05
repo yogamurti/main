@@ -5,13 +5,13 @@ import static java.util.Objects.requireNonNull;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's address in the address book.
+ * Represents a Task's note in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Note {
 
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
-            "Task addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_NOTE_CONSTRAINTS =
+            "Task note can take any value, and it can be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -26,7 +26,7 @@ public class Address {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public Address(String address) throws IllegalValueException {
+    public Note(String address) throws IllegalValueException {
         requireNonNull(address);
         this.value = address;
     }
@@ -46,8 +46,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                || (other instanceof Note // instanceof handles nulls
+                && this.value.equals(((Note) other).value)); // state check
     }
 
     @Override

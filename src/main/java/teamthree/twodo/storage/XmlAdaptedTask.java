@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -19,7 +19,7 @@ import teamthree.twodo.model.task.Task;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
@@ -34,20 +34,20 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        phone = source.getDeadline().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
@@ -69,8 +69,8 @@ public class XmlAdaptedPerson {
         final Name name = new Name(this.name);
         final Deadline deadline = new Deadline(this.phone);
         final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        final Note note = new Note(this.address);
         final Set<Tag> tags = new HashSet<>(personTags);
-        return new Task(name, deadline, email, address, tags);
+        return new Task(name, deadline, email, note, tags);
     }
 }

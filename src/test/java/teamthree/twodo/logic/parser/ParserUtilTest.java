@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Address;
+import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -131,8 +131,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValue_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of(VALID_ADDRESS));
+        Note expectedAddress = new Note(VALID_ADDRESS);
+        Optional<Note> actualAddress = ParserUtil.parseAddress(Optional.of(VALID_ADDRESS));
 
         assertEquals(expectedAddress, actualAddress.get());
     }

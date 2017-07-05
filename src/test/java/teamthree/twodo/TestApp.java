@@ -9,7 +9,7 @@ import teamthree.twodo.commons.core.GuiSettings;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.storage.UserPrefsStorage;
-import teamthree.twodo.storage.XmlSerializableAddressBook;
+import teamthree.twodo.storage.XmlSerializableTaskBook;
 import teamthree.twodo.testutil.TestUtil;
 
 /**
@@ -38,7 +38,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
