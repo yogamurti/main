@@ -5,19 +5,19 @@ import static java.util.Objects.requireNonNull;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's address in the address book.
+ * Represents a Task's note in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Description {
 
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
-            "Task addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
+            "Task description can take any value, and it can be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
@@ -26,7 +26,7 @@ public class Address {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public Address(String address) throws IllegalValueException {
+    public Description(String address) throws IllegalValueException {
         requireNonNull(address);
         this.value = address;
     }
@@ -35,19 +35,19 @@ public class Address {
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return value;
+        return value + "\n";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && this.value.equals(((Description) other).value)); // state check
     }
 
     @Override

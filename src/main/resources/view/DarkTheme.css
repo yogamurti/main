@@ -130,6 +130,11 @@
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
+.cell_big_label_red {
+    
+    -fx-font-size: 16px;
+    -fx-font-fill: red;
+}
 
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20%);

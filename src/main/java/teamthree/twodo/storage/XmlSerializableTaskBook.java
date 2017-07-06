@@ -20,18 +20,18 @@ import teamthree.twodo.model.task.Task;
  * An Immutable TaskBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
+public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
     private List<XmlAdaptedTag> tags;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableTaskBook.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableTaskBook() {
         persons = new ArrayList<>();
         tags = new ArrayList<>();
     }
@@ -39,9 +39,9 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
+    public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         this();
-        persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
 
