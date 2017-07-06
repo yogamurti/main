@@ -1,9 +1,9 @@
 package teamthree.twodo.testutil;
 
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_PHONE;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 
 import teamthree.twodo.logic.commands.AddCommand;
@@ -27,9 +27,9 @@ public class TaskUtil {
     private static String gettaskDetails(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + task.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + task.getPhone().value + " ");
+        sb.append(PREFIX_DEADLINE_START + task.getDeadline().value + " ");
         sb.append(PREFIX_EMAIL + task.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + task.getAddress().value + " ");
+        sb.append(PREFIX_DESCRIPTION + task.getDescription().value + " ");
         task.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

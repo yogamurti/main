@@ -30,6 +30,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Description book has been cleared!");
     }
 }

@@ -13,7 +13,8 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of persons that enforces uniqueness between its elements and does not
+ * allow nulls.
  *
  * Supports a minimal set of list operations.
  *
@@ -25,7 +26,8 @@ public class UniqueTaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent person as the given
+     * argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         requireNonNull(toCheck);
@@ -35,22 +37,30 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a person to the list.
      *
-     * @throws DuplicateTaskException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicateTaskException
+     *             if the person to add is a duplicate of an existing person in
+     *             the list.
      */
     public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add(new Task(toAdd));
+        if (toAdd instanceof TaskWithDeadline) {
+            internalList.add(new TaskWithDeadline(toAdd));
+        } else {
+            internalList.add(new Task(toAdd));
+        }
     }
 
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      *
-     * @throws DuplicateTaskException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
-     * @throws TaskNotFoundException if {@code target} could not be found in the list.
+     * @throws DuplicateTaskException
+     *             if updating the person's details causes the person to be
+     *             equivalent to another existing person in the list.
+     * @throws TaskNotFoundException
+     *             if {@code target} could not be found in the list.
      */
     public void updatePerson(ReadOnlyTask target, ReadOnlyTask editedPerson)
             throws DuplicateTaskException, TaskNotFoundException {
@@ -65,8 +75,12 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!personToUpdate.equals(editedPerson) && internalList.contains(editedPerson)) {
             throw new DuplicateTaskException();
         }
-
-        personToUpdate.resetData(editedPerson);
+        //For the scenario where user wants to update floating task to a task with deadline
+        if (!(personToUpdate instanceof TaskWithDeadline) && editedPerson instanceof TaskWithDeadline) {
+            personToUpdate = new TaskWithDeadline(editedPerson);
+        } else {
+            personToUpdate.resetData(editedPerson);
+        }
         // TODO: The code below is just a workaround to notify observers of the updated person.
         // The right way is to implement observable properties in the Task class.
         // Then, PersonCard should then bind its text labels to those observable properties.
@@ -76,7 +90,8 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Removes the equivalent person from the list.
      *
-     * @throws TaskNotFoundException if no such person could be found in the list.
+     * @throws TaskNotFoundException
+     *             if no such person could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         requireNonNull(toRemove);
@@ -94,7 +109,11 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setPersons(List<? extends ReadOnlyTask> persons) throws DuplicateTaskException {
         final UniqueTaskList replacement = new UniqueTaskList();
         for (final ReadOnlyTask person : persons) {
-            replacement.add(new Task(person));
+            if (person instanceof TaskWithDeadline) {
+                replacement.add(new TaskWithDeadline(person));
+            } else {
+                replacement.add(new Task(person));
+            }
         }
         setPersons(replacement);
     }

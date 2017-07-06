@@ -4,34 +4,34 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
-import teamthree.twodo.logic.commands.EditCommand.EditPersonDescriptor;
+import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.logic.parser.ParserUtil;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditTaskDescriptor objects.
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditTaskDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditTaskDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditPersonDescriptorBuilder(EditTaskDescriptor descriptor) {
+        this.descriptor = new EditTaskDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditTaskDescriptor} with fields containing {@code person}'s details
      */
     public EditPersonDescriptorBuilder(ReadOnlyTask person) throws IllegalValueException {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditTaskDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
+        descriptor.setDeadline(person.getDeadline());
         descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
+        descriptor.setDescription(person.getDescription());
         descriptor.setTags(person.getTags());
     }
 
@@ -41,7 +41,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
-        ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setPhone);
+        ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setDeadline);
         return this;
     }
 
@@ -51,7 +51,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
-        ParserUtil.parseAddress(Optional.of(address)).ifPresent(descriptor::setAddress);
+        ParserUtil.parseDescription(Optional.of(address)).ifPresent(descriptor::setDescription);
         return this;
     }
 
@@ -60,7 +60,7 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditTaskDescriptor build() {
         return descriptor;
     }
 }
