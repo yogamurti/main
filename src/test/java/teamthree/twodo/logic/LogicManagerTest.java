@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NOTE;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
@@ -54,7 +54,7 @@ import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Note;
+import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
@@ -206,10 +206,10 @@ public class LogicManagerTest {
         assertParseException(AddCommand.COMMAND_WORD + " wrong args wrong args", expectedMessage);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name 12345 "
                 + PREFIX_EMAIL + "valid@email.butNoPhonePrefix "
-                + PREFIX_NOTE + "valid,address", expectedMessage);
+                + PREFIX_DESCRIPTION + "valid,address", expectedMessage);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 valid@email.butNoPrefix "
-                + PREFIX_NOTE + "valid, address", expectedMessage);
+                + PREFIX_DESCRIPTION + "valid, address", expectedMessage);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 "
                 + PREFIX_EMAIL + "valid@email.butNoAddressPrefix valid, address",
@@ -222,25 +222,25 @@ public class LogicManagerTest {
                 + PREFIX_NAME + "[]\\[;] "
                 + PREFIX_DEADLINE_START + "12345 "
                 + PREFIX_EMAIL + "valid@e.mail "
-                + PREFIX_NOTE + "valid, address",
+                + PREFIX_DESCRIPTION + "valid, address",
                 Name.MESSAGE_NAME_CONSTRAINTS);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "not_numbers "
                 + PREFIX_EMAIL + "valid@e.mail "
-                + PREFIX_NOTE + "valid, address",
+                + PREFIX_DESCRIPTION + "valid, address",
                 Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 "
                 + PREFIX_EMAIL + "notAnEmail "
-                + PREFIX_NOTE + "valid, address",
+                + PREFIX_DESCRIPTION + "valid, address",
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 "
                 + PREFIX_EMAIL + "valid@e.mail "
-                + PREFIX_NOTE + "valid, address "
+                + PREFIX_DESCRIPTION + "valid, address "
                 + PREFIX_TAG + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -466,7 +466,7 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Deadline privatePhone = new Deadline("111111");
             Email email = new Email("adam@example.com");
-            Note privateAddress = new Note("111, alpha street");
+            Description privateAddress = new Description("111, alpha street");
 
             return new Task(name, privatePhone, email, privateAddress,
                     getTagSet("tag1", "longertag2"));
@@ -487,7 +487,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Deadline(phoneNumber),
                     new Email(seed + "@email"),
-                    new Note("House of " + seed),
+                    new Description("House of " + seed),
                     getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
@@ -500,7 +500,7 @@ public class LogicManagerTest {
             cmd.append(" " + PREFIX_NAME.getPrefix()).append(p.getName());
             cmd.append(" " + PREFIX_EMAIL.getPrefix()).append(p.getEmail());
             cmd.append(" " + PREFIX_DEADLINE_START.getPrefix()).append(p.getDeadline());
-            cmd.append(" " + PREFIX_NOTE.getPrefix()).append(p.getAddress());
+            cmd.append(" " + PREFIX_DESCRIPTION.getPrefix()).append(p.getDescription());
 
             Set<Tag> tags = p.getTags();
             for (Tag t: tags) {

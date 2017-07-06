@@ -7,8 +7,8 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.tag.Tag;
+import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
-import teamthree.twodo.model.task.Note;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
@@ -16,21 +16,21 @@ public class SampleDataUtil {
     public static Task[] getSamplePersons() {
         try {
             return new Task[] {
-                new Task(new Name("Alex Yeoh"), new Note("Blk 30 Geylang Street 29, #06-40"),
+                new Task(new Name("Alex Yeoh"), new Description("Blk 30 Geylang Street 29, #06-40"),
                     getTagSet("friends")),
                 new Task(new Name("Bernice Yu"),
-                        new Note("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                        new Description("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                     getTagSet("colleagues", "friends")),
                 new Task(new Name("Charlotte Oliveiro"),
-                        new Note("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                        new Description("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     getTagSet("neighbours")),
-                new Task(new Name("David Li"), new Note("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                new Task(new Name("David Li"), new Description("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     getTagSet("family")),
                 new Task(new Name("Irfan Ibrahim"),
-                        new Note("Blk 47 Tampines Street 20, #17-35"),
+                        new Description("Blk 47 Tampines Street 20, #17-35"),
                     getTagSet("classmates")),
                 new Task(new Name("Roy Balakrishnan"),
-                        new Note("Blk 45 Aljunied Street 85, #11-31"),
+                        new Description("Blk 45 Aljunied Street 85, #11-31"),
                     getTagSet("colleagues"))
             };
         } catch (IllegalValueException e) {

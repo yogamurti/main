@@ -12,7 +12,7 @@ import teamthree.twodo.model.tag.Tag;
 public interface ReadOnlyTask {
 
     Name getName();
-    Note getAddress();
+    Description getDescription();
     Set<Tag> getTags();
     Optional<Deadline> getDeadline();
     /**
@@ -21,8 +21,9 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getAddress().equals(this.getAddress()));
+                && other.getName().equals(this.getName())// state checks here onwards
+                && other.getDeadline().equals(this.getDeadline())
+                && other.getDescription().equals(this.getDescription()));
     }
 
     /**
@@ -31,8 +32,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Note: ")
-                .append(getAddress())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

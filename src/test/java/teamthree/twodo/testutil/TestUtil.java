@@ -17,12 +17,13 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.commons.util.FileUtil;
 import teamthree.twodo.commons.util.XmlUtil;
-import teamthree.twodo.model.task.Note;
+import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 
 /**
  * A utility class for test cases.
@@ -55,15 +56,15 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                new Task(new Name("Ali Muster"), new Deadline("9482424"), new Email("hans@example.com"), new Note("4th street"), getTagSet()),
-                new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Email("ruth@example.com"), new Note("81th street"), getTagSet()),
-                new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Email("heinz@example.com"), new Note("wall street"), getTagSet()),
-                new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Email("cornelia@example.com"), new Note("10th street"), getTagSet()),
-                new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Email("werner@example.com"), new Note("michegan ave"), getTagSet()),
-                new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Email("lydia@example.com"), new Note("little tokyo"), getTagSet()),
-                new Task(new Name("George Best"), new Deadline("9482442"), new Email("anna@example.com"), new Note("4th street"), getTagSet()),
-                new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Email("stefan@example.com"), new Note("little india"), getTagSet()),
-                new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Email("hans@example.com"), new Note("chicago ave"), getTagSet())
+                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("9482424"), new Email("hans@example.com"), new Description("4th street"), getTagSet()),
+                new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Email("ruth@example.com"), new Description("81th street"), getTagSet()),
+                new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Email("heinz@example.com"), new Description("wall street"), getTagSet()),
+                new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Email("cornelia@example.com"), new Description("10th street"), getTagSet()),
+                new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Email("werner@example.com"), new Description("michegan ave"), getTagSet()),
+                new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Email("lydia@example.com"), new Description("little tokyo"), getTagSet()),
+                new Task(new Name("George Best"), new Deadline("9482442"), new Email("anna@example.com"), new Description("4th street"), getTagSet()),
+                new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Email("stefan@example.com"), new Description("little india"), getTagSet()),
+                new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Email("hans@example.com"), new Description("chicago ave"), getTagSet())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
