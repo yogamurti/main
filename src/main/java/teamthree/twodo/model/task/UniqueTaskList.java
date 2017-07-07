@@ -62,7 +62,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TaskNotFoundException
      *             if {@code target} could not be found in the list.
      */
-    public void updatePerson(ReadOnlyTask target, ReadOnlyTask editedPerson)
+    public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
             throws DuplicateTaskException, TaskNotFoundException {
         requireNonNull(editedPerson);
 
