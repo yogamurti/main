@@ -31,6 +31,7 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
+	<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	<filteredResources>
 		<filter>
 			<id>1476898072165</id>
