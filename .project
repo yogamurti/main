@@ -30,8 +30,8 @@
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
-	<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	<filteredResources>
 		<filter>
 			<id>1476898072165</id>
