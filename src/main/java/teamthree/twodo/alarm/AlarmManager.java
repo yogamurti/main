@@ -47,11 +47,14 @@ public class AlarmManager extends ComponentManager {
 
     /**
      * Synchronizes internal notification list with the main TaskBook
+     *
      * @param masterList
      *            Full List of tasks from the taskbook
      */
     private synchronized void syncWithMasterTaskList(List<ReadOnlyTask> masterList) {
-
+        if (masterList == null || masterList.isEmpty()) {
+            return;
+        }
         //Clear list first to avoid duplicates
         notificationList.clear();
         //Adds tasks which are not in the notified set
@@ -65,7 +68,6 @@ public class AlarmManager extends ComponentManager {
         startTimerTask();
     }
 
-
     public void startTimerTask() {
         masterClock.schedule(new NextReminder(), nextReminderTime);
     }
@@ -75,7 +77,8 @@ public class AlarmManager extends ComponentManager {
     }
 
     /**
-     * ===========================HELPER CLASS===================================
+     * ===========================HELPER
+     * CLASS===================================
      */
     private class NextReminder extends TimerTask {
 
@@ -89,9 +92,10 @@ public class AlarmManager extends ComponentManager {
         @Override
         public void run() {
             List<ReadOnlyTask> tasksToRemindOf = new ArrayList<ReadOnlyTask>();
-
+            Date currentDate = new Date();
             notificationList.forEach((t) -> {
-                if (getNotificationTime(t).equals(nextReminderTime)) {
+                if (getNotificationTime(t).before(currentDate)
+                        || getNotificationTime(t).equals(nextReminderTime)) {
                     tasksToRemindOf.add(t);
                 }
             });
@@ -141,8 +145,10 @@ public class AlarmManager extends ComponentManager {
     private void updateNextReminder() {
         nextReminderTime = getNotificationTime(notificationList.get(0));
     }
+
     /**
-     * ==============================EVENT HANDLERS====================================
+     * ==============================EVENT
+     * HANDLERS====================================
      */
     /**
      * Synchronizes the notification list with the master list when there is a

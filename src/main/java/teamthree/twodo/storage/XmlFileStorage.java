@@ -28,7 +28,7 @@ public class XmlFileStorage {
      * For use with task lists. Main intended use is to store notified tasks
      * list
      */
-    public static void saveDataToFile(File file, List<XmlAdaptedTask> taskList) throws FileNotFoundException {
+    public static void saveNotificationToFile(File file, List<XmlAdaptedTask> taskList) throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, taskList);
         } catch (JAXBException e) {

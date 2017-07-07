@@ -80,7 +80,6 @@ public class StorageManager extends ComponentManager implements Storage {
 
     public void saveNotifiedTasks(HashSet<ReadOnlyTask> notified, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-
     }
 
     @Override

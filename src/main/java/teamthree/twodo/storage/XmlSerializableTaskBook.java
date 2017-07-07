@@ -24,7 +24,7 @@ import teamthree.twodo.model.task.Task;
 public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
     private List<XmlAdaptedTag> tags;
 
@@ -33,7 +33,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      * required for marshalling.
      */
     public XmlSerializableTaskBook() {
-        tasks = new ArrayList<>();
+        persons = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -42,7 +42,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         this();
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
     /**
@@ -57,7 +57,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @Override
     public ObservableList<ReadOnlyTask> getTaskList() {
-        final ObservableList<Task> tasks = this.tasks.stream().map(p -> {
+        final ObservableList<Task> tasks = this.persons.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

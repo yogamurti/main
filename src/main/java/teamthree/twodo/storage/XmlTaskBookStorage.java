@@ -94,7 +94,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, XmlSerializableTaskBook.getXmlSerializableTaskList(notified));
+        XmlFileStorage.saveNotificationToFile(file, XmlSerializableTaskBook.getXmlSerializableTaskList(notified));
     }
 
 }
