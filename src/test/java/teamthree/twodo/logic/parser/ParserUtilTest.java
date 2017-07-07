@@ -18,14 +18,13 @@ import org.junit.rules.ExpectedException;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
-import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Deadline;
+import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
@@ -88,20 +87,14 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() throws Exception {
+    public void parseDeadlineForAdd_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        ParserUtil.parsePhone(null);
+        ParserUtil.parseDeadlineForAdd(null, null, null);
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
-        ParserUtil.parsePhone(Optional.of(INVALID_PHONE));
-    }
-
-    @Test
-    public void parsePhone_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        assertFalse(ParserUtil.parsePhone(Optional.empty()).isPresent());
+    public void parseDeadlineForAdd_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseDeadlineForAdd(Optional.empty(), Optional.empty(), Optional.empty()).isPresent());
     }
 
     @Test
