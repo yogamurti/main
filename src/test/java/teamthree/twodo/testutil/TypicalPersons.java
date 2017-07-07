@@ -50,7 +50,7 @@ public class TypicalPersons {
     public static void loadAddressBookWithSampleData(TaskBook ab) {
         for (Task task : new TypicalPersons().getTypicalPersons()) {
             try {
-                ab.addPerson(new Task(task));
+                ab.addTask(new Task(task));
             } catch (DuplicateTaskException e) {
                 assert false : "not possible";
             }

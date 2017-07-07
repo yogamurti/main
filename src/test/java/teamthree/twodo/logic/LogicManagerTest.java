@@ -205,14 +205,12 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertParseException(AddCommand.COMMAND_WORD + " wrong args wrong args", expectedMessage);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name 12345 "
-                + PREFIX_EMAIL + "valid@email.butNoPhonePrefix "
                 + PREFIX_DESCRIPTION + "valid,address", expectedMessage);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 valid@email.butNoPrefix "
                 + PREFIX_DESCRIPTION + "valid, address", expectedMessage);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name "
-                + PREFIX_DEADLINE_START + "12345 "
-                + PREFIX_EMAIL + "valid@email.butNoAddressPrefix valid, address",
+                + PREFIX_DEADLINE_START + "12345 " +
                 expectedMessage);
     }
 
@@ -221,25 +219,21 @@ public class LogicManagerTest {
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "[]\\[;] "
                 + PREFIX_DEADLINE_START + "12345 "
-                + PREFIX_EMAIL + "valid@e.mail "
                 + PREFIX_DESCRIPTION + "valid, address",
                 Name.MESSAGE_NAME_CONSTRAINTS);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "not_numbers "
-                + PREFIX_EMAIL + "valid@e.mail "
                 + PREFIX_DESCRIPTION + "valid, address",
                 Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 "
-                + PREFIX_EMAIL + "notAnEmail "
                 + PREFIX_DESCRIPTION + "valid, address",
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertParseException(AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME + "Valid Name "
                 + PREFIX_DEADLINE_START + "12345 "
-                + PREFIX_EMAIL + "valid@e.mail "
                 + PREFIX_DESCRIPTION + "valid, address "
                 + PREFIX_TAG + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
@@ -464,11 +458,10 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Deadline privatePhone = new Deadline("111111");
-            Email email = new Email("adam@example.com");
+            Deadline deadline = new Deadline("111111");
             Description privateAddress = new Description("111, alpha street");
 
-            return new Task(name, privatePhone, email, privateAddress,
+            return new Task(name, deadline, email, privateAddress,
                     getTagSet("tag1", "longertag2"));
         }
 
@@ -481,13 +474,12 @@ public class LogicManagerTest {
          */
         Task generatePerson(int seed) throws Exception {
             // to ensure that phone numbers are at least 3 digits long, when seed is less than 3 digits
-            String phoneNumber = String.join("", Collections.nCopies(3, String.valueOf(Math.abs(seed))));
+            String startDate = String.join("", Collections.nCopies(3, String.valueOf(Math.abs(seed))));
 
-            return new Task(
+            return new TaskWithDeadline(
                     new Name("Task " + seed),
-                    new Deadline(phoneNumber),
-                    new Email(seed + "@email"),
-                    new Description("House of " + seed),
+                    new Deadline(deadline),
+                    new Description("Task ID " + seed),
                     getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
@@ -498,7 +490,6 @@ public class LogicManagerTest {
             cmd.append(AddCommand.COMMAND_WORD);
 
             cmd.append(" " + PREFIX_NAME.getPrefix()).append(p.getName());
-            cmd.append(" " + PREFIX_EMAIL.getPrefix()).append(p.getEmail());
             cmd.append(" " + PREFIX_DEADLINE_START.getPrefix()).append(p.getDeadline());
             cmd.append(" " + PREFIX_DESCRIPTION.getPrefix()).append(p.getDescription());
 
@@ -541,7 +532,7 @@ public class LogicManagerTest {
          */
         void addToAddressBook(TaskBook taskBook, List<Task> personsToAdd) throws Exception {
             for (Task p: personsToAdd) {
-                taskBook.addPerson(p);
+                taskBook.addTask(p);
             }
         }
 
