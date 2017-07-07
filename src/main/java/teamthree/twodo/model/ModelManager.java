@@ -60,13 +60,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.removePerson(target);
+        taskBook.removeTask(target);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void addTask(ReadOnlyTask person) throws DuplicateTaskException {
-        taskBook.addPerson(person);
+        taskBook.addTask(person);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
@@ -76,7 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws DuplicateTaskException, TaskNotFoundException {
         requireAllNonNull(target, editedTask);
 
-        taskBook.updatePerson(target, editedTask);
+        taskBook.updateTask(target, editedTask);
         indicateTaskBookChanged();
     }
 

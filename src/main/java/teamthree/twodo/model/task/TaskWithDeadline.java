@@ -40,11 +40,11 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     public String getAsText() {
         assert(deadline != null);
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getName() + "\n")
                 .append(getDeadline().get())
-                .append(" Description: ")
+                .append("Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
+                .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

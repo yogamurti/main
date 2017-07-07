@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import teamthree.twodo.alarm.AlarmManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.LogsCenter;
@@ -48,9 +49,9 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected AlarmManager alarm;
     protected Config config;
     protected UserPrefs userPrefs;
-
 
     @Override
     public void init() throws Exception {
@@ -73,6 +74,8 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
+        alarm = new AlarmManager(model);
     }
 
     private String getApplicationParameter(String parameterName) {

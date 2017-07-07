@@ -1,6 +1,7 @@
 package teamthree.twodo.storage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,8 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     private List<XmlAdaptedTag> tags;
 
     /**
-     * Creates an empty XmlSerializableTaskBook.
-     * This empty constructor is required for marshalling.
+     * Creates an empty XmlSerializableTaskBook. This empty constructor is
+     * required for marshalling.
      */
     public XmlSerializableTaskBook() {
         persons = new ArrayList<>();
@@ -43,6 +44,15 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         this();
         persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+    }
+    /**
+     * The following method returns an Xml list for storage from a read only task list.
+     * Intended to be used for storing notified persons data.
+     * @param taskSet Notified persons set
+     * @return XmlAdaptedList of notified persons
+     */
+    public static List<XmlAdaptedTask> getXmlSerializableTaskList(HashSet<ReadOnlyTask> taskSet) {
+        return new ArrayList<XmlAdaptedTask>(taskSet.stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     @Override
