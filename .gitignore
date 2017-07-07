@@ -1,9 +1,7 @@
 build/
-.gradle/
 .checkstyle
 .settings/
 .idea/
-lib/*
 *.iml
 *.log
 *.log.*
