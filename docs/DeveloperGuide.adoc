@@ -376,7 +376,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many tasks |sort tasks in different ways |gain a better understanding of the tasks at hand
 
-|`*` |user |link a location |get directions to the task’s location, from my current location, with the click of a button
+|`*` |user |get directions |get directions to the task’s location, from my current location
 
 |`*` |user |block timeslots for events |stop scheduling events with conflicting timings
 
