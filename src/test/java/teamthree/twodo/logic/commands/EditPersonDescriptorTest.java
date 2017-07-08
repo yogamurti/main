@@ -5,9 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_CSMOD;
 import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_EVENT;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_DESCRIPTION_EVENT;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_EMAIL_BOB;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
+import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 
 import org.junit.Test;
@@ -40,11 +39,11 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withStartDeadline(VALID_PHONE_BOB).build();
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withStartDeadline(VALID_START_DATE).build();
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withEmail(VALID_EMAIL_BOB).build();
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).build();
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different address -> returns false
