@@ -8,20 +8,19 @@ https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https:
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/MockUI.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/MockUI.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+
+* 2Do is a To Do List desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is designed to allow users to efficiently manage their tasks.
+* It is written in OOP fashion. It provides a reasonably well-written code example that is significantly bigger (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* This project is initiated by the sample project created by SE-EDU.
+
 
 == Site Map
 
