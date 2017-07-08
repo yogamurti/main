@@ -8,7 +8,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the TaskBook.
  */
 public class DeleteCommand extends Command {
 

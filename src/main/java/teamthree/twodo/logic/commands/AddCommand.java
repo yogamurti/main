@@ -14,7 +14,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the TaskBook.
  */
 public class AddCommand extends Command {
 

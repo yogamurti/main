@@ -8,7 +8,7 @@ import java.util.logging.Level;
  */
 public class Config {
 
-    public static final String DEFAULT_CONFIG_FILE = "config.json";
+    public static String DEFAULT_CONFIG_FILE = "config.json";
 
     //Default notification period of 1 day. Can be changed by user.
     private static Long notificationPeriod = (long) (1000 * 60 * 60 * 24);
@@ -49,6 +49,10 @@ public class Config {
 
     public void setUserPrefsFilePath(String userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
+    }
+    
+    public void setTaskBookFilePath(String taskBookFilePath) {
+        this.DEFAULT_CONFIG_FILE = taskBookFilePath;
     }
 
     @Override
