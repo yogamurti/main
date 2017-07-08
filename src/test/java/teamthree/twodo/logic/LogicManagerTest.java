@@ -59,7 +59,7 @@ import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
-import teamthree.twodo.testutil.PersonBuilder;
+import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class LogicManagerTest {
 
@@ -370,10 +370,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = new PersonBuilder().withName("bla bla KEY bla").build();
-        Task pTarget2 = new PersonBuilder().withName("bla KEY bla bceofeia").build();
-        Task p1 = new PersonBuilder().withName("KE Y").build();
-        Task p2 = new PersonBuilder().withName("KEYKEYKEY sduauo").build();
+        Task pTarget1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
+        Task pTarget2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
+        Task p1 = new TaskWithDeadlineBuilder().withName("KE Y").build();
+        Task p2 = new TaskWithDeadlineBuilder().withName("KEYKEYKEY sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
@@ -387,10 +387,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = new PersonBuilder().withName("bla bla KEY bla").build();
-        Task p2 = new PersonBuilder().withName("bla KEY bla bceofeia").build();
-        Task p3 = new PersonBuilder().withName("key key").build();
-        Task p4 = new PersonBuilder().withName("KEy sduauo").build();
+        Task p1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
+        Task p2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
+        Task p3 = new TaskWithDeadlineBuilder().withName("key key").build();
+        Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
@@ -404,10 +404,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = new PersonBuilder().withName("bla bla KEY bla").build();
-        Task pTarget2 = new PersonBuilder().withName("bla rAnDoM bla bceofeia").build();
-        Task pTarget3 = new PersonBuilder().withName("key key").build();
-        Task p1 = new PersonBuilder().withName("sduauo").build();
+        Task pTarget1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
+        Task pTarget2 = new TaskWithDeadlineBuilder().withName("bla rAnDoM bla bceofeia").build();
+        Task pTarget3 = new TaskWithDeadlineBuilder().withName("key key").build();
+        Task p1 = new TaskWithDeadlineBuilder().withName("sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());

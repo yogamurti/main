@@ -21,7 +21,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
-import teamthree.twodo.testutil.PersonBuilder;
+import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class AddCommandTest {
 
@@ -37,7 +37,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Task validPerson = new PersonBuilder().build();
+        Task validPerson = new TaskWithDeadlineBuilder().build();
 
         CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
@@ -48,7 +48,7 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
-        Task validPerson = new PersonBuilder().build();
+        Task validPerson = new TaskWithDeadlineBuilder().build();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
