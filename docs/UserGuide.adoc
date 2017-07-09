@@ -185,7 +185,7 @@ Example: `option p/ DO {main} NOW!`
 ** Default setting is 7 days
 * Default prompt message for reminders can be edited
 ** Default message is _{main} needs to be completed soon!_
-* Default automatic mark for completion setting can be edited 
+* Default automatic mark for completion setting can be edited
 ** Default setting will prompt user requesting if the activity was completed
 ** This can be changed to automatically marking the activity as complete instead of prompting
 ** Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
@@ -197,7 +197,7 @@ Format: `save [directory]` +
 Example: `save C:\Program Files\Common Files\2Do.txt`
 ****
 * Saves the current to-do list and exports it as a text file in the directory specified
-* By default, the file will be saved as to-do.txt on  _C:\Program Files_ 
+* By default, the file will be saved as to-do.txt on  _C:\Program Files_
 ** 2Do creates the file if it does not exist
 ****
 
@@ -245,3 +245,4 @@ Example: `quit`
 |clear / -c|clear|
 |quit / -q|quit|
 |=======================================================================
+

@@ -17,9 +17,8 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.commons.util.FileUtil;
 import teamthree.twodo.commons.util.XmlUtil;
-import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Deadline;
-import teamthree.twodo.model.task.Email;
+import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -55,17 +54,16 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             //CHECKSTYLE.OFF: LineLength
-            return new Task[]{
-                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("9482424"), new Email("hans@example.com"), new Description("4th street"), getTagSet()),
-                new Task(new Name("Boris Mueller"), new Deadline("87249245"), new Email("ruth@example.com"), new Description("81th street"), getTagSet()),
-                new Task(new Name("Carl Kurz"), new Deadline("95352563"), new Email("heinz@example.com"), new Description("wall street"), getTagSet()),
-                new Task(new Name("Daniel Meier"), new Deadline("87652533"), new Email("cornelia@example.com"), new Description("10th street"), getTagSet()),
-                new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Email("werner@example.com"), new Description("michegan ave"), getTagSet()),
-                new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Email("lydia@example.com"), new Description("little tokyo"), getTagSet()),
-                new Task(new Name("George Best"), new Deadline("9482442"), new Email("anna@example.com"), new Description("4th street"), getTagSet()),
-                new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Email("stefan@example.com"), new Description("little india"), getTagSet()),
-                new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Email("hans@example.com"), new Description("chicago ave"), getTagSet())
-            };
+            return new Task[] {
+                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("fri 10am", "sat 10pm", "1 day"), new Description("4th street"), getTagSet()),
+                new TaskWithDeadline(new Name("Boris Mueller"), new Deadline("thu 11am", "sat 11pm", "1 day"), new Description("81th street"), getTagSet()),
+                new TaskWithDeadline(new Name("Carl Kurz"), new Deadline("next fri 10am", "next sat 10pm", "1 day"), new Description("wall street"), getTagSet()),
+                new TaskWithDeadline(new Name("Daniel Meier"), new Deadline("wed 10am", "sat 10pm", "2 days"), new Description("10th street"), getTagSet()),
+                new TaskWithDeadline(new Name("Elle Meyer"), new Deadline("next wed 10am", "next wed 10pm", "3 days"), new Description("michegan ave"), getTagSet()),
+                new TaskWithDeadline(new Name("Fiona Kunz"), new Deadline("fri 10am", "sat 10pm", "1 day"), new Description("little tokyo"), getTagSet()),
+                new TaskWithDeadline(new Name("George Best"), new Deadline("10am", "10pm", "1 day"), new Description("4th street"), getTagSet()),
+                new TaskWithDeadline(new Name("Hoon Meier"), new Deadline("23/12/17", "25/12/17", "1 day"), new Description("little india"), getTagSet()),
+                new TaskWithDeadline(new Name("Ida Mueller"), new Deadline("12/12/17", "12/12/17", "1 day"), new Description("chicago ave"), getTagSet()) };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
             assert false;
@@ -79,8 +77,9 @@ public class TestUtil {
     }
 
     /**
-     * Appends the file name to the sandbox folder path.
-     * Creates the sandbox folder if it doesn't exist.
+     * Appends the file name to the sandbox folder path. Creates the sandbox
+     * folder if it doesn't exist.
+     *
      * @param fileName
      * @return
      */
@@ -105,6 +104,7 @@ public class TestUtil {
 
     /**
      * Gets mid point of a node relative to the screen.
+     *
      * @param node
      * @return
      */
@@ -120,8 +120,11 @@ public class TestUtil {
 
     /**
      * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
+     *
+     * @param persons
+     *            The list of persons
+     * @param personsToRemove
+     *            The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
     public static Task[] removePersonsFromList(final Task[] persons, Task... personsToRemove) {
@@ -130,10 +133,11 @@ public class TestUtil {
         return listOfPersons.toArray(new Task[listOfPersons.size()]);
     }
 
-
     /**
      * Returns a copy of the list with the person at specified index removed.
-     * @param list original list to copy from
+     *
+     * @param list
+     *            original list to copy from
      */
     public static Task[] removePersonFromList(final Task[] list, Index index) {
         return removePersonsFromList(list, list[index.getZeroBased()]);
@@ -141,8 +145,11 @@ public class TestUtil {
 
     /**
      * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
+     *
+     * @param persons
+     *            A array of persons.
+     * @param personsToAdd
+     *            The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
     public static Task[] addPersonsToList(final Task[] persons, Task... personsToAdd) {
