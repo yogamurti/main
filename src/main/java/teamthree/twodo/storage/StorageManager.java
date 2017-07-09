@@ -8,11 +8,14 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.ComponentManager;
+import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
+import teamthree.twodo.commons.events.storage.TaskBookStorageChangedEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
+import teamthree.twodo.commons.util.ConfigUtil;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -25,11 +28,13 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private TaskBookStorage taskBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private Config config;
 
     public StorageManager(TaskBookStorage taskBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.taskBookStorage = taskBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.config = new Config();
     }
 
     // ================ UserPrefs methods ==============================
@@ -54,6 +59,14 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public String getTaskBookFilePath() {
         return taskBookStorage.getTaskBookFilePath();
+    }
+    
+    @Override
+    public void setTaskBookFilePath(String filePath) throws IOException {
+        taskBookStorage.setTaskBookFilePath(filePath);
+        config.setTaskBookFilePath(filePath);
+        ConfigUtil.saveConfig(config, filePath);
+        raise (new TaskBookStorageChangedEvent(filePath));
     }
 
     @Override

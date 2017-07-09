@@ -41,4 +41,11 @@ public interface TaskBookStorage {
      */
     void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException;
 
+    /**
+     * Changes the filePath at which task book will be saved at
+     * @param filePath cannot be invalid or null
+     * @throws IOException if there is any problem in the filePath
+     */
+    void setTaskBookFilePath(String filePath) throws IOException;
+
 }
