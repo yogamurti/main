@@ -91,8 +91,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
-                throws DuplicateTaskException {
+        public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson) throws DuplicateTaskException {
             fail("This method should not be called.");
         }
 
@@ -111,10 +110,17 @@ public class AddCommandTest {
         public void updateFilteredTaskList(Set<String> keywords) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void saveTaskBook() {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     /**
-     * A Model stub that always throw a DuplicateTaskException when trying to add a person.
+     * A Model stub that always throw a DuplicateTaskException when trying to
+     * add a person.
      */
     private class ModelStubThrowingDuplicatePersonException extends ModelStub {
         @Override
