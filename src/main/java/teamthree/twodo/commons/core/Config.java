@@ -8,15 +8,13 @@ import java.util.logging.Level;
  */
 public class Config {
 
-    public static String DEFAULT_CONFIG_FILE = "config.json";
-
     //Default notification period of 1 day. Can be changed by user.
     private static Long notificationPeriod = (long) (1000 * 60 * 60 * 24);
+    private static String defaultConfigFile = "config.json";
     // Config values customizable through config file
     private String appTitle = "Description App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-
 
     public static Long getDefaultNotificationPeriod() {
         return notificationPeriod;
@@ -25,7 +23,6 @@ public class Config {
     public static void setDefaultNotificationPeriod(long newNotificationPeriod) {
         notificationPeriod = newNotificationPeriod;
     }
-
 
     public String getAppTitle() {
         return appTitle;
@@ -50,9 +47,9 @@ public class Config {
     public void setUserPrefsFilePath(String userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
     }
-    
+
     public void setTaskBookFilePath(String taskBookFilePath) {
-        this.DEFAULT_CONFIG_FILE = taskBookFilePath;
+        this.setDefaultConfigFile(taskBookFilePath);
     }
 
     @Override
@@ -66,8 +63,7 @@ public class Config {
 
         Config o = (Config) other;
 
-        return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(logLevel, o.logLevel)
+        return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
     }
 
@@ -83,6 +79,14 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         return sb.toString();
+    }
+
+    public static String getDefaultConfigFile() {
+        return defaultConfigFile;
+    }
+
+    public static void setDefaultConfigFile(String file) {
+        defaultConfigFile = file;
     }
 
 }

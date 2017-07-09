@@ -16,8 +16,8 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the address book data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -70,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
-    
+
     @Override
     public void saveTaskBook() {
         indicateTaskBookChanged();
@@ -88,7 +88,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors =============================================================
 
     /**
-     * Return a list of {@code ReadOnlyTask} backed by the internal list of {@code taskBook}
+     * Return a list of {@code ReadOnlyTask} backed by the internal list of
+     * {@code taskBook}
      */
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
@@ -123,14 +124,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return taskBook.equals(other.taskBook)
-                && filteredTasks.equals(other.filteredTasks);
+        return taskBook.equals(other.taskBook) && filteredTasks.equals(other.filteredTasks);
     }
 
     //========== Inner classes/interfaces used for filtering =================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -155,6 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -168,8 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getName().fullName, keyword)).findAny()
                     .isPresent();
         }
 
@@ -178,7 +179,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-   
 
 }

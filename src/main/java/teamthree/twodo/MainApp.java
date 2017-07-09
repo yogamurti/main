@@ -69,7 +69,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model,storage);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -111,7 +111,7 @@ public class MainApp extends Application {
         Config initializedConfig;
         String configFilePathUsed;
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        configFilePathUsed = Config.getDefaultConfigFile();
 
         if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
