@@ -31,6 +31,13 @@ public class LogicManager extends ComponentManager implements Logic {
         this.parser = new Parser();
         this.storage = storage;
     }
+    //Temp constructor for logicmanagertest
+    public LogicManager(Model model) {
+        this.model = model;
+        this.history = new CommandHistory();
+        this.parser = new Parser();
+        storage = null;
+    }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {

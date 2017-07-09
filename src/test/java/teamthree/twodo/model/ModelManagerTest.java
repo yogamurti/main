@@ -47,7 +47,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookName("differentName");
+        differentUserPrefs.setTaskBookName("differentName");
         assertTrue(modelManager.equals(new ModelManager(taskBook, differentUserPrefs)));
     }
 }
