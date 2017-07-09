@@ -19,7 +19,7 @@ import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.testutil.TaskUtil;
 import teamthree.twodo.ui.StatusBarFooter;
 
-public class StatusBarFooterTest extends AddressBookGuiTest {
+public class StatusBarFooterTest extends TaskBookGuiTest {
 
     private Clock originalClock;
     private Clock injectedClock;

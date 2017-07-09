@@ -12,7 +12,7 @@ import org.junit.Test;
 import teamthree.twodo.logic.commands.SelectCommand;
 import teamthree.twodo.ui.CommandBox;
 
-public class CommandBoxTest extends AddressBookGuiTest {
+public class CommandBoxTest extends TaskBookGuiTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = SelectCommand.COMMAND_WORD + " 3";
     private static final String COMMAND_THAT_FAILS = "invalid command";

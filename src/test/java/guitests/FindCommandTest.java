@@ -10,7 +10,7 @@ import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.model.task.Task;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskBookGuiTest {
 
     @Test
     public void find_nonEmptyList() {

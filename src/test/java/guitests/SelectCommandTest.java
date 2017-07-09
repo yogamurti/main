@@ -10,7 +10,7 @@ import teamthree.twodo.logic.commands.ClearCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskBookGuiTest {
 
 
     @Test

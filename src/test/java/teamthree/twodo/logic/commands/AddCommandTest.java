@@ -19,6 +19,7 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
@@ -36,18 +37,18 @@ public class AddCommandTest {
 
     @Test
     public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
         Task validTask = new TaskWithDeadlineBuilder().build();
 
         CommandResult commandResult = getAddCommandForTask(validTask, modelStub).execute();
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validTask), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
     @Test
     public void execute_duplicateTask_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
+        ModelStub modelStub = new ModelStubThrowingDuplicateTaskException();
         Task validTask = new TaskWithDeadlineBuilder().build();
 
         thrown.expect(CommandException.class);
@@ -122,7 +123,7 @@ public class AddCommandTest {
      * A Model stub that always throw a DuplicateTaskException when trying to
      * add a person.
      */
-    private class ModelStubThrowingDuplicatePersonException extends ModelStub {
+    private class ModelStubThrowingDuplicateTaskException extends ModelStub {
         @Override
         public void addTask(ReadOnlyTask person) throws DuplicateTaskException {
             throw new DuplicateTaskException();
@@ -132,12 +133,16 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Task> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingTaskAdded extends ModelStub {
+        final ArrayList<Task> tasksAdded = new ArrayList<>();
 
         @Override
-        public void addTask(ReadOnlyTask person) throws DuplicateTaskException {
-            personsAdded.add(new Task(person));
+        public void addTask(ReadOnlyTask task) throws DuplicateTaskException {
+            if (task instanceof TaskWithDeadline) {
+                tasksAdded.add(new TaskWithDeadline(task));
+            } else {
+                tasksAdded.add(new Task(task));
+            }
         }
     }
 

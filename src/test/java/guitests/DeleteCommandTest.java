@@ -11,7 +11,7 @@ import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TestUtil;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskBookGuiTest {
 
     @Test
     public void delete() {
@@ -22,12 +22,12 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = Index.fromOneBased(currentList.length);
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = Index.fromOneBased(currentList.length / 2);
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -43,7 +43,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      */
     private void assertDeleteSuccess(Index index, final Task[] currentList) {
         Task personToDelete = currentList[index.getZeroBased()];
-        Task[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
+        Task[] expectedRemainder = TestUtil.removeTaskFromList(currentList, index);
 
         commandBox.runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 

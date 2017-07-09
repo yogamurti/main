@@ -9,7 +9,7 @@ import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.util.SampleDataUtil;
 import teamthree.twodo.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookGuiTest {
+public class SampleDataTest extends TaskBookGuiTest {
     @Override
     protected TaskBook getInitialData() {
         // return null to force test app to load data from file only
