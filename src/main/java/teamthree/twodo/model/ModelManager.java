@@ -70,6 +70,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
+    
+    @Override
+    public void saveTaskBook() {
+        indicateTaskBookChanged();
+    }
 
     @Override
     public void updateTask(ReadOnlyTask target, ReadOnlyTask editedTask)
@@ -173,5 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+   
 
 }

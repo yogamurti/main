@@ -31,6 +31,11 @@ public class XmlTaskBookStorage implements TaskBookStorage {
     public String getTaskBookFilePath() {
         return filePath;
     }
+    
+    @Override
+    public void setTaskBookFilePath(String filePath) throws IOException {
+        this.filePath = filePath;
+    }
 
     @Override
     public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
@@ -96,5 +101,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveNotificationToFile(file, XmlSerializableTaskBook.getXmlSerializableTaskList(notified));
     }
+
+    
 
 }
