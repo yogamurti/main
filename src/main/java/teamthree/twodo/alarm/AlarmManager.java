@@ -69,7 +69,9 @@ public class AlarmManager extends ComponentManager {
     }
 
     public void startTimerTask() {
-        masterClock.schedule(new NextReminder(), nextReminderTime);
+    	if (nextReminderTime!=null) {
+    		masterClock.schedule(new NextReminder(), nextReminderTime);
+    	}
     }
 
     private Date getNotificationTime(ReadOnlyTask task) {
@@ -99,8 +101,10 @@ public class AlarmManager extends ComponentManager {
                     tasksToRemindOf.add(t);
                 }
             });
-
-            raise(new DeadlineNotificationTimeReachedEvent(tasksToRemindOf));
+            
+            if (tasksToRemindOf.size()>0) {
+            	raise(new DeadlineNotificationTimeReachedEvent(tasksToRemindOf));
+            }
 
             updateInternalData(tasksToRemindOf);
 
@@ -143,7 +147,9 @@ public class AlarmManager extends ComponentManager {
     }
 
     private void updateNextReminder() {
-        nextReminderTime = getNotificationTime(notificationList.get(0));
+    	if (notificationList.size()>0) {
+    		nextReminderTime = getNotificationTime(notificationList.get(0));
+    	}
     }
 
     /**
