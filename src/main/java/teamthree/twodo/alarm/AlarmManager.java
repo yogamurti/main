@@ -36,13 +36,13 @@ public class AlarmManager extends ComponentManager {
 
     public AlarmManager(Model model) {
         this.model = model;
-        syncWithMasterTaskList(model.getAddressBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 
     public AlarmManager(EventsCenter eventsCenter, Model model) {
         super(eventsCenter);
         this.model = model;
-        syncWithMasterTaskList(model.getAddressBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 
     /**
@@ -157,7 +157,7 @@ public class AlarmManager extends ComponentManager {
      */
     @Subscribe
     private void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        syncWithMasterTaskList(model.getAddressBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 
 }

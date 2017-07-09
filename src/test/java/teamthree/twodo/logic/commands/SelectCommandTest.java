@@ -77,7 +77,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getTaskList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -86,7 +86,7 @@ public class SelectCommandTest {
      * Updates {@code model}'s filtered list to show only the first person from the address book.
      */
     private void showFirstPersonOnly(Model model) {
-        ReadOnlyTask person = model.getAddressBook().getTaskList().get(0);
+        ReadOnlyTask person = model.getTaskBook().getTaskList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 

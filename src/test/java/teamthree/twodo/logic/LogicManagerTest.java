@@ -98,7 +98,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskBook(model.getAddressBook()); // last saved assumed to be up to date
+        latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date
         helpShown = false;
         targetedJumpIndex = null;
     }
@@ -152,7 +152,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private <T> void assertCommandFailure(String inputCommand, Class<T> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -178,7 +178,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getAddressBook(), latestSavedAddressBook);
+        assertEquals(expectedModel.getTaskBook(), latestSavedAddressBook);
     }
 
     @Test
