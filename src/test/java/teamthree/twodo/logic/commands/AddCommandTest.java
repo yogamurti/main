@@ -112,7 +112,19 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredTaskList(ReadOnlyTask task) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
         public void saveTaskBook() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void markTask(ReadOnlyTask person) throws TaskNotFoundException {
             // TODO Auto-generated method stub
 
         }

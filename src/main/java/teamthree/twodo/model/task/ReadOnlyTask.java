@@ -14,6 +14,7 @@ public interface ReadOnlyTask {
     Name getName();
     Description getDescription();
     Set<Tag> getTags();
+    boolean isCompleted();
     Optional<Deadline> getDeadline();
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -23,7 +24,8 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName())// state checks here onwards
                 && other.getDeadline().equals(this.getDeadline())
-                && other.getDescription().equals(this.getDescription()));
+                && other.getDescription().equals(this.getDescription()))
+                && other.isCompleted() == this.isCompleted();
     }
 
     /**
@@ -34,6 +36,8 @@ public interface ReadOnlyTask {
         builder.append(getName() + "\n")
                 .append("\nDescription: ")
                 .append(getDescription())
+                .append("\nCompleted: ")
+                .append(isCompleted())
                 .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
