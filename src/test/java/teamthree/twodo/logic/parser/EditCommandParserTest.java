@@ -28,7 +28,6 @@ import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
-import teamthree.twodo.model.task.Description;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -44,8 +43,7 @@ public class EditCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     //Must be valid description of a date
-    private static final String INVALID_DEADLINE_DESC = " " + PREFIX_DEADLINE_START + "911a";
-    private static final String INVALID_DESCRIPTION = " " + PREFIX_DESCRIPTION;
+    private static final String INVALID_DEADLINE_DESC = " " + PREFIX_DEADLINE_START + "anus";
     private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -83,7 +81,6 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure("1" + INVALID_DEADLINE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT); // invalid phone
-        assertParseFailure("1" + INVALID_DESCRIPTION, Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // invalid address
         assertParseFailure("1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone

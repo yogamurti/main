@@ -104,28 +104,70 @@ public class EditCommand extends Command {
         return new Task(updatedName, updatedDescription, updatedTags);
     }
 
+    /**
+     * Returns the final deadline with all the updates integrated.
+     *
+     * @param taskToEdit
+     *            the original task
+     * @param editTaskDescriptor
+     *            the taskdescriptor with updates
+     * @return final deadline with all updates
+     */
     private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         if (!editTaskDescriptor.getDeadline().isPresent() && taskToEdit instanceof TaskWithDeadline) {
             return taskToEdit.getDeadline().get();
-        } else if (!(taskToEdit instanceof TaskWithDeadline)) {
-            return editTaskDescriptor.getDeadline().get();
+        }
+        Deadline updates = editTaskDescriptor.getDeadline().get();
+        if (!(taskToEdit instanceof TaskWithDeadline)) {
+            //if original task had no deadline, the new deadline will be fully from task descriptor
+            return correctStartEndDiscrepancy(updates, updates);
         }
         Deadline old = taskToEdit.getDeadline().get();
-        Deadline updates = editTaskDescriptor.getDeadline().get();
 
         Date start = isDefaultDate(updates.getStartDate()) ? old.getStartDate() : updates.getStartDate();
         Date end = isDefaultDate(updates.getEndDate()) ? old.getEndDate() : updates.getEndDate();
-        //Final check to correct for start and end discrepancy
+
+        Long notification = updateNotificationPeriod(old, updates);
+        return correctStartEndDiscrepancy(new Deadline(start, end, notification), updates);
+    }
+
+    /**
+     * Checks if the notification period is being updated and returns the
+     * updated version if true
+     *
+     */
+    private static Long updateNotificationPeriod(Deadline old, Deadline updates) {
+        Long notification = updates.getNotificationPeriod().equals(old.getNotificationPeriod())
+                ? old.getNotificationPeriod() : updates.getNotificationPeriod();
+        return notification;
+    }
+
+    /**
+     * Checks and corrects for start and end date discrepancy (i.e. start date
+     * after end date). If a date is default, it means that it is not being
+     * updated
+     *
+     * @param updatedDate
+     *            the final deadline with all updates integrated
+     * @param updates
+     *            the updates in this edit
+     * @return final deadline with all start and end date discrepancies cleared
+     */
+
+    private static Deadline correctStartEndDiscrepancy(Deadline updatedDate, Deadline updates) {
+        Date start = updatedDate.getStartDate();
+        Date end = updatedDate.getEndDate();
         if (start.after(end) && isDefaultDate(updates.getEndDate())) {
             end = start;
         } else if (end.before(start) && isDefaultDate(updates.getStartDate())) {
             start = end;
         }
-        Long notification = updates.getNotificationPeriod().equals(old.getNotificationPeriod())
-                ? old.getNotificationPeriod() : updates.getNotificationPeriod();
-        return new Deadline(start, end, notification);
+        return new Deadline(start, end, updatedDate.getNotificationPeriod());
     }
 
+    /**
+     * Returns true if the given date is the default date
+     */
     private static boolean isDefaultDate(Date updates) {
         return updates.equals(Deadline.DEFAULT_DATE);
     }
