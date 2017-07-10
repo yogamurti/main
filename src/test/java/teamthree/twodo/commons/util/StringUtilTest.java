@@ -42,7 +42,7 @@ public class StringUtilTest {
 
         // EP: numbers with white space
         assertFalse(StringUtil.isNonZeroUnsignedInteger(" 10 ")); // Leading/trailing spaces
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("1 0"));  // Spaces in the middle
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("1 0")); // Spaces in the middle
 
         // EP: number larger than Integer.MAX_VALUE
         assertFalse(StringUtil.isNonZeroUnsignedInteger(Long.toString(Integer.MAX_VALUE + 1)));
@@ -52,13 +52,12 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
-
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 
     /*
      * Invalid equivalence partitions for word: null, empty, multiple words
-     * Invalid equivalence partitions for sentence: null
-     * The four test cases below test one invalid input at a time.
+     * Invalid equivalence partitions for sentence: null The four test cases
+     * below test one invalid input at a time.
      */
 
     @Test
@@ -91,28 +90,20 @@ public class StringUtilTest {
     }
 
     /*
-     * Valid equivalence partitions for word:
-     *   - any word
-     *   - word containing symbols/numbers
-     *   - word with leading/trailing spaces
+     * Valid equivalence partitions for word: - any word - word containing
+     * symbols/numbers - word with leading/trailing spaces
      *
-     * Valid equivalence partitions for sentence:
-     *   - empty string
-     *   - one word
-     *   - multiple words
-     *   - sentence with extra spaces
+     * Valid equivalence partitions for sentence: - empty string - one word -
+     * multiple words - sentence with extra spaces
      *
-     * Possible scenarios returning true:
-     *   - matches first word in sentence
-     *   - last word in sentence
-     *   - middle word in sentence
-     *   - matches multiple words
+     * Possible scenarios returning true: - matches first word in sentence -
+     * last word in sentence - middle word in sentence - matches multiple words
      *
-     * Possible scenarios returning false:
-     *   - query word matches part of a sentence word
-     *   - sentence word matches part of the query word
+     * Possible scenarios returning false: - query word matches part of a
+     * sentence word - sentence word matches part of the query word
      *
-     * The test method below tries to verify all above with a reasonably low number of test cases.
+     * The test method below tries to verify all above with a reasonably low
+     * number of test cases.
      */
 
     @Test
@@ -123,7 +114,6 @@ public class StringUtilTest {
         assertFalse(StringUtil.containsWordIgnoreCase("    ", "123"));
 
         // Matches a partial word only
-        assertFalse(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
         assertFalse(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
 
         // Matches word in the sentence, different upper/lower case letters
@@ -146,7 +136,7 @@ public class StringUtilTest {
     @Test
     public void getDetails_exceptionGiven() {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
-                   containsString("java.io.FileNotFoundException: file not found"));
+                containsString("java.io.FileNotFoundException: file not found"));
     }
 
     @Test
@@ -154,6 +144,5 @@ public class StringUtilTest {
         thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }
-
 
 }
