@@ -21,7 +21,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
-import teamthree.twodo.testutil.PersonBuilder;
+import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class AddCommandTest {
 
@@ -29,37 +29,37 @@ public class AddCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() throws Exception {
+    public void constructor_nullTask_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Task validPerson = new PersonBuilder().build();
+        Task validTask = new TaskWithDeadlineBuilder().build();
 
-        CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
+        CommandResult commandResult = getAddCommandForTask(validTask, modelStub).execute();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validTask), modelStub.personsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicateTask_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
-        Task validPerson = new PersonBuilder().build();
+        Task validTask = new TaskWithDeadlineBuilder().build();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 
-        getAddCommandForPerson(validPerson, modelStub).execute();
+        getAddCommandForTask(validTask, modelStub).execute();
     }
 
     /**
      * Generates a new AddCommand with the details of the given person.
      */
-    private AddCommand getAddCommandForPerson(Task task, Model model) throws IllegalValueException {
+    private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
         command.setData(model, new CommandHistory());
         return command;
@@ -80,7 +80,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyTaskBook getAddressBook() {
+        public ReadOnlyTaskBook getTaskBook() {
             fail("This method should not be called.");
             return null;
         }
@@ -91,8 +91,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
-                throws DuplicateTaskException {
+        public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson) throws DuplicateTaskException {
             fail("This method should not be called.");
         }
 
@@ -111,10 +110,17 @@ public class AddCommandTest {
         public void updateFilteredTaskList(Set<String> keywords) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void saveTaskBook() {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     /**
-     * A Model stub that always throw a DuplicateTaskException when trying to add a person.
+     * A Model stub that always throw a DuplicateTaskException when trying to
+     * add a person.
      */
     private class ModelStubThrowingDuplicatePersonException extends ModelStub {
         @Override

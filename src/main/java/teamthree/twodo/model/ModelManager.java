@@ -16,8 +16,8 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the address book data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -49,7 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskBook getAddressBook() {
+    public ReadOnlyTaskBook getTaskBook() {
         return taskBook;
     }
 
@@ -60,14 +60,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.removePerson(target);
+        taskBook.removeTask(target);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void addTask(ReadOnlyTask person) throws DuplicateTaskException {
-        taskBook.addPerson(person);
+        taskBook.addTask(person);
         updateFilteredListToShowAll();
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public void saveTaskBook() {
         indicateTaskBookChanged();
     }
 
@@ -76,14 +81,15 @@ public class ModelManager extends ComponentManager implements Model {
             throws DuplicateTaskException, TaskNotFoundException {
         requireAllNonNull(target, editedTask);
 
-        taskBook.updatePerson(target, editedTask);
+        taskBook.updateTask(target, editedTask);
         indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors =============================================================
 
     /**
-     * Return a list of {@code ReadOnlyTask} backed by the internal list of {@code taskBook}
+     * Return a list of {@code ReadOnlyTask} backed by the internal list of
+     * {@code taskBook}
      */
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
@@ -123,15 +129,18 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return taskBook.equals(other.taskBook)
-                && filteredTasks.equals(other.filteredTasks);
+        return taskBook.equals(other.taskBook) && filteredTasks.equals(other.filteredTasks);
     }
 
     //========== Inner classes/interfaces used for filtering =================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+<<<<<<< HEAD
         @Override
+=======
+
+>>>>>>> 6d64a7545375de954831d1a03d96e884fa9cbf58
         String toString();
     }
 
@@ -156,7 +165,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+<<<<<<< HEAD
         @Override
+=======
+
+>>>>>>> 6d64a7545375de954831d1a03d96e884fa9cbf58
         String toString();
     }
 
@@ -170,8 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getName().fullName, keyword)).findAny()
                     .isPresent();
         }
 

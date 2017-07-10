@@ -4,6 +4,7 @@ import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
+import teamthree.twodo.storage.Storage;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -11,9 +12,10 @@ import teamthree.twodo.model.Model;
 public abstract class Command {
     protected Model model;
     protected CommandHistory history;
+    protected Storage storage;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
      * @param displaySize used to generate summary
      * @return summary message for persons displayed
@@ -37,5 +39,9 @@ public abstract class Command {
      */
     public void setData(Model model, CommandHistory history) {
         this.model = model;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
     }
 }

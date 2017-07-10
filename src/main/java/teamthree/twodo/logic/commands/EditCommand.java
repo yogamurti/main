@@ -28,7 +28,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Edits the details of an existing person in the description book.
+ * Edits the details of an existing task in the description book.
  */
 public class EditCommand extends Command {
 

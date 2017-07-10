@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import teamthree.twodo.alarm.AlarmManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.LogsCenter;
@@ -48,9 +49,9 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected AlarmManager alarm;
     protected Config config;
     protected UserPrefs userPrefs;
-
 
     @Override
     public void init() throws Exception {
@@ -61,18 +62,20 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        TaskBookStorage taskBookStorage = new XmlTaskBookStorage(userPrefs.getAddressBookFilePath());
+        TaskBookStorage taskBookStorage = new XmlTaskBookStorage(userPrefs.getTaskBookFilePath());
         storage = new StorageManager(taskBookStorage, userPrefsStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
+        alarm = new AlarmManager(model);
     }
 
     private String getApplicationParameter(String parameterName) {
@@ -108,7 +111,7 @@ public class MainApp extends Application {
         Config initializedConfig;
         String configFilePathUsed;
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        configFilePathUsed = Config.getDefaultConfigFile();
 
         if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);

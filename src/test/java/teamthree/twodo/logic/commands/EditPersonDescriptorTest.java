@@ -2,57 +2,56 @@ package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_AMY;
-import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_BOB;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_ADDRESS_BOB;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_EMAIL_BOB;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_BOB;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
+import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_CSMOD;
+import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_EVENT;
+import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_DESCRIPTION_EVENT;
+import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
+import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
+import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 
 import org.junit.Test;
 
 import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
-import teamthree.twodo.testutil.EditPersonDescriptorBuilder;
+import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
 
     @Test
     public void equals() throws Exception {
         // same values -> returns true
-        EditTaskDescriptor descriptorWithSameValues = new EditTaskDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditTaskDescriptor descriptorWithSameValues = new EditTaskDescriptor(DESC_CSMOD);
+        assertTrue(DESC_CSMOD.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_CSMOD.equals(DESC_CSMOD));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_CSMOD.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_CSMOD.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_CSMOD.equals(DESC_EVENT));
 
         // different name -> returns false
-        EditTaskDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditTaskDescriptor editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withName(VALID_NAME_EVENT).build();
+        assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withStartDeadline(VALID_START_DATE).build();
+        assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).build();
+        assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withDescription(VALID_DESCRIPTION_EVENT).build();
+        assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withTags(VALID_TAG_WORK).build();
+        assertFalse(DESC_CSMOD.equals(editedAmy));
     }
 }

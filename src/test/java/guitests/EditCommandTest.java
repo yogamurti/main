@@ -22,7 +22,7 @@ import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.Task;
-import teamthree.twodo.testutil.PersonBuilder;
+import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends AddressBookGuiTest {
@@ -38,8 +38,8 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_TAG + "husband";
         Index addressBookIndex = INDEX_FIRST_PERSON;
 
-        Task editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
-                .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
+        Task editedPerson = new TaskWithDeadlineBuilder().withName("Bobby").withDeadline("91234567")
+                .withDescription("Block 123, Bobby Street 3").withTags("husband").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -51,7 +51,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
         Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Task editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+        Task editedPerson = new TaskWithDeadlineBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -62,7 +62,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
         Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Task editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        Task editedPerson = new TaskWithDeadlineBuilder(personToEdit).withTags().build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -75,7 +75,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         Index addressBookIndex = INDEX_THIRD_PERSON;
 
         Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Task editedPerson = new PersonBuilder(personToEdit).withName("Carrle").build();
+        Task editedPerson = new TaskWithDeadlineBuilder(personToEdit).withName("Carrle").build();
 
         assertEditSuccess(INDEX_FIRST_PERSON, addressBookIndex, detailsToEdit, editedPerson);
     }

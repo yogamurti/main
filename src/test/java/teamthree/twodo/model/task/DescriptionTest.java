@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class AddressTest {
+public class DescriptionTest {
 
     @Test
     public void isValidAddress() {
@@ -16,6 +16,6 @@ public class AddressTest {
         // valid addresses
         assertTrue(Description.isValidAddress("Blk 456, Den Road, #01-355"));
         assertTrue(Description.isValidAddress("-")); // one character
-        assertTrue(Description.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Description.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA"));
     }
 }

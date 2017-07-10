@@ -29,7 +29,7 @@ public class ListCommandTest {
     @Before
     public void setUp() {
         model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
 
         listCommand = new ListCommand();
         listCommand.setData(model, new CommandHistory());
@@ -50,7 +50,7 @@ public class ListCommandTest {
      * Updates the filtered list to show only the first person in the {@code model}'s address book.
      */
     private void showFirstPersonOnly(Model model) {
-        ReadOnlyTask person = model.getAddressBook().getTaskList().get(0);
+        ReadOnlyTask person = model.getTaskBook().getTaskList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 

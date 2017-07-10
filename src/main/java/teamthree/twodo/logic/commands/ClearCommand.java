@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import teamthree.twodo.model.TaskBook;
 
 /**
- * Clears the address book.
+ * Clears the TaskBooks.
  */
 public class ClearCommand extends Command {
 

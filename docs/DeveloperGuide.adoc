@@ -322,8 +322,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
 
-|`* * *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
-
 |`* * *` |user |describe my tasks in detail |add more information about the tasks, such as the venue
 
 |`* * *` |user |delete tasks |remove tasks that have been cancelled
@@ -356,7 +354,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
 
-|`* * *` |user |specify storage location |access my to-do list using different devices
+|`* * *` |user |specify a storage location |access my to-do list using different devices
+
+|`* *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
 |`* *` |user |have flexible command formats |execute actions in a more natural manner
 
@@ -366,7 +366,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user with many tagged tasks |clear all tasks that have a certain tag |conveniently clear all related tasks once a project or milestone is completed or cancelled
 
-|`* *` |user |be able to view my task history |look back at the tasks I have completed so far
+|`* *` |user | view my task history |look back at the tasks I have completed so far
 
 |`* *` |user |visualise my task as a calendar |more easily plan my schedule
 
@@ -376,7 +376,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many tasks |sort tasks in different ways |gain a better understanding of the tasks at hand
 
-|`*` |user |link a location |get directions to the task’s location, from my current location, with the click of a button
+|`*` |user |get directions |get directions to the task’s location, from my current location
 
 |`*` |user |block timeslots for events |stop scheduling events with conflicting timings
 
@@ -405,7 +405,7 @@ Use case ends
 
 *Extensions*
 
-1a. User input is invalid 
+1a. User input is invalid
 
 ____
 1a1. 2Do displays an error message
@@ -468,7 +468,7 @@ Use case ends
 
 *Extensions*
 
-2a. No tasks to display 
+2a. No tasks to display
 
 ____
 2a1. 2Do displays a “No task to display” message
@@ -496,7 +496,7 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display 
+2b. No tasks to display
 
 ____
 2b1. 2Do displays a “No task to display” message
@@ -546,7 +546,7 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display 
+2b. No tasks to display
 
 ____
 2b1. 2Do displays a “No task to display” message
@@ -584,7 +584,7 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display 
+2b. No tasks to display
 
 ____
 2b1. 2Do displays a “No task to display” message
@@ -622,7 +622,7 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display 
+2b. No tasks to display
 
 ____
 2b1. 2Do displays a “No task to display” message
@@ -668,7 +668,7 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display 
+2b. No tasks to display
 
 ____
 2b1. 2Do displays a “No task to display” message
@@ -938,3 +938,4 @@ Cons:
 
 * A command line interface is not available
 * Internet connection is required
+

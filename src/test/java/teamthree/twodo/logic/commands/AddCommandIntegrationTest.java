@@ -12,7 +12,7 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.Task;
-import teamthree.twodo.testutil.PersonBuilder;
+import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TypicalPersons;
 
 /**
@@ -29,9 +29,9 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() throws Exception {
-        Task validPerson = new PersonBuilder().build();
+        Task validPerson = new TaskWithDeadlineBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
         expectedModel.addTask(validPerson);
 
         CommandResult commandResult = prepareCommand(validPerson, model).execute();
@@ -42,9 +42,9 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Task personInList = new Task(model.getAddressBook().getTaskList().get(0));
+        Task personInList = new Task(model.getTaskBook().getTaskList().get(0));
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
 
         try {
             prepareCommand(personInList, model).execute();

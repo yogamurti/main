@@ -27,7 +27,7 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList persons;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     /*
@@ -39,7 +39,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * are other ways to avoid duplication among constructors.
      */
     {
-        persons = new UniqueTaskList();
+        tasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -56,8 +56,8 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     //// list overwrite operations
 
-    public void setPersons(List<? extends ReadOnlyTask> persons) throws DuplicateTaskException {
-        this.persons.setPersons(persons);
+    public void setTasks(List<? extends ReadOnlyTask> tasks) throws DuplicateTaskException {
+        this.tasks.setPersons(tasks);
     }
 
     public void setTags(Collection<Tag> tags) throws UniqueTagList.DuplicateTagException {
@@ -67,16 +67,16 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void resetData(ReadOnlyTaskBook newData) {
         requireNonNull(newData);
         try {
-            setPersons(newData.getTaskList());
+            setTasks(newData.getTaskList());
         } catch (DuplicateTaskException e) {
-            assert false : "AddressBooks should not have duplicate persons";
+            assert false : "AddressBooks should not have duplicate tasks";
         }
         try {
             setTags(newData.getTagList());
         } catch (UniqueTagList.DuplicateTagException e) {
             assert false : "AddressBooks should not have duplicate tags";
         }
-        syncMasterTagListWith(persons);
+        syncMasterTagListWith(tasks);
     }
 
     //// person-level operations
@@ -89,7 +89,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      * @throws DuplicateTaskException
      *             if an equivalent person already exists.
      */
-    public void addPerson(ReadOnlyTask p) throws DuplicateTaskException {
+    public void addTask(ReadOnlyTask p) throws DuplicateTaskException {
         Task newPerson;
         if (p instanceof TaskWithDeadline) {
             newPerson = new TaskWithDeadline(p);
@@ -97,7 +97,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             newPerson = new Task(p);
         }
         syncMasterTagListWith(newPerson);
-        persons.add(newPerson);
+        tasks.add(newPerson);
     }
 
     /**
@@ -113,21 +113,21 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @see #syncMasterTagListWith(Task)
      */
-    public void updatePerson(ReadOnlyTask target, ReadOnlyTask editedReadOnlyPerson)
+    public void updateTask(ReadOnlyTask target, ReadOnlyTask editedReadOnlyTask)
             throws DuplicateTaskException, TaskNotFoundException {
-        requireNonNull(editedReadOnlyPerson);
+        requireNonNull(editedReadOnlyTask);
 
-        Task editedPerson;
-        if (editedReadOnlyPerson instanceof TaskWithDeadline) {
-            editedPerson = new TaskWithDeadline(editedReadOnlyPerson);
+        Task editedTask;
+        if (editedReadOnlyTask instanceof TaskWithDeadline) {
+            editedTask = new TaskWithDeadline(editedReadOnlyTask);
         } else {
-            editedPerson = new Task(editedReadOnlyPerson);
+            editedTask = new Task(editedReadOnlyTask);
         }
-        syncMasterTagListWith(editedPerson);
+        syncMasterTagListWith(editedTask);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.updatePerson(target, editedPerson);
+        tasks.updateTask(target, editedTask);
     }
 
     /**
@@ -135,8 +135,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      * {@link #tags} - points to a Tag object in the master list
      */
     private void syncMasterTagListWith(Task task) {
-        final UniqueTagList personTags = new UniqueTagList(task.getTags());
-        tags.mergeFrom(personTags);
+        final UniqueTagList taskTags = new UniqueTagList(task.getTags());
+        tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         // used for checking person tag references
@@ -145,22 +145,22 @@ public class TaskBook implements ReadOnlyTaskBook {
 
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
-        personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+        taskTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         task.setTags(correctTagReferences);
     }
 
     /**
-     * Ensures that every tag in these persons: - exists in the master list
+     * Ensures that every tag in these tasks: - exists in the master list
      * {@link #tags} - points to a Tag object in the master list
      *
      * @see #syncMasterTagListWith(Task)
      */
-    private void syncMasterTagListWith(UniqueTaskList persons) {
-        persons.forEach(this::syncMasterTagListWith);
+    private void syncMasterTagListWith(UniqueTaskList tasks) {
+        tasks.forEach(this::syncMasterTagListWith);
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws TaskNotFoundException {
-        if (persons.remove(key)) {
+    public boolean removeTask(ReadOnlyTask key) throws TaskNotFoundException {
+        if (tasks.remove(key)) {
             return true;
         } else {
             throw new TaskNotFoundException();
@@ -177,13 +177,13 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() + " tags";
+        return tasks.asObservableList().size() + " tasks, " + tags.asObservableList().size() + " tags";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<ReadOnlyTask> getTaskList() {
-        return new UnmodifiableObservableList<>(persons.asObservableList());
+        return new UnmodifiableObservableList<>(tasks.asObservableList());
     }
 
     @Override
@@ -195,13 +195,13 @@ public class TaskBook implements ReadOnlyTaskBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
-                        && this.persons.equals(((TaskBook) other).persons)
+                        && this.tasks.equals(((TaskBook) other).tasks)
                         && this.tags.equalsOrderInsensitive(((TaskBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }
