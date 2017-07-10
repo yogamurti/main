@@ -22,7 +22,7 @@ public class EditCommandTestUtil {
     static {
         try {
             DESC_CSMOD = new EditTaskDescriptorBuilder().withName(VALID_NAME_CSMOD)
-                    .withStartDeadline(VALID_START_DATE).withDescription(VALID_DESCRIPTION_MOD)
+                    .withDescription(VALID_DESCRIPTION_MOD)
                     .withTags(VALID_TAG_SPONGEBOB).build();
             DESC_EVENT = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                     .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withDescription(VALID_DESCRIPTION_EVENT)
