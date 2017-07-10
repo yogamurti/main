@@ -7,7 +7,6 @@ import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;

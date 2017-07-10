@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
-
 import teamthree.twodo.commons.core.Config;
 
 /**

@@ -1,7 +1,6 @@
 package teamthree.twodo.testutil;
 
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
