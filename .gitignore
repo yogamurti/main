@@ -16,3 +16,4 @@ classes/
 /data/
 /bin/
 src/main/resources/docs/
+.classpath
