@@ -19,7 +19,6 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
-import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -82,7 +81,7 @@ public class EditCommand extends Command {
             throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, personToEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
     }
 
     /**
@@ -196,7 +195,6 @@ public class EditCommand extends Command {
     public static class EditTaskDescriptor {
         private Name name;
         private Deadline deadline;
-        private Email email;
         private Description description;
         private Set<Tag> tags;
 
@@ -206,7 +204,6 @@ public class EditCommand extends Command {
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             this.name = toCopy.name;
             this.deadline = toCopy.deadline;
-            this.email = toCopy.email;
             this.description = toCopy.description;
             this.tags = toCopy.tags;
         }
@@ -215,7 +212,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.deadline, this.email, this.description, this.tags);
+            return CollectionUtil.isAnyNonNull(this.name, this.deadline, this.description, this.tags);
         }
 
         public void setName(Name name) {
@@ -232,14 +229,6 @@ public class EditCommand extends Command {
 
         public Optional<Deadline> getDeadline() {
             return Optional.ofNullable(deadline);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
         }
 
         public void setDescription(Description description) {
@@ -274,7 +263,7 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName()) && getDeadline().equals(e.getDeadline())
-                    && getEmail().equals(e.getEmail()) && getDescription().equals(e.getDescription())
+                    && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }
     }

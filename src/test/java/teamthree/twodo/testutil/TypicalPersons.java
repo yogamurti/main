@@ -4,6 +4,7 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 /**
@@ -48,7 +49,11 @@ public class TypicalPersons {
     public static void loadAddressBookWithSampleData(TaskBook ab) {
         for (Task task : new TypicalPersons().getTypicalPersons()) {
             try {
-                ab.addTask(new Task(task));
+                if (task instanceof TaskWithDeadline) {
+                    ab.addTask(new TaskWithDeadline(task));
+                } else {
+                    ab.addTask(new Task(task));
+                }
             } catch (DuplicateTaskException e) {
                 assert false : "not possible";
             }
