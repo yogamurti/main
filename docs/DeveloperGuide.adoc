@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= 2Do - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -11,7 +11,7 @@ endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/CS2103JUN2017-T3/main
 
-By: `T3` Â Â Â Â  Since: `Jul 2017` Â Â Â Â  Licence: `MIT`
+By: `T3`      Since: `Jul 2017`         Licence: `MIT`
 
 == Setting up
 

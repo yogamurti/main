@@ -23,6 +23,9 @@ public interface Model {
     /** Adds the given task. */
     void addTask(ReadOnlyTask person) throws DuplicateTaskException;
 
+    /** Marks the given task as complete. */
+    void markTask(ReadOnlyTask person) throws TaskNotFoundException;
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *

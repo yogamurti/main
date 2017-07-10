@@ -71,6 +71,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+
+    @Override
+    public void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.markTask(target);
+        indicateTaskBookChanged();
+    }
+
     @Override
     public void saveTaskBook() {
         indicateTaskBookChanged();
@@ -105,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     @Override
     public void updateFilteredTaskList(ReadOnlyTask task) {
         filteredTasks.setPredicate(x -> x.equals(task));
