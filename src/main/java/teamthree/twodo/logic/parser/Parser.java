@@ -17,6 +17,7 @@ import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.logic.commands.ViewCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 /**
@@ -63,6 +64,10 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case ViewCommand.COMMAND_WORD:
+        case ViewCommand.COMMAND_WORD_UNIXSTYLE:
+            return new ViewCommandParser().parse(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -87,6 +92,7 @@ public class Parser {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+        
     }
 
 }

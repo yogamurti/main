@@ -136,11 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
-<<<<<<< HEAD
-        @Override
-=======
 
->>>>>>> 6d64a7545375de954831d1a03d96e884fa9cbf58
         String toString();
     }
 
@@ -165,11 +161,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
-<<<<<<< HEAD
-        @Override
-=======
-
->>>>>>> 6d64a7545375de954831d1a03d96e884fa9cbf58
         String toString();
     }
 

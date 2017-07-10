@@ -51,14 +51,9 @@ public class XmlTaskBookStorage implements TaskBookStorage {
      * @throws DataConversionException
      *             if the file is not in the correct format.
      */
-<<<<<<< HEAD
-    @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException,
-                                                                                 FileNotFoundException {
-=======
+
     public Optional<ReadOnlyTaskBook> readTaskBook(String filePath)
             throws DataConversionException, FileNotFoundException {
->>>>>>> 6d64a7545375de954831d1a03d96e884fa9cbf58
         requireNonNull(filePath);
 
         File addressBookFile = new File(filePath);
