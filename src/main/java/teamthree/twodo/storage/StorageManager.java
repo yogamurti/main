@@ -60,13 +60,13 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getTaskBookFilePath() {
         return taskBookStorage.getTaskBookFilePath();
     }
-    
+
     @Override
     public void setTaskBookFilePath(String filePath) throws IOException {
         taskBookStorage.setTaskBookFilePath(filePath);
         config.setTaskBookFilePath(filePath);
         ConfigUtil.saveConfig(config, filePath);
-        raise (new TaskBookStorageChangedEvent(filePath));
+        raise(new TaskBookStorageChangedEvent(filePath));
     }
 
     @Override

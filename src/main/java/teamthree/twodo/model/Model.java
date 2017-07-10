@@ -15,7 +15,7 @@ public interface Model {
     void resetData(ReadOnlyTaskBook newData);
 
     /** Returns the TaskBook */
-    ReadOnlyTaskBook getAddressBook();
+    ReadOnlyTaskBook getTaskBook();
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
@@ -41,6 +41,8 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+    void updateFilteredTaskList(ReadOnlyTask task);
 
     /** Saves the taskBook*/
     void saveTaskBook();

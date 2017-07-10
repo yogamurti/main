@@ -10,6 +10,7 @@ import teamthree.twodo.model.tag.Tag;
 public class TaskWithDeadline extends Task implements ReadOnlyTask {
 
     private Deadline deadline;
+    
     public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags) {
         super(name, description, tags);
         this.deadline = deadline;
@@ -24,9 +25,8 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         this(source.getName(), source.getDeadline().get(), source.getDescription(), source.getTags());
     }
 
-    private void setDeadline(Optional<Deadline> deadline) {
-        assert(deadline.isPresent());
-        this.deadline = deadline.get();
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         requireNonNull(replacement);
 
         this.setName(replacement.getName());
-        this.setDeadline(replacement.getDeadline());
+        this.setDeadline(replacement.getDeadline().get());
         this.setDescription(replacement.getDescription());
         this.setTags(replacement.getTags());
     }

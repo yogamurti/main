@@ -1,5 +1,5 @@
 build/
-.gradle/
+gradle/
 .checkstyle
 .settings/
 .idea/
@@ -17,3 +17,4 @@ classes/
 /bin/
 src/main/resources/docs/
 .classpath
+/.gradle/

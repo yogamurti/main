@@ -3,7 +3,7 @@ package teamthree.twodo.commons.events.storage;
 import teamthree.twodo.commons.events.BaseEvent;
 
 public class TaskBookStorageChangedEvent extends BaseEvent {
-    
+
     public final String filePath;
 
     public TaskBookStorageChangedEvent(String filePath) {

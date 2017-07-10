@@ -23,26 +23,26 @@ import teamthree.twodo.model.task.TaskWithDeadline;
  *
  */
 public class AlarmManager extends ComponentManager {
-    //List of tasks yet to be notified
+    // List of tasks yet to be notified
     private final List<ReadOnlyTask> notificationList = new ArrayList<ReadOnlyTask>();
-    //Keeps track of tasks that have been notified
+    // Keeps track of tasks that have been notified
     private final HashSet<ReadOnlyTask> notified = new HashSet<ReadOnlyTask>();
 
     private final Model model;
-    //In charge of scheduling and launching reminders
+    // In charge of scheduling and launching reminders
     private final Timer masterClock = new Timer();
-    //Notification time of the next most recent activity
+    // Notification time of the next most recent activity
     private Date nextReminderTime;
 
     public AlarmManager(Model model) {
         this.model = model;
-        syncWithMasterTaskList(model.getAddressBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 
     public AlarmManager(EventsCenter eventsCenter, Model model) {
         super(eventsCenter);
         this.model = model;
-        syncWithMasterTaskList(model.getAddressBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 
     /**
@@ -55,9 +55,9 @@ public class AlarmManager extends ComponentManager {
         if (masterList == null || masterList.isEmpty()) {
             return;
         }
-        //Clear list first to avoid duplicates
+        // Clear list first to avoid duplicates
         notificationList.clear();
-        //Adds tasks which are not in the notified set
+        // Adds tasks which are not in the notified set
         masterList.forEach((t) -> {
             if (t instanceof TaskWithDeadline && !notified.contains(t)) {
                 notificationList.add(t);
@@ -69,9 +69,10 @@ public class AlarmManager extends ComponentManager {
     }
 
     public void startTimerTask() {
-    	if (nextReminderTime!=null) {
-    		masterClock.schedule(new NextReminder(), nextReminderTime);
-    	}
+        if (nextReminderTime == null) {
+            return;
+        }
+        masterClock.schedule(new NextReminder(), nextReminderTime);
     }
 
     private Date getNotificationTime(ReadOnlyTask task) {
@@ -96,8 +97,7 @@ public class AlarmManager extends ComponentManager {
             List<ReadOnlyTask> tasksToRemindOf = new ArrayList<ReadOnlyTask>();
             Date currentDate = new Date();
             notificationList.forEach((t) -> {
-                if (getNotificationTime(t).before(currentDate)
-                        || getNotificationTime(t).equals(nextReminderTime)) {
+                if (getNotificationTime(t).before(currentDate) || getNotificationTime(t).equals(nextReminderTime)) {
                     tasksToRemindOf.add(t);
                 }
             });
@@ -134,7 +134,7 @@ public class AlarmManager extends ComponentManager {
         updateNextReminder();
     }
 
-    //Sorts list by notification date
+    // Sorts list by notification date
     private void sortNotificationsByDeadline() {
         notificationList.sort(new Comparator<ReadOnlyTask>() {
 
@@ -147,9 +147,11 @@ public class AlarmManager extends ComponentManager {
     }
 
     private void updateNextReminder() {
-    	if (notificationList.size()>0) {
-    		nextReminderTime = getNotificationTime(notificationList.get(0));
-    	}
+        if (!notificationList.isEmpty()) {
+            nextReminderTime = getNotificationTime(notificationList.get(0));
+        } else {
+            nextReminderTime = null;
+        }
     }
 
     /**
@@ -163,7 +165,7 @@ public class AlarmManager extends ComponentManager {
      */
     @Subscribe
     private void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        syncWithMasterTaskList(model.getAddressBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 
 }

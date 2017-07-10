@@ -8,6 +8,7 @@ public abstract class BaseEvent {
      *
      * For example, the event manager post method will call any posted event's toString and print it in the console.
      */
+    @Override
     public abstract String toString();
 
 }
