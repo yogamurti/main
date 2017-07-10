@@ -23,6 +23,9 @@ public interface Model {
     /** Adds the given task. */
     void addTask(ReadOnlyTask person) throws DuplicateTaskException;
 
+    /** Marks the given task as complete. */
+    void markTask(ReadOnlyTask person) throws TaskNotFoundException;
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
@@ -41,6 +44,8 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+    void updateFilteredTaskList(ReadOnlyTask task);
 
     /** Saves the taskBook*/
     void saveTaskBook();

@@ -10,9 +10,9 @@ import teamthree.twodo.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private String taskBookFilePath = "data/addressbook.xml";
+    private String taskBookFilePath = "data/2Do.xml";
     private String notifiedListFilePath = "data/notifiedtasks.xml";
-    private String taskBookName = "2Do";
+    private String taskBookName = "My2DoList";
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);

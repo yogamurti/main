@@ -102,6 +102,30 @@ public class UniqueTaskList implements Iterable<Task> {
         return personFoundAndDeleted;
     }
 
+    /**
+     * Marks the equivalent task from the list as complete.
+     *
+     * @throws TaskNotFoundException
+     *             if no such person could be found in the list.
+     */
+
+    public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
+        requireNonNull(toMark);
+        boolean personFoundAndMarked = false;
+        int index = internalList.indexOf(toMark);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+        else {
+            Task taskToUpdate = internalList.get(index);
+            taskToUpdate.markCompleted();
+            // TODO confirm if the expression below is required
+            internalList.set(index, taskToUpdate);
+            personFoundAndMarked = true;
+        }
+        return personFoundAndMarked;
+    }
+
     public void setPersons(UniqueTaskList replacement) {
         this.internalList.setAll(replacement.internalList);
     }

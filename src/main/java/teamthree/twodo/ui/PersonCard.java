@@ -32,7 +32,6 @@ public class PersonCard extends UiPart<Region> {
     private Label deadline;
     @FXML
     private Label description;
-
     @FXML
     private FlowPane tags;
 
@@ -52,6 +51,12 @@ public class PersonCard extends UiPart<Region> {
         }
         //email.setText(person.getEmail().value);
         initTags(task);
+        // Also add a complete/incomplete tag to indicate its completion status
+        String completionStatus = "Incomplete";
+        if (task.isCompleted()) {
+            completionStatus = "Complete";
+        }
+        tags.getChildren().add(new Label(completionStatus));
     }
 
     private void initTags(ReadOnlyTask person) {

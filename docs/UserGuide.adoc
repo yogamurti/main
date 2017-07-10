@@ -89,8 +89,8 @@ Example: `help add`
 
 === Adding a task : `add / -a / +`
 
-Format 1: `add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `add m/CS2103 Project V0.1 d/030517  n/Special Term t/10am tag/NUS a/020517 r/yearly u/true`
+Format 1: `add [-h] n/{name} s/[start date] e/[end date] d/[description] t/[tag1, tag2,...] a/[early notification period] r/[recurrence] u/[urgent]` +
+Example: `add n/CS2103 Project V0.1 s/Next Fri 2359hrs d/Special Term tag/NUS a/2 days r/yearly u/true`
 ****
 * Creates a task with provided attributes and adds it to list
 * Floating tasks can be added with date, time field blank
@@ -144,8 +144,8 @@ Example: `undo`
 
 === Editing a task : `edit / -e`
 
-Format: `edit [-h] {index} m/[new main] d/[new date] n/[new note] tag/[new tags] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `edit 2 m/CS2103`
+Format: `edit [-h] {index} n/[new name] s/[new start date] e/[new end date] d/[new description] t/[new tags] a/[new notification period] r/[recurrence] u/[urgent]` +
+Example: `edit 2 n/CS2103`
 ****
 * Edits task at that index in the most recent call of list
 ****
@@ -231,12 +231,12 @@ Example: `quit`
 |=======================================================================
 |Command|Format 1|Format 2
 |help / -h|help [name of command]|
-|add / -a /+|add [-h] m/{main} d/[date] t/[time] n/[note] tag/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
+|add / -a /+|add [-h] n/{name} s/[start date] e/[end date] d/[description] t/[tag1, tag2,...] a/[notification period] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
 |delete / del / -d / -|delete [-h] {index}|delete[-h]  {title} on {date} at {time}
 |list / -l|list [-h]|
 |find / -f|find [-h] {keyword}|
 |undo / -u|undo|
-|edit / -e|edit [-h] {index} m/[new main] d/[new date] n/[new note] tag/[new tags] a/[alarm] r/[recurrence] u/[urgent]|
+|edit / -e|edit [-h] {index} n/[new name] s/[new start date] e/[new end date] d/[new description] t/[new tags] a/[new notification period] r/[recurrence] u/[urgent]|
 |view / -v|view [-h] {index}|
 |mark / -m|mark {index}|
 |unmark / -un|unmark {index}|

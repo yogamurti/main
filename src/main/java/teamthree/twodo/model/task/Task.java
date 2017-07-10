@@ -21,15 +21,18 @@ public class Task implements ReadOnlyTask {
     protected Name name;
     protected Description description;
     protected UniqueTagList tags;
+    protected boolean completed;
 
     /**
      * Every field must be present and not null.
+     * By default, the task is set as incompleted when it is created.
      */
     public Task(Name name, Description description, Set<Tag> tags) {
         requireAllNonNull(name, description, tags);
         this.name = name;
         this.description = description;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        completed = false;
     }
     /**
      * Constructor for floating Task
@@ -40,6 +43,7 @@ public class Task implements ReadOnlyTask {
         try {
             this.description = new Description("");
             this.tags = new UniqueTagList();
+            this.completed = false;
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -86,6 +90,21 @@ public class Task implements ReadOnlyTask {
         tags.setTags(new UniqueTagList(replacement));
     }
 
+    @Override
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    // Marks the task as complete
+    public void markCompleted() {
+        completed = true;
+    }
+
+    // Marks the task as incomplete
+    public void markIncompleted() {
+        completed = false;
+    }
+
     /**
      * Updates this person with the details of {@code replacement}.
      */
@@ -94,6 +113,13 @@ public class Task implements ReadOnlyTask {
         this.setName(replacement.getName());
         this.setDescription(replacement.getDescription());
         this.setTags(replacement.getTags());
+        completed = replacement.isCompleted();
+        if (completed) {
+            this.markCompleted();
+        }
+        else {
+            this.markIncompleted();
+        }
     }
 
     @Override
