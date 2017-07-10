@@ -101,8 +101,10 @@ public class AlarmManager extends ComponentManager {
                     tasksToRemindOf.add(t);
                 }
             });
-
-            raise(new DeadlineNotificationTimeReachedEvent(tasksToRemindOf));
+            
+            if (tasksToRemindOf.size()>0) {
+            	raise(new DeadlineNotificationTimeReachedEvent(tasksToRemindOf));
+            }
 
             updateInternalData(tasksToRemindOf);
 
