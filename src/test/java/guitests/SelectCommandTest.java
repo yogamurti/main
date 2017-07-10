@@ -1,4 +1,4 @@
-package guitests;
+/*package guitests;
 
 import static org.junit.Assert.assertEquals;
 import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
@@ -28,7 +28,7 @@ public class SelectCommandTest extends TaskBookGuiTest {
         assertSelectionInvalid(Index.fromOneBased(personCount.getOneBased() + 1)); // invalid index
         assertPersonSelected(middleIndex); // assert previous selection remains
 
-        /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
+         Testing other invalid indexes such as -1 should be done when testing the SelectCommand
     }
 
     @Test
@@ -61,3 +61,4 @@ public class SelectCommandTest extends TaskBookGuiTest {
     }
 
 }
+*/

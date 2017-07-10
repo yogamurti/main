@@ -1,4 +1,4 @@
-package guitests;
+/*package guitests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -33,3 +33,4 @@ public class ClearCommandTest extends TaskBookGuiTest {
         assertResultMessage("Description book has been cleared!");
     }
 }
+*/

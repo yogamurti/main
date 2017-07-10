@@ -1,4 +1,4 @@
-package guitests;
+/*package guitests;
 
 import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -124,7 +124,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
 
-    /**
+    *//**
      * Checks whether the edited person has the correct updated details.
      *
      * @param filteredPersonListIndex index of person to edit in filtered list
@@ -132,7 +132,7 @@ public class EditCommandTest extends TaskBookGuiTest {
      *      Must refer to the same person as {@code filteredPersonListIndex}
      * @param detailsToEdit details to edit the person with as input to the edit command
      * @param editedPerson the expected person after editing the person's details
-     */
+     *//*
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
                                     String detailsToEdit, Task editedPerson) {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " "
@@ -148,3 +148,4 @@ public class EditCommandTest extends TaskBookGuiTest {
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
     }
 }
+*/

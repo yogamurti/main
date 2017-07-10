@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import teamthree.twodo.commons.core.Config;
+import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's deadline in the address book. Consists of start, end and
@@ -19,13 +20,10 @@ import teamthree.twodo.commons.core.Config;
  */
 public class Deadline {
 
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS_STRICT = "Deadlines can be informal, e.g. fri 10am "
-            + "but if providing exact dates,"
-            + "they should be of the format MM/DD/YY" + " and Time can be either AM/PM or 24HR\n";
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS_STRICT = "Deadlines can be informal, e.g. fri 10am, "
+            + "but if providing exact dates, " + "they should be of the format MM/DD/YY"
+            + " and Time can be either AM/PM or 24HR\n";
 
-    //public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
-    public static final String DATE_PARSING_REGEX = "\\d{6}"; // Date should be mmddyyyy
-    public static final String TIME_PARSING_REGEX = "\\d{4}";
     // This value is only to be used by edit command to indicate a change of date
     public static final String NULL_VALUE = "0000";
     public static final Date DEFAULT_DATE = new Date(0);
@@ -41,11 +39,14 @@ public class Deadline {
 
     }
 
-    public Deadline(String startDate, String endDate, String notificationPeriod) {
+    public Deadline(String startDate, String endDate, String notificationPeriod) throws IllegalValueException {
         requireNonNull(startDate.toString());
         requireNonNull(endDate.toString());
         requireNonNull(notificationPeriod.toString());
         PrettyTimeParser dateParser = new PrettyTimeParser();
+        if (!isValidDeadline(startDate, endDate, dateParser)) {
+            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
+        }
 
         this.startDate = !startDate.equals(NULL_VALUE) ? dateParser.parseSyntax(startDate).get(0).getDates().get(0)
                 : DEFAULT_DATE;
@@ -69,6 +70,13 @@ public class Deadline {
         startDate = deadline.getStartDate();
         endDate = deadline.getEndDate();
         notificationPeriod = deadline.getNotificationPeriod();
+    }
+
+    private boolean isValidDeadline(String startDate, String endDate, PrettyTimeParser dateParser) {
+        if (dateParser.parseSyntax(startDate).isEmpty() || dateParser.parseSyntax(endDate).isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     public Long getNotificationPeriod() {
@@ -106,6 +114,7 @@ public class Deadline {
     /**
      * Gets notification period from user-given arguments Will only accept days
      * and weeks else will return default notification period
+     *
      * @param notificationPeriod
      * @return Long time in milliseconds
      */
@@ -137,8 +146,8 @@ public class Deadline {
             return "Starts: " + dateFormat.format(startDate) + "\nReminder on: "
                     + dateFormat.format(getNotificationDate()) + "\n";
         }
-        return "Starts: " + dateFormat.format(startDate) + "\nEnds: " + dateFormat.format(endDate)
-                + "\nReminder on:" + dateFormat.format(getNotificationDate()) + "\n";
+        return "Starts: " + dateFormat.format(startDate) + "\nEnds: " + dateFormat.format(endDate) + "\nReminder on: "
+                + dateFormat.format(getNotificationDate()) + "\n";
     }
 
     @Override

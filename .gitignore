@@ -3,6 +3,7 @@ gradle/
 .checkstyle
 .settings/
 .idea/
+.classpath
 *.iml
 *.log
 *.log.*

@@ -1,4 +1,4 @@
-package guitests.guihandles;
+/*package guitests.guihandles;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,9 +16,9 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TestUtil;
 
-/**
+*//**
  * Provides a handle for the panel containing the person list.
- */
+ *//*
 public class PersonListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
@@ -39,19 +39,19 @@ public class PersonListPanelHandle extends GuiHandle {
         return getNode(PERSON_LIST_VIEW_ID);
     }
 
-    /**
+    *//**
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
-     */
+     *//*
     public boolean isListMatching(ReadOnlyTask... persons) {
         return this.isListMatching(0, persons);
     }
 
-    /**
+    *//**
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
      * @param persons A list of person in the correct order.
-     */
+     *//*
     public boolean isListMatching(int startPosition, ReadOnlyTask... persons) throws IllegalArgumentException {
         if (persons.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n"
@@ -69,17 +69,17 @@ public class PersonListPanelHandle extends GuiHandle {
         return true;
     }
 
-    /**
+    *//**
      * Clicks on the ListView.
-     */
+     *//*
     public void clickOnListView() {
         Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
-    /**
+    *//**
      * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
-     */
+     *//*
     public boolean containsInOrder(int startPosition, ReadOnlyTask... persons) {
         List<ReadOnlyTask> personsInList = getListView().getItems();
 
@@ -110,9 +110,9 @@ public class PersonListPanelHandle extends GuiHandle {
         return navigateToPerson(person.get());
     }
 
-    /**
+    *//**
      * Navigates the listview to display and select the person.
-     */
+     *//*
     public TaskCardHandle navigateToPerson(ReadOnlyTask person) {
         int index = getPersonIndex(person);
 
@@ -126,9 +126,9 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
 
-    /**
+    *//**
      * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
-     */
+     *//*
     public int getPersonIndex(ReadOnlyTask targetPerson) {
         List<ReadOnlyTask> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
@@ -139,9 +139,9 @@ public class PersonListPanelHandle extends GuiHandle {
         return NOT_FOUND;
     }
 
-    /**
+    *//**
      * Gets a person from the list by index
-     */
+     *//*
     public ReadOnlyTask getPerson(int index) {
         return getListView().getItems().get(index);
     }
@@ -170,3 +170,4 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().size();
     }
 }
+*/

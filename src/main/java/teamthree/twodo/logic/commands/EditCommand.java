@@ -86,8 +86,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of
-     * {@code personToEdit} edited with {@code editTaskDescriptor}.
+     * Creates and returns a {@code Task} with the details of {@code taskToEdit}
+     * edited with {@code editTaskDescriptor}.
      *
      * If edit adds a deadline to floating task, a TaskWithDeadline object is
      * returned.
@@ -95,7 +95,7 @@ public class EditCommand extends Command {
     private static Task createEditedPerson(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
-        Description updatedDescription = editTaskDescriptor.getAddress().orElse(taskToEdit.getDescription());
+        Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
@@ -204,7 +204,7 @@ public class EditCommand extends Command {
             this.description = description;
         }
 
-        public Optional<Description> getAddress() {
+        public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
 
@@ -232,7 +232,7 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName()) && getDeadline().equals(e.getDeadline())
-                    && getEmail().equals(e.getEmail()) && getAddress().equals(e.getAddress())
+                    && getEmail().equals(e.getEmail()) && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());
         }
     }

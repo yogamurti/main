@@ -1,4 +1,4 @@
-package guitests;
+/*package guitests;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -25,3 +25,4 @@ public class ErrorDialogGuiTest extends TaskBookGuiTest {
     }
 
 }
+*/

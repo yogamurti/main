@@ -69,7 +69,9 @@ public class AlarmManager extends ComponentManager {
     }
 
     public void startTimerTask() {
-        masterClock.schedule(new NextReminder(), nextReminderTime);
+        if (nextReminderTime != null) {
+            masterClock.schedule(new NextReminder(), nextReminderTime);
+        }
     }
 
     private Date getNotificationTime(ReadOnlyTask task) {
@@ -77,8 +79,7 @@ public class AlarmManager extends ComponentManager {
     }
 
     /**
-     * ===========================HELPER
-     * CLASS===================================
+     * ===========================HELPER CLASS===================================
      */
     private class NextReminder extends TimerTask {
 
@@ -94,8 +95,7 @@ public class AlarmManager extends ComponentManager {
             List<ReadOnlyTask> tasksToRemindOf = new ArrayList<ReadOnlyTask>();
             Date currentDate = new Date();
             notificationList.forEach((t) -> {
-                if (getNotificationTime(t).before(currentDate)
-                        || getNotificationTime(t).equals(nextReminderTime)) {
+                if (getNotificationTime(t).before(currentDate) || getNotificationTime(t).equals(nextReminderTime)) {
                     tasksToRemindOf.add(t);
                 }
             });
@@ -143,12 +143,15 @@ public class AlarmManager extends ComponentManager {
     }
 
     private void updateNextReminder() {
-        nextReminderTime = getNotificationTime(notificationList.get(0));
+        if (!notificationList.isEmpty()) {
+            nextReminderTime = getNotificationTime(notificationList.get(0));
+        } else {
+            nextReminderTime = null;
+        }
     }
 
     /**
-     * ==============================EVENT
-     * HANDLERS====================================
+     * ==============================EVENT HANDLERS====================================
      */
     /**
      * Synchronizes the notification list with the master list when there is a
