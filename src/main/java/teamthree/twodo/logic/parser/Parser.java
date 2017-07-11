@@ -92,6 +92,8 @@ public class Parser {
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD_SECOND:
+        case ExitCommand.COMMAND_WORD_UNIXSTYLE:
             return new ExitCommand();
 
         case SaveCommand.COMMAND_WORD:
