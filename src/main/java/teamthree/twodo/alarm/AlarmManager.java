@@ -69,10 +69,12 @@ public class AlarmManager extends ComponentManager {
     }
 
     public void startTimerTask() {
+
         if (nextReminderTime == null) {
             return;
         }
         masterClock.schedule(new NextReminder(), nextReminderTime);
+
     }
 
     private Date getNotificationTime(ReadOnlyTask task) {
@@ -102,7 +104,9 @@ public class AlarmManager extends ComponentManager {
                 }
             });
 
-            raise(new DeadlineNotificationTimeReachedEvent(tasksToRemindOf));
+            if (tasksToRemindOf.size() > 0) {
+                raise(new DeadlineNotificationTimeReachedEvent(tasksToRemindOf));
+            }
 
             updateInternalData(tasksToRemindOf);
 

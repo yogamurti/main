@@ -167,6 +167,14 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
+    public boolean markTask(ReadOnlyTask key) throws TaskNotFoundException {
+        if (tasks.mark(key)) {
+            return true;
+        } else {
+            throw new TaskNotFoundException();
+        }
+    }
+
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

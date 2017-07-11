@@ -30,11 +30,15 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
         ReadOnlyTask taskToView = lastShownList.get(targetIndex.getZeroBased());
+
         model.updateFilteredTaskList(taskToView);
+
         return new CommandResult(String.format(MESSAGE_VIEW_TASK_SUCCESS, taskToView));
     }
 }

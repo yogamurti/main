@@ -21,7 +21,8 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     }
 
     public TaskWithDeadline(ReadOnlyTask source) {
-        this(source.getName(), source.getDeadline().get(), source.getDescription(), source.getTags());
+        this(source.getName(), source.getDeadline().get(),
+             source.getDescription(), source.getTags());
     }
 
     public void setDeadline(Deadline deadline) {
@@ -43,6 +44,8 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
                 .append(getDeadline().get())
                 .append("Description: ")
                 .append(getDescription())
+                .append("Completed: ")
+                .append(isCompleted())
                 .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -58,6 +61,13 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         this.setDeadline(replacement.getDeadline().get());
         this.setDescription(replacement.getDescription());
         this.setTags(replacement.getTags());
+        completed = replacement.isCompleted();
+        if (completed) {
+            this.markCompleted();
+        }
+        else {
+            this.markIncompleted();
+        }
     }
 
 }

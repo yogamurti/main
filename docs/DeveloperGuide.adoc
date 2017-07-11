@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= 2Do - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -11,7 +11,7 @@ endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/CS2103JUN2017-T3/main
 
-By: `T3`      Since: `Jul 2017`      Licence: `MIT`
+By: `T3`      Since: `Jul 2017`         Licence: `MIT`
 
 == Setting up
 
@@ -89,7 +89,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/teamthree/twodo/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -97,13 +97,13 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 link:#common-classes[*`Commons`*] represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to 2Do's log file.
 
 The rest of the App consists of four components.
 
-* link:#ui-component[*`UI`*] : The UI of the App.
+* link:#ui-component[*`UI`*] : The UI of the 2Do.
 * link:#logic-component[*`Logic`*] : The command executor.
-* link:#model-component[*`Model`*] : Holds the data of the App in-memory.
+* link:#model-component[*`Model`*] : Holds the data of 2Do in-memory.
 * link:#storage-component[*`Storage`*] : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -121,15 +121,15 @@ _Figure 2.1.2 : Class Diagram of the Logic Component_
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteTask.png[width="800"]
 _Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `TaskBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteTaskEventHandling.png[width="800"]
 _Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
@@ -173,7 +173,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteTaskSdForLogic.png[width="800"]
 _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
 === Model component
@@ -194,21 +194,23 @@ The `Model`,
 
 === Storage component
 
-Author: Darius Foong
+Author: Teo Shu Qi
 
 image::StorageClassDiagram.png[width="800"]
 _Figure 2.5.1 : Structure of the Storage Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/teamthree/twodo/storage[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Book data in xml format and read it back.
+
+2Do allow users to save their data at a new filepath(File Directory must be available). The filepath can be specified via the Save command and will contain a new 2Do.xml document. StorageMananger will set the new filepath and save it into Config. 2Do will load from and save to the new filepath for current and future sessions until a new filepath is specified.
 
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `teamthree.twodo.commons` package.
 
 == Implementation
 
@@ -326,7 +328,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete tasks |remove tasks that have been cancelled
 
-|`* * *` |user |edit tasks |update my tasks’ details for unforeseen circumstances, such as postponing a deadline
+|`* * *` |user |edit tasks |update my tasksâ€™ details for unforeseen circumstances, such as postponing a deadline
 
 |`* * *` |user |add deadlines to my link:#floating-task[floating tasks] |update link:#floating-task[floating tasks] if they then require a deadline
 
@@ -376,7 +378,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many tasks |sort tasks in different ways |gain a better understanding of the tasks at hand
 
-|`*` |user |get directions |get directions to the task’s location, from my current location
+|`*` |user |get directions |get directions to the taskâ€™s location, from my current location
 
 |`*` |user |block timeslots for events |stop scheduling events with conflicting timings
 
@@ -471,7 +473,7 @@ Use case ends
 2a. No tasks to display
 
 ____
-2a1. 2Do displays a “No task to display” message
+2a1. 2Do displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -499,7 +501,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -549,7 +551,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -587,7 +589,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -625,7 +627,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -671,7 +673,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a “No task to display” message
+2b1. 2Do displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -869,7 +871,7 @@ Pros:
 * Simple interface that makes it easy to navigate around
 * Calendar interface allows the user to easily find empty slots to schedule tasks
 * Calendar can be viewed in a year, month, day or agenda format
-* Import and view other people’s calendars for better collaboration
+* Import and view other peopleâ€™s calendars for better collaboration
 * Reminders can be set to a task
 
 Cons:

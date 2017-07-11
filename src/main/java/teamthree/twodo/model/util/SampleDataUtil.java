@@ -15,24 +15,13 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 public class SampleDataUtil {
     public static Task[] getSamplePersons() {
         try {
-            return new Task[] {
-                new Task(new Name("Alex Yeoh"), new Description("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("friends")),
-                new Task(new Name("Bernice Yu"),
-                        new Description("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("colleagues", "friends")),
-                new Task(new Name("Charlotte Oliveiro"),
-                        new Description("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("neighbours")),
-                new Task(new Name("David Li"), new Description("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("family")),
-                new Task(new Name("Irfan Ibrahim"),
-                        new Description("Blk 47 Tampines Street 20, #17-35"),
-                    getTagSet("classmates")),
-                new Task(new Name("Roy Balakrishnan"),
-                        new Description("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("colleagues"))
-            };
+            return new Task[] { new Task(new Name("CS2103 Project"), new Description("V0.2 on Mon"), getTagSet("NUS")),
+                new Task(new Name("CS2103 Tutorial"), new Description("Complete by 4pm"), getTagSet("NUS")),
+                new Task(new Name("Dinner"), new Description("7pm @ Ang Mo Kio"),
+                          getTagSet("Friends", "coursemates")),
+                new Task(new Name("Shopping"), new Description("New Clothes"), getTagSet("family", "friends")),
+                new Task(new Name("CCA Meeting"), new Description("NUS Tues 3pm"), getTagSet("NUS", "CCA")),
+                new Task(new Name("Buy lotion"), new Description("Lotion for hands"), getTagSet("myself")) };
         } catch (IllegalValueException e) {
             throw new AssertionError("sample data cannot be invalid", e);
         }
