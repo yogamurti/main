@@ -10,7 +10,6 @@ import teamthree.twodo.model.tag.Tag;
 public class TaskWithDeadline extends Task implements ReadOnlyTask {
 
     private Deadline deadline;
-
     public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags) {
         super(name, description, tags);
         this.deadline = deadline;

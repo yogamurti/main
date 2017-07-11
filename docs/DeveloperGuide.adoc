@@ -48,7 +48,7 @@ This app will not work with earlier versions of Java 8.
 
 .  Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
 .  Choose `External Configuration File` under `Type`
-.  Enter an arbitrary configuration name e.g. addressbook
+.  Enter an arbitrary configuration name e.g. 2Do
 .  Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
 .  Click OK once, go to the `Main` tab, use the newly imported check configuration.
 .  Tick and select `files from packages`, click `Change...`, and select the `resources` package
@@ -158,7 +158,7 @@ The `UI` component,
 
 === Logic component
 
-Author: Bernard Choo
+Author: Ang Lang Yi
 
 image::LogicClassDiagram.png[width="800"]
 _Figure 2.3.1 : Structure of the Logic Component_
@@ -400,7 +400,7 @@ For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, un
 
 *MSS*
 
-1. User requests to add a task with a title and optional details
+1. User requests to add a task with a name and optional details
 2. 2Do adds the task and shows a success message
 
 Use case ends
@@ -426,7 +426,7 @@ ____
 
 *MSS*
 
-1. User requests to delete a task using its title
+1. User requests to delete a task using its name
 2. 2Do prompts the user to confirm deletion
 3. User confirms deletion
 4. 2Do deletes the task and shows a success message
@@ -809,11 +809,11 @@ Use case ends
 [appendix]
 == Glossary
 
-[[main]]
-Main
+[[name]]
+Name
 
 ____
-Title of task
+Name of task
 ____
 
 [[floating-task]]

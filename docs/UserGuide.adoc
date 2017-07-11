@@ -14,6 +14,9 @@ By: `T3`      Since: `Jul 2017`      Licence: `MIT`
 
 == Quick Start
 
+image::MainScreen.png[width="600"]
+_Figure 2.1.1 : Sample GUI with pre-loaded tasks_
+
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 +
 [NOTE]
@@ -23,7 +26,6 @@ This app will not work with earlier versions of Java 8.
 .  Download the latest `2Do.jar` from the link:../../../releases[releases] tab.
 .  Copy the file to the folder you want to use as the home folder for your to-do list.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
-.  <GUI IMAGE>
 .  When the application starts up, tasks due within a certain amount of time (the default is 7 days) will be displayed.
 .  To interact with the task manager, open the main application.
 .  You will then see a list of your tasks sorted by due date.
@@ -31,7 +33,7 @@ This app will not work with earlier versions of Java 8.
 .  Below the list, there is a command box. Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will display all commands available.
 .  Some example commands you can try:
-* *`add projectX`* : adds a task with *projectX* as its title
+* *`add projectX`* : adds a task with *projectX* as its name
 * *`list`* : lists all tasks
 * *`delete 2`* : deletes the 2nd task shown in the current list
 * *`quit`* : quits 2Do
@@ -52,12 +54,12 @@ Arguments
 
 Dates
 ****
-* Format 1: ddmmyy +
-`Example: 050417`
+* Format 1: mm/dd/yy +
+`Example: 05/04/17`
 * Format 2: day month +
 `Example: 5 jan`
-* Format 3: month day +
-` Example: dec 31`
+* Format 3: natural language +
+`Example: tomorrow`
 ****
 
 Time
@@ -69,9 +71,9 @@ Time
 
 Reccurence
 ****
-* Format 1: days / hours +
+* Format 1: days / weeks / months / years +
 `Example: 4 days`
-* Format 2: keyword +
+* Format 2: keywords +
 `Example: daily / weekly / yearly / annually`
 ****
 
@@ -89,15 +91,17 @@ Example: `help add`
 
 === Adding a task : `add / -a / +`
 
-Format 1: `add [-h] n/{name} s/[start date] e/[end date] d/[description] t/[tag1, tag2,...] a/[early notification period] r/[recurrence] u/[urgent]` +
-Example: `add n/CS2103 Project V0.1 s/Next Fri 2359hrs d/Special Term tag/NUS a/2 days r/yearly u/true`
+Format 1: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `add n/CS2103 Project V0.1 s/Next Fri 2359 d/Special Term t/NUS a/2 days r/yearly u/true`
 ****
 * Creates a task with provided attributes and adds it to list
 * Floating tasks can be added with date, time field blank
+* start and end are in the format {date} {time} (ie. s/03/05/17 2359 e/04/05/17 1159)
+* alarm sets an notification to appear at the specified date
 * For urgent tasks, u/true can be added. Or else, field can be left blank
 ****
 
-Format 2: `add [-h] {title} on {date} at {time}` +
+Format 2: `add [-h] {name} on {date} at {time}` +
 Example: `add project on friday at 2359`
 ****
 * Supports keywords _on_, _at_ and _days_
@@ -111,19 +115,12 @@ Example: `delete 1`
 * Deletes task at that index (positive number) in the most recent call of list
 ****
 
-Format 2: `delete [-h]  {title} on {date} at {time}` +
-Example: `delete CS2103 Project V0.1`
-****
-* Deletes task that has same name as the given
-* Prompts user to choose according to date and time
-****
-
 === Listing all tasks : `list / -l`
 
 Format: `list [-h]` +
 Example: `list`
 ****
-* Lists title and deadlines of all uncompleted tasks
+* Lists all uncompleted tasks
 ****
 
 === Finding a task : `find / -f`
@@ -144,10 +141,12 @@ Example: `undo`
 
 === Editing a task : `edit / -e`
 
-Format: `edit [-h] {index} n/[new name] s/[new start date] e/[new end date] d/[new description] t/[new tags] a/[new notification period] r/[recurrence] u/[urgent]` +
-Example: `edit 2 n/CS2103`
+Format: `edit [-h] {index}  n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
+Example: `edit 2 n/CS2103 s/05/07/18`
 ****
 * Edits task at that index in the most recent call of list
+* new start and new end are in the format {date} {time} (ie. s/03/05/17 2359 e/04/05/17 1159)
+* new alarm sets a new notification to appear at the specified date
 ****
 
 === Viewing a task : `view / -v`
@@ -176,24 +175,21 @@ Example: `unmark 4`
 
 === Editing the default options : `option / -o`
 
-Format: `option a/[alarm] p/ [prompt] m/ [mark completion automatically]` +
-Example: `option p/ DO {main} NOW!`
+Format: `option a/[alarm] m/ [mark completion automatically]` +
 ****
 * Option without parameters will show the general options which the user can edit and their explanations
 * Default reminder alarm timing before the deadline can be edited
 ** Range value for reminders: 1 minute <= reminder <= 7 days
 ** Default setting is 7 days
-* Default prompt message for reminders can be edited
-** Default message is _{main} needs to be completed soon!_
 * Default automatic mark for completion setting can be edited
 ** Default setting will prompt user requesting if the activity was completed
 ** This can be changed to automatically marking the activity as complete instead of prompting
 ** Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
 ****
 
-=== Saving to-do list : `save / -s`
+=== Saving list : `save / -s`
 
-Format: `save [directory]` +
+Format: `save [-h] [directory]` +
 Example: `save C:\Program Files\Common Files\2Do.txt`
 ****
 * Saves the current to-do list and exports it as a text file in the directory specified
@@ -201,16 +197,16 @@ Example: `save C:\Program Files\Common Files\2Do.txt`
 ** 2Do creates the file if it does not exist
 ****
 
-=== Clearing to-do list : `clear / -c`
+=== Clearing list : `clear / -c`
 
-Format: `clear` +
+Format: `clear [-h]` +
 Example: `clear`
 ****
 * Master resets the current to-do list
 * Local file containing the current to-do list will be wiped clean as well
 ****
 
-=== Quitting 2Do : `quit / -q`
+=== Quitting 2Do : `exit / quit / -q`
 
 Format: `quit` +
 Example: `quit`
@@ -231,18 +227,18 @@ Example: `quit`
 |=======================================================================
 |Command|Format 1|Format 2
 |help / -h|help [name of command]|
-|add / -a /+|add [-h] n/{name} s/[start date] e/[end date] d/[description] t/[tag1, tag2,...] a/[notification period] r/[recurrence] u/[urgent]|add [-h] {title} on {date} at {time}
-|delete / del / -d / -|delete [-h] {index}|delete[-h]  {title} on {date} at {time}
+|add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {name} on {date} at {time}|
+|delete / del / -d / -|delete [-h] {index}|
 |list / -l|list [-h]|
 |find / -f|find [-h] {keyword}|
 |undo / -u|undo|
-|edit / -e|edit [-h] {index} n/[new name] s/[new start date] e/[new end date] d/[new description] t/[new tags] a/[new notification period] r/[recurrence] u/[urgent]|
+|edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|
 |view / -v|view [-h] {index}|
 |mark / -m|mark {index}|
 |unmark / -un|unmark {index}|
 |option/ -o|option a/[alarm] p/ [prompt] m/ [mark completion automatically]|
-|save / -s|save [directory]|
-|clear / -c|clear|
-|quit / -q|quit|
+|save / -s|save [-h] [directory]|
+|clear / -c|clear [-h]|
+|exit / quit / -q|quit|
 |=======================================================================
 
