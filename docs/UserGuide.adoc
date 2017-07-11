@@ -92,13 +92,12 @@ Example: `help add`
 === Adding a task : `add / -a / +`
 
 Format 1: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `add n/CS2103 Project V0.1 s/Next Fri 2359 d/Special Term t/NUS a/2 days r/yearly u/true`
+Example: `add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true`
 ****
 * Creates a task with provided attributes and adds it to list
 * Floating tasks can be added with date, time field blank
-* _start_ and _end_ are in the format _date_ _time_ +
-Example: `s/03/05/17 2359 e/04/05/17 1159`
-* alarm sets an notification to appear at the specified date
+* _start_ and _end_ are in the format {date} {time}
+* _alarm_ sets an notification to appear at the specified date
 * For urgent tasks, u/true can be added. Or else, field can be left blank
 ****
 
@@ -142,12 +141,12 @@ Example: `undo`
 
 === Editing a task : `edit / -e`
 
-Format: `edit [-h] {index}  n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
-Example: `edit 2 n/CS2103 s/05/07/18`
+Format: `edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
+Example: `edit 2 n/CS2103 s/05/07/18 1159`
 ****
 * Edits task at that index in the most recent call of list
-* new start and new end are in the format {date} {time} (ie. s/03/05/17 2359 e/04/05/17 1159)
-* new alarm sets a new notification to appear at the specified date
+*_new start_ and_new end_are in the format {date} {time}
+* _new alarm_ sets a new notification to appear at the specified date
 ****
 
 === Viewing a task : `view / -v`
@@ -176,7 +175,8 @@ Example: `unmark 4`
 
 === Editing the default options : `option / -o`
 
-Format: `option a/[alarm] m/ [mark completion automatically]` +
+Format: `option a/[alarm] m/[mark completion automatically]` +
+Example: `option a/2 days`
 ****
 * Option without parameters will show the general options which the user can edit and their explanations
 * Default reminder alarm timing before the deadline can be edited
