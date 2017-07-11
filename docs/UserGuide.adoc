@@ -23,7 +23,8 @@ This app will not work with earlier versions of Java 8.
 .  Download the latest `2Do.jar` from the link:../../../releases[releases] tab.
 .  Copy the file to the folder you want to use as the home folder for your to-do list.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
-.  image::MainScreen.png[]
+.  image::Architecture.png[width="600"]
+.  _Figure 2.1.1 : Architecture Diagram_
 .  When the application starts up, tasks due within a certain amount of time (the default is 7 days) will be displayed.
 .  To interact with the task manager, open the main application.
 .  You will then see a list of your tasks sorted by due date.
