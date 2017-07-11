@@ -13,9 +13,12 @@ import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
+import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
 import teamthree.twodo.commons.events.storage.TaskBookStorageChangedEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.ConfigUtil;
+import teamthree.twodo.logic.commands.SaveCommand;
+import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -62,6 +65,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    //@@author A0162253M
     public void setTaskBookFilePath(String filePath) throws IOException {
         taskBookStorage.setTaskBookFilePath(filePath);
         config.setTaskBookFilePath(filePath);
@@ -110,5 +114,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
 
     }
-
+    
+    @Subscribe
+    private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
+      logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
+      try {
+          setTaskBookFilePath(event.filePath);
+      } catch (IOException e) {
+        throw new CommandException(String.format(SaveCommand.MESSAGE_FAILURE, event.filePath));
+      }
+  }
 }

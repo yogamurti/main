@@ -78,6 +78,7 @@ public class StatusBarFooter extends UiPart<Region> {
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 
+    //@@author A0162253M
     @Subscribe
     public void handleTaskBookStorageChangedEvent(TaskBookStorageChangedEvent e) {
         logger.info(LogsCenter.getEventHandlingLogMessage(e, "Task Book saved to " + e.filePath));
