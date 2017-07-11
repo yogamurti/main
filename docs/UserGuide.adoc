@@ -128,7 +128,7 @@ Example: `list`
 Format: `find [-h] {keyword}` +
 Example: `find work`
 ****
-* Scans through all tasks to find for keyword in any attribute and list it
+* Scans through all tasks to find for keyword in its name, description and tags and list it
 ****
 
 === Undoing the last action : `undo / -u`
@@ -147,14 +147,6 @@ Example: `edit 2 n/CS2103 s/05/07/18`
 * Edits task at that index in the most recent call of list
 * new start and new end are in the format {date} {time} (ie. s/03/05/17 2359 e/04/05/17 1159)
 * new alarm sets a new notification to appear at the specified date
-****
-
-=== Viewing a task : `view / -v`
-
-Format : `view [-h] {index}` +
-Example: `view 2`
-****
-* Displays the full details of the task
 ****
 
 === Marking a task as complete : `mark / -m`
@@ -233,7 +225,6 @@ Example: `quit`
 |find / -f|find [-h] {keyword}|
 |undo / -u|undo|
 |edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|
-|view / -v|view [-h] {index}|
 |mark / -m|mark {index}|
 |unmark / -un|unmark {index}|
 |option/ -o|option a/[alarm] p/ [prompt] m/ [mark completion automatically]|

@@ -12,7 +12,6 @@ import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.storage.Storage;
 
 /**
  * The main LogicManager of the app.

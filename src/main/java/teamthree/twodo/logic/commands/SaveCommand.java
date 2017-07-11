@@ -1,13 +1,11 @@
 //@@author A0162253M
 package teamthree.twodo.logic.commands;
 
-import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
-import teamthree.twodo.commons.events.ui.ExitAppRequestEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 /** Saves TaskBook to the specified directory */

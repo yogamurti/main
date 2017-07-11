@@ -4,7 +4,6 @@ import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
-import teamthree.twodo.storage.Storage;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

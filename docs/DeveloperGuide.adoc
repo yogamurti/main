@@ -340,7 +340,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |see incomplete tasks |know what I need to do
 
-|`* * *` |user |find tasks by deadline |know which tasks are most urgent
+|`* * *` |user |find tasks by keywords |find tasks using certains keywords i remember
 
 |`* * *` |user |see tasks that are related |know related tasks easily
 
@@ -535,44 +535,6 @@ ____
 2. 2Do displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
 4. 2Do updates the task and shows a success message
-
-Use case ends
-
-*Extensions*
-
-1a. User input is invalid
-
-____
-1a1. 2Do displays an error message
-
-Use case ends
-____
-
-2b. No tasks to display
-
-____
-2b1. 2Do displays a â€œNo task to displayâ€� message
-
-Use case ends
-____
-
-3a. User input is invalid
-
-____
-3a1. 2Do displays an error message
-
-Use case resumes at step 2
-____
-
-[discrete]
-=== Use case: View task
-
-*MSS*
-
-1. User searches for a task using *list* or *find*
-2. 2Do displays all relevant tasks
-3. User requests to view the task by using its link:#index[index]
-4. 2Do displays details about that task
 
 Use case ends
 
@@ -814,6 +776,20 @@ Name
 
 ____
 Name of task
+____
+
+[[start]]
+Start date and time of event/task
+
+____
+date and time follows their respective formats
+____
+
+[[end]]
+End date and time of event/task
+
+____
+date and tiem follows their respective formats
 ____
 
 [[floating-task]]
