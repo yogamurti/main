@@ -6,7 +6,7 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-public class ViewCommand extends Command{
+public class ViewCommand extends Command {
 
     //Command word can be any one of the three
     public static final String COMMAND_WORD = "view";
@@ -30,15 +30,11 @@ public class ViewCommand extends Command{
     @Override
     public CommandResult execute() throws CommandException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-        
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
         ReadOnlyTask taskToView = lastShownList.get(targetIndex.getZeroBased());
-        
         model.updateFilteredTaskList(taskToView);
-        
         return new CommandResult(String.format(MESSAGE_VIEW_TASK_SUCCESS, taskToView));
     }
 }
