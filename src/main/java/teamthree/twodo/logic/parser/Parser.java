@@ -20,7 +20,6 @@ import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
 import teamthree.twodo.logic.commands.UnmarkCommand;
-import teamthree.twodo.logic.commands.ViewCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,9 +74,6 @@ public class Parser {
         case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
             return new UnmarkCommandParser().parse(arguments);
 
-        case ViewCommand.COMMAND_WORD:
-        case ViewCommand.COMMAND_WORD_UNIXSTYLE:
-            return new ViewCommandParser().parse(arguments);
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
