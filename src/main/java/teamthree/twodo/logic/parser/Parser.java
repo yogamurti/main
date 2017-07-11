@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package teamthree.twodo.logic.parser;
 
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -37,122 +36,11 @@ public class Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_UNIXSTYLE:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD_QUICK:
-        case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
-        case DeleteCommand.COMMAND_WORD_SHORT:
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
-            return new MarkCommandParser().parse(arguments);
-
-        case UnmarkCommand.COMMAND_WORD:
-        case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
-            return new UnmarkCommandParser().parse(arguments);
-
-        case ViewCommand.COMMAND_WORD:
-        case ViewCommand.COMMAND_WORD_UNIXSTYLE:
-            return new ViewCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case SaveCommand.COMMAND_WORD:
-        case SaveCommand.COMMAND_WORD_UNIXSTYLE:
-            return new SaveCommandParser().parse(arguments);
-
-        case HelpCommand.COMMAND_WORD:
-            if (arguments.isEmpty()) {
-                return new HelpCommand();
-            }
-            return new HelpCommandParser().parse(arguments);
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-
-    }
-}
-=======
-package teamthree.twodo.logic.parser;
-
-import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import teamthree.twodo.logic.commands.AddCommand;
-import teamthree.twodo.logic.commands.ClearCommand;
-import teamthree.twodo.logic.commands.Command;
-import teamthree.twodo.logic.commands.DeleteCommand;
-import teamthree.twodo.logic.commands.EditCommand;
-import teamthree.twodo.logic.commands.ExitCommand;
-import teamthree.twodo.logic.commands.FindCommand;
-import teamthree.twodo.logic.commands.HelpCommand;
-import teamthree.twodo.logic.commands.HistoryCommand;
-import teamthree.twodo.logic.commands.ListCommand;
-import teamthree.twodo.logic.commands.MarkCommand;
-import teamthree.twodo.logic.commands.SaveCommand;
-import teamthree.twodo.logic.commands.SelectCommand;
-import teamthree.twodo.logic.commands.UnmarkCommand;
-import teamthree.twodo.logic.commands.ViewCommand;
-import teamthree.twodo.logic.parser.exceptions.ParseException;
-
-/**
- * Parses user input.
- */
-public class Parser {
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    /**
-     * Parses user input into command for execution.
-     *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException
+     *             if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -225,4 +113,3 @@ public class Parser {
 
     }
 }
->>>>>>> 3a7a36eaf520362f711c38c80a7ef0295bacf14f
