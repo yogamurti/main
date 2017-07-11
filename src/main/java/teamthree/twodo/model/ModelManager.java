@@ -79,6 +79,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.unmarkTask(target);
+        indicateTaskBookChanged();
+    }
+
+    @Override
     public void saveTaskBook() {
         indicateTaskBookChanged();
     }

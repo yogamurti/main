@@ -8,22 +8,22 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-// Marks a task as complete using its last displayed index from the TaskBook.
-public class MarkCommand extends Command {
+//Marks a task as incomplete using its last displayed index from the TaskBook.
+public class UnmarkCommand extends Command {
 
     //Command word can be either one of the two
-    public static final String COMMAND_WORD = "mark";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-m";
+    public static final String COMMAND_WORD = "unmark";
+    public static final String COMMAND_WORD_UNIXSTYLE = "-un";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by the index number used in the last task listing as complete.\n"
+            + ": Marks the task identified by the index number used in the last task listing as incomplete.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 4 ";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked task as complete: %1$s";
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Marked task as incomplete: %1$s";
 
     public final Index targetIndex;
 
-    public MarkCommand(Index targetIndex) {
+    public UnmarkCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -36,14 +36,14 @@ public class MarkCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToMark = lastShownList.get(targetIndex.getZeroBased());
+        ReadOnlyTask taskToUnmark = lastShownList.get(targetIndex.getZeroBased());
 
         try {
-            model.markTask(taskToMark);
+            model.unmarkTask(taskToUnmark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+        return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
     }
 }
