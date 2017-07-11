@@ -109,7 +109,7 @@ Example: `add project on friday at 2359`
 
 === Deleting a task : `delete / del / -d / -`
 
-Format 1: `delete [-h] {index}` +
+Format: `delete [-h] {index}` +
 Example: `delete 1`
 ****
 * Deletes task at that index (positive number) in the most recent call of list
