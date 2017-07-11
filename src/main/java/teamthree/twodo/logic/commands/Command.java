@@ -12,10 +12,9 @@ import teamthree.twodo.storage.Storage;
 public abstract class Command {
     protected Model model;
     protected CommandHistory history;
-    protected Storage storage;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
+     * Constructs a feedback message to summarize an operation that displayed a listing of tasks.
      *
      * @param displaySize used to generate summary
      * @return summary message for persons displayed
@@ -39,9 +38,5 @@ public abstract class Command {
      */
     public void setData(Model model, CommandHistory history) {
         this.model = model;
-    }
-
-    public void setStorage(Storage storage) {
-        this.storage = storage;
     }
 }
