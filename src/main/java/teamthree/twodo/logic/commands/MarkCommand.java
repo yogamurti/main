@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
             + ": Marks the task identified by the index number used in the last task listing as complete.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 4 ";
 
-    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked task as complete: %1$s";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked task as complete: %1$s";
 
     public final Index targetIndex;
 
@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex.getZeroBased());
@@ -44,6 +44,6 @@ public class MarkCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_PERSON_SUCCESS, taskToMark));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
 }
