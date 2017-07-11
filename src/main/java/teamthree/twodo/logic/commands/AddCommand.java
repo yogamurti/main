@@ -48,6 +48,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
         try {
             model.addTask(toAdd);
+            history.addToAddHistory(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

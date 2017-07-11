@@ -43,7 +43,7 @@ import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
-import teamthree.twodo.logic.commands.HistoryCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
@@ -459,7 +459,7 @@ public class LogicManagerTest {
             assertEquals(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
         }
 
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS,
                 String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
         assertCommandSuccess("history", expectedMessage, model);
     }

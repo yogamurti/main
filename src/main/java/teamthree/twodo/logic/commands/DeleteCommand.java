@@ -42,10 +42,11 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_CONFIRM_DELETE));
+        //EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_CONFIRM_DELETE));
 
         try {
             model.deleteTask(personToDelete);
+            history.addToDeleteHistory(personToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }

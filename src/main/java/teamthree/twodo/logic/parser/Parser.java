@@ -6,6 +6,8 @@ import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.LogicManager;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
 import teamthree.twodo.logic.commands.Command;
@@ -14,7 +16,7 @@ import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
-import teamthree.twodo.logic.commands.HistoryCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
@@ -30,8 +32,7 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     /**
      * Parses user input into command for execution.
      *
@@ -47,6 +48,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -79,8 +81,8 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -10,40 +10,40 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 
 public class HistoryCommandTest {
-    private HistoryCommand historyCommand;
+    private UndoCommand undoCommand;
     private CommandHistory history;
 
     @Before
     public void setUp() {
         Model model = new ModelManager();
         history = new CommandHistory();
-        historyCommand = new HistoryCommand();
-        historyCommand.setData(model, history);
+        undoCommand = new UndoCommand();
+        undoCommand.setData(model, history);
     }
 
     @Test
     public void execute() {
-        assertCommandResult(historyCommand, HistoryCommand.MESSAGE_NO_HISTORY);
+        assertCommandResult(undoCommand, UndoCommand.MESSAGE_NO_HISTORY);
 
         String command1 = "clear";
-        history.add(command1);
-        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, command1));
+        history.addToUserInputHistory(command1);
+        assertCommandResult(undoCommand, String.format(UndoCommand.MESSAGE_SUCCESS, command1));
 
         String command2 = "randomCommand";
         String command3 = "select 1";
-        history.add(command2);
-        history.add(command3);
+        history.addToUserInputHistory(command2);
+        history.addToUserInputHistory(command3);
 
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS,
                 String.join("\n", command1, command2, command3));
 
-        assertCommandResult(historyCommand, expectedMessage);
+        assertCommandResult(undoCommand, expectedMessage);
     }
 
     /**
-     * Asserts that the result message from the execution of {@code historyCommand} equals to {@code expectedMessage}
+     * Asserts that the result message from the execution of {@code undoCommand} equals to {@code expectedMessage}
      */
-    private void assertCommandResult(HistoryCommand historyCommand, String expectedMessage) {
-        assertEquals(expectedMessage, historyCommand.execute().feedbackToUser);
+    private void assertCommandResult(UndoCommand undoCommand, String expectedMessage) {
+        assertEquals(expectedMessage, undoCommand.execute().feedbackToUser);
     }
 }
