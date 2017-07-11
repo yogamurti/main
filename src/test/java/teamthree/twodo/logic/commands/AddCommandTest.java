@@ -111,6 +111,7 @@ public class AddCommandTest {
         public void updateFilteredTaskList(Set<String> keywords) {
             fail("This method should not be called.");
         }
+
         @Override
         public void updateFilteredTaskList(ReadOnlyTask task) {
             fail("This method should not be called.");
