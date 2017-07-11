@@ -178,9 +178,9 @@ _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Comma
 
 === Model component
 
-Author: Cynthia Dharman
+Author: V Narendar Nag
 
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponentClassDiagram.png[width="800"]
 _Figure 2.4.1 : Structure of the Model Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
