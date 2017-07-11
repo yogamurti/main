@@ -1,4 +1,4 @@
-package guitests.guihandles;
+/*package guitests.guihandles;
 
 import static teamthree.twodo.commons.util.AppUtil.checkArgument;
 
@@ -7,9 +7,9 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import teamthree.twodo.ui.UiManager;
 
-/**
+*//**
  * A handle for the AlertDialog of the UI
- */
+ *//*
 public class AlertDialogHandle extends GuiHandle {
 
 
@@ -25,3 +25,4 @@ public class AlertDialogHandle extends GuiHandle {
         return isMatching;
     }
 }
+*/

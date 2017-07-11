@@ -1,4 +1,4 @@
-package guitests.guihandles;
+/*package guitests.guihandles;
 
 import java.util.List;
 import java.util.Set;
@@ -11,11 +11,12 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.model.task.TaskWithDeadline;
 
-/**
+*//**
  * Provides a handle to a person card in the person list panel.
- */
-public class PersonCardHandle extends GuiHandle {
+ *//*
+public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String DEADLINE_FIELD_ID = "#deadline";
@@ -23,7 +24,7 @@ public class PersonCardHandle extends GuiHandle {
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -44,24 +45,17 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(DEADLINE_FIELD_ID);
     }
 
-
     public List<String> getTags() {
         return getTags(getTagsContainer());
     }
 
     private List<String> getTags(Region tagsContainer) {
-        return tagsContainer
-                .getChildrenUnmodifiable()
-                .stream()
-                .map(node -> ((Labeled) node).getText())
+        return tagsContainer.getChildrenUnmodifiable().stream().map(node -> ((Labeled) node).getText())
                 .collect(Collectors.toList());
     }
 
     private List<String> getTags(Set<Tag> tags) {
-        return tags
-                .stream()
-                .map(tag -> tag.tagName)
-                .collect(Collectors.toList());
+        return tags.stream().map(tag -> tag.tagName).collect(Collectors.toList());
     }
 
     private Region getTagsContainer() {
@@ -69,20 +63,24 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person) {
-        return getFullName().equals(person.getName().fullName)
-                && getDeadline().equals(person.getDeadline().get().toString())
-                && getDescription().equals(person.getDescription().value)
-                && getTags().equals(getTags(person.getTags()));
+        if (person instanceof TaskWithDeadline) {
+            return getFullName().equals(person.getName().fullName)
+                    && getDeadline().equals(person.getDeadline().get().toString())
+                    && getDescription().equals(person.getDescription().value)
+                    && getTags().equals(getTags(person.getTags()));
+        } else {
+            return getFullName().equals(person.getName().fullName)
+                    && getDescription().equals(person.getDescription().value)
+                    && getTags().equals(getTags(person.getTags()));
+        }
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getDeadline().equals(handle.getDeadline())
-                    && getDescription().equals(handle.getDescription())
-                    && getTags().equals(handle.getTags());
+        if (obj instanceof TaskCardHandle) {
+            TaskCardHandle handle = (TaskCardHandle) obj;
+            return getFullName().equals(handle.getFullName()) && getDeadline().equals(handle.getDeadline())
+                    && getDescription().equals(handle.getDescription()) && getTags().equals(handle.getTags());
         }
         return super.equals(obj);
     }
@@ -92,3 +90,4 @@ public class PersonCardHandle extends GuiHandle {
         return getFullName() + " " + getDescription();
     }
 }
+*/

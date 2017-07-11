@@ -12,9 +12,9 @@ public class EditCommandTestUtil {
     public static final String VALID_END_DATE = "sat 10am";
     public static final String VALID_START_DATE = "fri 10am";
     public static final String VALID_DESCRIPTION_MOD = "FML";
-    public static final String VALID_DESCRIPTION_EVENT = "INGA-THINGA-THHURGIN";
+    public static final String VALID_DESCRIPTION_EVENT = "INGATHINGATHHURGIN";
     public static final String VALID_TAG_WORK = "PLAY";
-    public static final String VALID_TAG_SPONGEBOB = "SPONGEBAAAAB!";
+    public static final String VALID_TAG_SPONGEBOB = "SPONGEBAAAAB";
 
     public static final EditTaskDescriptor DESC_CSMOD;
     public static final EditTaskDescriptor DESC_EVENT;
@@ -22,7 +22,7 @@ public class EditCommandTestUtil {
     static {
         try {
             DESC_CSMOD = new EditTaskDescriptorBuilder().withName(VALID_NAME_CSMOD)
-                    .withStartDeadline(VALID_START_DATE).withDescription(VALID_DESCRIPTION_MOD)
+                    .withDescription(VALID_DESCRIPTION_MOD)
                     .withTags(VALID_TAG_SPONGEBOB).build();
             DESC_EVENT = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                     .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withDescription(VALID_DESCRIPTION_EVENT)

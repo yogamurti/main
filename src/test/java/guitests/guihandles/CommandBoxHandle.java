@@ -1,4 +1,4 @@
-package guitests.guihandles;
+/*package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
@@ -6,9 +6,9 @@ import javafx.stage.Stage;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.ui.CommandBox;
 
-/**
+*//**
  * A handle to the Command Box in the GUI.
- */
+ *//*
 public class CommandBoxHandle extends GuiHandle {
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
@@ -17,9 +17,9 @@ public class CommandBoxHandle extends GuiHandle {
         super(guiRobot, primaryStage, stageTitle);
     }
 
-    /**
+    *//**
      * Clicks on the TextField.
-     */
+     *//*
     public void clickOnTextField() {
         guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
     }
@@ -32,10 +32,10 @@ public class CommandBoxHandle extends GuiHandle {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
 
-    /**
+    *//**
      * Enters the given command in the Command Box and presses enter.
      * @return true if the command succeeded, false otherwise.
-     */
+     *//*
     public boolean runCommand(String command) {
         enterCommand(command);
         pressEnter();
@@ -53,3 +53,4 @@ public class CommandBoxHandle extends GuiHandle {
         return getNode(COMMAND_INPUT_FIELD_ID).getStyleClass();
     }
 }
+*/

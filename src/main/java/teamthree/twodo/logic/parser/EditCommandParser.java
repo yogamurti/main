@@ -68,13 +68,6 @@ public class EditCommandParser {
         return new EditCommand(index, editTaskDescriptor);
     }
 
-    /*
-     * private boolean isEditingDeadline(ArgumentMultimap argMultimap) { return
-     * arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START) ||
-     * arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END) ||
-     * arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_PERIOD); }
-     */
-
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if

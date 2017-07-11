@@ -13,7 +13,6 @@ import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
-import teamthree.twodo.model.task.Email;
 import teamthree.twodo.model.task.Name;
 
 /**
@@ -73,8 +72,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> phone} into an {@code Optional
-     * <Deadline>} if {@code phone} is present.
+     * Parses {@code Optional<String> startTime, endTime and notificationPeriod} into {@code Optional
+     * <Deadline>} if they are present is present.
      */
     public static Optional<Deadline> parseDeadlineForEdit(Optional<String> startTime, Optional<String> endTime,
             Optional<String> notificationPeriod) throws IllegalValueException {
@@ -112,16 +111,7 @@ public class ParserUtil {
     public static Optional<Description> parseDescription(Optional<String> description) throws IllegalValueException {
         requireNonNull(description);
         return description.isPresent() ? Optional.of(new Description(description.get()))
-                : Optional.of(new Description("No description."));
-    }
-
-    /**
-     * Parses a {@code Optional<String> email} into an {@code Optional<Email>}
-     * if {@code email} is present.
-     */
-    public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
-        requireNonNull(email);
-        return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.of(new Email(""));
+                : Optional.empty();
     }
 
     /**

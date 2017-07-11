@@ -149,17 +149,17 @@ class AddressBookTest extends Test {
     }
 }
 
-task guiTests(type: AddressBookTest) {
+/*task guiTests(type: AddressBookTest) {
     include 'guitests/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
-}
+}*/
 
 
 task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
+    include 'teamthree/twodo/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
@@ -175,14 +175,14 @@ task allTests(type: AddressBookTest) {
 
 task headless << {
     println "Setting headless mode properties."
-    guiTests.setHeadless()
+   // guiTests.setHeadless()
     nonGuiTests.setHeadless()
     allTests.setHeadless()
 }
 
 // Makes sure that headless properties are set before running tests
 nonGuiTests.mustRunAfter headless
-guiTests.mustRunAfter headless
+//guiTests.mustRunAfter headless
 allTests.mustRunAfter headless
 
 asciidoctor {

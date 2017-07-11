@@ -38,12 +38,8 @@ public class EditPersonDescriptorTest {
         EditTaskDescriptor editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withName(VALID_NAME_EVENT).build();
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
-        // different phone -> returns false
+        // different start date -> returns false
         editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withStartDeadline(VALID_START_DATE).build();
-        assertFalse(DESC_CSMOD.equals(editedAmy));
-
-        // different email -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).build();
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different address -> returns false

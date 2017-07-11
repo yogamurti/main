@@ -45,7 +45,8 @@ public class AddCommandParser {
         }
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
-            Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)).get();
+            Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION))
+                    .orElse(new Description("No Description."));
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
             if (argumentContainsDeadline(argMultimap)) {
                 Deadline deadline = ParserUtil.parseDeadlineForAdd(argMultimap.getValue(PREFIX_DEADLINE_START),

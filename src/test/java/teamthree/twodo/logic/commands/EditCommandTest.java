@@ -8,7 +8,6 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_END_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
@@ -27,6 +26,7 @@ import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TypicalPersons;
@@ -63,7 +63,7 @@ public class EditCommandTest {
                 .withTags(VALID_TAG_SPONGEBOB).build();
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
-                .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_WORK).build();
+                .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
         EditCommand editCommand = prepareCommand(indexLastTask, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
@@ -105,7 +105,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() throws Exception {
-        Task firstPerson = new Task(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        Task firstPerson = new TaskWithDeadline(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
 

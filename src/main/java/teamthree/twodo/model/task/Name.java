@@ -11,7 +11,7 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Task name should not be blank and it should contain forward slashes.";
+            "Task name should not be blank and it should not contain forward slashes.";
 
     /*
      * Name can be any character other than newline and forward slash
