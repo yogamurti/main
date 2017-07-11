@@ -116,8 +116,7 @@ public class Task implements ReadOnlyTask {
         completed = replacement.isCompleted();
         if (completed) {
             this.markCompleted();
-        }
-        else {
+        } else {
             this.markIncompleted();
         }
     }

@@ -26,6 +26,9 @@ public interface Model {
     /** Marks the given task as complete. */
     void markTask(ReadOnlyTask person) throws TaskNotFoundException;
 
+    /** Marks the given task as incomplete. */
+    void unmarkTask(ReadOnlyTask person) throws TaskNotFoundException;
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
