@@ -48,7 +48,8 @@ public interface Model {
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
-    void updateFilteredTaskList(ReadOnlyTask task);
+    /** Updates an extensive filter of the filtered person list to filter by the given keywords*/
+    void updateFilteredTaskListExtensively(Set<String> keywords);
 
     /** Saves the taskBook*/
     void saveTaskBook();
