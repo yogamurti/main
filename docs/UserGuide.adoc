@@ -145,7 +145,7 @@ Format: `edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new descrip
 Example: `edit 2 n/CS2103 s/05/07/18 1159`
 ****
 * Edits task at that index in the most recent call of list
-*_new start_ and_new end_are in the format {date} {time}
+* _new start_ and _new end_ are in the format {date} {time}
 * _new alarm_ sets a new notification to appear at the specified date
 ****
 
