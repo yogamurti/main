@@ -144,11 +144,11 @@ Author: Yogamurti Sutanto
 image::UiClassDiagram.png[width="800"]
 _Figure 2.2.1 : Structure of the UI Component_
 
-*API* : link:{repoURL}/src/main/java/teamthree/twodo/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/main/blob/master/src/main/java/teamthree/twodo/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/teamthree/twodo/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/main/blob/master/src/main/java/teamthree/twodo/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
