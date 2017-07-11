@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_END;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
@@ -318,7 +318,7 @@ public class LogicManagerTest {
      *            list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> personList = helper.generatePersonList(2);
 
@@ -456,7 +456,7 @@ public class LogicManagerTest {
             logic.execute(invalidCommandExecute);
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
-            assertEquals(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
+            assertEquals(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, ce.getMessage());
         }
 
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS,

@@ -48,7 +48,7 @@ This app will not work with earlier versions of Java 8.
 
 .  Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
 .  Choose `External Configuration File` under `Type`
-.  Enter an arbitrary configuration name e.g. addressbook
+.  Enter an arbitrary configuration name e.g. 2Do
 .  Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
 .  Click OK once, go to the `Main` tab, use the newly imported check configuration.
 .  Tick and select `files from packages`, click `Change...`, and select the `resources` package
@@ -139,14 +139,14 @@ The sections below give more details of each component.
 
 === UI component
 
-Author: Alice Bee
+Author: Yogamurti Sutanto
 
 image::UiClassDiagram.png[width="800"]
 _Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -158,7 +158,7 @@ The `UI` component,
 
 === Logic component
 
-Author: Bernard Choo
+Author: Ang Lang Yi
 
 image::LogicClassDiagram.png[width="800"]
 _Figure 2.3.1 : Structure of the Logic Component_
@@ -168,7 +168,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `Parser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -178,9 +178,9 @@ _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Comma
 
 === Model component
 
-Author: Cynthia Dharman
+Author: V Narendar Nag
 
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponentClassDiagram.png[width="800"]
 _Figure 2.4.1 : Structure of the Model Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -189,7 +189,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 === Storage component
@@ -400,7 +400,7 @@ For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, un
 
 *MSS*
 
-1. User requests to add a task with a title and optional details
+1. User requests to add a task with a name and optional details
 2. 2Do adds the task and shows a success message
 
 Use case ends
@@ -426,7 +426,7 @@ ____
 
 *MSS*
 
-1. User requests to delete a task using its title
+1. User requests to delete a task using its name
 2. 2Do prompts the user to confirm deletion
 3. User confirms deletion
 4. 2Do deletes the task and shows a success message
@@ -809,11 +809,11 @@ Use case ends
 [appendix]
 == Glossary
 
-[[main]]
-Main
+[[name]]
+Name
 
 ____
-Title of task
+Name of task
 ____
 
 [[floating-task]]

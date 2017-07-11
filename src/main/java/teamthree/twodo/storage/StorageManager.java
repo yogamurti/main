@@ -114,14 +114,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
 
     }
-    
+
     @Subscribe
     private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
-      logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
-      try {
-          setTaskBookFilePath(event.filePath);
-      } catch (IOException e) {
-        throw new CommandException(String.format(SaveCommand.MESSAGE_FAILURE, event.filePath));
-      }
-  }
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
+        try {
+            setTaskBookFilePath(event.filePath);
+        } catch (IOException e) {
+            throw new CommandException(String.format(SaveCommand.MESSAGE_FAILURE, event.filePath));
+        }
+    }
 }
