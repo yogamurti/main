@@ -9,6 +9,8 @@ import teamthree.twodo.commons.events.ui.ExitAppRequestEvent;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
+    public static final String COMMAND_WORD_SECOND = "quit";
+    public static final String COMMAND_WORD_UNIXSTYLE = "-q";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Description Book as requested ...";
 

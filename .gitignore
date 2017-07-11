@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 build/
 .gradle/*
 .settings/
@@ -18,3 +19,24 @@ classes/
 src/main/resources/docs/
 /.gradle/
 
+=======
+build/
+.gradle/*
+.settings/
+.idea/
+.classpath
+*.iml
+*.log
+*.log.*
+*.csv
+config.json
+src/test/data/sandbox/
+preferences.json
+.DS_Store
+./screenshot*.png
+classes/
+/data/
+/bin/
+src/main/resources/docs/
+/.gradle/
+>>>>>>> 3a7a36eaf520362f711c38c80a7ef0295bacf14f
