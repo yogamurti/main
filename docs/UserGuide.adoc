@@ -229,7 +229,7 @@ Example: `quit`
 |Command|Format 1|Format 2
 |help / -h|help [name of command]|
 |add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {name} on {date} at {time}
-|delete / del / -d / -|delete [-h] {index}|delete [-h] {name} on {date} at {time}
+|delete / del / -d / -|delete [-h] {index}|
 |list / -l|list [-h]|
 |find / -f|find [-h] {keyword}|
 |undo / -u|undo|
