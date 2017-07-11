@@ -12,7 +12,6 @@ import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -23,7 +22,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final Parser parser;
-    
+
     //Temp constructor for logicmanagertest
     public LogicManager(Model model) {
         this.model = model;
