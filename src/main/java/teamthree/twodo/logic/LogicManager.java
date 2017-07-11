@@ -23,7 +23,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final Parser parser;
-    
+
     //Temp constructor for logicmanagertest
     public LogicManager(Model model) {
         this.model = model;
