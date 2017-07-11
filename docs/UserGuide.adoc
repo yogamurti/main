@@ -227,7 +227,7 @@ Example: `quit`
 |=======================================================================
 |Command|Format 1|Format 2
 |help / -h|help [name of command]|
-|add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {name} on {date} at {time}|
+|add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {name} on {date} at {time}
 |delete / del / -d / -|delete [-h] {index}|
 |list / -l|list [-h]|
 |find / -f|find [-h] {keyword}|
@@ -236,7 +236,7 @@ Example: `quit`
 |view / -v|view [-h] {index}|
 |mark / -m|mark {index}|
 |unmark / -un|unmark {index}|
-|option/ -o|option a/[alarm] p/ [prompt] m/ [mark completion automatically]|
+|option/ -o|option a/[alarm] m/ [mark completion automatically]|
 |save / -s|save [-h] [directory]|
 |clear / -c|clear [-h]|
 |exit / quit / -q|quit|
