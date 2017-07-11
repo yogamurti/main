@@ -17,8 +17,8 @@ import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.events.ui.JumpToListRequestEvent;
-import teamthree.twodo.commons.events.ui.PersonPanelSelectionChangedEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
+import teamthree.twodo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
@@ -147,7 +147,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }

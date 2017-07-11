@@ -80,6 +80,7 @@ public class Parser {
         case ViewCommand.COMMAND_WORD:
         case ViewCommand.COMMAND_WORD_UNIXSTYLE:
             return new ViewCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
