@@ -809,7 +809,7 @@ Use case ends
 [appendix]
 == Glossary
 
-[[main]]
+[[name]]
 Name
 
 ____

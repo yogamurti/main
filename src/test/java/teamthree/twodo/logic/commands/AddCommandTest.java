@@ -132,6 +132,12 @@ public class AddCommandTest {
             // TODO Auto-generated method stub
 
         }
+
+        @Override
+        public void unmarkTask(ReadOnlyTask person) throws TaskNotFoundException {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     /**
