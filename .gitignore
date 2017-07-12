@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 build/
 .gradle/*
 .checkstyle
@@ -19,3 +20,26 @@ classes/
 src/main/resources/docs/
 /.gradle/
 /config/checkstyle/checkstyle
+=======
+build/
+.gradle/*
+.checkstyle
+.settings/
+.idea/
+.classpath
+*.iml
+*.log
+*.log.*
+*.csv
+config.json
+src/test/data/sandbox/
+preferences.json
+.DS_Store
+./screenshot*.png
+classes/
+/data/
+/bin/
+src/main/resources/docs/
+/.gradle/
+
+>>>>>>> c26faf683b96c922ebcb3c9cfec0a054d5bfd3c1

@@ -8,9 +8,9 @@ import javafx.scene.layout.Region;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
-public class PersonCard extends UiPart<Region> {
+public class TaskCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskCard.fxml";
 
     /**
      * Description: Certain keywords such as "location" and "resources" are
@@ -35,21 +35,21 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(ReadOnlyTask task, int displayedIndex) {
+    public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         if (task instanceof TaskWithDeadline) {
             deadline.setText(task.getDeadline().get().toString());
         } else {
-            deadline.setText("OT,OT");
+            deadline.setText("No deadline");
         }
         if (task.getDescription().toString().isEmpty()) {
             description.setText("No description");
         } else {
             description.setText(task.getDescription().toString());
         }
-        //email.setText(person.getEmail().value);
+        //email.setText(task.getEmail().value);
         initTags(task);
         // Also add a complete/incomplete tag to indicate its completion status
         String completionStatus = "Incomplete";
@@ -59,7 +59,7 @@ public class PersonCard extends UiPart<Region> {
         tags.getChildren().add(new Label(completionStatus));
     }
 
-    private void initTags(ReadOnlyTask person) {
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    private void initTags(ReadOnlyTask task) {
+        task.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 }

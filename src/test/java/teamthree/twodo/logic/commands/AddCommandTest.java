@@ -14,9 +14,11 @@ import org.junit.rules.ExpectedException;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
@@ -111,16 +113,6 @@ public class AddCommandTest {
         public void updateFilteredTaskList(Set<String> keywords) {
             fail("This method should not be called.");
         }
-        @Override
-        public void updateFilteredTaskList(ReadOnlyTask task) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredTaskList(ReadOnlyTask task) {
-            // TODO Auto-generated method stub
-
-        }
 
         @Override
         public void saveTaskBook() {
@@ -130,13 +122,21 @@ public class AddCommandTest {
         @Override
         public void markTask(ReadOnlyTask person) throws TaskNotFoundException {
             // TODO Auto-generated method stub
-
         }
 
         @Override
         public void unmarkTask(ReadOnlyTask person) throws TaskNotFoundException {
             // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void updateFilteredTaskListExtensively(Set<String> keywords) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput) {
+            // TODO Auto-generated method stub
         }
     }
 
