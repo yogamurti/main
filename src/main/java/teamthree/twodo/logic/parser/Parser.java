@@ -81,7 +81,8 @@ public class Parser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListCommand.COMMAND_WORD_UNIXSTYLE:
+            return new ListCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

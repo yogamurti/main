@@ -101,12 +101,6 @@ Example: `add n/CS2103 Project V0.1 s/Next Fri 2359 d/Special Term t/NUS a/2 day
 * For urgent tasks, u/true can be added. Or else, field can be left blank
 ****
 
-Format 2: `add [-h] {name} on {date} at {time}` +
-Example: `add project on friday at 2359`
-****
-* Supports keywords _on_, _at_ and _days_
-****
-
 === Deleting a task : `delete / del / -d / -`
 
 Format 1: `delete [-h] {index}` +

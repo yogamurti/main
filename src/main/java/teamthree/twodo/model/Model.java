@@ -3,6 +3,8 @@ package teamthree.twodo.model;
 import java.util.Set;
 
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
+import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -42,7 +44,7 @@ public interface Model {
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered person list to show all tasks */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
@@ -50,6 +52,9 @@ public interface Model {
 
     /** Updates an extensive filter of the filtered person list to filter by the given keywords*/
     void updateFilteredTaskListExtensively(Set<String> keywords);
+
+    /** Updates the filter of the filtered person list to show all tasks within the period */
+    void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput);
 
     /** Saves the taskBook*/
     void saveTaskBook();
