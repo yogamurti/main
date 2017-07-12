@@ -36,7 +36,6 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
-     * 
      * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {
