@@ -6,8 +6,6 @@ import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import teamthree.twodo.logic.CommandHistory;
-import teamthree.twodo.logic.LogicManager;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
 import teamthree.twodo.logic.commands.Command;

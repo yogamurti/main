@@ -1,24 +1,6 @@
 package teamthree.twodo.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.util.List;
-import java.util.Stack;
-
-import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
-import teamthree.twodo.logic.parser.AddCommandParser;
-import teamthree.twodo.logic.parser.DeleteCommandParser;
-import teamthree.twodo.logic.parser.EditCommandParser;
-import teamthree.twodo.logic.parser.FindCommandParser;
-import teamthree.twodo.logic.parser.HelpCommandParser;
-import teamthree.twodo.logic.parser.MarkCommandParser;
-import teamthree.twodo.logic.parser.SaveCommandParser;
-import teamthree.twodo.logic.parser.SelectCommandParser;
-import teamthree.twodo.logic.parser.ViewCommandParser;
-import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -88,7 +70,7 @@ public class UndoCommand extends Command {
 
       case MarkCommand.COMMAND_WORD:
       case MarkCommand.COMMAND_WORD_UNIXSTYLE:
-        ReadOnlyTask taskToMark= history.getMarkHistory().pop();
+        ReadOnlyTask taskToMark = history.getMarkHistory().pop();
         //TOADD: model.unmarkTask(taskToMark)
         //TOADD:FULL_MESSAGE = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_UNMARK_PERSON_SUCCESS);
         return new CommandResult(FULL_MESSAGE);

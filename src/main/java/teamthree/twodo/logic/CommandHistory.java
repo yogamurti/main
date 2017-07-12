@@ -3,9 +3,6 @@ package teamthree.twodo.logic;
 import static java.util.Objects.requireNonNull;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
@@ -39,6 +36,7 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
+     * 
      * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {
@@ -96,50 +94,47 @@ public class CommandHistory {
     }
 
     public Stack<String> getUserInputHistory() {
-      requireNonNull(userInputHistory);
-      return userInputHistory;
+        requireNonNull(userInputHistory);
+        return userInputHistory;
     }
 
     public Stack<ReadOnlyTask> getBeforeEditHistory() {
-      requireNonNull(beforeEditHistory);
-      return beforeEditHistory;
+        requireNonNull(beforeEditHistory);
+        return beforeEditHistory;
     }
 
     public Stack<ReadOnlyTask> getAfterEditHistory() {
-      requireNonNull(afterEditHistory);
-      return afterEditHistory;
+        requireNonNull(afterEditHistory);
+        return afterEditHistory;
     }
 
     public Stack<ReadOnlyTask> getAddHistory() {
-      requireNonNull(addHistory);
-      return addHistory;
+        requireNonNull(addHistory);
+        return addHistory;
     }
 
     public Stack<ReadOnlyTask> getDeleteHistory() {
-      requireNonNull(deleteHistory);
-      return deleteHistory;
+        requireNonNull(deleteHistory);
+        return deleteHistory;
     }
 
     public Stack<ReadOnlyTask> getMarkHistory() {
-      requireNonNull(markHistory);
-      return markHistory;
+        requireNonNull(markHistory);
+        return markHistory;
     }
 
     public Stack<ReadOnlyTaskBook> getClearHistory() {
-      requireNonNull(clearHistory);
-      return clearHistory;
+        requireNonNull(clearHistory);
+        return clearHistory;
     }
 
     private String getCommandWordFromInput(String userInput) throws ParseException {
-      final Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-      if (!matcher.matches()) {
-          throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-      }
+        final Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
 
-      final String commandWord = matcher.group("commandWord");
-      return commandWord;
+        final String commandWord = matcher.group("commandWord");
+        return commandWord;
     }
 }
-
-
-

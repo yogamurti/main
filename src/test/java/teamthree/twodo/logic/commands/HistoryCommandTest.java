@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.commands.exceptions.CommandException;
+import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 
@@ -22,7 +24,7 @@ public class HistoryCommandTest {
     }
 
     @Test
-    public void execute() {
+    public void execute() throws CommandException, ParseException {
         assertCommandResult(undoCommand, UndoCommand.MESSAGE_NO_HISTORY);
 
         String command1 = "clear";
@@ -42,8 +44,9 @@ public class HistoryCommandTest {
 
     /**
      * Asserts that the result message from the execution of {@code undoCommand} equals to {@code expectedMessage}
+     * @throws CommandException 
      */
-    private void assertCommandResult(UndoCommand undoCommand, String expectedMessage) {
+    private void assertCommandResult(UndoCommand undoCommand, String expectedMessage) throws CommandException {
         assertEquals(expectedMessage, undoCommand.execute().feedbackToUser);
     }
 }

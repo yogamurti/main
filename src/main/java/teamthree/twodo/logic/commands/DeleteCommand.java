@@ -1,10 +1,8 @@
 package teamthree.twodo.logic.commands;
 
-import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
-import teamthree.twodo.commons.events.ui.NewResultAvailableEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;

@@ -7,6 +7,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import teamthree.twodo.logic.parser.exceptions.ParseException;
+
 public class CommandHistoryTest {
     private CommandHistory history;
 
@@ -16,7 +18,7 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void add() {
+    public void add() throws ParseException {
         final String validCommand = "clear";
         final String invalidCommand = "adds Bob";
 

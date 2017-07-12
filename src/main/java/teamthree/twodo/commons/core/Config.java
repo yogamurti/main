@@ -49,7 +49,7 @@ public class Config {
     }
 
     public void setTaskBookFilePath(String taskBookFilePath) {
-        this.setDefaultConfigFile(taskBookFilePath);
+        Config.setDefaultConfigFile(taskBookFilePath);
     }
 
     @Override
