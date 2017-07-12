@@ -15,6 +15,7 @@ import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
+import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.events.ui.JumpToListRequestEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
@@ -93,8 +94,7 @@ public class UiManager extends ComponentManager implements Ui {
             @Override
             public void run() {
                 showAlertDialogAndWait(AlertType.INFORMATION, "Deadline Reaching",
-                        "The Following tasks are nearing their deadlines\n",
-                        content.toString());
+                        "The Following tasks are nearing their deadlines\n", content.toString());
             }
         });
     }
@@ -143,7 +143,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
@@ -156,6 +156,16 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showReminderAlertAndWait(event.tasksNearingDeadline);
+    }
+
+    @Subscribe
+    private void handleAddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.targetIndex == AddOrEditCommandExecutedEvent.ADD_EVENT) {
+            mainWindow.getTaskListPanel().scrollTo(mainWindow.getTaskListPanel().getLastIndexOfListView());
+        } else {
+            mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+        }
     }
 
 }
