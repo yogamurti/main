@@ -21,6 +21,7 @@ import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.logic.commands.UnmarkCommand;
 import teamthree.twodo.logic.commands.ViewCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
@@ -36,9 +37,11 @@ public class Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException
+     *             if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -68,6 +71,14 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
+        case MarkCommand.COMMAND_WORD:
+        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
+            return new MarkCommandParser().parse(arguments);
+
+        case UnmarkCommand.COMMAND_WORD:
+        case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
+            return new UnmarkCommandParser().parse(arguments);
+
         case ViewCommand.COMMAND_WORD:
         case ViewCommand.COMMAND_WORD_UNIXSTYLE:
             return new ViewCommandParser().parse(arguments);
@@ -85,6 +96,8 @@ public class Parser {
             return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD_SECOND:
+        case ExitCommand.COMMAND_WORD_UNIXSTYLE:
             return new ExitCommand();
 
         case SaveCommand.COMMAND_WORD:
@@ -97,13 +110,9 @@ public class Parser {
             }
             return new HelpCommandParser().parse(arguments);
 
-        case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
-            return new MarkCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
     }
-
 }
