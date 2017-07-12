@@ -33,15 +33,15 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Successfully undo command!!!\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands.";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
-    
+
     public static String FULL_MESSAGE;
-    
+
     @Override
     public CommandResult execute() throws CommandException  {
         if (history.getUserInputHistory().isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
-        
+
         CommandResult undoResult = null;
         try {
           undoResult = processUserInput();
@@ -50,10 +50,10 @@ public class UndoCommand extends Command {
         } catch (TaskNotFoundException e) {
           assert false : "The target task cannot be missing";
         }
-        
+
         return undoResult;
     }
-    
+
     private CommandResult processUserInput() throws TaskNotFoundException, DuplicateTaskException {
       final String previousCommandWord = history.getUserInputHistory().pop();
       switch (previousCommandWord) {
@@ -65,7 +65,7 @@ public class UndoCommand extends Command {
         model.deleteTask(taskToDelete);
         FULL_MESSAGE = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS);
         return new CommandResult(String.format(FULL_MESSAGE, taskToDelete));
-      
+
       case EditCommand.COMMAND_WORD:
         ReadOnlyTask taskToEdit= history.getBeforeEditHistory().pop();
         ReadOnlyTask originalTask= history.getAfterEditHistory().pop();
@@ -92,7 +92,7 @@ public class UndoCommand extends Command {
         //TOADD: model.unmarkTask(taskToMark)
         //TOADD:FULL_MESSAGE = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_UNMARK_PERSON_SUCCESS);
         return new CommandResult(FULL_MESSAGE);
-      
+
       default:
         String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(history.getUserInputHistory().peek());
         return new CommandResult(message);

@@ -39,14 +39,14 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
-     * @throws ParseException 
+     * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {
         requireNonNull(userInput);
         String commandWord = getCommandWordFromInput(userInput);
         getUserInputHistory().push(commandWord);
     }
-    
+
     /**
      * Appends {@code task} to the list of task before edits entered.
      */
@@ -54,7 +54,7 @@ public class CommandHistory {
         requireNonNull(task);
         beforeEditHistory.push(task);
     }
-    
+
     /**
      * Appends {@code task} to the list of task after edits entered.
      */
@@ -62,7 +62,7 @@ public class CommandHistory {
         requireNonNull(task);
         afterEditHistory.push(task);
     }
-    
+
     /**
      * Appends {@code task} to the list of added tasks entered.
      */
@@ -70,7 +70,7 @@ public class CommandHistory {
         requireNonNull(task);
         addHistory.push(task);
     }
-    
+
     /**
      * Appends {@code task} to the list of deleted tasks entered.
      */
@@ -78,7 +78,7 @@ public class CommandHistory {
         requireNonNull(task);
         deleteHistory.push(task);
     }
-    
+
     /**
      * Appends {@code task} to the list of marked tasks entered.
      */
@@ -86,7 +86,7 @@ public class CommandHistory {
         requireNonNull(task);
         markHistory.push(task);
     }
-    
+
     /**
      * Appends {@code taskBook} to the list of cleared taskBook entered.
      */
@@ -94,42 +94,42 @@ public class CommandHistory {
         requireNonNull(taskBook);
         clearHistory.push(taskBook);
     }
-    
+
     public Stack<String> getUserInputHistory() {
       requireNonNull(userInputHistory);
       return userInputHistory;
     }
-    
+
     public Stack<ReadOnlyTask> getBeforeEditHistory() {
       requireNonNull(beforeEditHistory);
       return beforeEditHistory;
     }
-    
+
     public Stack<ReadOnlyTask> getAfterEditHistory() {
       requireNonNull(afterEditHistory);
       return afterEditHistory;
     }
-    
+
     public Stack<ReadOnlyTask> getAddHistory() {
       requireNonNull(addHistory);
       return addHistory;
     }
-    
+
     public Stack<ReadOnlyTask> getDeleteHistory() {
       requireNonNull(deleteHistory);
       return deleteHistory;
     }
-    
+
     public Stack<ReadOnlyTask> getMarkHistory() {
       requireNonNull(markHistory);
       return markHistory;
     }
-    
+
     public Stack<ReadOnlyTaskBook> getClearHistory() {
       requireNonNull(clearHistory);
       return clearHistory;
     }
-    
+
     private String getCommandWordFromInput(String userInput) throws ParseException {
       final Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
       if (!matcher.matches()) {
@@ -140,5 +140,6 @@ public class CommandHistory {
       return commandWord;
     }
 }
-    
-    
+
+
+
