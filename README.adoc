@@ -16,10 +16,9 @@ image::images/MockUI.png[width="600"]
 endif::[]
 
 
-* 2Do is a To Do List desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* 2Do is a *To Do List* desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * This is designed to allow users to efficiently manage their tasks.
-* It is written in OOP fashion. It provides a reasonably well-written code example that is significantly bigger (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* This project is initiated by the sample project created by SE-EDU.
+* It is written in OOP fashion.
 
 
 == Site Map
@@ -32,7 +31,8 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+* Some parts of 2Do were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
+* This project originated the _Address Book_ sample project created by https://github.com/se-edu/addressbook-level4[SE-EDU].
 
 == Licence : link:LICENSE[MIT]
