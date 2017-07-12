@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.commons.util.CollectionUtil;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.tag.Tag;
@@ -77,6 +79,7 @@ public class EditCommand extends Command {
             model.updateTask(personToEdit, editedPerson);
             history.addToBeforeEditHistory(personToEdit);
             history.addToAfterEditHistory(editedPerson);
+            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(index.getZeroBased()));
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {

@@ -7,6 +7,8 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 //import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 //import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 
+import teamthree.twodo.commons.core.EventsCenter;
+import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -49,6 +51,7 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             history.addToAddHistory(toAdd);
+            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent.ADD_EVENT));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
