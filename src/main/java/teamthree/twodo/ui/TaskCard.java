@@ -10,7 +10,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 
 public class TaskCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TaskCard.fxml";
 
     /**
      * Description: Certain keywords such as "location" and "resources" are
