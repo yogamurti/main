@@ -73,14 +73,9 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses {@code Optional<String> startTime, endTime and notificationPeriod}
      * into {@code Optional
      * <Deadline>} if they are present is present.
-=======
-     * Parses {@code Optional<String> startTime, endTime and notificationPeriod} into {@code Optional
-     * <Deadline>} if they are present.
->>>>>>> 02653ac255ac309074f450a09bc3b24163e29365
      */
     public static Optional<Deadline> parseDeadlineForEdit(Optional<String> startTime, Optional<String> endTime,
             Optional<String> notificationPeriod) throws IllegalValueException {
