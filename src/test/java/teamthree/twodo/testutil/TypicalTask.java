@@ -22,7 +22,7 @@ public class TypicalTask {
         try {
             cs2103 = new TaskWithDeadlineBuilder().withName("CS2013")
                     .withDescription("Project V0.5").withDeadline("17 april 2018")
-                    .withTags("school","project").build();
+                    .withTags("school", "project").build();
             cs1020 = new TaskWithDeadlineBuilder().withName("CS1020")
                     .withDescription("labs").withTags("school").build();
             cs2010 = new TaskWithDeadlineBuilder().withName("cs2010").withDeadline("fri10am")
