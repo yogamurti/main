@@ -16,8 +16,8 @@ import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+//import java.util.Collections;
+//import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,7 +34,7 @@ import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
-import teamthree.twodo.logic.commands.Command;
+//import teamthree.twodo.logic.commands.Command;
 import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
@@ -55,7 +55,7 @@ import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
-import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
+//import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class LogicManagerTest {
 
@@ -350,7 +350,7 @@ public class LogicManagerTest {
         assertParseException(FindCommand.COMMAND_WORD + " ", expectedMessage);
     }
 
-    @Test
+    /*@Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
@@ -399,7 +399,7 @@ public class LogicManagerTest {
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
-    }
+    }*/
 
     /*@Test
     public void execute_verifyHistory_success() throws Exception {
