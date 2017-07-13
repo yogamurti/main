@@ -59,7 +59,7 @@ public class AddCommandIntegrationTest {
      */
     private AddCommand prepareCommand(Task task, Model model) {
         AddCommand command = new AddCommand(task);
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), null);
         return command;
     }
 }

@@ -14,8 +14,10 @@ import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
+import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
+import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
@@ -92,6 +94,13 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+        case RedoCommand.COMMAND_WORD_UNIXSTYLE:
+            return new RedoCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:
