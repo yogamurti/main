@@ -109,7 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code taskBook}
      */
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -227,9 +227,13 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean descriptionQualifies(ReadOnlyTask task) {
-            return keyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword))
-                    .findAny().isPresent();
+            if (task.getDeadline().isPresent()) {
+                return keyWords.stream()
+                        .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword))
+                        .findAny().isPresent();
+            } else {
+                return false;
+            }
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {

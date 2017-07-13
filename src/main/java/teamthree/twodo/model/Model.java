@@ -23,37 +23,37 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
     /** Adds the given task. */
-    void addTask(ReadOnlyTask person) throws DuplicateTaskException;
+    void addTask(ReadOnlyTask task) throws DuplicateTaskException;
 
     /** Marks the given task as complete. */
-    void markTask(ReadOnlyTask person) throws TaskNotFoundException;
+    void markTask(ReadOnlyTask task) throws TaskNotFoundException;
 
     /** Marks the given task as incomplete. */
-    void unmarkTask(ReadOnlyTask person) throws TaskNotFoundException;
+    void unmarkTask(ReadOnlyTask task) throws TaskNotFoundException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
-     * @throws DuplicateTaskException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
+     * @throws DuplicateTaskException if updating the task's details causes the task to be equivalent to
+     *      another existing task in the list.
      * @throws TaskNotFoundException if {@code target} could not be found in the list.
      */
-    void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
+    void updateTask(ReadOnlyTask target, ReadOnlyTask editedTask)
             throws DuplicateTaskException, TaskNotFoundException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all tasks */
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
-    /** Updates an extensive filter of the filtered person list to filter by the given keywords*/
+    /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskListExtensively(Set<String> keywords);
 
-    /** Updates the filter of the filtered person list to show all tasks within the period */
+    /** Updates the filter of the filtered task list to show all tasks within the period */
     void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput);
 
     /** Saves the taskBook*/

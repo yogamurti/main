@@ -38,7 +38,7 @@ import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
 import teamthree.twodo.logic.commands.Command;
-//import teamthree.twodo.logic.commands.CommandResult;
+import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
@@ -168,15 +168,15 @@ public class LogicManagerTest {
     private <T> void assertCommandBehavior(Class<T> expectedException, String inputCommand, String expectedMessage,
             Model expectedModel) {
 
-        //try {
-        //
-        //    CommandResult result = logic.execute(inputCommand);
-        //    assertEquals(expectedException, null);
-        //    assertEquals(expectedMessage, result.feedbackToUser);
-        //} catch (CommandException | ParseException e) {
-        //    assertEquals(expectedException, e.getClass());
-        //    assertEquals(expectedMessage, e.getMessage());
-        //}
+        try {
+
+            CommandResult result = logic.execute(inputCommand);
+            assertEquals(expectedException, null);
+            assertEquals(expectedMessage, result.feedbackToUser);
+        } catch (CommandException | ParseException e) {
+            assertEquals(expectedException, e.getClass());
+            assertEquals(expectedMessage, e.getMessage());
+        }
 
         assertEquals(expectedModel, model);
         assertEquals(expectedModel.getTaskBook(), latestSavedAddressBook);
@@ -353,7 +353,7 @@ public class LogicManagerTest {
         assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedModel);
         assertEquals(INDEX_SECOND_PERSON, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
 
     @Test
@@ -399,7 +399,7 @@ public class LogicManagerTest {
         expectedModel.updateFilteredTaskList(new HashSet<>(Collections.singletonList("KEY")));
         helper.addToModel(model, fourPersons);
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
 
@@ -416,7 +416,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
 
@@ -434,7 +434,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
 

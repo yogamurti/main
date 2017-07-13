@@ -99,7 +99,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+        public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
             fail("This method should not be called.");
             return null;
         }
