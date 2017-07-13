@@ -11,7 +11,7 @@ import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -22,19 +22,19 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() throws Exception {
-        Task validPerson = new TaskWithDeadlineBuilder().build();
+    public void execute_newTask_success() throws Exception {
+        Task validTask = new TaskWithDeadlineBuilder().build();
 
         Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
-        expectedModel.addTask(validPerson);
+        expectedModel.addTask(validTask);
 
-        CommandResult commandResult = prepareCommand(validPerson, model).execute();
+        CommandResult commandResult = prepareCommand(validTask, model).execute();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
         assertEquals(expectedModel, model);
     }
 

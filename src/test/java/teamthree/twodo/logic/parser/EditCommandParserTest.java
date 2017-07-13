@@ -14,7 +14,7 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_CSMOD;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
@@ -96,7 +96,7 @@ public class EditCommandParserTest {
     /* Passses JUnit but fails gradle
      *  @Test
         public void parse_allFieldsSpecified_success() throws Exception {
-            Index targetIndex = INDEX_SECOND_PERSON;
+            Index targetIndex = INDEX_SECOND_TASK;
             String userInput = targetIndex.getOneBased() + DEADLINE_DESC_EVENT + TAG_DESC_WORK + ADDRESS_DESC_AMY
                     + NAME_DESC_MOD + TAG_DESC_SPONGE;
 

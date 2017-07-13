@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_TASK;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,7 +26,7 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -45,15 +45,15 @@ public class SelectCommandTest {
     @Before
     public void setUp() {
         EventsCenter.getInstance().registerHandler(this);
-        model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredTaskList().size());
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
-        assertExecutionSuccess(INDEX_THIRD_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_TASK);
+        assertExecutionSuccess(INDEX_THIRD_TASK);
         assertExecutionSuccess(lastPersonIndex);
     }
 
@@ -66,16 +66,16 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
-        showFirstPersonOnly(model);
+        showFirstTaskOnly(model);
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_TASK);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showFirstPersonOnly(model);
+        showFirstTaskOnly(model);
 
-        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundsIndex = INDEX_SECOND_TASK;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
 
@@ -85,9 +85,9 @@ public class SelectCommandTest {
     /**
      * Updates {@code model}'s filtered list to show only the first person from the address book.
      */
-    private void showFirstPersonOnly(Model model) {
-        ReadOnlyTask person = model.getTaskBook().getTaskList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
+    private void showFirstTaskOnly(Model model) {
+        ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
+        final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 
         assertTrue(model.getFilteredTaskList().size() == 1);

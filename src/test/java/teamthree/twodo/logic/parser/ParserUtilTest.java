@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.Collections;

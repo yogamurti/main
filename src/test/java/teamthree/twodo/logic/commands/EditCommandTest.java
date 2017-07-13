@@ -8,8 +8,8 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_END_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,7 +29,7 @@ import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -37,18 +37,18 @@ import teamthree.twodo.testutil.TypicalPersons;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
-        Task editedPerson = new TaskWithDeadlineBuilder().build();
-        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
+        Task editedTask = new TaskWithDeadlineBuilder().build();
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
-        expectedModel.updateTask(model.getFilteredTaskList().get(0), editedPerson);
+        expectedModel.updateTask(model.getFilteredTaskList().get(0), editedTask);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -58,18 +58,18 @@ public class EditCommandTest {
         Index indexLastTask = Index.fromOneBased(model.getFilteredTaskList().size());
         ReadOnlyTask lastTask = model.getFilteredTaskList().get(indexLastTask.getZeroBased());
 
-        TaskWithDeadlineBuilder personInList = new TaskWithDeadlineBuilder(lastTask);
-        Task editedPerson = personInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
+        TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(lastTask);
+        Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
                 .withTags(VALID_TAG_SPONGEBOB).build();
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
         EditCommand editCommand = prepareCommand(indexLastTask, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
-        expectedModel.updateTask(lastTask, editedPerson);
+        expectedModel.updateTask(lastTask, editedTask);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -107,7 +107,7 @@ public class EditCommandTest {
     public void execute_duplicatePersonUnfilteredList_failure() throws Exception {
         Task firstPerson = new TaskWithDeadline(model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()));
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = prepareCommand(INDEX_SECOND_TASK, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TASK);
     }
@@ -117,7 +117,7 @@ public class EditCommandTest {
         showFirstPersonOnly();
 
         // edit person in filtered list into a duplicate in address book
-        ReadOnlyTask personInList = model.getTaskBook().getTaskList().get(INDEX_SECOND_PERSON.getZeroBased());
+        ReadOnlyTask personInList = model.getTaskBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON,
                 new EditTaskDescriptorBuilder(personInList).build());
 
@@ -140,7 +140,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() throws Exception {
         showFirstPersonOnly();
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_TASK;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
 
@@ -169,7 +169,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_CSMOD)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TASK, DESC_CSMOD)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_EVENT)));

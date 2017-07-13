@@ -6,9 +6,9 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     public void edit_notAllFieldsSpecified_success() throws Exception {
         String detailsToEdit = PREFIX_TAG + "sweetie "
                 + PREFIX_TAG + "bestie";
-        Index addressBookIndex = INDEX_SECOND_PERSON;
+        Index addressBookIndex = INDEX_SECOND_TASK;
 
         Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Task editedPerson = new TaskWithDeadlineBuilder(personToEdit).withTags("sweetie", "bestie").build();
@@ -59,7 +59,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     @Test
     public void edit_clearTags_success() throws Exception {
         String detailsToEdit = PREFIX_TAG.getPrefix();
-        Index addressBookIndex = INDEX_SECOND_PERSON;
+        Index addressBookIndex = INDEX_SECOND_TASK;
 
         Task personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Task editedPerson = new TaskWithDeadlineBuilder(personToEdit).withTags().build();

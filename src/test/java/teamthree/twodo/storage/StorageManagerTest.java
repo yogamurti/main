@@ -17,7 +17,7 @@ import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.testutil.EventsCollector;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 public class StorageManagerTest {
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
          * {@link XmlTaskBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
-        TaskBook original = new TypicalPersons().getTypicalAddressBook();
+        TaskBook original = new TypicalTask().getTypicalTaskBook();
         storageManager.saveTaskBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
         assertEquals(original, new TaskBook(retrieved));

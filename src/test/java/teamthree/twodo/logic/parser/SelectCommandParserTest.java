@@ -2,7 +2,7 @@ package teamthree.twodo.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_PERSON;
 
 import org.junit.Rule;
 import org.junit.Test;

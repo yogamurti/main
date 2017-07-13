@@ -24,7 +24,7 @@
  * teamthree.twodo.model.TaskBook; import
  * teamthree.twodo.model.task.ReadOnlyTask; import
  * teamthree.twodo.testutil.TestUtil; import
- * teamthree.twodo.testutil.TypicalPersons;
+ * teamthree.twodo.testutil.TypicalTask;
  *
  *//**
    * A GUI Test class for TaskBook.
@@ -36,7 +36,7 @@
  *
  * @Rule public TestName name = new TestName();
  *
- * protected TypicalPersons td = new TypicalPersons();
+ * protected TypicalTask td = new TypicalTask();
  *
  *
  * Handles to GUI elements present at the start up are created in advance for
@@ -70,7 +70,7 @@
    */
 /*
  * protected TaskBook getInitialData() { TaskBook ab = new TaskBook();
- * TypicalPersons.loadAddressBookWithSampleData(ab); return ab; }
+ * TypicalTask.loadAddressBookWithSampleData(ab); return ab; }
  *
  *//**
    * Override this in child classes to set the data file location.

@@ -1,8 +1,8 @@
 /*package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static teamthree.twodo.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
@@ -51,7 +51,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
     }
 
 }

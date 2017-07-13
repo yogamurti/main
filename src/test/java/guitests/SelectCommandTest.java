@@ -1,7 +1,7 @@
 /*package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
