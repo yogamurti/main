@@ -3,21 +3,18 @@ package teamthree.twodo.logic;
 import static java.util.Objects.requireNonNull;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
 import teamthree.twodo.logic.commands.HelpCommand;
-import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
- * Stores the history of commands executed.
+ * Stores the history of Undo commands executed.
  */
-public class CommandHistory {
+public class UndoCommandHistory {
     private Stack<String> userInputHistory;
     private Stack<ReadOnlyTask> beforeEditHistory;
     private Stack<ReadOnlyTask> afterEditHistory;
@@ -25,34 +22,17 @@ public class CommandHistory {
     private Stack<ReadOnlyTask> addHistory;
     private Stack<ReadOnlyTask> markHistory;
     private Stack<ReadOnlyTask> unmarkHistory;
-    private Stack<ReadOnlyTaskBook> clearHistory;
-    private ArrayList<String> fullUserInputHistory;
+    private Stack<ReadOnlyTask> undoHistory;
 
-    public CommandHistory() {
+    public UndoCommandHistory() {
         beforeEditHistory = new Stack<ReadOnlyTask>();
         afterEditHistory = new Stack<ReadOnlyTask>();
         addHistory = new Stack<ReadOnlyTask>();
         deleteHistory = new Stack<ReadOnlyTask>();
         markHistory = new Stack<ReadOnlyTask>();
         unmarkHistory = new Stack<ReadOnlyTask>();
-        clearHistory = new Stack<ReadOnlyTaskBook>();
         userInputHistory = new Stack<String>();
-        fullUserInputHistory = new ArrayList<>();
-    }
-
-    /**
-     * Appends {@code userInput} to the list of user input entered.
-     */
-    public void add(String userInput) {
-        requireNonNull(userInput);
-        fullUserInputHistory.add(userInput);
-    }
-
-    /**
-     * Returns a defensive copy of {@code userInputHistory}.
-     */
-    public ArrayList<String> getHistory() {
-        return new ArrayList<String>(fullUserInputHistory);
+        undoHistory = new Stack<ReadOnlyTask>();
     }
 
     /**
@@ -62,9 +42,7 @@ public class CommandHistory {
     public void addToUserInputHistory(String userInput) throws ParseException {
         requireNonNull(userInput);
         String commandWord = getCommandWordFromInput(userInput);
-        if (!userInput.equals(RedoCommand.COMMAND_WORD) && !userInput.equals(RedoCommand.COMMAND_WORD_UNIXSTYLE)) {
-            getUserInputHistory().push(commandWord);
-        }
+        getUserInputHistory().push(commandWord);
     }
 
     /**
@@ -115,12 +93,9 @@ public class CommandHistory {
         unmarkHistory.push(task);
     }
 
-    /**
-     * Appends {@code taskBook} to the list of cleared taskBook entered.
-     */
-    public void addToClearHistory(ReadOnlyTaskBook taskBook) {
-        requireNonNull(taskBook);
-        clearHistory.push(taskBook);
+    public void addToUndoHistory(ReadOnlyTask task) {
+        requireNonNull(task);
+        undoHistory.push(task);
     }
 
     public Stack<String> getUserInputHistory() {
@@ -153,14 +128,14 @@ public class CommandHistory {
         return markHistory;
     };
 
+    public Stack<ReadOnlyTask> getUndokHistory() {
+        requireNonNull(undoHistory);
+        return undoHistory;
+    };
+
     public Stack<ReadOnlyTask> getUnmarkHistory() {
         requireNonNull(unmarkHistory);
         return unmarkHistory;
-    }
-
-    public Stack<ReadOnlyTaskBook> getClearHistory() {
-        requireNonNull(clearHistory);
-        return clearHistory;
     }
 
     private String getCommandWordFromInput(String userInput) throws ParseException {

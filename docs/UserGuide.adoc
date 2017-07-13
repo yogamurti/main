@@ -117,10 +117,11 @@ Example: `delete 1`
 
 === Listing all tasks : `list / -l`
 
-Format: `list [-h]` +
-Example: `list`
+Format: `list [-h] s/[start] e/[end]` +
+Example: `list s/05/03/17`
 ****
-* Lists all uncompleted tasks
+* Lists all uncompleted tasks if no additional arguments
+* Lists uncompleted tasks according to dates provided
 ****
 
 === Finding a task : `find / -f`
@@ -147,14 +148,6 @@ Example: `edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a
 * Edits task at that index in the most recent call of list
 * _new start_ and _new end_ are in the format {date} {time}
 * _new alarm_ sets a new notification to appear at the specified date
-****
-
-=== Viewing a task : `view / -v`
-
-Format : `view [-h] {index}` +
-Example: `view 2`
-****
-* Displays the full details of the task
 ****
 
 === Marking a task as complete : `mark / -m`
@@ -229,11 +222,10 @@ Example: `quit`
 |help / -h|help [name of command]|help add
 |add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true
 |delete / del / -d / -|delete [-h] {index}|delete 1
-|list / -l|list [-h]|list
+|list / -l|list [-h] s/[start] e/[end]|list s/today
 |find / -f|find [-h] {keyword}|find work
 |undo / -u|undo|undo
 |edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true
-|view / -v|view [-h] {index}|view 2
 |mark / -m|mark {index}|mark 4
 |unmark / -un|unmark {index}|unmark 4
 |option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/1 minute m/yes

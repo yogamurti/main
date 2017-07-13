@@ -18,4 +18,5 @@ classes/
 /bin/
 src/main/resources/docs/
 /.gradle/
+/config/checkstyle/checkstyle.xml
 

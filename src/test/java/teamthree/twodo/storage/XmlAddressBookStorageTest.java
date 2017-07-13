@@ -15,7 +15,7 @@ import teamthree.twodo.commons.util.FileUtil;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.task.Task;
-import teamthree.twodo.model.task.TaskWithDeadline;
+//import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.TypicalPersons;
 
 public class XmlAddressBookStorageTest {
@@ -73,7 +73,7 @@ public class XmlAddressBookStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(td.hoon));
-        original.removeTask(new TaskWithDeadline(td.alice));
+        //original.removeTask(new TaskWithDeadline(td.alice));
         xmlTaskBookStorage.saveTaskBook(original, filePath);
         readBack = xmlTaskBookStorage.readTaskBook(filePath).get();
         assertEquals(original, new TaskBook(readBack));

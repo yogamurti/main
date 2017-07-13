@@ -2,6 +2,7 @@ package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 
@@ -12,6 +13,7 @@ import teamthree.twodo.model.Model;
 public abstract class Command {
     protected Model model;
     protected CommandHistory history;
+    protected UndoCommandHistory undoHistory;
 
     /**
      * Constructs a feedback message to summarize an operation that displayed a
@@ -38,9 +40,11 @@ public abstract class Command {
      * Provides any needed dependencies to the command. Commands making use of
      * any of these should override this method to gain access to the
      * dependencies.
+     * @param undoHistory TODO
      */
-    public void setData(Model model, CommandHistory history) {
+    public void setData(Model model, CommandHistory history, UndoCommandHistory undoHistory) {
         this.model = model;
         this.history = history;
+        this.undoHistory = undoHistory;
     }
 }

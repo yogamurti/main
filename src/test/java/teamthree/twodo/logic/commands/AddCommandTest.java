@@ -14,9 +14,11 @@ import org.junit.rules.ExpectedException;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
@@ -62,7 +64,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), null);
         return command;
     }
 
@@ -97,7 +99,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+        public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
             fail("This method should not be called.");
             return null;
         }
@@ -113,11 +115,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskList(ReadOnlyTask task) {
-            fail("This method should not be called.");
-        }
-
-        @Override
         public void saveTaskBook() {
             // TODO Auto-generated method stub
         }
@@ -125,13 +122,21 @@ public class AddCommandTest {
         @Override
         public void markTask(ReadOnlyTask person) throws TaskNotFoundException {
             // TODO Auto-generated method stub
-
         }
 
         @Override
         public void unmarkTask(ReadOnlyTask person) throws TaskNotFoundException {
             // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void updateFilteredTaskListExtensively(Set<String> keywords) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput) {
+            // TODO Auto-generated method stub
         }
     }
 

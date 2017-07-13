@@ -21,12 +21,14 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
+    private final UndoCommandHistory undoHistory;
     private final Parser parser;
 
     public LogicManager(Model model) {
         this.model = model;
         this.history = new CommandHistory();
         this.parser = new Parser();
+        this.undoHistory = new UndoCommandHistory();
     }
 
     @Override
@@ -34,15 +36,16 @@ public class LogicManager extends ComponentManager implements Logic {
         try {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
             Command command = parser.parseCommand(commandText);
-            command.setData(model, history);
+            command.setData(model, history, undoHistory);
             return command.execute();
         } finally {
             history.addToUserInputHistory(commandText);
+            history.add(commandText);
         }
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 }
