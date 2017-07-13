@@ -56,8 +56,8 @@ Dates
 ****
 * Format 1: mm/dd/yy +
 `Example: 05/04/17`
-* Format 2: day month +
-`Example: 5 jan`
+* Format 2: day month [year]+
+`Example: 5 jan 2018`
 * Format 3: natural language +
 `Example: tomorrow`
 ****
@@ -92,7 +92,7 @@ Example: `help add`
 === Adding a task : `add / -a / +`
 
 Format 1: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true`
+Example: `add n/CS2103 Project s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true`
 ****
 * Creates a task with provided attributes and adds it to list
 * Floating tasks can be added with date, time field blank
@@ -142,7 +142,7 @@ Example: `undo`
 === Editing a task : `edit / -e`
 
 Format: `edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
-Example: `edit 2 n/CS2103 s/05/07/18 1159`
+Example: `edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true`
 ****
 * Edits task at that index in the most recent call of list
 * _new start_ and _new end_ are in the format {date} {time}
@@ -226,20 +226,20 @@ Example: `quit`
 
 [width="80%",cols="33%, 33%, <33%",options="header"]
 |=======================================================================
-|Command|Format 1|Format 2
-|help / -h|help [name of command]|
-|add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add [-h] {name} on {date} at {time}
-|delete / del / -d / -|delete [-h] {index}|
-|list / -l|list [-h]|
-|find / -f|find [-h] {keyword}|
-|undo / -u|undo|
-|edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|
-|view / -v|view [-h] {index}|
-|mark / -m|mark {index}|
-|unmark / -un|unmark {index}|
-|option/ -o|option a/[alarm] m/ [mark completion automatically]|
-|save / -s|save [-h] [directory]|
-|clear / -c|clear [-h]|
-|exit / quit / -q|quit|
+|Command|Main Format|Example
+|help / -h|help [name of command]|help add
+|add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true
+|delete / del / -d / -|delete [-h] {index}|delete 1
+|list / -l|list [-h]|list
+|find / -f|find [-h] {keyword}|find work
+|undo / -u|undo|undo
+|edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true
+|view / -v|view [-h] {index}|view 2
+|mark / -m|mark {index}|mark 4
+|unmark / -un|unmark {index}|unmark 4
+|option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/2 days
+|save / -s|save [-h] [directory]|save C:\Program Files\Common Files\2Do.txt
+|clear / -c|clear [-h]|clear
+|exit / quit / -q|quit|quit
 |=======================================================================
 
