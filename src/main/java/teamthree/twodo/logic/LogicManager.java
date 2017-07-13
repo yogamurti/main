@@ -23,7 +23,6 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final Parser parser;
 
-    //Temp constructor for logicmanagertest
     public LogicManager(Model model) {
         this.model = model;
         this.history = new CommandHistory();
@@ -32,13 +31,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
+            logger.info("----------------[USER COMMAND][" + commandText + "]");
             Command command = parser.parseCommand(commandText);
             command.setData(model, history);
             return command.execute();
         } finally {
-            history.add(commandText);
+            history.addToUserInputHistory(commandText);
         }
     }
 

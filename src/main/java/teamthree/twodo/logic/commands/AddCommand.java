@@ -50,6 +50,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
         try {
             model.addTask(toAdd);
+            history.addToAddHistory(toAdd);
             EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent.ADD_EVENT));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {

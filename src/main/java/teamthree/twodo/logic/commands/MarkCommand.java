@@ -40,6 +40,7 @@ public class MarkCommand extends Command {
 
         try {
             model.markTask(taskToMark);
+            history.addToMarkHistory(taskToMark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

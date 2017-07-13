@@ -31,11 +31,11 @@ public class MainWindow extends UiPart<Region> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Config config;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel personListPanel;
-    private Config config;
     private UserPrefs prefs;
 
     @FXML

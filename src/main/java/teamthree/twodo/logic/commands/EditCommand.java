@@ -77,6 +77,8 @@ public class EditCommand extends Command {
 
         try {
             model.updateTask(personToEdit, editedPerson);
+            history.addToBeforeEditHistory(personToEdit);
+            history.addToAfterEditHistory(editedPerson);
             EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(index.getZeroBased()));
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

@@ -14,11 +14,11 @@ import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
-import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.UnmarkCommand;
 import teamthree.twodo.logic.commands.ViewCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
@@ -31,8 +31,7 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     /**
      * Parses user input into command for execution.
      *
@@ -50,6 +49,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -90,8 +90,8 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:

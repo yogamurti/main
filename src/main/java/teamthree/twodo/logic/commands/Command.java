@@ -41,5 +41,6 @@ public abstract class Command {
      */
     public void setData(Model model, CommandHistory history) {
         this.model = model;
+        this.history = history;
     }
 }
