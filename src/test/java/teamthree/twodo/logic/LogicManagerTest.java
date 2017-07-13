@@ -438,7 +438,7 @@ public class LogicManagerTest {
                 expectedModel);
     }
 
-    @Test
+    /*@Test
     public void execute_verifyHistory_success() throws Exception {
         String validCommand = "clear";
         logic.execute(validCommand);
@@ -462,7 +462,7 @@ public class LogicManagerTest {
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS,
                 String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
         assertCommandSuccess("history", expectedMessage, model);
-    }
+    }*/
 
     /**
      * A utility class to generate test data.
