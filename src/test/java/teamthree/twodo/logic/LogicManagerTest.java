@@ -2,7 +2,7 @@ package teamthree.twodo.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -45,7 +45,7 @@ import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
-import teamthree.twodo.logic.commands.UndoCommand;
+//import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
