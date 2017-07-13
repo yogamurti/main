@@ -424,16 +424,15 @@ public class LogicManagerTest {
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
-        Task p2 = new TaskWithDeadlineBuilder().withName("bla rAnDoM bla bceofeia").build();
+        Task p2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
         Task p3 = new TaskWithDeadlineBuilder().withName("key key").build();
-        Task p4 = new TaskWithDeadlineBuilder().withName("key sduauo").build();
+        Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
-        List<Task> fourPersons = helper.generatePersonList(p1, p2, p3, p4);
+        List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredTaskListExtensively(new HashSet<>(Arrays.asList("key", "rAnDoM")));
         helper.addToModel(model, fourPersons);
 
-        assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
+        assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
