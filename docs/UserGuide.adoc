@@ -176,16 +176,15 @@ Example: `unmark 4`
 === Editing the default options : `option / -o`
 
 Format: `option a/[alarm] m/[mark completion automatically]` +
-Example: `option a/2 days`
+Example: `option a/1 minute m/yes`
 ****
 * Option without parameters will show the general options which the user can edit and their explanations
-* Default reminder alarm timing before the deadline can be edited
-** Range value for reminders: 1 minute <= reminder <= 7 days
+* Default reminder alarm timing, before the deadline, can be edited
 ** Default setting is 7 days
+** Range for reminders: 1 minute to 7 days
 * Default automatic mark for completion setting can be edited
-** Default setting will prompt user requesting if the activity was completed
-** This can be changed to automatically marking the activity as complete instead of prompting
-** Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
+** Default setting will prompt user checking if the activity was completed
+** This can be changed to automatically marking the activity as completed instead of prompting
 ****
 
 === Saving list : `save / -s`
@@ -237,7 +236,7 @@ Example: `quit`
 |view / -v|view [-h] {index}|view 2
 |mark / -m|mark {index}|mark 4
 |unmark / -un|unmark {index}|unmark 4
-|option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/2 days
+|option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/1 minute m/yes
 |save / -s|save [-h] [directory]|save C:\Program Files\Common Files\2Do.txt
 |clear / -c|clear [-h]|clear
 |exit / quit / -q|quit|quit
