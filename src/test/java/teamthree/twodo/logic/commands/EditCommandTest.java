@@ -181,7 +181,7 @@ public class EditCommandTest {
      */
     private EditCommand prepareCommand(Index index, EditTaskDescriptor descriptor) {
         EditCommand editCommand = new EditCommand(index, descriptor);
-        editCommand.setData(model, new CommandHistory());
+        editCommand.setData(model, new CommandHistory(), null);
         return editCommand;
     }
 

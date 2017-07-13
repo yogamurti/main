@@ -32,7 +32,7 @@ public class ListCommandTest {
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
 
         listCommand = new ListCommand();
-        listCommand.setData(model, new CommandHistory());
+        listCommand.setData(model, new CommandHistory(), null);
     }
 
     @Test

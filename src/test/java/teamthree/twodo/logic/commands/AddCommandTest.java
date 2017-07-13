@@ -62,7 +62,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), null);
         return command;
     }
 
