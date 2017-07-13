@@ -16,6 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         requireNonNull(model);
+        history.addToClearHistory(model.getTaskBook());
         model.resetData(new TaskBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }

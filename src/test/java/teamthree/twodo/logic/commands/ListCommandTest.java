@@ -32,7 +32,7 @@ public class ListCommandTest {
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
 
         listCommand = new ListCommand();
-        listCommand.setData(model, new CommandHistory());
+        listCommand.setData(model, new CommandHistory(), null);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ListCommandTest {
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 
-        assertTrue(model.getFilteredPersonList().size() == 1);
+        assertTrue(model.getFilteredTaskList().size() == 1);
     }
 
     /**

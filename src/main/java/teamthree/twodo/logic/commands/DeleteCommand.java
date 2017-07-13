@@ -1,10 +1,8 @@
 package teamthree.twodo.logic.commands;
 
-import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
-import teamthree.twodo.commons.events.ui.NewResultAvailableEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -35,17 +33,18 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_CONFIRM_DELETE));
+        //EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_CONFIRM_DELETE));
 
         try {
             model.deleteTask(personToDelete);
+            history.addToDeleteHistory(personToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }

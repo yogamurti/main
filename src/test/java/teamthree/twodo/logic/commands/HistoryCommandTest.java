@@ -6,19 +6,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 
 public class HistoryCommandTest {
     private HistoryCommand historyCommand;
     private CommandHistory history;
+    private UndoCommandHistory undoHistory;
 
     @Before
     public void setUp() {
         Model model = new ModelManager();
         history = new CommandHistory();
         historyCommand = new HistoryCommand();
-        historyCommand.setData(model, history);
+        historyCommand.setData(model, history, undoHistory);
     }
 
     @Test

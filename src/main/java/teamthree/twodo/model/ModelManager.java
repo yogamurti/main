@@ -2,6 +2,7 @@ package teamthree.twodo.model;
 
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -11,6 +12,9 @@ import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
+import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
+import teamthree.twodo.model.tag.Tag;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -71,7 +75,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-
     @Override
     public void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.markTask(target);
@@ -98,14 +101,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-    //=========== Filtered Task List Accessors =============================================================
+    // =========== Filtered Task List Accessors
+    // =============================================================
 
     /**
      * Return a list of {@code ReadOnlyTask} backed by the internal list of
      * {@code taskBook}
      */
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
@@ -118,13 +122,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    @Override
-    public void updateFilteredTaskList(ReadOnlyTask task) {
-        filteredTasks.setPredicate(x -> x.equals(task));
-    }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+
+    @Override
+    public void updateFilteredTaskListExtensively(Set<String> keywords) {
+        updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords)));
+    }
+
+    @Override
+    public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput) {
+        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput)));
     }
 
     @Override
@@ -144,7 +154,8 @@ public class ModelManager extends ComponentManager implements Model {
         return taskBook.equals(other.taskBook) && filteredTasks.equals(other.filteredTasks);
     }
 
-    //========== Inner classes/interfaces used for filtering =================================================
+    // ========== Inner classes/interfaces used for filtering
+    // =================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
@@ -173,6 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -193,6 +205,83 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+
+    private class TotalQualifier implements Qualifier {
+        private Set<String> keyWords;
+
+        TotalQualifier(Set<String> keyWords) {
+            this.keyWords = keyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return (nameQualifies(task) || descriptionQualifies(task) || tagsQualifies(task));
+        }
+
+        private boolean nameQualifies(ReadOnlyTask task) {
+            return keyWords.stream()
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getName().fullName, keyword)).findAny()
+                    .isPresent();
+        }
+
+        private boolean descriptionQualifies(ReadOnlyTask task) {
+            if (task.getDeadline().isPresent()) {
+                return keyWords.stream()
+                        .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword))
+                        .findAny().isPresent();
+            } else {
+                return false;
+            }
+        }
+
+        private boolean tagsQualifies(ReadOnlyTask task) {
+            boolean qualifies = false;
+            Set<Tag> tags = task.getTags();
+            Iterator<Tag> tagIterator = tags.iterator();
+            while (!qualifies && tagIterator.hasNext()) {
+                qualifies = keyWords.stream()
+                        .filter(keyword -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, keyword))
+                        .findAny().isPresent();
+            }
+            return qualifies;
+        }
+
+        @Override
+        public String toString() {
+            return "keywords=" + String.join(", ", keyWords);
+        }
+
+    }
+
+    private class PeriodQualifier implements Qualifier {
+        private Deadline deadlineToCheck;
+        private AttributeInputted attInput;
+
+        PeriodQualifier(Deadline deadline, AttributeInputted attInput) {
+            this.deadlineToCheck = deadline;
+            this.attInput = attInput;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (!task.getDeadline().isPresent()) {
+                return false;
+            } else {
+                switch (attInput) {
+                case START:
+                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
+                case END:
+                    return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                case BOTH:
+                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
+                            && task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                default:
+                    return false;
+                }
+            }
+
         }
     }
 

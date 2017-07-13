@@ -66,7 +66,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        List<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        List<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -77,6 +77,8 @@ public class EditCommand extends Command {
 
         try {
             model.updateTask(personToEdit, editedPerson);
+            history.addToBeforeEditHistory(personToEdit);
+            history.addToAfterEditHistory(editedPerson);
             EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(index.getZeroBased()));
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

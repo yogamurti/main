@@ -31,7 +31,7 @@ public class ClearCommandTest {
      */
     private void assertCommandSuccess(Model model) {
         ClearCommand command = new ClearCommand();
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), null);
         CommandResult result = command.execute();
 
         assertEquals(ClearCommand.MESSAGE_SUCCESS, result.feedbackToUser);

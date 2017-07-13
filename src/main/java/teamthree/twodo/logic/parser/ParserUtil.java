@@ -73,9 +73,14 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Parses {@code Optional<String> startTime, endTime and notificationPeriod}
      * into {@code Optional
      * <Deadline>} if they are present is present.
+=======
+     * Parses {@code Optional<String> startTime, endTime and notificationPeriod} into {@code Optional
+     * <Deadline>} if they are present.
+>>>>>>> 02653ac255ac309074f450a09bc3b24163e29365
      */
     public static Optional<Deadline> parseDeadlineForEdit(Optional<String> startTime, Optional<String> endTime,
             Optional<String> notificationPeriod) throws IllegalValueException {
@@ -99,6 +104,23 @@ public class ParserUtil {
         start = (temp = parseAndCorrectDayFromUserDeadline(start)).isPresent() ? temp.get() : start;
         end = (temp = parseAndCorrectDayFromUserDeadline(end)).isPresent() ? temp.get() : end;
         return Optional.of(new Deadline(start, end, notification));
+    }
+
+    /**
+     * Parses {@code Optional<String> startTime and endTime} into
+     * {@code Optional <Deadline>} if they are present.
+     */
+    public static Optional<Deadline> parseDeadlineForList(Optional<String> startTime, Optional<String> endTime)
+            throws IllegalValueException {
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+        //short circuit if all are empty
+        if (allNotPresent(startTime, endTime)) {
+            return Optional.empty();
+        }
+        String start = startTime.isPresent() ? startTime.get() : Deadline.NULL_VALUE;
+        String end = endTime.isPresent() ? endTime.get() : Deadline.NULL_VALUE;
+        return Optional.of(new Deadline(start, end, Deadline.NULL_VALUE));
     }
 
     /**

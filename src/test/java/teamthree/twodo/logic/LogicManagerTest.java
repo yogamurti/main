@@ -2,7 +2,7 @@ package teamthree.twodo.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -43,9 +43,9 @@ import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
-import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
+//import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
@@ -353,7 +353,7 @@ public class LogicManagerTest {
         assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedModel);
         assertEquals(INDEX_SECOND_PERSON, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
 
     @Test
@@ -399,7 +399,7 @@ public class LogicManagerTest {
         expectedModel.updateFilteredTaskList(new HashSet<>(Collections.singletonList("KEY")));
         helper.addToModel(model, fourPersons);
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
 
@@ -416,29 +416,28 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
 
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
-        Task pTarget2 = new TaskWithDeadlineBuilder().withName("bla rAnDoM bla bceofeia").build();
-        Task pTarget3 = new TaskWithDeadlineBuilder().withName("key key").build();
-        Task p1 = new TaskWithDeadlineBuilder().withName("sduauo").build();
+        Task p1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
+        Task p2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
+        Task p3 = new TaskWithDeadlineBuilder().withName("key key").build();
+        Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
-        List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
+        List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList("key", "rAnDoM")));
         helper.addToModel(model, fourPersons);
 
-        assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+        assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
     }
 
-    @Test
+    /*@Test
     public void execute_verifyHistory_success() throws Exception {
         String validCommand = "clear";
         logic.execute(validCommand);
@@ -459,10 +458,10 @@ public class LogicManagerTest {
             assertEquals(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, ce.getMessage());
         }
 
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS,
                 String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
         assertCommandSuccess("history", expectedMessage, model);
-    }
+    }*/
 
     /**
      * A utility class to generate test data.

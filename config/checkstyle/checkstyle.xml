@@ -206,13 +206,10 @@
       <property name="tokens" value="LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, LITERAL_IF, LITERAL_ELSE"/>
       <!--
       if (true) return 1; // Not allowed
-
       if (true) { return 1; } // Not allowed
-
       else if {
         return 1; // else if should always be multi line
       }
-
       if (true)
         return 1; // Not allowed
       -->

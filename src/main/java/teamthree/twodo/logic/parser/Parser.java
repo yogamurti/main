@@ -17,10 +17,11 @@ import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
+import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.UnmarkCommand;
-import teamthree.twodo.logic.commands.ViewCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 /**
@@ -31,8 +32,7 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     /**
      * Parses user input into command for execution.
      *
@@ -50,6 +50,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -77,10 +78,6 @@ public class Parser {
         case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
             return new UnmarkCommandParser().parse(arguments);
 
-        case ViewCommand.COMMAND_WORD:
-        case ViewCommand.COMMAND_WORD_UNIXSTYLE:
-            return new ViewCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -88,7 +85,15 @@ public class Parser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListCommand.COMMAND_WORD_UNIXSTYLE:
+            return new ListCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+        case RedoCommand.COMMAND_WORD_UNIXSTYLE:
+            return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

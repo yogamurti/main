@@ -7,7 +7,7 @@ import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Test;
 
-import teamthree.twodo.logic.commands.HistoryCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 public class ParserTest {
@@ -15,8 +15,8 @@ public class ParserTest {
 
     @Test
     public void parseCommand_history() throws Exception {
-        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
-        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3") instanceof HistoryCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
 
         try {
             parser.parseCommand("histories");
