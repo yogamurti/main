@@ -178,13 +178,13 @@ Example: `unmark 4`
 Format: `option a/[alarm] m/[mark completion automatically]` +
 Example: `option a/1 minute m/yes`
 ****
-* Option without parameters will show the general options which the user can edit and their explanations
+* Option without parameters will show the general options that the user can edit and their explanations
 * Default reminder alarm timing, before the deadline, can be edited
 ** Default setting is 7 days
 ** Range for reminders: 1 minute to 7 days
 * Default automatic mark for completion setting can be edited
 ** Default setting will prompt user checking if the activity was completed
-** This can be changed to automatically marking the activity as completed instead of prompting
+** This can be changed to automatically marking the activity as completed without prompting
 ****
 
 === Saving list : `save / -s`
