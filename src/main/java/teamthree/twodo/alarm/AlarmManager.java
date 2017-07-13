@@ -15,6 +15,7 @@ import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.model.Model;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
@@ -147,17 +148,33 @@ public class AlarmManager extends ComponentManager {
         });
     }
 
+    /** Updates nextReminderTime to the next one on the notificationList. */
     private void updateNextReminder() {
         if (!notificationList.isEmpty()) {
-            nextReminderTime = getNotificationTime(notificationList.get(0));
+            nextReminderTime = removeInvalidDates() ? null : getNotificationTime(notificationList.get(0));
         } else {
             nextReminderTime = null;
         }
     }
 
     /**
-     * ==============================EVENT
-     * HANDLERS====================================
+     * Transfers all invalid dates (i.e Default Dates) from notification list to
+     * notified set. This avoids an invalid date exception from being thrown at
+     * startTimerTask. Returns whether notificationList is empty after
+     * operation.
+     *
+     * @return true if notificationList is empty after removing all invalid
+     *         dates.
+     */
+    private boolean removeInvalidDates() {
+        while (!getNotificationTime(notificationList.get(0)).after(Deadline.DEFAULT_DATE)) {
+            notified.add(notificationList.remove(0));
+        }
+        return notificationList.isEmpty();
+    }
+
+    /**
+     * =======================EVENT HANDLERS===========================
      */
     /**
      * Synchronizes the notification list with the master list when there is a

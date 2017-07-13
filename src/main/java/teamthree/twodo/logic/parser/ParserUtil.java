@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
@@ -62,17 +64,17 @@ public class ParserUtil {
         requireNonNull(startTime);
         requireNonNull(endTime);
         requireNonNull(notificationPeriod);
-        // This method should only be called when start time is specified by user
-        assert (startTime.isPresent());
-        String start = startTime.get();
-        String end = endTime.isPresent() ? endTime.get() : startTime.get();
-        String notification = notificationPeriod.isPresent() ? notificationPeriod.get()
-                : Deadline.NULL_VALUE;
-        return Optional.of(new Deadline(start, end, notification));
+        // This method should only be called when end time is specified by user
+        assert (endTime.isPresent());
+        String end = endTime.get();
+        String start = startTime.isPresent() ? startTime.get() : endTime.get();
+        String notification = notificationPeriod.isPresent() ? notificationPeriod.get() : Deadline.NULL_VALUE;
+        return correctUserInputAndGetDeadline(start, end, notification);
     }
 
     /**
-     * Parses {@code Optional<String> startTime, endTime and notificationPeriod} into {@code Optional
+     * Parses {@code Optional<String> startTime, endTime and notificationPeriod}
+     * into {@code Optional
      * <Deadline>} if they are present is present.
      */
     public static Optional<Deadline> parseDeadlineForEdit(Optional<String> startTime, Optional<String> endTime,
@@ -87,15 +89,25 @@ public class ParserUtil {
         String start = startTime.isPresent() ? startTime.get() : Deadline.NULL_VALUE;
         String end = endTime.isPresent() ? endTime.get() : Deadline.NULL_VALUE;
         String notification = notificationPeriod.isPresent() ? notificationPeriod.get() : Deadline.NULL_VALUE;
+
+        return correctUserInputAndGetDeadline(start, end, notification);
+    }
+
+    private static Optional<Deadline> correctUserInputAndGetDeadline(String start, String end, String notification)
+            throws IllegalValueException {
+        Optional<String> temp;
+        start = (temp = parseAndCorrectDayFromUserDeadline(start)).isPresent() ? temp.get() : start;
+        end = (temp = parseAndCorrectDayFromUserDeadline(end)).isPresent() ? temp.get() : end;
         return Optional.of(new Deadline(start, end, notification));
     }
+
     /**
      *
      * Returns true if all the Optionals are empty
      *
      */
     @SafeVarargs
-    private static boolean allNotPresent(Optional <String>... times) {
+    private static boolean allNotPresent(Optional<String>... times) {
         for (Optional<String> time : times) {
             if (time.isPresent()) {
                 return false;
@@ -110,8 +122,7 @@ public class ParserUtil {
      */
     public static Optional<Description> parseDescription(Optional<String> description) throws IllegalValueException {
         requireNonNull(description);
-        return description.isPresent() ? Optional.of(new Description(description.get()))
-                : Optional.empty();
+        return description.isPresent() ? Optional.of(new Description(description.get())) : Optional.empty();
     }
 
     /**
@@ -124,5 +135,40 @@ public class ParserUtil {
             tagSet.add(new Tag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Attepmts to autocorrect the user input. If it fails to find a close
+     * match, it will return an empty Optional.
+     *
+     * @param dateTime
+     * @return Optional containing autocorrected dateTime
+     */
+    public static Optional<String> parseAndCorrectDayFromUserDeadline(String dateTime) {
+        Matcher matcher = Pattern.compile(Deadline.DAY_PARSE_REGEX).matcher(dateTime.trim());
+        if (matcher.find()) {
+            String day = extractDay(matcher);
+            Optional<String> autoCorrectedDay = StringUtil.getAutoCorrectedDay(day);
+            if (day.length() > Deadline.MIN_WORD_LENGTH_FOR_DAY && autoCorrectedDay.isPresent()) {
+                return Optional.of(matcher.replaceFirst(autoCorrectedDay.get() + " "));
+            } else {
+                return Optional.empty();
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Returns the extracted day from user input for deadline
+     *
+     * @param matcher
+     *            containing the String for deadline
+     * @return the day part of the string e.g.thursday
+     *
+     *         Assumes the user enters future tense as next thursday instead of
+     *         thursday next
+     */
+    private static String extractDay(Matcher matcher) {
+        return matcher.group().split(" ").length > 1 ? matcher.group().split(" ")[1] : matcher.group();
     }
 }

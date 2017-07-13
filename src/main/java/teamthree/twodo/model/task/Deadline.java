@@ -25,7 +25,9 @@ public class Deadline {
             + " and Time can be either AM/PM or 24HR\n";
 
     // This value is only to be used by edit command to indicate a change of date
+    public static final String DAY_PARSE_REGEX = "[^\\d]+";
     public static final String NULL_VALUE = "0000";
+    public static final int MIN_WORD_LENGTH_FOR_DAY = 2;
     public static final Date DEFAULT_DATE = new Date(0);
 
     private static final long DAY_TO_MILLIS = 1000 * 60 * 60 * 24;
@@ -143,7 +145,7 @@ public class Deadline {
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         if (startDate.equals(endDate)) {
-            return "Starts: " + dateFormat.format(startDate) + "\nReminder on: "
+            return "Deadline: " + dateFormat.format(startDate) + "\nReminder on: "
                     + dateFormat.format(getNotificationDate()) + "\n";
         }
         return "Starts: " + dateFormat.format(startDate) + "\nEnds: " + dateFormat.format(endDate) + "\nReminder on: "
