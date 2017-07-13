@@ -91,20 +91,54 @@ Example: `help add`
 
 === Adding a task : `add / -a / +`
 
+==== General
+
 Format 1: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `add n/CS2103 Project s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true`
+Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/Reunion a/2 days r/yearly u/true`
 ****
-* Creates a task with provided attributes and adds it to list
-* Floating tasks can be added with date, time field blank
+* Creates a task with provided attributes and adds it to your list
 * _start_ and _end_ are in the format {date} {time}
 * _alarm_ sets an notification to appear at the specified date
-* For urgent tasks, u/true can be added. Or else, field can be left blank
+* `u/true` can be added to indicate a task is urgent
 ****
 
 Format 2: `add [-h] {name} on {date} at {time}` +
 Example: `add project on friday at 2359`
 ****
 * Supports keywords _on_, _at_ and _days_
+****
+
+==== Floating tasks
+
+Format: `add [-h] n/{name} d/[description] t/[tag1, tag2,...] a/[alarm] u/[urgent]` +
+Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/false`
+****
+* Floating tasks can be added with _start_, _end_ and _recurrence_ fields empty
+* You will not be able to set an _alarm_ for floating tasks using the natural language format
+****
+
+==== Tasks with deadlines
+
+Format: `add [-h] n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days r/false u/true`
+****
+* Tasks with deadlines can be added with the _start_ field empty and the _end_ field filled
+****
+
+==== Events
+
+Format: `add [-h] n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days r/false u/true`
+****
+* Events can be added with the _start_ and _end_ fields filled
+****
+
+==== Recurring tasks
+
+Format: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/{recurrence} u/[urgent]` +
+Example: `add n/CS2103 monday pre-tutorial meeting s/10/07/17 1200 e/10/07/17 1500 d/For project t/NUS a/1 day r/weekly u/true`
+****
+* Recurring tasks can be added with the recurrence field filled
 ****
 
 === Deleting a task : `delete / del / -d / -`
@@ -143,7 +177,7 @@ Example: `undo`
 === Editing a task : `edit / -e`
 
 Format: `edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
-Example: `edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true`
+Example: `edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1630 d/Special Term t/NUS a/2 days u/true`
 ****
 * Edits task at that index in the most recent call of list
 * _new start_ and _new end_ are in the format {date} {time}
@@ -169,16 +203,15 @@ Example: `unmark 4`
 === Editing the default options : `option / -o`
 
 Format: `option a/[alarm] m/[mark completion automatically]` +
-Example: `option a/2 days`
+Example: `option a/1 minute m/yes`
 ****
-* Option without parameters will show the general options which the user can edit and their explanations
-* Default reminder alarm timing before the deadline can be edited
-** Range value for reminders: 1 minute <= reminder <= 7 days
+* Option without parameters will show the general options that the user can edit and their explanations
+* Default reminder alarm timing, before the deadline, can be edited
 ** Default setting is 7 days
+** Range for reminders: 1 minute to 7 days
 * Default automatic mark for completion setting can be edited
-** Default setting will prompt user requesting if the activity was completed
-** This can be changed to automatically marking the activity as complete instead of prompting
-** Alternatively, the prompt can be removed and the activity would be marked as missed. You can then manually mark the completed tasks
+** Default setting will prompt user checking if the activity was completed
+** This can be changed to automatically marking the activity as completed without prompting
 ****
 
 === Saving list : `save / -s`
@@ -229,7 +262,7 @@ Example: `quit`
 |edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true
 |mark / -m|mark {index}|mark 4
 |unmark / -un|unmark {index}|unmark 4
-|option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/2 days
+|option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/1 minute m/yes
 |save / -s|save [-h] [directory]|save C:\Program Files\Common Files\2Do.txt
 |clear / -c|clear [-h]|clear
 |exit / quit / -q|quit|quit
