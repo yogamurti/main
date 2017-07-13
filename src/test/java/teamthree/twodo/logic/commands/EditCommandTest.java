@@ -76,8 +76,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() throws Exception {
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, new EditTaskDescriptor());
-        ReadOnlyTask editedPerson = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK, new EditTaskDescriptor());
+        ReadOnlyTask editedPerson = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
 
@@ -90,9 +90,9 @@ public class EditCommandTest {
     public void execute_filteredList_success() throws Exception {
         showFirstPersonOnly();
 
-        ReadOnlyTask personInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ReadOnlyTask personInFilteredList = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task editedPerson = new TaskWithDeadlineBuilder(personInFilteredList).withName(VALID_NAME_EVENT).build();
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK,
                 new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
@@ -105,7 +105,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() throws Exception {
-        Task firstPerson = new TaskWithDeadline(model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        Task firstPerson = new TaskWithDeadline(model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased()));
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_SECOND_TASK, descriptor);
 
@@ -118,7 +118,7 @@ public class EditCommandTest {
 
         // edit person in filtered list into a duplicate in address book
         ReadOnlyTask personInList = model.getTaskBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK,
                 new EditTaskDescriptorBuilder(personInList).build());
 
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TASK);
@@ -152,11 +152,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_CSMOD);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_TASK, DESC_CSMOD);
 
         // same values -> returns true
         EditTaskDescriptor copyDescriptor = new EditTaskDescriptor(DESC_CSMOD);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_TASK, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -172,7 +172,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TASK, DESC_CSMOD)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_EVENT)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_TASK, DESC_EVENT)));
     }
 
     /**
