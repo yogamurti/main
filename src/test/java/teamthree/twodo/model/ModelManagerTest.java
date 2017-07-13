@@ -43,7 +43,7 @@ public class ModelManagerTest {
         modelManager.updateFilteredTaskList(new HashSet<>(
                 Arrays.asList(typicalPersons.alice.getName().fullName.split(" "))));
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
-        modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

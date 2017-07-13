@@ -44,17 +44,20 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
+    /** Updates the filter of the filtered task list to show all complete tasks */
+    void updateFilteredListToShowAllComplete();
+
+    /** Updates the filter of the filtered task list to show all incomplete tasks */
+    void updateFilteredListToShowAllIncomplete();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskListExtensively(Set<String> keywords);
+    void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete);
 
     /** Updates the filter of the filtered task list to show all tasks within the period */
-    void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput);
+    void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete);
 
     /** Saves the taskBook*/
     void saveTaskBook();

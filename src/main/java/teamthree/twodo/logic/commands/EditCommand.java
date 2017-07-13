@@ -34,6 +34,7 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD_UNIXSTYLE = "-e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the last task listing. "
@@ -85,7 +86,7 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }
-        model.updateFilteredListToShowAll();
+        model.updateFilteredListToShowAllIncomplete();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
     }
 

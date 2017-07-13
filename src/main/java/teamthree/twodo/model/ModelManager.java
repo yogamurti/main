@@ -71,7 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask person) throws DuplicateTaskException {
         taskBook.addTask(person);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllIncomplete();
         indicateTaskBookChanged();
     }
 
@@ -114,8 +114,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    public void updateFilteredListToShowAllIncomplete() {
+        filteredTasks.setPredicate(task -> !task.isCompleted());
+    }
+
+    @Override
+    public void updateFilteredListToShowAllComplete() {
+        filteredTasks.setPredicate(task -> task.isCompleted());
     }
 
     @Override
@@ -128,13 +133,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskListExtensively(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords)));
+    public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete) {
+        updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords, listIncomplete)));
     }
 
     @Override
-    public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput) {
-        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput)));
+    public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
+        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput, listIncomplete)));
     }
 
     @Override
@@ -210,14 +215,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class TotalQualifier implements Qualifier {
         private Set<String> keyWords;
+        private boolean listIncomplete;
 
-        TotalQualifier(Set<String> keyWords) {
+        TotalQualifier(Set<String> keyWords, boolean listIncomplete) {
             this.keyWords = keyWords;
+            this.listIncomplete = listIncomplete;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (nameQualifies(task) || descriptionQualifies(task) || tagsQualifies(task));
+            return (nameQualifies(task) || descriptionQualifies(task) || tagsQualifies(task))
+                    && completedQualifies(task);
         }
 
         private boolean nameQualifies(ReadOnlyTask task) {
@@ -248,6 +256,10 @@ public class ModelManager extends ComponentManager implements Model {
             return qualifies;
         }
 
+        private boolean completedQualifies(ReadOnlyTask task) {
+            return task.isCompleted() != listIncomplete;
+        }
+
         @Override
         public String toString() {
             return "keywords=" + String.join(", ", keyWords);
@@ -258,10 +270,12 @@ public class ModelManager extends ComponentManager implements Model {
     private class PeriodQualifier implements Qualifier {
         private Deadline deadlineToCheck;
         private AttributeInputted attInput;
+        private boolean listIncomplete;
 
-        PeriodQualifier(Deadline deadline, AttributeInputted attInput) {
+        PeriodQualifier(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
             this.deadlineToCheck = deadline;
             this.attInput = attInput;
+            this.listIncomplete = listIncomplete;
         }
 
         @Override
@@ -269,15 +283,19 @@ public class ModelManager extends ComponentManager implements Model {
             if (!task.getDeadline().isPresent()) {
                 return false;
             } else {
-                switch (attInput) {
-                case START:
-                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
-                case END:
-                    return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
-                case BOTH:
-                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
-                            && task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
-                default:
+                if (task.isCompleted() == !listIncomplete) {
+                    switch (attInput) {
+                    case START:
+                        return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
+                    case END:
+                        return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                    case BOTH:
+                        return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
+                                && task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                    default:
+                        return false;
+                    }
+                } else {
                     return false;
                 }
             }
