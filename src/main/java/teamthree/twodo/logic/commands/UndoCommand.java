@@ -16,68 +16,68 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands.";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
 
-    public static String FULL_MESSAGE;
+    private static String fullMessage;
 
     @Override
-    public CommandResult execute() throws CommandException  {
+    public CommandResult execute() throws CommandException {
         if (history.getUserInputHistory().isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
         CommandResult undoResult = null;
         try {
-          undoResult = processUserInput();
+            undoResult = processUserInput();
         } catch (DuplicateTaskException e) {
-          throw new CommandException(AddCommand.MESSAGE_DUPLICATE_TASK);
+            throw new CommandException(AddCommand.MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException e) {
-          assert false : "The target task cannot be missing";
+            assert false : "The target task cannot be missing";
         }
 
         return undoResult;
     }
 
     private CommandResult processUserInput() throws TaskNotFoundException, DuplicateTaskException {
-      final String previousCommandWord = history.getUserInputHistory().pop();
-      switch (previousCommandWord) {
+        final String previousCommandWord = history.getUserInputHistory().pop();
+        switch (previousCommandWord) {
 
-      case AddCommand.COMMAND_WORD:
-      case AddCommand.COMMAND_WORD_QUICK:
-      case AddCommand.COMMAND_WORD_UNIXSTYLE:
-        ReadOnlyTask taskToDelete = history.getAddHistory().pop();
-        model.deleteTask(taskToDelete);
-        FULL_MESSAGE = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS);
-        return new CommandResult(String.format(FULL_MESSAGE, taskToDelete));
+        case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD_QUICK:
+        case AddCommand.COMMAND_WORD_UNIXSTYLE:
+            ReadOnlyTask taskToDelete = history.getAddHistory().pop();
+            model.deleteTask(taskToDelete);
+            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS);
+            return new CommandResult(String.format(fullMessage, taskToDelete));
 
-      case EditCommand.COMMAND_WORD:
-        ReadOnlyTask taskToEdit= history.getBeforeEditHistory().pop();
-        ReadOnlyTask originalTask= history.getAfterEditHistory().pop();
-        model.updateTask(originalTask, taskToEdit);
-        FULL_MESSAGE = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
-          return new CommandResult(String.format(FULL_MESSAGE, taskToEdit));
+        case EditCommand.COMMAND_WORD:
+            ReadOnlyTask taskToEdit = history.getBeforeEditHistory().pop();
+            ReadOnlyTask originalTask = history.getAfterEditHistory().pop();
+            model.updateTask(originalTask, taskToEdit);
+            fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
+            return new CommandResult(String.format(fullMessage, taskToEdit));
 
-      case DeleteCommand.COMMAND_WORD_QUICK:
-      case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
-      case DeleteCommand.COMMAND_WORD_SHORT:
-      case DeleteCommand.COMMAND_WORD:
-        ReadOnlyTask taskToAdd= history.getDeleteHistory().pop();
-        model.addTask(taskToAdd);
-        FULL_MESSAGE = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
-        return new CommandResult(String.format(FULL_MESSAGE, taskToAdd));
+        case DeleteCommand.COMMAND_WORD_QUICK:
+        case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
+        case DeleteCommand.COMMAND_WORD_SHORT:
+        case DeleteCommand.COMMAND_WORD:
+            ReadOnlyTask taskToAdd = history.getDeleteHistory().pop();
+            model.addTask(taskToAdd);
+            fullMessage = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
+            return new CommandResult(String.format(fullMessage, taskToAdd));
 
-      case ClearCommand.COMMAND_WORD:
-        FULL_MESSAGE = MESSAGE_SUCCESS.concat("Restored TaskBook");
-        return new CommandResult(FULL_MESSAGE);
+        case ClearCommand.COMMAND_WORD:
+            fullMessage = MESSAGE_SUCCESS.concat("Restored TaskBook");
+            return new CommandResult(fullMessage);
 
-      case MarkCommand.COMMAND_WORD:
-      case MarkCommand.COMMAND_WORD_UNIXSTYLE:
-        ReadOnlyTask taskToMark = history.getMarkHistory().pop();
-        //TOADD: model.unmarkTask(taskToMark)
-        //TOADD:FULL_MESSAGE = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_UNMARK_PERSON_SUCCESS);
-        return new CommandResult(FULL_MESSAGE);
+        case MarkCommand.COMMAND_WORD:
+        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
+            ReadOnlyTask taskToMark = history.getMarkHistory().pop();
+            model.unmarkTask(taskToMark);
+            fullMessage = MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
+            return new CommandResult(fullMessage);
 
-      default:
-        String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(history.getUserInputHistory().peek());
-        return new CommandResult(message);
-      }
+        default:
+            String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(history.getUserInputHistory().peek());
+            return new CommandResult(message);
+        }
     }
 }

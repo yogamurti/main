@@ -10,7 +10,6 @@ import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
