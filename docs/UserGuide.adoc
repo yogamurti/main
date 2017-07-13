@@ -96,10 +96,10 @@ Example: `help add`
 Format 1: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
 Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/Reunion a/2 days r/yearly u/true`
 ****
-* Creates a task with provided attributes and adds it to list
+* Creates a task with provided attributes and adds it to your list
 * _start_ and _end_ are in the format {date} {time}
 * _alarm_ sets an notification to appear at the specified date
-* For urgent tasks, u/true can be added
+* `u/true` can be added to indicate a task is urgent
 ****
 
 Format 2: `add [-h] {name} on {date} at {time}` +
@@ -113,7 +113,7 @@ Example: `add project on friday at 2359`
 Format: `add [-h] n/{name} d/[description] t/[tag1, tag2,...] a/[alarm] u/[urgent]` +
 Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/false`
 ****
-* Floating tasks can be added with _start_, _end_ and _recurrence fields blank
+* Floating tasks can be added with _start_, _end_ and _recurrence_ fields blank
 * You will not be able to set an _alarm_ for floating tasks using the natural language format
 ****
 
@@ -135,7 +135,7 @@ Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t
 
 ==== Recurring tasks
 
-Format: `add [-h] n/{name} d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Format: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
 Example: `add n/CS2103 monday pre-tutorial meeting s/10/07/17 1200 e/10/07/17 1500 d/For project t/NUS a/1 day r/weekly u/true`
 ****
 * Recurring tasks can be added with the recurrence field filled
