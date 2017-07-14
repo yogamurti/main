@@ -8,10 +8,10 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-//Marks a task as incomplete using its last displayed index from the TaskBook.
+// Marks a task as incomplete using its last displayed index from the TaskBook.
 public class UnmarkCommand extends Command {
 
-    //Command word can be either one of the two
+    // Command word can be either one of the two
     public static final String COMMAND_WORD = "unmark";
     public static final String COMMAND_WORD_UNIXSTYLE = "-un";
 
