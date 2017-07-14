@@ -2,7 +2,7 @@ package teamthree.twodo.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() throws Exception {
         DeleteCommand command = parser.parse("1");
-        assertEquals(INDEX_FIRST_PERSON, command.targetIndex);
+        assertEquals(INDEX_FIRST_TASK, command.targetIndex);
     }
 
     @Test

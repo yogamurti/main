@@ -14,7 +14,7 @@ import org.junit.Test;
 import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditTaskDescriptorTest {
 
     @Test
     public void equals() throws Exception {

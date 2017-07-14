@@ -20,7 +20,7 @@ public class SampleDataUtil {
                 new Task(new Name("Dinner"), new Description("7pm @ Ang Mo Kio"),
                           getTagSet("Friends", "coursemates")),
                 new Task(new Name("Shopping"), new Description("New Clothes"), getTagSet("family", "friends")),
-                new Task(new Name("CCA Meeting"), new Description("NUS Tues 3pm"), getTagSet("NUS", "CCA")),
+                new Task(new Name("cca Meeting"), new Description("NUS Tues 3pm"), getTagSet("NUS", "cca")),
                 new Task(new Name("Buy lotion"), new Description("Lotion for hands"), getTagSet("myself")) };
         } catch (IllegalValueException e) {
             throw new AssertionError("sample data cannot be invalid", e);

@@ -52,7 +52,7 @@ public class RedoCommand extends Command {
             ReadOnlyTask taskToDelete = undoHistory.getAddHistory().pop();
             history.addToDeleteHistory(taskToDelete);
             model.deleteTask(taskToDelete);
-            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS);
+            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, taskToDelete));
 
         case EditCommand.COMMAND_WORD:

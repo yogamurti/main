@@ -12,8 +12,8 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 import static teamthree.twodo.model.util.SampleDataUtil.getTagSet;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_SECOND_PERSON;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_TASK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -328,7 +328,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(), expectedMessage);
+        assertCommandException(commandWord + " " + INDEX_THIRD_TASK.getOneBased(), expectedMessage);
     }
 
     @Test
@@ -352,7 +352,7 @@ public class LogicManagerTest {
 
         assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedModel);
-        assertEquals(INDEX_SECOND_PERSON, targetedJumpIndex);
+        assertEquals(INDEX_SECOND_TASK, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
 
@@ -377,7 +377,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)), expectedModel);
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)), expectedModel);
     }
 
     @Test
