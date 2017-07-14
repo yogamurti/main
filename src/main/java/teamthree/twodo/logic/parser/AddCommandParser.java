@@ -64,7 +64,7 @@ public class AddCommandParser {
     }
 
     private boolean argumentContainsDeadline(ArgumentMultimap argMultimap) {
-        return argMultimap.getValue(PREFIX_DEADLINE_START).isPresent();
+        return argMultimap.getValue(PREFIX_DEADLINE_END).isPresent();
     }
 
     /**

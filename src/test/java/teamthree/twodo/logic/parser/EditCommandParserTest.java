@@ -130,7 +130,7 @@ public class EditCommandParserTest {
 
         // phone
         userInput = targetIndex.getOneBased() + DEADLINE_DESC_MOD;
-        descriptor = new EditTaskDescriptorBuilder().withStartDeadline(VALID_START_DATE).build();
+        descriptor = new EditTaskDescriptorBuilder().withEndDeadline(VALID_START_DATE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(userInput, expectedCommand);
 

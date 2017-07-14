@@ -39,7 +39,7 @@ public class EditTaskDescriptorTest {
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different start date -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withStartDeadline(VALID_START_DATE).build();
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withEndDeadline(VALID_START_DATE).build();
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different address -> returns false
