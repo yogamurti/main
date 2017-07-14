@@ -18,7 +18,16 @@ public class TaskTest {
             original.resetData(replacement);
             assertTrue(original.equals(replacement));
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void markCompletedSetsTaskAsComplete() {
+        try {
+            Task task = new FloatingTaskBuilder().build();
+            task.markCompleted();
+            assertTrue(task.isCompleted());
+        } catch (IllegalValueException e) {
             e.printStackTrace();
         }
     }
@@ -32,7 +41,6 @@ public class TaskTest {
             original.resetData(replacement);
             assertTrue(original.equals(replacement));
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
