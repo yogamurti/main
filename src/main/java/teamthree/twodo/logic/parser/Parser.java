@@ -19,7 +19,6 @@ import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
-import teamthree.twodo.logic.commands.SelectCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.UnmarkCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
@@ -59,10 +58,8 @@ public class Parser {
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD_UNIXSTYLE:
             return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_QUICK:
         case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
@@ -82,6 +79,7 @@ public class Parser {
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD_UNIXSTYLE:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -89,6 +87,7 @@ public class Parser {
             return new ListCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_WORD_UNIXSTYLE:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:

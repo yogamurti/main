@@ -64,7 +64,7 @@ public class AddCommandParser {
     }
 
     private boolean argumentContainsDeadline(ArgumentMultimap argMultimap) {
-        return argMultimap.getValue(PREFIX_DEADLINE_START).isPresent();
+        return argMultimap.getValue(PREFIX_DEADLINE_END).isPresent();
     }
 
     /**
@@ -74,9 +74,9 @@ public class AddCommandParser {
      *         start time being specified
      */
     private boolean invalidDeadlineDeclaration(ArgumentMultimap argMultimap) {
-        return (arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END)
+        return (arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START)
                 || arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_PERIOD))
-                && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START);
+                && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END);
     }
 
     /**

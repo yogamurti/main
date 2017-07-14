@@ -19,10 +19,11 @@ public class ListCommandParser {
      * @throws IllegalValueException
      */
     public ListCommand parse(String args) throws ParseException {
+        boolean listIncomplete = !args.contains(ListCommand.COMMAND_WORD_HISTORY);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DEADLINE_START, PREFIX_DEADLINE_END);
         if (!arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START)
                 && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END)) {
-            return new ListCommand();
+            return new ListCommand(listIncomplete);
         }
         try {
             Deadline deadline = ParserUtil.parseDeadlineForList(argMultimap.getValue(PREFIX_DEADLINE_START),
@@ -38,7 +39,7 @@ public class ListCommandParser {
                     attInput = AttributeInputted.END;
                 }
             }
-            return new ListCommand(deadline, attInput);
+            return new ListCommand(deadline, attInput, listIncomplete);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
