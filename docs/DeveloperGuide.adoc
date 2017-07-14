@@ -370,7 +370,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user | view my task history |look back at the tasks I have completed so far
 
-|`* *` |user |visualise my task as a calendar |more easily plan my schedule
+|`* *` |user |visualize my tasks as a calendar |more easily plan my schedule
 
 |`*` |user |launch the program quickly, by pressing a keyboard shortcut |conveniently launch the program
 
