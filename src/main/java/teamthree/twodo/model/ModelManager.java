@@ -2,11 +2,13 @@ package teamthree.twodo.model;
 
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
@@ -28,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private TaskBook taskBook;
     private final FilteredList<ReadOnlyTask> filteredTasks;
+    private final SortedList<ReadOnlyTask> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given taskBook and userPrefs.
@@ -40,6 +43,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskBook = new TaskBook(taskBook);
         filteredTasks = new FilteredList<>(this.taskBook.getTaskList());
+        updateFilteredListToShowAllIncomplete();
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
@@ -76,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask person) throws DuplicateTaskException {
         taskBook.addTask(person);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllIncomplete();
         indicateTaskBookChanged();
     }
 
@@ -114,13 +119,19 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code taskBook}
      */
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList() {
+        sort();
+        return new UnmodifiableObservableList<>(sortedTasks);
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    public void updateFilteredListToShowAllIncomplete() {
+        filteredTasks.setPredicate(task -> !task.isCompleted());
+    }
+
+    @Override
+    public void updateFilteredListToShowAllComplete() {
+        filteredTasks.setPredicate(task -> task.isCompleted());
     }
 
     @Override
@@ -133,13 +144,32 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskListExtensively(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords)));
+    public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete) {
+        updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords, listIncomplete)));
     }
 
     @Override
-    public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput) {
-        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput)));
+    public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
+        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput, listIncomplete)));
+    }
+
+    private void sort() {
+        sortedTasks.setComparator(new Comparator<ReadOnlyTask>() {
+            @Override
+            public int compare(ReadOnlyTask task1, ReadOnlyTask task2) {
+                if (task1.getDeadline().isPresent() && task2.getDeadline().isPresent()) {
+                    return task1.getDeadline().get().getEndDate().compareTo(task2.getDeadline().get().getEndDate());
+                } else {
+                    if (task1.getDeadline().isPresent()) {
+                        return -1;
+                    } else if (task2.getDeadline().isPresent()) {
+                        return 1;
+                    } else {
+                        return task1.getName().fullName.compareTo(task2.getName().fullName);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -215,14 +245,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class TotalQualifier implements Qualifier {
         private Set<String> keyWords;
+        private boolean listIncomplete;
 
-        TotalQualifier(Set<String> keyWords) {
+        TotalQualifier(Set<String> keyWords, boolean listIncomplete) {
             this.keyWords = keyWords;
+            this.listIncomplete = listIncomplete;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (nameQualifies(task) || descriptionQualifies(task) || tagsQualifies(task));
+            return (nameQualifies(task) || descriptionQualifies(task) || tagsQualifies(task))
+                    && completedQualifies(task);
         }
 
         private boolean nameQualifies(ReadOnlyTask task) {
@@ -253,6 +286,10 @@ public class ModelManager extends ComponentManager implements Model {
             return qualifies;
         }
 
+        private boolean completedQualifies(ReadOnlyTask task) {
+            return task.isCompleted() != listIncomplete;
+        }
+
         @Override
         public String toString() {
             return "keywords=" + String.join(", ", keyWords);
@@ -263,10 +300,12 @@ public class ModelManager extends ComponentManager implements Model {
     private class PeriodQualifier implements Qualifier {
         private Deadline deadlineToCheck;
         private AttributeInputted attInput;
+        private boolean listIncomplete;
 
-        PeriodQualifier(Deadline deadline, AttributeInputted attInput) {
+        PeriodQualifier(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
             this.deadlineToCheck = deadline;
             this.attInput = attInput;
+            this.listIncomplete = listIncomplete;
         }
 
         @Override
@@ -274,15 +313,19 @@ public class ModelManager extends ComponentManager implements Model {
             if (!task.getDeadline().isPresent()) {
                 return false;
             } else {
-                switch (attInput) {
-                case START:
-                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
-                case END:
-                    return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
-                case BOTH:
-                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
-                            && task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
-                default:
+                if (task.isCompleted() == !listIncomplete) {
+                    switch (attInput) {
+                    case START:
+                        return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
+                    case END:
+                        return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                    case BOTH:
+                        return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
+                                && task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                    default:
+                        return false;
+                    }
+                } else {
                     return false;
                 }
             }

@@ -37,8 +37,9 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
+
         TaskBook expectedTaskBook = new TaskBook(actualModel.getTaskBook());
-        List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTaskList());
+        List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
 
         try {
             command.execute();
@@ -46,7 +47,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedTaskBook, actualModel.getTaskBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredTaskList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedTaskList());
         }
     }
 }

@@ -20,12 +20,15 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
  */
 public class Deadline {
 
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS_STRICT = "Deadlines can be informal, e.g. fri 10am, "
-            + "but if providing exact dates, " + "they should be of the format MM/DD/YY"
-            + " and Time can be either AM/PM or 24HR\n";
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS_STRICT = "Deadlines MUST have time. "
+            + "Deadlines can be informal, e.g. fri 10am, " + "but if providing exact dates, "
+            + "they should be of the format MM/DD/YY" + " and Time can be either AM/PM or 24HR\n";
 
+    public static final String DEADLINE_VALIDATION_REGEX = "\\d+am|\\d+pm|\\d+hrs|\\d+ am|\\d+ pm|\\d+ hrs|\\d+";
+    public static final String DAY_PARSE_REGEX = "[^\\d]+";
     // This value is only to be used by edit command to indicate a change of date
     public static final String NULL_VALUE = "0000";
+    public static final int MIN_WORD_LENGTH_FOR_DAY = 2;
     public static final Date DEFAULT_DATE = new Date(0);
 
     private static final long DAY_TO_MILLIS = 1000 * 60 * 60 * 24;
@@ -73,10 +76,18 @@ public class Deadline {
     }
 
     private boolean isValidDeadline(String startDate, String endDate, PrettyTimeParser dateParser) {
-        if (dateParser.parseSyntax(startDate).isEmpty() || dateParser.parseSyntax(endDate).isEmpty()) {
-            return false;
+        if (!startDate.equals(NULL_VALUE) && !endDate.equals(NULL_VALUE)) {
+            return validate(startDate, dateParser) && validate(endDate, dateParser);
+        } else if (!endDate.equals(NULL_VALUE)) {
+            return validate(endDate, dateParser);
+        } else {
+            return validate(startDate, dateParser);
         }
-        return true;
+    }
+
+    private boolean validate(String date, PrettyTimeParser dateParser) {
+        return Pattern.compile(DEADLINE_VALIDATION_REGEX).matcher(date).find()
+                && !dateParser.parseSyntax(date).isEmpty();
     }
 
     public Long getNotificationPeriod() {
@@ -122,7 +133,7 @@ public class Deadline {
         Matcher integerParser = Pattern.compile("\\d*").matcher(notificationPeriod);
         assert (integerParser.find());
         integerParser.find();
-        int period = Integer.parseInt(integerParser.group());
+        int period = Integer.parseInt(integerParser.group().trim());
         if (notificationPeriod.toLowerCase().contains("day")) {
             return DAY_TO_MILLIS * period;
         } else if (notificationPeriod.toLowerCase().contains("week")) {
@@ -143,7 +154,7 @@ public class Deadline {
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         if (startDate.equals(endDate)) {
-            return "Starts: " + dateFormat.format(startDate) + "\nReminder on: "
+            return "Deadline: " + dateFormat.format(startDate) + "\nReminder on: "
                     + dateFormat.format(getNotificationDate()) + "\n";
         }
         return "Starts: " + dateFormat.format(startDate) + "\nEnds: " + dateFormat.format(endDate) + "\nReminder on: "

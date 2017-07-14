@@ -1,4 +1,4 @@
-= 2Do
+= https://cs2103jun2017-t3.github.io/main/[2Do]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 

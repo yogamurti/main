@@ -1,5 +1,5 @@
 package teamthree.twodo.logic.commands;
-
+/*
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -17,27 +17,28 @@ import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TypicalTask;
 
-/**
+*//**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
- */
+ *//*
 public class ListCommandTest {
 
     private Model model;
     private Model expectedModel;
     private ListCommand listCommand;
+    private boolean listIncomplete;
 
     @Before
     public void setUp() {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
 
-        listCommand = new ListCommand();
+        listCommand = new ListCommand(listIncomplete);
         listCommand.setData(model, new CommandHistory(), null);
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() throws Exception {
-        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
     @Test
@@ -46,9 +47,9 @@ public class ListCommandTest {
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
-    /**
+    *//**
      * Updates the filtered list to show only the first task in the {@code model}'s task book.
-     */
+     *//*
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
@@ -57,15 +58,16 @@ public class ListCommandTest {
         assertTrue(model.getFilteredTaskList().size() == 1);
     }
 
-    /**
+    *//**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
      * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
-     */
+     *//*
+
     public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)
             throws CommandException {
         CommandResult result = command.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedModel, model);
     }
-}
+}*/

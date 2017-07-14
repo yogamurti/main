@@ -12,13 +12,12 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 import static teamthree.twodo.model.util.SampleDataUtil.getTagSet;
-import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_TASK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+//import java.util.Collections;
+//import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,20 +30,17 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
-import teamthree.twodo.commons.events.ui.JumpToListRequestEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
-import teamthree.twodo.logic.commands.Command;
+//import teamthree.twodo.logic.commands.Command;
 import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.ListCommand;
-import teamthree.twodo.logic.commands.SelectCommand;
 //import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
@@ -59,7 +55,7 @@ import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
-import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
+//import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class LogicManagerTest {
 
@@ -75,7 +71,6 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskBook latestSavedAddressBook;
     private boolean helpShown;
-    private Index targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
@@ -87,11 +82,6 @@ public class LogicManagerTest {
         helpShown = true;
     }
 
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = Index.fromZeroBased(je.targetIndex);
-    }
-
     @Before
     public void setUp() {
         model = new ModelManager();
@@ -100,7 +90,6 @@ public class LogicManagerTest {
 
         latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date
         helpShown = false;
-        targetedJumpIndex = null;
     }
 
     @After
@@ -218,12 +207,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "/ " + PREFIX_DEADLINE_START + "fri 2am "
+        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "/ " + PREFIX_DEADLINE_END + "fri 2am "
                 + PREFIX_DESCRIPTION + "valid, desc", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_START
+        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_END
                 + "not_numbers " + PREFIX_DESCRIPTION + "valid, desc", Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
         assertParseException(
-                AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_START + "fri 2am "
+                AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_END + "fri 2am "
                         + PREFIX_DESCRIPTION + "valid, desc " + PREFIX_TAG + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -289,7 +278,7 @@ public class LogicManagerTest {
         // prepare address book state
         helper.addToModel(model, 2);
 
-        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
     /**
@@ -332,31 +321,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand(SelectCommand.COMMAND_WORD, expectedMessage);
-    }
 
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand(SelectCommand.COMMAND_WORD);
-    }
-
-    @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
-
-        Model expectedModel = new ModelManager(helper.generateAddressBook(threePersons), new UserPrefs());
-        helper.addToModel(model, threePersons);
-
-        assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedModel);
-        assertEquals(INDEX_SECOND_TASK, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
-    }
-
-    @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand(DeleteCommand.COMMAND_WORD, expectedMessage);
@@ -386,7 +351,7 @@ public class LogicManagerTest {
         assertParseException(FindCommand.COMMAND_WORD + " ", expectedMessage);
     }
 
-    @Test
+    /*@Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
@@ -435,7 +400,7 @@ public class LogicManagerTest {
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
                 expectedModel);
-    }
+    }*/
 
     /*@Test
     public void execute_verifyHistory_success() throws Exception {

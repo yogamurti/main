@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String COMMAND_WORD_UNIXSTYLE = "-u";
-    public static final String MESSAGE_SUCCESS = "Successfully undo command!!!\n";
+    public static final String MESSAGE_SUCCESS = "Successfully undid command!!!\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands.";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
 
