@@ -16,7 +16,7 @@ import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.task.Task;
 //import teamthree.twodo.model.task.TaskWithDeadline;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 public class XmlAddressBookStorageTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
@@ -28,12 +28,12 @@ public class XmlAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readTaskBook_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readTaskBook(null);
     }
 
-    private java.util.Optional<ReadOnlyTaskBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws Exception {
         return new XmlTaskBookStorage(filePath).readTaskBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -45,14 +45,14 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readTaskBook("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readTaskBook("NotXmlFormatAddressBook.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -62,8 +62,8 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalPersons td = new TypicalPersons();
-        TaskBook original = td.getTypicalAddressBook();
+        TypicalTask td = new TypicalTask();
+        TaskBook original = td.getTypicalTaskBook();
         XmlTaskBookStorage xmlTaskBookStorage = new XmlTaskBookStorage(filePath);
 
         //Save in new file and read back
@@ -72,7 +72,7 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(td.hoon));
+        original.addTask(new Task(td.supermarket));
         //original.removeTask(new TaskWithDeadline(td.alice));
         xmlTaskBookStorage.saveTaskBook(original, filePath);
         readBack = xmlTaskBookStorage.readTaskBook(filePath).get();

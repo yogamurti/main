@@ -48,4 +48,8 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredAndSortedTaskList();
     }
+
+    public CommandHistory getCommandHistory() {
+        return history;
+    }
 }

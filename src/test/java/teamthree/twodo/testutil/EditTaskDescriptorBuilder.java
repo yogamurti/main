@@ -43,6 +43,11 @@ public class EditTaskDescriptorBuilder {
         return this;
     }
 
+    public EditTaskDescriptorBuilder withEndDeadline(String end) throws IllegalValueException {
+        ParserUtil.parseDeadlineForEdit(Optional.empty(), Optional.of(end), Optional.empty())
+                .ifPresent(descriptor::setDeadline);
+        return this;
+    }
     public EditTaskDescriptorBuilder withStartDeadline(String start) throws IllegalValueException {
         ParserUtil.parseDeadlineForEdit(Optional.of(start), Optional.empty(), Optional.empty())
                 .ifPresent(descriptor::setDeadline);

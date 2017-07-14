@@ -21,6 +21,7 @@ public class TaskWithDeadlineBuilder {
     public static final String DEFAULT_DEADLINE = "thu 10pm";
     public static final String DEFAULT_DESCRIPTION = "zen";
     public static final String DEFAULT_TAGS = "life";
+    //public static final String DEFAULT_NOTIFICATION = "1 day";
 
     private TaskWithDeadline task;
 
@@ -57,8 +58,8 @@ public class TaskWithDeadlineBuilder {
         return this;
     }
 
-    public TaskWithDeadlineBuilder withDeadline(String startTime) throws IllegalValueException {
-        this.task.setDeadline(new Deadline(startTime, startTime, Deadline.NULL_VALUE));
+    public TaskWithDeadlineBuilder withDeadline(String deadline) throws IllegalValueException {
+        this.task.setDeadline(new Deadline(deadline, deadline, Deadline.NULL_VALUE));
         return this;
     }
 

@@ -9,16 +9,16 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import teamthree.twodo.testutil.AddressBookBuilder;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 public class ModelManagerTest {
 
-    private TypicalPersons typicalPersons = new TypicalPersons();
+    private TypicalTask typicalTask = new TypicalTask();
 
     @Test
     public void equals() throws Exception {
-        TaskBook taskBook = new AddressBookBuilder().withPerson(typicalPersons.alice)
-                .withPerson(typicalPersons.benson).build();
+        TaskBook taskBook = new AddressBookBuilder().withPerson(typicalTask.cs2103)
+                .withPerson(typicalTask.cs1020).build();
         TaskBook differentAddressBook = new TaskBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -41,7 +41,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         modelManager.updateFilteredTaskList(new HashSet<>(
-                Arrays.asList(typicalPersons.alice.getName().fullName.split(" "))));
+                Arrays.asList(typicalTask.cs2103.getName().fullName.split(" "))));
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 

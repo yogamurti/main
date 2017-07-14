@@ -12,7 +12,7 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 import static teamthree.twodo.model.util.SampleDataUtil.getTagSet;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_TASK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -207,12 +207,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "/ " + PREFIX_DEADLINE_START + "fri 2am "
+        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "/ " + PREFIX_DEADLINE_END + "fri 2am "
                 + PREFIX_DESCRIPTION + "valid, desc", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_START
+        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_END
                 + "not_numbers " + PREFIX_DESCRIPTION + "valid, desc", Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
         assertParseException(
-                AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_START + "fri 2am "
+                AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_END + "fri 2am "
                         + PREFIX_DESCRIPTION + "valid, desc " + PREFIX_TAG + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -317,10 +317,11 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(), expectedMessage);
+        assertCommandException(commandWord + " " + INDEX_THIRD_TASK.getOneBased(), expectedMessage);
     }
 
     @Test
+
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand(DeleteCommand.COMMAND_WORD, expectedMessage);
@@ -341,7 +342,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)), expectedModel);
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)), expectedModel);
     }
 
     @Test

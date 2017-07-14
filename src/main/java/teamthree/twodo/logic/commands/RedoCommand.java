@@ -14,7 +14,7 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String COMMAND_WORD_UNIXSTYLE = "-r";
-    public static final String MESSAGE_SUCCESS = "Successfully redo command!!!\n";
+    public static final String MESSAGE_SUCCESS = "Successfully redid command!!!\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to redo: You have not yet entered any undo commands.";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
 
@@ -52,7 +52,7 @@ public class RedoCommand extends Command {
             ReadOnlyTask taskToDelete = undoHistory.getAddHistory().pop();
             history.addToDeleteHistory(taskToDelete);
             model.deleteTask(taskToDelete);
-            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS);
+            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, taskToDelete));
 
         case EditCommand.COMMAND_WORD:

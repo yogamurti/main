@@ -88,6 +88,17 @@ public class StringUtilTest {
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
         assertExceptionThrown(NullPointerException.class, null, "abc", Optional.empty());
     }
+    @Test
+    public void getAutoCorrectedDay_returnsEmptyOptional_ifInputStringTooShort() {
+        Optional<String> output = StringUtil.getAutoCorrectedDay("th");
+        assertFalse(output.isPresent());
+    }
+    @Test
+    public void getAutoCorrectedDay_returnsEmptyOptional_ifNoMatch() {
+        Optional<String> output = StringUtil.getAutoCorrectedDay("fap");
+        assertFalse(output.isPresent());
+    }
+
 
     /*
      * Valid equivalence partitions for word: - any word - word containing

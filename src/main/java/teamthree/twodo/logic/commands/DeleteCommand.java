@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
             + ": Deletes the person identified by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "Are you sure you want to delete?";
 
     public final Index targetIndex;
@@ -49,7 +49,7 @@ public class DeleteCommand extends Command {
             assert false : "The target person cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
     }
 
 }

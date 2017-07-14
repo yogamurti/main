@@ -14,7 +14,7 @@ import org.junit.Test;
 import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditTaskDescriptorTest {
 
     @Test
     public void equals() throws Exception {
@@ -39,7 +39,7 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different start date -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withStartDeadline(VALID_START_DATE).build();
+        editedAmy = new EditTaskDescriptorBuilder(DESC_CSMOD).withEndDeadline(VALID_START_DATE).build();
         assertFalse(DESC_CSMOD.equals(editedAmy));
 
         // different address -> returns false
