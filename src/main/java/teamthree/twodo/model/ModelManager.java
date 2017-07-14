@@ -2,11 +2,13 @@ package teamthree.twodo.model;
 
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
@@ -28,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook taskBook;
     private final FilteredList<ReadOnlyTask> filteredTasks;
+    private final SortedList<ReadOnlyTask> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given taskBook and userPrefs.
@@ -40,6 +43,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskBook = new TaskBook(taskBook);
         filteredTasks = new FilteredList<>(this.taskBook.getTaskList());
+        updateFilteredListToShowAllIncomplete();
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
@@ -109,8 +114,9 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code taskBook}
      */
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList() {
+        sort();
+        return new UnmodifiableObservableList<>(sortedTasks);
     }
 
     @Override
@@ -140,6 +146,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
         updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput, listIncomplete)));
+    }
+
+    private void sort() {
+        sortedTasks.setComparator(new Comparator<ReadOnlyTask>() {
+            @Override
+            public int compare(ReadOnlyTask task1, ReadOnlyTask task2) {
+                if (task1.getDeadline().isPresent() && task2.getDeadline().isPresent()) {
+                    return task1.getDeadline().get().getEndDate().compareTo(task2.getDeadline().get().getEndDate());
+                } else {
+                    if (task1.getDeadline().isPresent()) {
+                        return -1;
+                    } else if (task2.getDeadline().isPresent()) {
+                        return 1;
+                    } else {
+                        return task1.getName().fullName.compareTo(task2.getName().fullName);
+                    }
+                }
+            }
+        });
     }
 
     @Override

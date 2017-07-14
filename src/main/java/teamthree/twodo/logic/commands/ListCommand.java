@@ -26,8 +26,9 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all incomplete tasks within specified period.\n"
             + "If only start date specified, list all tasks after start date. "
-            + "If only end date specified, list all tasks before end date\n "
-            + "Add -h to list completed tasks within specified period.\n"
+            + "If only end date specified, list all tasks before end date\n"
+            + "Add " + COMMAND_WORD_HISTORY
+            + " to list completed tasks instead of incomplete tasks within specified period.\n"
             + "Parameters: [" + COMMAND_WORD_HISTORY + "] " + PREFIX_DEADLINE_START + "[START] "
             + PREFIX_DEADLINE_END + "[END]\n"
             + "Example: " + COMMAND_WORD + " " + COMMAND_WORD_HISTORY + " " + PREFIX_DEADLINE_START + "today "

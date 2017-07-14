@@ -15,7 +15,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all incomplete tasks whose names, descriptions, "
             + "or tags contain any of the specified keywords and displays them as a list with index numbers.\n"
-            + "Add -h to find completed tasks containing the keywords.\n"
+            + "Add -h to find completed tasks instead of incomplete tasks containing the keywords.\n"
             + "Parameters: [-h] KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " -h cs school";
 
@@ -35,9 +35,9 @@ public class FindCommand extends Command {
 
     private String printSuccessMessage() {
         if (listIncomplete) {
-            return "Found " + model.getFilteredTaskList().size() + " incomplete tasks";
+            return "Found " + model.getFilteredAndSortedTaskList().size() + " incomplete tasks";
         } else {
-            return "Found " + model.getFilteredTaskList().size() + " complete tasks";
+            return "Found " + model.getFilteredAndSortedTaskList().size() + " complete tasks";
         }
     }
 

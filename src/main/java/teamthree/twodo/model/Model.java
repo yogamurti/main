@@ -42,7 +42,7 @@ public interface Model {
             throws DuplicateTaskException, TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList();
 
     /** Updates the filter of the filtered task list to show all complete tasks */
     void updateFilteredListToShowAllComplete();
