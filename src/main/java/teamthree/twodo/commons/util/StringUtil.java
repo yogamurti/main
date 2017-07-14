@@ -25,7 +25,7 @@ public class StringUtil {
      * <pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
      *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       containsWordIgnoreCase("ABc def", "AB") == true //not a full word match
      * </pre>
      *
      * @param sentence
@@ -92,6 +92,12 @@ public class StringUtil {
      * int returned, the greater the difference between the strings. Can be used
      * for auto-correcting small errors in user input.
      *
+     * @param word
+     * @param otherWord
+     * @param alphabetLength
+     *            is the size of the alphabet of the language used currently
+     *            hard-coded for english
+     * @return int Minimum edit distance between word and otherWord
      */
     public static int damerauLevenshteinDistance(String word, String otherWord, int alphabetLength) {
         final int maxDistance = word.length() + otherWord.length();
@@ -107,7 +113,8 @@ public class StringUtil {
         }
         /**
          * Note that within the matrix costs, costs has indices starting at −1
-         * relative to the words and alphabet arrays(word, otherWord and da are one-indexed).
+         * relative to the words and alphabet arrays(word, otherWord and da are
+         * one-indexed).
          */
         int[] alphabet = new int[alphabetLength];
         Arrays.fill(alphabet, 0);
@@ -153,14 +160,14 @@ public class StringUtil {
      * Attempts to auto-correct the given day string to the closest match.. If
      * no match is found, an empty Optional is returned.
      *
-     * @param day
+     * @param userDay
      * @return Optional containing corrected day string
      */
-    public static Optional<String> getAutoCorrectedDay(String day) {
-        if (day.length() <= Deadline.MIN_WORD_LENGTH_FOR_DAY) {
+    public static Optional<String> getAutoCorrectedDay(String userDay) {
+        if (userDay.length() <= Deadline.MIN_WORD_LENGTH_FOR_DAY) {
             return Optional.empty();
         }
-        day = prepareDayString(day);
+        String day = prepareDayString(userDay);
         String[] days = { "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
         int[] indexAndDistance = getIndexOfMostSimilarWord(day, days);
         if (indexAndDistance[1] > Deadline.MIN_WORD_LENGTH_FOR_DAY) {
@@ -171,13 +178,25 @@ public class StringUtil {
 
     }
 
+    public static Optional<String> getAutoCorrectedPrefix(String userPrefix) {
+
+        String[] commonPrefixes = { "next", "week", "this", "thu", "fri", "sat", "sun" };
+        int[] indexAndDistance = getIndexOfMostSimilarWord(userPrefix, commonPrefixes);
+        if (indexAndDistance[1] >= userPrefix.length()) {
+            //This means there was no close match
+            return Optional.empty();
+        }
+        return Optional.of(commonPrefixes[indexAndDistance[0]]);
+
+    }
+
     /**
      * Finds the string most similar to the argument inside an array of strings
-     * and returns its index and levenshtein distance.
+     * and returns its index and minimum edit distance.
      *
      * @param word
      * @param words
-     * @return integer array [index, levenshtein distance]
+     * @return integer array [index, minimum edit distance]
      */
     private static int[] getIndexOfMostSimilarWord(String word, String[] words) {
         /**

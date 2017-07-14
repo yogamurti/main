@@ -93,6 +93,18 @@ public class ParserUtil {
         return correctUserInputAndGetDeadline(start, end, notification);
     }
 
+    /**
+     * Sends user input for autocorrect operations and returns a deadline using
+     * the autocorrected Strings if the operations do not return empty.
+     * Otherwise, returns deadline using user's raw input
+     *
+     * @param start
+     * @param end
+     * @param notification
+     * @return Optional containing deadline. Will be empty if value is illegal.
+     * @throws IllegalValueException
+     */
+
     private static Optional<Deadline> correctUserInputAndGetDeadline(String start, String end, String notification)
             throws IllegalValueException {
         Optional<String> temp;
@@ -164,28 +176,48 @@ public class ParserUtil {
     public static Optional<String> parseAndCorrectDayFromUserDeadline(String dateTime) {
         Matcher matcher = Pattern.compile(Deadline.DAY_PARSE_REGEX).matcher(dateTime.trim());
         if (matcher.find()) {
-            String day = extractDay(matcher);
+            String[] dayAndPrefix = matcher.group().split(" ");
+            String day = extractDay(dayAndPrefix);
             Optional<String> autoCorrectedDay = StringUtil.getAutoCorrectedDay(day);
             if (day.length() > Deadline.MIN_WORD_LENGTH_FOR_DAY && autoCorrectedDay.isPresent()) {
-                return Optional.of(matcher.replaceFirst(autoCorrectedDay.get() + " "));
+                return Optional.of(getIntegratedDateString(matcher, autoCorrectedDay, dayAndPrefix));
             } else {
                 return Optional.empty();
             }
         }
         return Optional.empty();
     }
+    /**
+     * Creates the full date string after autocorrection.
+     * @param matcher
+     * @param autoCorrectedDay
+     * @param dayAndPrefix
+     * @return String autocorrected date string
+     */
+    private static String getIntegratedDateString(Matcher matcher, Optional<String> autoCorrectedDay,
+            String[] dayAndPrefix) {
+        StringBuilder builder = new StringBuilder("");
+        for (int i = 0; i < dayAndPrefix.length; i++) {
+            if (i == dayAndPrefix.length - 1) {
+                builder.append(matcher.replaceFirst(autoCorrectedDay.get() + " "));
+            } else {
+                builder.append(dayAndPrefix[i] + " ");
+            }
+        }
+        return builder.toString();
+    }
 
     /**
      * Returns the extracted day from user input for deadline
      *
-     * @param matcher
-     *            containing the String for deadline
+     * @param dayAndPrefix
+     *            containing the split String for deadline
      * @return the day part of the string e.g.thursday
      *
      *         Assumes the user enters future tense as next thursday instead of
      *         thursday next
      */
-    private static String extractDay(Matcher matcher) {
-        return matcher.group().split(" ").length > 1 ? matcher.group().split(" ")[1] : matcher.group();
+    private static String extractDay(String[] dayAndPrefix) {
+        return dayAndPrefix.length > 1 ? dayAndPrefix[dayAndPrefix.length - 1] : dayAndPrefix[0];
     }
 }
