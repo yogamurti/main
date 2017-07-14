@@ -1,6 +1,7 @@
 package teamthree.twodo.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_END;
@@ -14,7 +15,6 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_END_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_CSMOD;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
-import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 
 import org.junit.Test;
@@ -34,9 +34,7 @@ public class AddCommandParserTest {
             + PREFIX_DEADLINE_END + VALID_END_DATE;
     private static final String DESC_MOD = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_MOD;
     private static final String DESC_EVENT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_EVENT;
-    private static final String TAG_DESC_SPONGE = " " + PREFIX_TAG + VALID_TAG_SPONGEBOB;
     private static final String TAG_DESC_WORK = " " + PREFIX_TAG + VALID_TAG_WORK;
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
     private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             AddCommand.MESSAGE_USAGE);
 
@@ -98,6 +96,6 @@ public class AddCommandParserTest {
      */
     private void assertParseSuccess(String userInput, AddCommand expectedCommand) throws Exception {
         Command command = parser.parse(userInput);
-        assert expectedCommand.equals(command);
+        assertTrue(expectedCommand.equals(command));
     }
 }

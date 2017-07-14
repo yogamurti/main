@@ -60,5 +60,26 @@ public class AddCommand extends Command {
         }
 
     }
+    @Override
+    public String toString() {
+        return this.toAdd.getAsText();
+    }
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddCommand)) {
+            return false;
+        }
+
+        // state check
+        AddCommand temp = (AddCommand) other;
+        return this.toString().equals(temp.toString());
+    }
+
 
 }
