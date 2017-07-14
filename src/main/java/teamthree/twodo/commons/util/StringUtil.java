@@ -203,7 +203,8 @@ public class StringUtil {
          * Minimum distance variable initialised to largest int possible and
          * index variable to keep track of its position in the array
          */
-        int minDist = Integer.MAX_VALUE, mindex = 0;
+        int minDist = Integer.MAX_VALUE;
+        int mindex = 0;
         for (int i = 0; i < words.length; i++) {
             int currentDist;
             if (word.equals(words[i])) {

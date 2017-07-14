@@ -108,9 +108,9 @@ public class ParserUtil {
     private static Optional<Deadline> correctUserInputAndGetDeadline(String start, String end, String notification)
             throws IllegalValueException {
         Optional<String> temp;
-        start = (temp = parseAndCorrectDayFromUserDeadline(start)).isPresent() ? temp.get() : start;
-        end = (temp = parseAndCorrectDayFromUserDeadline(end)).isPresent() ? temp.get() : end;
-        return Optional.of(new Deadline(start, end, notification));
+        String correctedStart = (temp = parseAndCorrectDayFromUserDeadline(start)).isPresent() ? temp.get() : start;
+        String correctedEnd = (temp = parseAndCorrectDayFromUserDeadline(end)).isPresent() ? temp.get() : end;
+        return Optional.of(new Deadline(correctedStart, correctedEnd, notification));
     }
 
     /**
