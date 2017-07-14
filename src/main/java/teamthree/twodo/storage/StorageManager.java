@@ -12,14 +12,11 @@ import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
-import teamthree.twodo.commons.events.storage.ChangeTaskBookEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
-import teamthree.twodo.commons.events.storage.ReadTaskBookEvent;
 import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
 import teamthree.twodo.commons.events.storage.TaskBookStorageChangedEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.ConfigUtil;
-import teamthree.twodo.logic.commands.LoadCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -104,6 +101,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
+    //@@author A0162253M
     public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
@@ -117,7 +115,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
 
     }
-
+    //@@author A0162253M
     @Subscribe
     private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
@@ -126,17 +124,5 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));
         }
-    }
-
-    @Subscribe
-    public void handleReadTaskBookEvent(ReadTaskBookEvent e)
-            throws CommandException, DataConversionException, IOException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(e, "Reading TaskBook from file"));
-        Optional<ReadOnlyTaskBook> optionalTaskBook = readTaskBook(e.filePath);
-        if (!optionalTaskBook.isPresent()) {
-            throw new CommandException(String.format(LoadCommand.MESSAGE_FAILURE, e.filePath));
-        }
-        ReadOnlyTaskBook taskBook = optionalTaskBook.get();
-        raise(new ChangeTaskBookEvent(taskBook));
     }
 }

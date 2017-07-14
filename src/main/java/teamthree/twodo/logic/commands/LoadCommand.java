@@ -15,10 +15,11 @@ public class LoadCommand extends Command {
     public static final String COMMAND_WORD = "load";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Load the TaskBook from a particular file into 2Do."
+            + "To view the changes, after typing load command, enter exit command and reopen 2Do."
             + "FILE_PATH/FILENAME.xml\n" + "Example: (WINDOWS) C:/Users/Desktop/2Do.xml\n"
             + " Example: (MAC) /User/Username/Desktop/2Do.xml\n";
 
-    public static final String MESSAGE_SUCCESS = "File %1$s is successfully\n ";
+    public static final String MESSAGE_SUCCESS = "File %1$s successfully loaded\n ";
     public static final String MESSAGE_INVALID_PATH = "File Path %1$s is invalid\n";
     public static final String MESSAGE_FAILURE = "Failed to load file %1$s\n";
     private static final String XML = ".xml";
@@ -36,8 +37,6 @@ public class LoadCommand extends Command {
         try {
             Paths.get(filePath);
             EventsCenter.getInstance().post(new TaskBookFilePathChangedEvent(filePath));
-            //EventsCenter.getInstance().post(new ReadTaskBookEvent(filePath));
-            //model.setTaskBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
         } catch (InvalidPathException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_PATH, filePath));
