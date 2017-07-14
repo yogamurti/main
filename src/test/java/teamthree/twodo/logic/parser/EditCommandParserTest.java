@@ -14,7 +14,7 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_CSMOD;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_TASK;
 
 import org.junit.Test;
 
@@ -96,7 +96,7 @@ public class EditCommandParserTest {
     /* Passses JUnit but fails gradle
      *  @Test
         public void parse_allFieldsSpecified_success() throws Exception {
-            Index targetIndex = INDEX_SECOND_PERSON;
+            Index targetIndex = INDEX_SECOND_TASK;
             String userInput = targetIndex.getOneBased() + DEADLINE_DESC_EVENT + TAG_DESC_WORK + ADDRESS_DESC_AMY
                     + NAME_DESC_MOD + TAG_DESC_SPONGE;
 
@@ -122,7 +122,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() throws Exception {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_TASK;
         String userInput = targetIndex.getOneBased() + NAME_DESC_MOD;
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_CSMOD).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -181,7 +181,7 @@ public class EditCommandParserTest {
      */
     @Test
     public void parse_resetTags_success() throws Exception {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_TASK;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withTags().build();

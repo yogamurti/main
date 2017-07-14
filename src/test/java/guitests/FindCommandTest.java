@@ -30,7 +30,7 @@ public class FindCommandTest extends TaskBookGuiTest {
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand(FindCommand.COMMAND_WORD + "george");
+        commandBox.runCommand(FindCommand.COMMAND_WORD + "cca");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static teamthree.twodo.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,9 +49,9 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_TASK, ParserUtil.parseIndex("1"));
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_TASK, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

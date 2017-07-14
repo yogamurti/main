@@ -51,7 +51,7 @@ public class UndoCommand extends Command {
             ReadOnlyTask taskToDelete = history.getAddHistory().pop();
             undoHistory.addToDeleteHistory(taskToDelete);
             model.deleteTask(taskToDelete);
-            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS);
+            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, taskToDelete));
 
         case EditCommand.COMMAND_WORD:

@@ -8,26 +8,26 @@ import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyTaskBook_success() {
         Model model = new ModelManager();
         assertCommandSuccess(model);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyTaskBook_success() {
+        Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
         assertCommandSuccess(model);
     }
 
     /**
      * Executes {@code ClearCommand} on the given {@code model}, confirms that <br>
      * - the result message matches {@code ClearCommand.MESSAGE_SUCCESS} <br>
-     * - the address book and filtered person list in {@code model} is empty <br>
+     * - the task book and filtered person list in {@code model} is empty <br>
      */
     private void assertCommandSuccess(Model model) {
         ClearCommand command = new ClearCommand();

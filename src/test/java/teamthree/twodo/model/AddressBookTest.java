@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
-import teamthree.twodo.testutil.TypicalPersons;
+import teamthree.twodo.testutil.TypicalTask;
 
 public class AddressBookTest {
 
@@ -40,17 +40,17 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        TaskBook newData = new TypicalPersons().getTypicalAddressBook();
+        TaskBook newData = new TypicalTask().getTypicalTaskBook();
         taskBook.resetData(newData);
         assertEquals(newData, taskBook);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsAssertionError() {
-        TypicalPersons td = new TypicalPersons();
+        TypicalTask td = new TypicalTask();
         // Repeat td.alice twice
-        List<Task> newPersons = Arrays.asList(new Task(td.alice), new Task(td.alice));
-        List<Tag> newTags = new ArrayList<>(td.alice.getTags());
+        List<Task> newPersons = Arrays.asList(new Task(td.cs2103), new Task(td.cs2103));
+        List<Tag> newTags = new ArrayList<>(td.cs2103.getTags());
         AddressBookStub newData = new AddressBookStub(newPersons, newTags);
 
         thrown.expect(AssertionError.class);
@@ -59,7 +59,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateTags_throwsAssertionError() {
-        TaskBook typicalAddressBook = new TypicalPersons().getTypicalAddressBook();
+        TaskBook typicalAddressBook = new TypicalTask().getTypicalTaskBook();
         List<ReadOnlyTask> newPersons = typicalAddressBook.getTaskList();
         List<Tag> newTags = new ArrayList<>(typicalAddressBook.getTagList());
         // Repeat the first tag twice
