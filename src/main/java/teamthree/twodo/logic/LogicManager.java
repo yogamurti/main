@@ -19,7 +19,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private Model model;
     private final CommandHistory history;
     private final UndoCommandHistory undoHistory;
     private final Parser parser;
@@ -51,5 +51,9 @@ public class LogicManager extends ComponentManager implements Logic {
 
     public CommandHistory getCommandHistory() {
         return history;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }

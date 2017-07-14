@@ -12,11 +12,14 @@ import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.storage.ChangeTaskBookEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
+import teamthree.twodo.commons.events.storage.ReadTaskBookEvent;
 import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
 import teamthree.twodo.commons.events.storage.TaskBookStorageChangedEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.ConfigUtil;
+import teamthree.twodo.logic.commands.LoadCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -69,7 +72,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void setTaskBookFilePath(String filePath) throws IOException {
         taskBookStorage.setTaskBookFilePath(filePath);
         config.setTaskBookFilePath(filePath);
-        ConfigUtil.saveConfig(config, filePath);
+        ConfigUtil.saveConfig(config, Config.getDefaultConfigFile());
         raise(new TaskBookStorageChangedEvent(filePath));
     }
 
@@ -121,7 +124,19 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             setTaskBookFilePath(event.filePath);
         } catch (IOException e) {
-            throw new CommandException(String.format(SaveCommand.MESSAGE_FAILURE, event.filePath));
+            throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));
         }
+    }
+
+    @Subscribe
+    public void handleReadTaskBookEvent(ReadTaskBookEvent e)
+            throws CommandException, DataConversionException, IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(e, "Reading TaskBook from file"));
+        Optional<ReadOnlyTaskBook> optionalTaskBook = readTaskBook(e.filePath);
+        if (!optionalTaskBook.isPresent()) {
+            throw new CommandException(String.format(LoadCommand.MESSAGE_FAILURE, e.filePath));
+        }
+        ReadOnlyTaskBook taskBook = optionalTaskBook.get();
+        raise(new ChangeTaskBookEvent(taskBook));
     }
 }
