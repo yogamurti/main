@@ -8,13 +8,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the description book.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents a Task in the description book. Guarantees: details are present
+ * and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
@@ -24,8 +23,8 @@ public class Task implements ReadOnlyTask {
     protected boolean completed;
 
     /**
-     * Every field must be present and not null.
-     * By default, the task is set as incompleted when it is created.
+     * Every field must be present and not null. By default, the task is set as
+     * incompleted when it is created.
      */
     public Task(Name name, Description description, Set<Tag> tags) {
         requireAllNonNull(name, description, tags);
@@ -34,21 +33,6 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         completed = false;
     }
-    /**
-     * Constructor for floating Task
-     * @param name
-     */
-    public Task(Name name) {
-        this.name = name;
-        try {
-            this.description = new Description("");
-            this.tags = new UniqueTagList();
-            this.completed = false;
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Creates a copy of the given ReadOnlyTask.
      */
@@ -75,8 +59,8 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws
+     * {@code UnsupportedOperationException} if modification is attempted.
      */
     @Override
     public Set<Tag> getTags() {
@@ -125,7 +109,7 @@ public class Task implements ReadOnlyTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                        && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
@@ -138,6 +122,7 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
     @Override
     public Optional<Deadline> getDeadline() {
         return Optional.empty();
