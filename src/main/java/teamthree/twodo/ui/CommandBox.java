@@ -1,10 +1,13 @@
 package teamthree.twodo.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.ui.NewResultAvailableEvent;
@@ -20,6 +23,8 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
+    private ArrayList<String> previousUserInput;
+    private int index;
 
     @FXML
     private TextField commandTextField;
@@ -27,6 +32,9 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
+        this.previousUserInput = logic.getCommandHistory().getHistory();
+        index = previousUserInput.size();
+
     }
 
     @FXML
@@ -47,6 +55,29 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
+    @FXML
+    private void handleKeyPressed(KeyEvent e) {
+        if (e.getCode().equals(KeyCode.UP)) {
+            accessPreviousCommand();
+        } else if (e.getCode().equals(KeyCode.DOWN)) {
+            accessNextCommand();
+        }
+    }
+
+    /** Displays the previous command input on the command box if it is available*/
+    private void accessPreviousCommand() {
+        if (index > -1) {
+            commandTextField.appendText(previousUserInput.get(index));
+            index--;
+        }
+    }
+    private void accessNextCommand() {
+        if (index > previousUserInput.size() - 1) {
+            commandTextField.appendText(previousUserInput.get(index));
+            index++;
+        }
+    }
+
 
 
     /**
