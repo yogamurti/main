@@ -161,9 +161,9 @@ public class EditCommand extends Command {
     private static Deadline correctStartEndDiscrepancy(Deadline updatedDate, Deadline updates) {
         Date start = updatedDate.getStartDate();
         Date end = updatedDate.getEndDate();
-        if (start.after(end) && isDefaultDate(updates.getEndDate())) {
+        if ((start.after(end) || isDefaultDate(end)) && isDefaultDate(updates.getEndDate())) {
             end = start;
-        } else if (end.before(start) && isDefaultDate(updates.getStartDate())) {
+        } else if ((end.before(start) || isDefaultDate(start)) && isDefaultDate(updates.getStartDate())) {
             start = end;
         }
         return new Deadline(start, end, updatedDate.getNotificationPeriod());

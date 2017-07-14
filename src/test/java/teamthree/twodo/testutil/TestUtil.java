@@ -53,24 +53,24 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[] {
-                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("fri 10am", "sat 10pm", "1 day"),
+                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
                         new Description("4th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Boris Mueller"), new Deadline("thu 11am", "sat 11pm", "1 day"),
+                new TaskWithDeadline(new Name("Boris Mueller"), new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE),
                         new Description("81th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Carl Kurz"), new Deadline("next fri 10am", "next sat 10pm", "1 day"),
+                new TaskWithDeadline(new Name("Carl Kurz"), new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
                         new Description("wall street"), getTagSet()),
-                new TaskWithDeadline(new Name("Daniel Meier"), new Deadline("wed 10am", "sat 10pm", "2 days"),
+                new TaskWithDeadline(new Name("Daniel Meier"), new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE),
                         new Description("10th street"), getTagSet()),
                 new TaskWithDeadline(new Name("Elle Meyer"),
-                        new Deadline("next wed 10am", "next wed 10pm", "3 days"), new Description("michegan ave"),
+                        new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE), new Description("michegan ave"),
                         getTagSet()),
-                new TaskWithDeadline(new Name("Fiona Kunz"), new Deadline("fri 10am", "sat 10pm", "1 day"),
+                new TaskWithDeadline(new Name("Fiona Kunz"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
                         new Description("little tokyo"), getTagSet()),
-                new TaskWithDeadline(new Name("George Best"), new Deadline("10am", "10pm", "1 day"),
+                new TaskWithDeadline(new Name("George Best"), new Deadline("10am", "10pm", Deadline.NULL_VALUE),
                         new Description("4th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Hoon Meier"), new Deadline("23/12/17", "25/12/17", "1 day"),
+                new TaskWithDeadline(new Name("Hoon Meier"), new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
                         new Description("little india"), getTagSet()),
-                new TaskWithDeadline(new Name("Ida Mueller"), new Deadline("12/12/17", "12/12/17", "1 day"),
+                new TaskWithDeadline(new Name("Ida Mueller"), new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
                         new Description("chicago ave"), getTagSet()) };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
@@ -83,6 +83,7 @@ public class TestUtil {
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(SAMPLE_TASK_DATA);
     }
+
 
     /**
      * Appends the file name to the sandbox folder path. Creates the sandbox
