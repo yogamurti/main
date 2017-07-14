@@ -143,13 +143,13 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        public UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList() {
             // TODO Auto-generated method stub
             return null;
         }
 
         @Override
-        public void updateFilteredListToShowAll() {
+        public void updateFilteredListToShowAllIncomplete() {
             // TODO Auto-generated method stub
 
         }
@@ -161,13 +161,14 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredTaskListExtensively(Set<String> keywords) {
+        public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncompleted) {
             // TODO Auto-generated method stub
 
         }
 
         @Override
-        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput) {
+        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+                boolean listIncompleted) {
             // TODO Auto-generated method stub
 
         }
@@ -184,6 +185,12 @@ public class AlarmManagerTest {
 
         public void setTaskbook(TaskBook taskbook) {
             this.taskbook = taskbook;
+        }
+
+        @Override
+        public void updateFilteredListToShowAllComplete() {
+            // TODO Auto-generated method stub
+
         }
     }
 

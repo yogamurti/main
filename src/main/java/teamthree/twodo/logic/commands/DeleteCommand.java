@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

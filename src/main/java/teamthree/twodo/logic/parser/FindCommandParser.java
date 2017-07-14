@@ -20,6 +20,10 @@ public class FindCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
+        boolean listIncomplete = !args.contains(FindCommand.COMMAND_WORD_HISTORY);
+        if (!listIncomplete) {
+            args = removeHistoryCommand(args);
+        }
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
@@ -29,7 +33,12 @@ public class FindCommandParser {
         // keywords delimited by whitespace
         final String[] keywords = trimmedArgs.split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        return new FindCommand(keywordSet, listIncomplete);
     }
 
+    // removes history command from argument String
+    private String removeHistoryCommand(String args) {
+        int index = args.indexOf(" " + FindCommand.COMMAND_WORD_HISTORY + " ");
+        return args.substring(0, index + 1) + args.substring(index + 3, args.length());
+    }
 }

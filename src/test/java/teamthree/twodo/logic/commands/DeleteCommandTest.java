@@ -28,7 +28,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
-        ReadOnlyTask taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+
+        ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_TASK);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
@@ -41,7 +42,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
         CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -51,7 +52,7 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstTaskOnly(model);
 
-        ReadOnlyTask taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_TASK);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
@@ -93,7 +94,7 @@ public class DeleteCommandTest {
         final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
 
-        assert model.getFilteredTaskList().size() == 1;
+        assert model.getFilteredAndSortedTaskList().size() == 1;
     }
 
     /**
@@ -102,6 +103,6 @@ public class DeleteCommandTest {
     private void showNoTask(Model model) {
         model.updateFilteredTaskList(Collections.emptySet());
 
-        assert model.getFilteredTaskList().isEmpty();
+        assert model.getFilteredAndSortedTaskList().isEmpty();
     }
 }
