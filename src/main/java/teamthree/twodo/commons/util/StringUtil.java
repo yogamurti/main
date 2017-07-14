@@ -167,17 +167,19 @@ public class StringUtil {
         if (userDay.length() <= Deadline.MIN_WORD_LENGTH_FOR_DAY) {
             return Optional.empty();
         }
+        //we're only using 3 letters and getting distance of more than 1 would mean it is at least 60% different
+        final int failThreshold = 1;
         String day = prepareDayString(userDay);
         String[] days = { "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
         int[] indexAndDistance = getIndexOfMostSimilarWord(day, days);
-        if (indexAndDistance[1] > Deadline.MIN_WORD_LENGTH_FOR_DAY) {
+        if (indexAndDistance[1] > failThreshold) {
             //This means there was no close match
             return Optional.empty();
         }
         return Optional.of(days[indexAndDistance[0]]);
 
     }
-
+    /*
     public static Optional<String> getAutoCorrectedPrefix(String userPrefix) {
 
         String[] commonPrefixes = { "next", "week", "this", "thu", "fri", "sat", "sun" };
@@ -189,7 +191,7 @@ public class StringUtil {
         return Optional.of(commonPrefixes[indexAndDistance[0]]);
 
     }
-
+*/
     /**
      * Finds the string most similar to the argument inside an array of strings
      * and returns its index and minimum edit distance.

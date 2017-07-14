@@ -24,7 +24,7 @@ public class Deadline {
             + "Deadlines can be informal, e.g. fri 10am, " + "but if providing exact dates, "
             + "they should be of the format MM/DD/YY" + " and Time can be either AM/PM or 24HR\n";
 
-    public static final String DEADLINE_VALIDATION_REGEX = "\\d+am|\\d+pm|\\d+hrs|\\d+ am|\\d+ pm|\\d+ hrs";
+    public static final String DEADLINE_VALIDATION_REGEX = "\\d+am|\\d+pm|\\d+hrs|\\d+ am|\\d+ pm|\\d+ hrs|\\d+";
     public static final String DAY_PARSE_REGEX = "[^\\d]+";
     // This value is only to be used by edit command to indicate a change of date
     public static final String NULL_VALUE = "0000";
@@ -133,7 +133,7 @@ public class Deadline {
         Matcher integerParser = Pattern.compile("\\d*").matcher(notificationPeriod);
         assert (integerParser.find());
         integerParser.find();
-        int period = Integer.parseInt(integerParser.group());
+        int period = Integer.parseInt(integerParser.group().trim());
         if (notificationPeriod.toLowerCase().contains("day")) {
             return DAY_TO_MILLIS * period;
         } else if (notificationPeriod.toLowerCase().contains("week")) {

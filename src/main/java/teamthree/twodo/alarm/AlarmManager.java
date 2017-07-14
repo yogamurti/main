@@ -83,8 +83,7 @@ public class AlarmManager extends ComponentManager {
     }
 
     /**
-     * ===========================HELPER
-     * CLASS===================================
+     * =====================HELPER CLASS==========================
      */
     private class NextReminder extends TimerTask {
 
@@ -182,7 +181,7 @@ public class AlarmManager extends ComponentManager {
      *
      */
     @Subscribe
-    private void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
 

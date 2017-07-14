@@ -24,6 +24,7 @@ import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
+import teamthree.twodo.testutil.FloatingTaskBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class AddCommandTest {
@@ -46,6 +47,14 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+
+        Task validFloatingTask = new FloatingTaskBuilder().build();
+
+        commandResult = getAddCommandForTask(validFloatingTask, modelStub).execute();
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validFloatingTask), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validTask, validFloatingTask), modelStub.tasksAdded);
+
     }
 
     @Test
