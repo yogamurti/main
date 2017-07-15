@@ -98,4 +98,21 @@ public class ListCommand extends Command {
             return new CommandResult(message);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ListCommand)) {
+            return false;
+        }
+
+        // state check
+        ListCommand temp = (ListCommand) other;
+        return this.toString().equals(temp.toString());
+    }
 }

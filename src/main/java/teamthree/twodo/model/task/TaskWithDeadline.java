@@ -15,11 +15,6 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         this.deadline = deadline;
     }
 
-    public TaskWithDeadline(Name name) {
-        super(name);
-        // TODO Auto-generated constructor stub
-    }
-
     public TaskWithDeadline(ReadOnlyTask source) {
         this(source.getName(), source.getDeadline().get(),
              source.getDescription(), source.getTags());
