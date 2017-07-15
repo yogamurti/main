@@ -50,11 +50,8 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all incomplete tasks */
     void updateFilteredListToShowAllIncomplete();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
-
     /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete);
+    void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete);
 
     /** Updates the filter of the filtered task list to show all tasks within the period */
     void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete);

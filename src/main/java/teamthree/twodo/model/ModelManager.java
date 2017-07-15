@@ -129,17 +129,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(task -> task.isCompleted());
     }
 
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
     @Override
-    public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete) {
+    public void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete) {
         updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords, listIncomplete)));
     }
 
@@ -148,6 +143,9 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput, listIncomplete)));
     }
 
+    /**
+     * Sorts list by deadline
+     */
     private void sort() {
         sortedTasks.setComparator(new Comparator<ReadOnlyTask>() {
             @Override
@@ -216,26 +214,6 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
 
         String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getName().fullName, keyword)).findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
     }
 
     private class TotalQualifier implements Qualifier {

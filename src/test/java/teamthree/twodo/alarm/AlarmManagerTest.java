@@ -155,13 +155,7 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredTaskList(Set<String> keywords) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncompleted) {
+        public void updateFilteredTaskList(Set<String> keywords, boolean listIncompleted) {
             // TODO Auto-generated method stub
 
         }

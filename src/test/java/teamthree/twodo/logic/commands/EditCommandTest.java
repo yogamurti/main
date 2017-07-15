@@ -194,7 +194,7 @@ public class EditCommandTest {
     private void showFirstPersonOnly() {
         ReadOnlyTask person = model.getTaskBook().getTaskList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
     }

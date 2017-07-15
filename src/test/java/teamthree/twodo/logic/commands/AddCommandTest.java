@@ -124,11 +124,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskList(Set<String> keywords) {
-            fail("This method should not be called.");
-        }
-
-        @Override
         public void saveTaskBook() {
             fail("This method should not be called.");
         }
@@ -144,7 +139,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete) {
+        public void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete) {
             fail("This method should not be called.");
         }
 
