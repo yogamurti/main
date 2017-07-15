@@ -58,9 +58,9 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 
-        // different sortedList -> returns false
+        // different sortedList -> returns true
         modelManager.sort();
-        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 
         // different userPrefs -> returns true
