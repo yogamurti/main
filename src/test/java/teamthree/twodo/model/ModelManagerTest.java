@@ -9,14 +9,13 @@ import java.util.HashSet;
 import org.junit.Test;
 
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.testutil.TaskBookBuilder;
-import teamthree.twodo.testutil.TypicalDeadline;
 import teamthree.twodo.testutil.TypicalTask;
 
 public class ModelManagerTest {
 
     private TypicalTask typicalTask = new TypicalTask();
-    private TypicalDeadline typicalDeadline = new TypicalDeadline();
 
     @Test
     public void equals() throws Exception {
@@ -54,7 +53,8 @@ public class ModelManagerTest {
         modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 
         // different filteredList (period) -> return false
-        modelManager.updateFilteredListToShowPeriod(typicalDeadline.getDeadline(), AttributeInputted.START, true);
+        modelManager.updateFilteredListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
+                Deadline.NULL_VALUE), AttributeInputted.START, true);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 

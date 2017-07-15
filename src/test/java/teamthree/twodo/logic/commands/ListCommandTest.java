@@ -9,14 +9,15 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.testutil.TypicalDeadline;
 import teamthree.twodo.testutil.TypicalTask;
 
 /**
@@ -30,34 +31,35 @@ public class ListCommandTest {
     private ListCommand listCommandWithDeadline;
     private boolean listIncomplete;
     private AttributeInputted attInp;
-    private TypicalDeadline typicalDeadline;
+    private Deadline deadline;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IllegalValueException {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
-        typicalDeadline = new TypicalDeadline();
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
         expectedModel.updateFilteredListToShowAllIncomplete();
+        deadline = new Deadline("yesterday 10am", "yesterday 10am",
+                Deadline.NULL_VALUE);
 
         listCommand = new ListCommand(listIncomplete);
         listCommand.setData(model, new CommandHistory(), null);
-        listCommandWithDeadline = new ListCommand(typicalDeadline.getDeadline(), attInp, listIncomplete);
+        listCommandWithDeadline = new ListCommand(deadline, attInp, listIncomplete);
         listCommandWithDeadline.setData(model, new CommandHistory(), null);
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() throws Exception {
+    public void executeListIsNotFilteredShowsSameList() throws Exception {
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
     @Test
-    public void execute_listWithDeadlineIsNotFiltered_showsSameList() throws Exception {
+    public void executeListWithDeadlineIsNotFilteredShowsSameList() throws Exception {
         assertCommandSuccess(listCommandWithDeadline, model,
                 ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() throws Exception {
+    public void executeListIsFiltered_showsEverything() throws Exception {
         showFirstTaskOnly(model);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
         model.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
