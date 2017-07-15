@@ -1,5 +1,5 @@
 package teamthree.twodo.logic.commands;
-/*
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -10,30 +10,39 @@ import org.junit.Before;
 import org.junit.Test;
 
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.testutil.TypicalDeadline;
 import teamthree.twodo.testutil.TypicalTask;
 
-*//**
+/**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
- *//*
+ */
 public class ListCommandTest {
 
     private Model model;
     private Model expectedModel;
     private ListCommand listCommand;
+    private ListCommand listCommandWithDeadline;
     private boolean listIncomplete;
+    private AttributeInputted attInp;
+    private TypicalDeadline typicalDeadline;
 
     @Before
     public void setUp() {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        typicalDeadline = new TypicalDeadline();
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        expectedModel.updateFilteredListToShowAllIncomplete();
 
         listCommand = new ListCommand(listIncomplete);
         listCommand.setData(model, new CommandHistory(), null);
+        listCommandWithDeadline = new ListCommand(typicalDeadline.getDeadline(), attInp, listIncomplete);
+        listCommandWithDeadline.setData(model, new CommandHistory(), null);
     }
 
     @Test
@@ -42,27 +51,42 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() throws Exception {
-        showFirstTaskOnly(model);
-        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    public void execute_listWithDeadlineIsNotFiltered_showsSameList() throws Exception {
+        assertCommandSuccess(listCommandWithDeadline, model,
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
-    *//**
+    @Test
+    public void execute_listIsFiltered_showsEverything() throws Exception {
+        showFirstTaskOnly(model);
+        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
+        model.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+    }
+
+    @Test
+    public void execute_listWithDeadlineIsFiltered_showsEverything() throws Exception {
+        showFirstTaskOnly(model);
+        assertCommandSuccess(listCommandWithDeadline, model,
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
+        model.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+    }
+
+    /**
      * Updates the filtered list to show only the first task in the {@code model}'s task book.
-     *//*
+     */
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 
-        assertTrue(model.getFilteredTaskList().size() == 1);
+        assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
     }
 
-    *//**
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
      * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
-     *//*
+     */
 
     public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)
             throws CommandException {
@@ -70,4 +94,4 @@ public class ListCommandTest {
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedModel, model);
     }
-}*/
+}
