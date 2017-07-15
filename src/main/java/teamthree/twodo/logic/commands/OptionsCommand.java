@@ -39,10 +39,10 @@ public class OptionsCommand extends Command {
         if (option.equals(optionsPrefs)) {
             throw new CommandException(MESSAGE_DUPLICATE_OPTIONS);
         }
-        if (option.getAlarm() != null && !option.getAlarm().equals(optionsPrefs.getAlarm())) {
+        if (!option.getAlarm().isEmpty() && !option.getAlarm().equals(optionsPrefs.getAlarm())) {
             optionsPrefs.editAlarm(option.getAlarm());
         }
-        if (option.getAutoMark() != null && !option.getAutoMark().equals(optionsPrefs.getAutoMark())) {
+        if (!option.getAutoMark().isEmpty() && !option.getAutoMark().equals(optionsPrefs.getAutoMark())) {
             optionsPrefs.editAutoMark(option.getAutoMark());
         }
         // history.addToAddHistory(toAdd);

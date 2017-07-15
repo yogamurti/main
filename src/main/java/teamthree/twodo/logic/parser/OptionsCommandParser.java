@@ -24,6 +24,9 @@ public class OptionsCommandParser {
      * @throws ParseException
      *             if the user input does not conform the expected format
      */
+    public static final String EMPTY_ALARM = " ";
+    public static final String EMPTY_AUTOMARK = " ";
+
     public OptionsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NOTIFICATION_PERIOD, PREFIX_AUTOMARK);
         if (!arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_PERIOD)
@@ -32,9 +35,9 @@ public class OptionsCommandParser {
         }
         try {
             Alarm alarm = ParserUtil.parseAlarm(argMultimap.getValue(PREFIX_NOTIFICATION_PERIOD))
-                    .orElse(null);
+                    .orElse(new Alarm(EMPTY_ALARM));
             AutoMark autoMark = ParserUtil.parseAutoMark(argMultimap.getValue(PREFIX_AUTOMARK))
-                    .orElse(null);
+                    .orElse(new AutoMark(EMPTY_AUTOMARK));
             Options option = new Options(alarm, autoMark);
             return new OptionsCommand(option);
         } catch (IllegalValueException ive) {

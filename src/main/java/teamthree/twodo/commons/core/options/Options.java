@@ -1,12 +1,15 @@
 //@@author A0139267W
 package teamthree.twodo.commons.core.options;
 
+import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
+
 public class Options {
 
     private final Alarm alarm;
     private final AutoMark autoMark;
 
     public Options(Alarm alarm, AutoMark autoMark) {
+        requireAllNonNull(alarm, autoMark);
         this.alarm = alarm;
         this.autoMark = autoMark;
     }
