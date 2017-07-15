@@ -20,6 +20,10 @@ public class Alarm {
         return "Alarm: " + alarm + "\n";
     }
 
+    public String getValue() {
+        return alarm;
+    }
+
     @Override
     public boolean equals(Object other) {
         requireAllNonNull(alarm);
@@ -35,7 +39,7 @@ public class Alarm {
     }
 
     public boolean isEmpty() {
-        return alarm == EMPTY_ALARM;
+        return alarm.equals(EMPTY_ALARM);
     }
 
 }

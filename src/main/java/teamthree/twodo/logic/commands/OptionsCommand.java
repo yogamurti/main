@@ -41,15 +41,17 @@ public class OptionsCommand extends Command {
         }
         if (!option.getAlarm().isEmpty() && !option.getAlarm().equals(optionsPrefs.getAlarm())) {
             optionsPrefs.editAlarm(option.getAlarm());
+        } else {
+            optionsPrefs.editAlarm(optionsPrefs.getAlarm());
         }
         if (!option.getAutoMark().isEmpty() && !option.getAutoMark().equals(optionsPrefs.getAutoMark())) {
             optionsPrefs.editAutoMark(option.getAutoMark());
+        } else {
+            optionsPrefs.editAutoMark(optionsPrefs.getAutoMark());
         }
         // history.addToAddHistory(toAdd);
         // EventsCenter.getInstance().post(new asEvent(AddOrEditCommandExecutedEvent.ADD_EVENT));
         return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, optionsPrefs));
-        //catch (DuplicateDataException e) {
-        //    throw new CommandException(MESSAGE_DUPLICATE_OPTIONS);
     }
 
 }

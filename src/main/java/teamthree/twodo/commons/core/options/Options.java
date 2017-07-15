@@ -31,7 +31,7 @@ public class Options {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Options // instanceof handles nulls
-                && this.alarm.equals(((Options) other).alarm)) // state check
-                && this.autoMark == ((Options) other).autoMark; // state check
+                && this.alarm.equals(((Options) other).alarm) // state check
+                && this.autoMark.equals(((Options) other).autoMark)); // state check
     }
 }

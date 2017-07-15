@@ -20,6 +20,11 @@ public class AutoMark {
         return "Automark: " + autoMark + "\n";
     }
 
+
+    public String getValue() {
+        return autoMark;
+    }
+
     @Override
     public boolean equals(Object other) {
         requireAllNonNull(autoMark);
@@ -29,7 +34,7 @@ public class AutoMark {
     }
 
     public boolean isEmpty() {
-        return autoMark == EMPTY_AUTOMARK;
+        return autoMark.equals(EMPTY_AUTOMARK);
     }
 
 }
