@@ -30,7 +30,7 @@ public class ListCommandTest {
     private ListCommand listCommand;
     private ListCommand listCommandWithDeadline;
     private boolean listIncomplete;
-    private AttributeInputted attInp;
+    private AttributeInputted start;
     private Deadline deadline;
 
     @Before
@@ -40,10 +40,12 @@ public class ListCommandTest {
         expectedModel.updateFilteredListToShowAllIncomplete();
         deadline = new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE);
+        start = AttributeInputted.START;
+        listIncomplete = true;
 
         listCommand = new ListCommand(listIncomplete);
         listCommand.setData(model, new CommandHistory(), null);
-        listCommandWithDeadline = new ListCommand(deadline, attInp, listIncomplete);
+        listCommandWithDeadline = new ListCommand(deadline, start, listIncomplete);
         listCommandWithDeadline.setData(model, new CommandHistory(), null);
     }
 
@@ -55,22 +57,20 @@ public class ListCommandTest {
     @Test
     public void executeListWithDeadlineIsNotFilteredShowsSameList() throws Exception {
         assertCommandSuccess(listCommandWithDeadline, model,
-                ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate(), expectedModel);
     }
 
     @Test
-    public void executeListIsFiltered_showsEverything() throws Exception {
+    public void executeListIsFilteredShowsFirstTask() throws Exception {
         showFirstTaskOnly(model);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
-        model.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
     }
 
     @Test
-    public void execute_listWithDeadlineIsFiltered_showsEverything() throws Exception {
+    public void executeListWithDeadlineIsFilteredShowsFirstTask() throws Exception {
         showFirstTaskOnly(model);
         assertCommandSuccess(listCommandWithDeadline, model,
-                ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
-        model.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate(), expectedModel);
     }
 
     /**
