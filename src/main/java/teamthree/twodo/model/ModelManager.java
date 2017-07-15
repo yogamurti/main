@@ -146,7 +146,8 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Sorts list by deadline
      */
-    private void sort() {
+    @Override
+    public void sort() {
         sortedTasks.setComparator(new Comparator<ReadOnlyTask>() {
             @Override
             public int compare(ReadOnlyTask task1, ReadOnlyTask task2) {

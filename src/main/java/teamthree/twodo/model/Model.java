@@ -59,4 +59,7 @@ public interface Model {
     /** Saves the taskBook*/
     void saveTaskBook();
 
+    /** Sorts the taskBook*/
+    void sort();
+
 }

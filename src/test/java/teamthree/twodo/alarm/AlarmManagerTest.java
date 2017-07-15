@@ -186,6 +186,11 @@ public class AlarmManagerTest {
             // TODO Auto-generated method stub
 
         }
+
+        @Override
+        public void sort() {
+            // TODO Auto-generated method stub
+        }
     }
 
 }

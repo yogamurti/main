@@ -16,7 +16,7 @@ public class TypicalTask {
     public static final Index INDEX_SECOND_TASK = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_TASK = Index.fromOneBased(3);
 
-    public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida;
+    public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida, partyCompleted;
 
     public TypicalTask() {
         try {
@@ -35,6 +35,8 @@ public class TypicalTask {
                     .withDescription("cca training").build();
             cca = new TaskWithDeadlineBuilder().withName("cca").withDeadline("july 2018 12am")
                     .withDescription("end of term").build();
+            partyCompleted = new TaskWithDeadlineBuilder().withName("party").withDeadline("last week 9am")
+                    .withDescription("bring booze").isCompleted().build();
 
             // Manually added
             supermarket = new TaskWithDeadlineBuilder().withName("buy lotion").withDeadline("12 march 2020 10am")
@@ -61,7 +63,7 @@ public class TypicalTask {
     }
 
     public Task[] getTypicalTasks() {
-        return new Task[] { cs2103, cs1020, cs2010, project, dinner, training, cca };
+        return new Task[] { cs2103, cs1020, cs2010, project, dinner, training, cca, partyCompleted };
     }
 
     public TaskBook getTypicalTaskBook() {

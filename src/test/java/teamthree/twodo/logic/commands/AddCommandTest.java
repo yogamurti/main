@@ -148,6 +148,11 @@ public class AddCommandTest {
                 boolean listIncomplete) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void sort() {
+            fail("This method should not be called.");
+        }
     }
 
     /**

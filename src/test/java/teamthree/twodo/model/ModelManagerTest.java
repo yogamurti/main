@@ -8,6 +8,8 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
+import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.testutil.TaskBookBuilder;
 import teamthree.twodo.testutil.TypicalTask;
 
@@ -18,7 +20,7 @@ public class ModelManagerTest {
     @Test
     public void equals() throws Exception {
         TaskBook taskBook = new TaskBookBuilder().withTask(typicalTask.cs2103)
-                .withTask(typicalTask.cs1020).build();
+                .withTask(typicalTask.cs1020).withTask(typicalTask.partyCompleted).build();
         TaskBook differentTaskBook = new TaskBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -39,9 +41,25 @@ public class ModelManagerTest {
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentTaskBook, userPrefs)));
 
-        // different filteredList -> returns false
+        // different filteredList (key words) -> returns false
         modelManager.updateFilteredTaskList(new HashSet<>(
                 Arrays.asList(typicalTask.cs2103.getName().fullName.split(" "))), true);
+        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+
+        // different filteredList (completed) -> return false
+        modelManager.updateFilteredListToShowAllComplete();
+        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+
+        // different filteredList (period) -> return false
+        modelManager.updateFilteredListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
+                Deadline.NULL_VALUE), AttributeInputted.START, true);
+        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+
+        // different sortedList -> returns false
+        modelManager.sort();
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
 
