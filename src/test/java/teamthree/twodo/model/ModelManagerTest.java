@@ -19,8 +19,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws Exception {
-        TaskBook taskBook = new TaskBookBuilder().withTask(typicalTask.cs2103)
-                .withTask(typicalTask.cs1020).withTask(typicalTask.partyCompleted).build();
+        TaskBook taskBook = new TaskBookBuilder().withTask(typicalTask.partyCompleted)
+                .withTask(typicalTask.cs2103).withTask(typicalTask.cs1020).build();
         TaskBook differentTaskBook = new TaskBook();
         UserPrefs userPrefs = new UserPrefs();
 

@@ -1,6 +1,6 @@
 package teamthree.twodo.alarm;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class AlarmManagerTest {
         } catch (InterruptedException e) {
             e.toString();
         }
-        assertTrue(isEventCaught);
+        assertFalse(isEventCaught);
     }
 
     private class ModelManagerStub implements Model {

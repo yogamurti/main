@@ -55,22 +55,18 @@ public class ListCommandTest {
     }
 
     @Test
-    public void executeListWithDeadlineIsNotFilteredShowsSameList() throws Exception {
+    public void executeListWithFilterByDeadline() throws Exception {
+        expectedModel.updateFilteredListToShowPeriod(deadline, start, listIncomplete);
         assertCommandSuccess(listCommandWithDeadline, model,
                 ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate(), expectedModel);
+        // resets modelManager to initial state for upcoming tests
+        expectedModel.updateFilteredListToShowAllIncomplete();
     }
 
     @Test
     public void executeListIsFilteredShowsFirstTask() throws Exception {
         showFirstTaskOnly(model);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
-    }
-
-    @Test
-    public void executeListWithDeadlineIsFilteredShowsFirstTask() throws Exception {
-        showFirstTaskOnly(model);
-        assertCommandSuccess(listCommandWithDeadline, model,
-                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate(), expectedModel);
     }
 
     /**
