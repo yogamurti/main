@@ -53,22 +53,6 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void equalsFailsSuccessfully() {
-        AddCommandParser command = new AddCommandParser();
-        Index targetIndex = Index.fromOneBased(1);
-        DeleteCommand other = new DeleteCommand(targetIndex);
-        assertFalse(command.equals(other));
-    }
-
-    @Test
-    public void equalsReturnsTrueSuccessfully() {
-        AddCommandParser command = new AddCommandParser();
-        assertTrue(command.equals(command));
-        AddCommandParser other = new AddCommandParser();
-        assertTrue(command.equals(other));
-    }
-
-    @Test
     public void parseEventSuccess() throws Exception {
         String userInput = " " + NAME_DESC_EVENT + DEADLINE_DESC_EVENT + TAG_DESC_WORK + DESC_EVENT;
         Task expected = new TaskWithDeadlineBuilder().withName(VALID_NAME_EVENT)
