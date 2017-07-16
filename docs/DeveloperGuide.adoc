@@ -386,8 +386,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |block timeslots for events |stop scheduling events with conflicting timings
 
-|`*` |user |receive a warning if I try to schedule an event at a blocked timing |know of this timing conflict between events
-
 |`*` |user |unblock timeslots that have been blocked |schedule other events in that timeslot
 
 |`*` |user |synchronize my tasks with my google calendar |access my to-do list from public computers
