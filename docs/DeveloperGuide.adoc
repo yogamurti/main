@@ -396,12 +396,62 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise.
 
 [discrete]
-=== Use case: Add task
+=== Use case: Add a floating task
 
 *MSS*
 
-1. User requests to add a task with a name and optional details
-2. System adds the task and shows a success message
+1. User requests to add a floating task with the name field filled and the end and recurrence fields empty
+2. System adds the floating task and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+1b. User enters an alarm parameter using the natural language format
+____
+1b1. System displays an error message highlighting this issue
+
+Use case ends
+____
+
+---
+
+[discrete]
+=== Use case: Add a task with a deadline
+
+*MSS*
+
+1. User requests to add a task, with a deadline, with the name and end fields filled and the start field empty
+2. System adds the task, with a deadline, and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
+---
+
+[discrete]
+=== Use case: Add an event
+
+*MSS*
+
+1. User requests to add an event with the name, start and end fields filled
+2. System adds the event and shows a success message
 
 Use case ends
 
@@ -416,7 +466,29 @@ Use case ends
 ____
 1b. User enters an end time that is earlier than the start time
 ____
-1b1. System automatically adjusts the end time to the following day
+1b1. System automatically adjusts the end time to the following day and displays a message highlighting this automatic adjustment
+
+Use case ends
+____
+
+---
+
+[discrete]
+=== Use case: Add a recurring task
+
+*MSS*
+
+1. User requests to add a recurring task with the name, end and recurrence fields filled
+2. System adds the recurring task and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
 
 Use case ends
 ____
