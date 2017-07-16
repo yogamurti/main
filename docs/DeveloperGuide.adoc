@@ -823,7 +823,7 @@ ____
 [appendix]
 == Product Survey
 
-*Google Calendar*
+*Product Name*: Google Calendar
 
 Author: Ang Lang Yi
 
@@ -842,7 +842,9 @@ Cons:
 * Navigation requires mouse usage instead of command line
 * Internet connection is required
 
-*Todoist*
+---
+
+*Product Name*: Todoist
 
 Author: Teo Shu Qi
 
@@ -862,7 +864,9 @@ Cons:
 * Navigation requires mouse usage instead of command line
 * Internet connection is required
 
-*Trello*
+---
+
+*Product Name*: Trello
 
 Author: V Narendar Nag
 
@@ -883,7 +887,9 @@ Cons:
 * A command line interface is not available
 * Internet connection is required
 
-*Wunderlist*
+---
+
+*Product Name*: Wunderlist
 
 Author: Yogamurti Sutanto
 
