@@ -324,9 +324,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add link:#floating-task[floating tasks] |manage my link:#floating-task[floating tasks]
 
-|`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
+|`* * *` |user |add link:#task-with-deadline[tasks with deadlines] |manage my link:#task-with-deadline[tasks with deadlines]
 
-|`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
+|`* * *` |user |add link:#event[events] |manage my link:#event[events]
 
 |`* * *` |user |describe my tasks in detail |add more information about the tasks, such as the venue
 
@@ -362,9 +362,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |load a to-do list from a storage location |access my to-do list from different devices and be able to manage multiple to-do lists
 
-|`* *` |user |mark tasks as cannot do |properly take tasks I am unable to complete out of my to-do list
+|`* *` |user |mark tasks as cannot do |properly remove tasks that I am unable to complete out of my to-do list
 
-|`* *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
+|`* *` |user |add link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
 |`* *` |user |have flexible command formats |execute actions in a more natural manner
 
