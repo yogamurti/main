@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
@@ -31,7 +34,8 @@ public class ClearCommandTest {
      */
     private void assertCommandSuccess(Model model) {
         ClearCommand command = new ClearCommand();
-        command.setData(model, new CommandHistory(), null);
+        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        command.setData(model, new CommandHistory(), null, optionsPrefs);
         CommandResult result = command.execute();
 
         assertEquals(ClearCommand.MESSAGE_SUCCESS, result.feedbackToUser);
