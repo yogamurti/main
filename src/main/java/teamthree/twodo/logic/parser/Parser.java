@@ -111,9 +111,9 @@ public class Parser {
         case LoadCommand.COMMAND_WORD:
             return new LoadCommandParser().parse(arguments);
 
-        /*case OptionsCommand.COMMAND_WORD:
+        case OptionsCommand.COMMAND_WORD:
         case OptionsCommand.COMMAND_WORD_UNIXSTYLE:
-            return new OptionsCommandParser().parse(arguments);*/
+            return new OptionsCommandParser().parse(arguments);
 
 
         case HelpCommand.COMMAND_WORD:
