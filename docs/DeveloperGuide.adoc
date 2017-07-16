@@ -448,7 +448,7 @@ ____
 1b. Multiple tasks with same name has been detected
 
 ____
-1b1. System displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
+1b1. System displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete +
 1b2. User chooses the task link:#index[index]
 
 Use case resumes at step 2
