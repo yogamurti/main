@@ -421,6 +421,8 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: Delete task
 
@@ -458,6 +460,8 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: List tasks
 
@@ -477,6 +481,8 @@ ____
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Find task
@@ -506,6 +512,8 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: Undo last action
 
@@ -525,6 +533,8 @@ ____
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Edit task
@@ -563,6 +573,8 @@ ____
 
 Use case resumes at step 2
 ____
+
+---
 
 [discrete]
 === Use case: Mark task as complete
@@ -610,6 +622,8 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: Mark task as incomplete
 
@@ -656,6 +670,8 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: Display help guide
 
@@ -675,6 +691,8 @@ ____
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Display options
@@ -698,6 +716,8 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: Save to-do list
 
@@ -717,6 +737,8 @@ ____
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Clear to-do list
@@ -745,6 +767,8 @@ ____
 ____
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Quit 2Do
