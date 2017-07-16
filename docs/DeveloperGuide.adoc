@@ -401,7 +401,7 @@ For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, un
 *MSS*
 
 1. User requests to add a task with a name and optional details
-2. 2Do adds the task and shows a success message
+2. System adds the task and shows a success message
 
 Use case ends
 
@@ -410,13 +410,13 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
 1b. User enters an end time that is earlier than the start time
 ____
-1b1. 2Do automatically adjusts the end time to the following day
+1b1. System automatically adjusts the end time to the following day
 
 Use case ends
 ____
@@ -429,9 +429,9 @@ ____
 *MSS*
 
 1. User requests to delete a task using its name
-2. 2Do prompts the user to confirm deletion
+2. System prompts the user to confirm deletion
 3. User confirms deletion
-4. 2Do deletes the task and shows a success message
+4. System deletes the task and shows a success message
 
 Use case ends
 
@@ -440,7 +440,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -448,7 +448,7 @@ ____
 1b. Multiple tasks with same name has been detected
 
 ____
-1b1. 2Do displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
+1b1. System displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
 1b2. User chooses the task link:#index[index]
 
 Use case resumes at step 2
@@ -468,7 +468,7 @@ ____
 *MSS*
 
 1. User requests to list all tasks
-2. 2Do displays all tasks
+2. System displays all tasks
 
 Use case ends
 
@@ -477,7 +477,7 @@ Use case ends
 2a. No tasks to display
 
 ____
-2a1. 2Do displays a â€œNo task to displayâ€� message
+2a1. System displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -490,7 +490,7 @@ ____
 *MSS*
 
 1. User requests to find a task using a keyword
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 
 Use case ends
 
@@ -499,7 +499,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -507,7 +507,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -520,7 +520,7 @@ ____
 *MSS*
 
 1. User requests to undo the last action
-2. 2Do undos the last action and returns the to-do list to its previous state
+2. System undos the last action and returns the to-do list to its previous state
 
 Use case ends
 
@@ -529,7 +529,7 @@ Use case ends
 2a. No actions were done previously
 
 ____
-2a1. 2Do displays an error message
+2a1. System displays an error message
 
 Use case ends
 ____
@@ -542,9 +542,9 @@ ____
 *MSS*
 
 1. User searches for a task using *list* or *find*
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
-4. 2Do updates the task and shows a success message
+4. System updates the task and shows a success message
 
 Use case ends
 
@@ -553,7 +553,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -561,7 +561,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -569,7 +569,7 @@ ____
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
@@ -582,9 +582,9 @@ ____
 *MSS*
 
 1. User searches for a task using *list* or *find*
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 3. User requests to mark the task as complete by using its index
-4. 2Do updates the task and shows a success message
+4. System updates the task and shows a success message
 
 Use case ends
 
@@ -593,7 +593,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -601,7 +601,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -609,7 +609,7 @@ ____
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
@@ -617,7 +617,7 @@ ____
 3b. Task is already marked as complete
 
 ____
-3b1. 2Do displays an error message
+3b1. System displays an error message
 
 Use case ends
 ____
@@ -630,9 +630,9 @@ ____
 *MSS*
 
 1. User searches for a completed task using *list -h* or *find -h*
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 3. User requests to mark the task as incomplete by using its index
-4. 2Do updates the task and shows a success message
+4. System updates the task and shows a success message
 
 Use case ends
 
@@ -641,7 +641,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -649,7 +649,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a â€œNo task to displayâ€� message
 
 Use case ends
 ____
@@ -657,7 +657,7 @@ ____
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
@@ -665,7 +665,7 @@ ____
 3b. Task is already marked as complete
 
 ____
-3b1. 2Do displays an error message
+3b1. System displays an error message
 
 Use case ends
 ____
@@ -678,7 +678,7 @@ ____
 *MSS*
 
 1. User requests for help guide
-2. 2Do displays help guide
+2. System displays help guide
 
 Use case ends
 
@@ -687,7 +687,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -699,10 +699,10 @@ ____
 
 *MSS*
 
-1. User requests to view the general options available on 2Do
-2. 2Do displays its general options
+1. User requests to view the general options available on system
+2. System displays its general options
 3. User requests to change the general options
-4. 2Do updates its general options
+4. System updates its general options
 
 Use case ends
 
@@ -711,7 +711,7 @@ Use case ends
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case ends
 ____
@@ -724,7 +724,7 @@ ____
 *MSS*
 
 1. User requests to save the to-do list
-2. 2Do saves the current to-do list and exports it as a text file in the directory specified
+2. System saves the current to-do list and exports it as a text file in the directory specified
 
 Use case ends
 
@@ -733,7 +733,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -746,9 +746,9 @@ ____
 *MSS*
 
 1. User requests to clear the to-do list
-2. 2Do prompts the user to confirm the clear request
+2. System prompts the user to confirm the clear request
 3. User confirms the clear request
-4. 2Do clears the to-do list and shows a success message
+4. System clears the to-do list and shows a success message
 
 Use case ends
 
@@ -757,7 +757,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -771,12 +771,12 @@ ____
 ---
 
 [discrete]
-=== Use case: Quit 2Do
+=== Use case: Quit system
 
 *MSS*
 
-1. User requests to quit 2Do
-2. 2Do shuts down
+1. User requests to quit system
+2. System shuts down
 
 Use case ends
 
