@@ -37,11 +37,14 @@ public class LoadCommandTest {
     }
 
     @Test
-    public void excecute_save_throwCommandException() throws CommandException {
-        CommandResult result = new LoadCommand(INVALID_FILEPATH).execute();
-        assertEquals(String.format(String.format(SaveCommand.MESSAGE_INVALID_PATH, INVALID_FILEPATH)),
-                result.feedbackToUser);
-        assertFalse(isEventCaught);
+    public void excecute_load_throwCommandException() throws CommandException {
+        try {
+            LoadCommand loadCommand = new LoadCommand(INVALID_FILEPATH);
+            loadCommand.execute();
+        } catch (CommandException e) {
+            assertEquals(String.format(String.format(SaveCommand.MESSAGE_INVALID_PATH, INVALID_FILEPATH)),
+                e.getMessage());
+            assertFalse(isEventCaught);
+        }
     }
-
 }

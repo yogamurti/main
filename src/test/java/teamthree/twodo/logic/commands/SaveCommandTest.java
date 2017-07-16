@@ -47,15 +47,15 @@ public class SaveCommandTest {
 
     @Test
     public void excecute_save_throwCommandException() throws CommandException {
-        SaveCommand saveCommand = new SaveCommand(INVALID_FILEPATH);
-        saveCommand.setData(model, null, null, null);
-        CommandResult result = saveCommand.execute();
-        assertEquals(String.format(String.format(SaveCommand.MESSAGE_INVALID_PATH, INVALID_FILEPATH)),
-                result.feedbackToUser);
-        assertFalse(isEventCaught);
+        try {
+            SaveCommand saveCommand = new SaveCommand(INVALID_FILEPATH);
+            saveCommand.setData(model, null, null, null);
+            saveCommand.execute();
+        } catch ( CommandException e) {
+            assertEquals(String.format(String.format(SaveCommand.MESSAGE_INVALID_PATH, INVALID_FILEPATH)),
+                e.getMessage());
+            assertFalse(isEventCaught);
+        }
     }
-
-
-
 }
 
