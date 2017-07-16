@@ -49,7 +49,7 @@ public class UndoCommandTest {
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         undoCommand = new UndoCommand();
-        undoCommand.setData(model, history, undoHistory);
+        undoCommand.setData(model, history, undoHistory, null);
         this.taskList = TestUtil.generateSampleTaskData();
     }
 
@@ -113,7 +113,7 @@ public class UndoCommandTest {
 
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TASK);
-        deleteCommand.setData(model, history, undoHistory);
+        deleteCommand.setData(model, history, undoHistory, null);
         deleteCommand.execute();
         this.history.addToUserInputHistory(DeleteCommand.COMMAND_WORD);
 
@@ -135,7 +135,7 @@ public class UndoCommandTest {
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
         EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
-        editCommand.setData(model, history, undoHistory);
+        editCommand.setData(model, history, undoHistory, null);
         editCommand.execute();
         this.history.addToUserInputHistory(EditCommand.COMMAND_WORD);
 
