@@ -28,9 +28,8 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     public Optional<Deadline> getDeadline() {
         return Optional.of(deadline);
     }
-    /**
-     * Formats the person as text, showing all contact details.
-     */
+
+    // Formats the person as text, showing all contact details.
     @Override
     public String getAsText() {
         assert(deadline != null);
