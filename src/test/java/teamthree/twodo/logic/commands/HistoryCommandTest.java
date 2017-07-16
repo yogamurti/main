@@ -5,6 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.model.Model;
@@ -20,7 +23,8 @@ public class HistoryCommandTest {
         Model model = new ModelManager();
         history = new CommandHistory();
         historyCommand = new HistoryCommand();
-        historyCommand.setData(model, history, undoHistory);
+        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        historyCommand.setData(model, history, undoHistory, optionsPrefs);
     }
 
     @Test
