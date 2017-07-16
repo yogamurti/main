@@ -823,17 +823,17 @@ ____
 [appendix]
 == Product Survey
 
-*Product Name*: Google Calendar
+*Google Calendar*
 
 Author: Ang Lang Yi
 
 Pros:
 
-* User friendly commands
-* Simple interface that makes it easy to navigate around
+* User friendly commands, through simply utilizing its short and simple forms to handle tasks
+* Simple interface makes it easy to navigate around
 * Calendar interface allows the user to easily find empty slots to schedule tasks
 * Calendar can be viewed in a year, month, day or agenda format
-* Import and view other peopleâ€™s calendars for better collaboration
+* Import and view other people's calendars for better collaboration
 * Reminders can be set to a task
 
 Cons:
@@ -844,15 +844,15 @@ Cons:
 
 ---
 
-*Product Name*: Todoist
+*Todoist*
 
 Author: Teo Shu Qi
 
 Pros:
 
-* Features are easy to understand and use
+* Features are intuitive as users simply need to fill in the short and simple forms provided to handle their tasks
 * Different categories are available to separate different kinds of tasks
-* Each category allows a weekly and daily view of its tasks
+* Each category allows a daily and weekly view of its tasks
 * link:#recurring-task[Recurring tasks] can be added
 * Different priority levels can be set for tasks
 * Filter and find tasks according to priority level and link:#floating-task[floating tasks]
@@ -866,7 +866,7 @@ Cons:
 
 ---
 
-*Product Name*: Trello
+*Trello*
 
 Author: V Narendar Nag
 
@@ -881,22 +881,23 @@ Pros:
 
 Cons:
 
-* Features are not intuitive and requires reference to a guide to learn
-* Troublesome to setup the calendar
+* Adding a task is not intuitive as its respective form is cluttered with additional features, which the user can add, that makes it difficult to know which fields are mandatory
+* Setting up the calendar is dependent on another calendar application (e.g. _Google Calendar_) as it enables calendar import by other applications but lacks its own native calendar
 * link:#recurring-task[Recurring tasks] cannot be added
 * A command line interface is not available
 * Internet connection is required
 
 ---
 
-*Product Name*: Wunderlist
+*Wunderlist*
 
 Author: Yogamurti Sutanto
 
 Pros:
 
-* User friendly interface
-* Various backgrounds to suit the user's preferences
+* Short and simple forms are used to allow easy handling of tasks
+* Straightforward and uncluttered interface makes it easy for navigation
+* Various backgrounds are available to suit the user's preferences
 * Sort uncompleted tasks in various ways
 * Tasks can be starred to indicate importance and segregate them from other tasks
 * Categories can be added to tasks for better organization
