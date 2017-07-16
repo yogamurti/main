@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
+import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
@@ -44,9 +45,9 @@ public class ListCommandTest {
         listIncomplete = true;
 
         listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
-        listCommand.setData(model, new CommandHistory(), null);
+        listCommand.setData(model, new CommandHistory(), new UndoCommandHistory(), null);
         listCommandWithDeadline = new ListCommand(deadline, start, listIncomplete, false, null);
-        listCommandWithDeadline.setData(model, new CommandHistory(), null);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory(), null);
     }
 
     @Test
