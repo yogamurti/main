@@ -34,6 +34,7 @@ public class ListCommand extends Command {
             + "If only end date specified, list all tasks before end date\n"
             + "Add " + COMMAND_WORD_HISTORY
             + " to list completed tasks instead of incomplete tasks within specified period.\n"
+            + "Add " + COMMAND_WORD_FLOATING + " to list floating tasks instead of tasks with deadlines\n"
             + "Parameters: [" + COMMAND_WORD_HISTORY + "] " + PREFIX_DEADLINE_START + "[START] "
             + PREFIX_DEADLINE_END + "[END]\n"
             + "Example: " + COMMAND_WORD + " " + COMMAND_WORD_HISTORY + " " + PREFIX_DEADLINE_START + "today "
