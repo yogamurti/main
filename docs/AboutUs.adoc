@@ -15,7 +15,7 @@ image::NarenV.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#viewing-help-code-help-h-code[View help]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#adding-a-task-code-add-a-code[Add task]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#deleting-a-task-code-delete-del-d-code[Delete task]
-** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-a-task-code-edit-e-code [Edit task]
+** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-a-task-code-edit-e-code[Edit task]
 * Code written: TODO
 * Other major contributions:
 ** Add natural language handling https://github.com/CS2103JUN2017-T3/main/pull/4[[#4]]
