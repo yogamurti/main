@@ -320,8 +320,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use 2Do
 
-|`* * *` |user |undo the last action |correct a mistake
-
 |`* * *` |user |add link:#floating-task[floating tasks] |manage my link:#floating-task[floating tasks]
 
 |`* * *` |user |add link:#task-with-deadline[tasks with deadlines] |manage my link:#task-with-deadline[tasks with deadlines]
@@ -332,15 +330,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete tasks |remove tasks that have been cancelled
 
-|`* * *` |user |edit tasks |update my tasksâ€™ details for unforeseen circumstances, such as postponing a deadline
+|`* * *` |user |edit tasks |update my task details for unforeseen circumstances, such as postponing a deadline
 
-|`* * *` |user |add deadlines to my link:#floating-task[floating tasks] |update link:#floating-task[floating tasks] if they then require a deadline
+|`* * *` |user |add deadlines to my link:#floating-task[floating tasks] |update my link:#floating-task[floating tasks] if they then require a deadline
 
 |`* * *` |user |mark my tasks as completed |stop being reminded for tasks I have done
 
 |`* * *` |user |mark completed tasks as uncompleted again |appropriately update my to-do list if the task then requires more follow-up action
 
-|`* * *` |user |see incomplete tasks |know what I need to do
+|`* * *` |user |see uncompleted tasks |know what I need to do
 
 |`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
@@ -350,21 +348,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |list all tasks |see all of my tasks in a convenient manner
 
-|`* * *` |user |list tasks this week or month |see only tasks with urgent deadlines to prevent clutter
-
-|`* * *` |user |set a reminder on tasks |be reminded of my tasks closer to their deadline
-
-|`* * *` |user |have a global reminder setting |not need to set reminders for each task manually
-
-|`* * *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
-
 |`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list
 
 |`* * *` |user |load a to-do list from a storage location |access my to-do list from different devices and be able to manage multiple to-do lists
 
-|`* *` |user |mark tasks as cannot do |properly remove tasks that I am unable to complete out of my to-do list
+|`* *` |user |undo the last action |correct a mistake
 
 |`* *` |user |add link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
+
+|`* *` |user |mark tasks as cannot do |properly remove tasks that I am unable to complete out of my to-do list
+
+|`* *` |user |list tasks this week or month |see only tasks with urgent deadlines to prevent clutter
+
+|`* *` |user |set a reminder on tasks |be reminded of my tasks closer to their deadline
+
+|`* *` |user |have a global reminder setting |not need to set reminders for each task manually
+
+|`* *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
 
 |`* *` |user |have flexible command formats |execute actions in a more natural manner
 
@@ -384,7 +384,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many tasks |sort tasks in different ways |gain a better understanding of the tasks at hand
 
-|`*` |user |get directions |get directions to the taskâ€™s location, from my current location
+|`*` |user |get directions |get directions to the task's location, from my current location
 
 |`*` |user |block timeslots for events |stop scheduling events with conflicting timings
 
