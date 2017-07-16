@@ -1,7 +1,6 @@
 package teamthree.twodo.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -20,10 +19,8 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 
 import org.junit.Test;
 
-import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.Command;
-import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.FloatingTaskBuilder;
