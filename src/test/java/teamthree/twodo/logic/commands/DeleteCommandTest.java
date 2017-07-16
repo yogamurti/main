@@ -12,6 +12,9 @@ import org.junit.Test;
 
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
@@ -82,7 +85,8 @@ public class DeleteCommandTest {
      */
     private DeleteCommand prepareCommand(Index index) {
         DeleteCommand deleteCommand = new DeleteCommand(index);
-        deleteCommand.setData(model, new CommandHistory(), null);
+        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        deleteCommand.setData(model, new CommandHistory(), null, optionsPrefs);
         return deleteCommand;
     }
 

@@ -58,21 +58,21 @@ public class AddCommandParserTest {
         AddCommand expectedCommand = new AddCommand(expected);
         assertParseSuccess(userInput, expectedCommand);
     }
+
     @Test
     public void parseFloatSuccess() throws Exception {
         String userInput = " " + NAME_DESC_MOD + TAG_DESC_WORK + DESC_MOD;
-        Task expected = new FloatingTaskBuilder().withName(VALID_NAME_CSMOD)
-                .withDescription(VALID_DESCRIPTION_MOD)
+        Task expected = new FloatingTaskBuilder().withName(VALID_NAME_CSMOD).withDescription(VALID_DESCRIPTION_MOD)
                 .withTags(VALID_TAG_WORK).build();
         AddCommand expectedCommand = new AddCommand(expected);
         assertParseSuccess(userInput, expectedCommand);
     }
+
     @Test
     public void parseDeadlineSuccess() throws Exception {
         String userInput = " " + NAME_DESC_MOD + DEADLINE_DESC_MOD + TAG_DESC_WORK + DESC_MOD;
-        Task expected = new TaskWithDeadlineBuilder().withName(VALID_NAME_CSMOD)
-                .withDeadline(VALID_END_DATE).withDescription(VALID_DESCRIPTION_MOD)
-                .withTags(VALID_TAG_WORK).build();
+        Task expected = new TaskWithDeadlineBuilder().withName(VALID_NAME_CSMOD).withDeadline(VALID_END_DATE)
+                .withDescription(VALID_DESCRIPTION_MOD).withTags(VALID_TAG_WORK).build();
         AddCommand expectedCommand = new AddCommand(expected);
         assertParseSuccess(userInput, expectedCommand);
     }
@@ -90,6 +90,7 @@ public class AddCommandParserTest {
         }
 
     }
+
     /**
      * Asserts the parsing of {@code userInput} is successful and the result
      * matches {@code expectedCommand}

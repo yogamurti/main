@@ -1,6 +1,8 @@
 package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -12,6 +14,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
+import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
@@ -37,6 +43,32 @@ public class AddCommandTest {
     public void constructor_nullTask_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
+    }
+
+    @Test
+    public void equalsFailsSuccessfully() {
+        try {
+            AddCommand command = new AddCommand(new FloatingTaskBuilder().build());
+            Index targetIndex = Index.fromOneBased(1);
+            DeleteCommand other = new DeleteCommand(targetIndex);
+            assertFalse(command.equals(other));
+        } catch (IllegalValueException e) {
+            // should not reach here
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void equalsReturnsTrueSuccessfully() {
+        try {
+            AddCommand command = new AddCommand(new FloatingTaskBuilder().build());
+            assertTrue(command.equals(command));
+            AddCommand other = new AddCommand(new FloatingTaskBuilder().build());
+            assertTrue(command.equals(other));
+        } catch (IllegalValueException e) {
+            // should not reach here
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -74,7 +106,8 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
-        command.setData(model, new CommandHistory(), null);
+        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        command.setData(model, new CommandHistory(), null, optionsPrefs);
         return command;
     }
 
