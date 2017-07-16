@@ -18,7 +18,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 /**
  * Adds a task to the TaskBook.
  */
-public class AddCommand extends Command {
+public class AddCommandParser extends Command {
 
     //Command word can be any one of the three
     public static final String COMMAND_WORD = "add";
@@ -36,8 +36,10 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    // Creates an AddCommand to add the specified {@code ReadOnlyTask}
-    public AddCommand(ReadOnlyTask task) {
+    /**
+     * Creates an AddCommandParser to add the specified {@code ReadOnlyTask}
+     */
+    public AddCommandParser(ReadOnlyTask task) {
         if (task instanceof TaskWithDeadline) {
             toAdd = new TaskWithDeadline(task);
         } else {
@@ -70,12 +72,12 @@ public class AddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof AddCommandParser)) {
             return false;
         }
 
         // state check
-        AddCommand temp = (AddCommand) other;
+        AddCommandParser temp = (AddCommandParser) other;
         return this.toString().equals(temp.toString());
     }
 

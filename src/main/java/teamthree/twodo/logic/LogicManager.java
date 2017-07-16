@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.commands.Command;
 import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
@@ -22,13 +23,15 @@ public class LogicManager extends ComponentManager implements Logic {
     private Model model;
     private final CommandHistory history;
     private final UndoCommandHistory undoHistory;
+    private final DefaultOption optionPrefs;
     private final Parser parser;
 
-    public LogicManager(Model model) {
+    public LogicManager(Model model, DefaultOption optionPrefs) {
         this.model = model;
         this.history = new CommandHistory();
         this.parser = new Parser();
         this.undoHistory = new UndoCommandHistory();
+        this.optionPrefs = optionPrefs;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class LogicManager extends ComponentManager implements Logic {
         try {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
             Command command = parser.parseCommand(commandText);
-            command.setData(model, history, undoHistory);
+            command.setData(model, history, undoHistory, optionPrefs);
             return command.execute();
         } finally {
             history.addToUserInputHistory(commandText);

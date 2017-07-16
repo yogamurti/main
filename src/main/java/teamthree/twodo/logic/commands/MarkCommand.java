@@ -11,13 +11,14 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 // Marks a task as complete using its last displayed index from the TaskBook.
 public class MarkCommand extends Command {
 
-    //Command word can be either one of the two
+    // Command word can be either one of the two
     public static final String COMMAND_WORD = "mark";
     public static final String COMMAND_WORD_UNIXSTYLE = "-m";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing as complete.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 4 ";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 4 ";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked task as complete: %1$s";
 

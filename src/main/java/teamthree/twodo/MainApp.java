@@ -15,6 +15,9 @@ import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.Version;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.events.ui.ExitAppRequestEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.ConfigUtil;
@@ -36,9 +39,8 @@ import teamthree.twodo.storage.XmlTaskBookStorage;
 import teamthree.twodo.ui.Ui;
 import teamthree.twodo.ui.UiManager;
 
-/**
- * The main entry point to the application.
- */
+// The main entry point to the application.
+
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
@@ -52,6 +54,7 @@ public class MainApp extends Application {
     protected AlarmManager alarm;
     protected Config config;
     protected UserPrefs userPrefs;
+    protected DefaultOption optionsPrefs;
 
     @Override
     public void init() throws Exception {
@@ -69,7 +72,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model);
+        optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+
+        logic = new LogicManager(model, optionsPrefs);
 
         ui = new UiManager(logic, config, userPrefs);
 

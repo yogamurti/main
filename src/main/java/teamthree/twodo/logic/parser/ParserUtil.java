@@ -1,3 +1,4 @@
+//@@author A0139267W
 package teamthree.twodo.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -10,6 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.model.tag.Tag;
@@ -220,4 +223,23 @@ public class ParserUtil {
     private static String extractDay(String[] dayAndPrefix) {
         return dayAndPrefix.length > 1 ? dayAndPrefix[dayAndPrefix.length - 1] : dayAndPrefix[0];
     }
+
+    /**
+     * Parses a {@code Optional<String> alarm} into an {@code Optional
+     * <Alarm>} if {@code alarm} is present.
+     */
+    public static Optional<Alarm> parseAlarm(Optional<String> alarm) throws IllegalValueException {
+        requireNonNull(alarm);
+        return alarm.isPresent() ? Optional.of(new Alarm(alarm.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> autoMark} into an {@code Optional
+     * <AutoMark>} if {@code autoMark} is present.
+     */
+    public static Optional<AutoMark> parseAutoMark(Optional<String> autoMark) throws IllegalValueException {
+        requireNonNull(autoMark);
+        return autoMark.isPresent() ? Optional.of(new AutoMark(autoMark.get())) : Optional.empty();
+    }
+
 }

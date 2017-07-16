@@ -11,7 +11,6 @@ import java.util.TimerTask;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.ComponentManager;
-import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.model.Model;
@@ -19,10 +18,7 @@ import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
-/**
- * Alarm class to give reminders for tasks with deadline.
- *
- */
+// Alarm class to give reminders for tasks with deadline.
 public class AlarmManager extends ComponentManager {
     // List of tasks yet to be notified
     private final List<ReadOnlyTask> notificationList = new ArrayList<ReadOnlyTask>();
@@ -39,13 +35,6 @@ public class AlarmManager extends ComponentManager {
         this.model = model;
         syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
-
-    public AlarmManager(EventsCenter eventsCenter, Model model) {
-        super(eventsCenter);
-        this.model = model;
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
-    }
-
     /**
      * Synchronizes internal notification list with the main TaskBook
      *
@@ -82,9 +71,8 @@ public class AlarmManager extends ComponentManager {
         return task.getDeadline().get().getNotificationDate();
     }
 
-    /**
-     * =====================HELPER CLASS==========================
-     */
+    // =====================HELPER CLASS==========================
+
     private class NextReminder extends TimerTask {
 
         /**
@@ -114,9 +102,7 @@ public class AlarmManager extends ComponentManager {
 
     }
 
-    /**
-     * =========================HELPER METHODS=================================
-     */
+    // =========================HELPER METHODS=================================
 
     /**
      * Transfers the most recently reminded tasks from the notification list to
@@ -147,7 +133,7 @@ public class AlarmManager extends ComponentManager {
         });
     }
 
-    /** Updates nextReminderTime to the next one on the notificationList. */
+    // Updates nextReminderTime to the next one on the notificationList.
     private void updateNextReminder() {
         if (!notificationList.isEmpty()) {
             nextReminderTime = removeInvalidDates() ? null : getNotificationTime(notificationList.get(0));
@@ -172,14 +158,9 @@ public class AlarmManager extends ComponentManager {
         return notificationList.isEmpty();
     }
 
-    /**
-     * =======================EVENT HANDLERS===========================
-     */
-    /**
-     * Synchronizes the notification list with the master list when there is a
-     * change
-     *
-     */
+    // =======================EVENT HANDLERS===========================
+
+    // Synchronizes the notification list with the master list when there is a change
     @Subscribe
     public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         syncWithMasterTaskList(model.getTaskBook().getTaskList());
