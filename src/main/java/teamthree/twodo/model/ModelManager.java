@@ -43,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskBook = new TaskBook(taskBook);
         filteredTasks = new FilteredList<>(this.taskBook.getTaskList());
-        updateFilteredListToShowAllIncomplete();
+        updateFilteredListToShowAllIncomplete(null, false);
         sortedTasks = new SortedList<>(filteredTasks);
     }
 
@@ -76,7 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask person) throws DuplicateTaskException {
         taskBook.addTask(person);
-        updateFilteredListToShowAllIncomplete();
+        updateFilteredListToShowAllIncomplete(null, false);
         indicateTaskBookChanged();
     }
 
@@ -120,13 +120,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAllIncomplete() {
-        filteredTasks.setPredicate(task -> !task.isCompleted());
+    public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, true, listFloating)));
     }
 
     @Override
-    public void updateFilteredListToShowAllComplete() {
-        filteredTasks.setPredicate(task -> task.isCompleted());
+    public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, false, listFloating)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -139,8 +139,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
-        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput, listIncomplete)));
+    public void updateFilteredListToShowPeriod(Deadline deadline,
+            AttributeInputted attInput, boolean listIncomplete, Set<Tag> tagList) {
+        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput,
+                listIncomplete, tagList)));
     }
 
     /**
@@ -275,15 +277,22 @@ public class ModelManager extends ComponentManager implements Model {
         private Deadline deadlineToCheck;
         private AttributeInputted attInput;
         private boolean listIncomplete;
+        private Set<Tag> tagList;
 
-        PeriodQualifier(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
+        PeriodQualifier(Deadline deadline, AttributeInputted attInput,
+                boolean listIncomplete, Set<Tag> tagList) {
             this.deadlineToCheck = deadline;
             this.attInput = attInput;
             this.listIncomplete = listIncomplete;
+            this.tagList = tagList;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
+            return deadlineQualifies(task) && tagsQualifies(task) && completedQualifies(task);
+        }
+
+        public boolean deadlineQualifies(ReadOnlyTask task) {
             if (!task.getDeadline().isPresent()) {
                 return false;
             } else {
@@ -305,6 +314,70 @@ public class ModelManager extends ComponentManager implements Model {
             }
 
         }
+
+        private boolean tagsQualifies(ReadOnlyTask task) {
+            if (tagList == null || tagList.isEmpty()) {
+                return true;
+            }
+            boolean qualifies = false;
+            Set<Tag> tags = task.getTags();
+            Iterator<Tag> tagIterator = tags.iterator();
+            while (!qualifies && tagIterator.hasNext()) {
+                qualifies = tagList.stream()
+                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
+                        .findAny().isPresent();
+            }
+            return qualifies;
+        }
+
+        private boolean completedQualifies(ReadOnlyTask task) {
+            return task.isCompleted() != listIncomplete;
+        }
+    }
+
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tagList;
+        private boolean listIncomplete;
+        private boolean showFloating;
+
+        TagQualifier(Set<Tag> tagList, boolean listIncomplete, boolean showFloating) {
+            this.tagList = tagList;
+            this.listIncomplete = listIncomplete;
+            this.showFloating = showFloating;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return tagsQualifies(task) && completedQualifies(task) && floatingQualifies(task);
+        }
+
+        private boolean tagsQualifies(ReadOnlyTask task) {
+            if (tagList == null || tagList.isEmpty()) {
+                return true;
+            }
+            boolean qualifies = false;
+            Set<Tag> tags = task.getTags();
+            Iterator<Tag> tagIterator = tags.iterator();
+            while (!qualifies && tagIterator.hasNext()) {
+                qualifies = tagList.stream()
+                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
+                        .findAny().isPresent();
+            }
+            return qualifies;
+        }
+
+        private boolean completedQualifies(ReadOnlyTask task) {
+            return task.isCompleted() != listIncomplete;
+        }
+
+        private boolean floatingQualifies(ReadOnlyTask task) {
+            return task.getDeadline().isPresent() != showFloating;
+        }
+        @Override
+        public String toString() {
+            return tagList.toString();
+        }
+
     }
 
 }

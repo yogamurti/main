@@ -89,15 +89,15 @@ public class TaskBook implements ReadOnlyTaskBook {
      * @throws DuplicateTaskException
      *             if an equivalent person already exists.
      */
-    public void addTask(ReadOnlyTask p) throws DuplicateTaskException {
-        Task newPerson;
-        if (p instanceof TaskWithDeadline) {
-            newPerson = new TaskWithDeadline(p);
+    public void addTask(ReadOnlyTask t) throws DuplicateTaskException {
+        Task newTask;
+        if (t instanceof TaskWithDeadline) {
+            newTask = new TaskWithDeadline(t);
         } else {
-            newPerson = new Task(p);
+            newTask = new Task(t);
         }
-        syncMasterTagListWith(newPerson);
-        tasks.add(newPerson);
+        syncMasterTagListWith(newTask);
+        tasks.add(newTask);
     }
 
     /**

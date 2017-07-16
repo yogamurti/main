@@ -45,23 +45,27 @@ public class ModelManagerTest {
         modelManager.updateFilteredTaskList(new HashSet<>(
                 Arrays.asList(typicalTask.cs2103.getName().fullName.split(" "))), true);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
-        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different filteredList (completed) -> return false
-        modelManager.updateFilteredListToShowAllComplete();
+        modelManager.updateFilteredListToShowAllComplete(null, false);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
-        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different filteredList (period) -> return false
         modelManager.updateFilteredListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
-                Deadline.NULL_VALUE), AttributeInputted.START, true);
+                Deadline.NULL_VALUE), AttributeInputted.START, true, null);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
-        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different sortedList -> returns true
         modelManager.sort();
         assertTrue(modelManager.equals(new ModelManager(taskBook, userPrefs)));
-        modelManager.updateFilteredListToShowAllIncomplete(); // resets modelManager to initial state for upcoming tests
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

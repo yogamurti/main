@@ -3,6 +3,9 @@ package teamthree.twodo.logic.commands;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_END;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 
+import java.util.Set;
+
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 
 /**
@@ -12,11 +15,13 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_WORD_UNIXSTYLE = "-l";
-
     public static final String COMMAND_WORD_HISTORY = "-h";
+    public static final String COMMAND_WORD_FLOATING = "-f";
 
-    public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks";
-    public static final String MESSAGE_SUCCESS_COMPLETE = "Listed all completed tasks";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks with deadline";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE_FLOATING = "Listed all incomplete floating tasks";
+    public static final String MESSAGE_SUCCESS_COMPLETE = "Listed all completed tasks with deadline";
+    public static final String MESSAGE_SUCCESS_COMPLETE_FLOATING = "Listed all incomplete floating tasks";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_START = "Listed all incomplete tasks after ";
     public static final String MESSAGE_SUCCESS_COMPLETE_START = "Listed all completed tasks after ";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_END = "Listed all incomplete tasks before ";
@@ -35,34 +40,42 @@ public class ListCommand extends Command {
             + PREFIX_DEADLINE_END + "next week";
 
     private Deadline deadline;
-    public enum AttributeInputted { START, END, BOTH };
+    public enum AttributeInputted { NONE, START, END, BOTH };
 
     private AttributeInputted attInput;
     private boolean listIncomplete;
+    private Set<Tag> tagList;
+    private boolean listFloating;
 
-    public ListCommand(boolean listIncomplete) {
-        this.deadline = null;
-        this.listIncomplete = listIncomplete;
-    }
-
-    public ListCommand(Deadline deadline, AttributeInputted attInput, boolean listIncomplete) {
+    public ListCommand(Deadline deadline, AttributeInputted attInput,
+            boolean listIncomplete, boolean listFloating, Set<Tag> tagList) {
         this.deadline = deadline;
         this.attInput = attInput;
         this.listIncomplete = listIncomplete;
+        this.tagList = tagList;
+        this.listFloating = listFloating;
     }
 
     @Override
     public CommandResult execute() {
-        if (deadline == null) {
+        if (attInput.equals(AttributeInputted.NONE)) {
             if (listIncomplete) {
-                model.updateFilteredListToShowAllIncomplete();
-                return new CommandResult(MESSAGE_SUCCESS_INCOMPLETE);
+                model.updateFilteredListToShowAllIncomplete(tagList, listFloating);
+                if (listFloating) {
+                    return new CommandResult(MESSAGE_SUCCESS_INCOMPLETE_FLOATING);
+                } else {
+                    return new CommandResult(MESSAGE_SUCCESS_INCOMPLETE);
+                }
             } else {
-                model.updateFilteredListToShowAllComplete();
-                return new CommandResult(MESSAGE_SUCCESS_COMPLETE);
+                model.updateFilteredListToShowAllComplete(null, listFloating);
+                if (listFloating) {
+                    return new CommandResult(MESSAGE_SUCCESS_COMPLETE_FLOATING);
+                } else {
+                    return new CommandResult(MESSAGE_SUCCESS_COMPLETE);
+                }
             }
         } else {
-            model.updateFilteredListToShowPeriod(deadline, attInput, listIncomplete);
+            model.updateFilteredListToShowPeriod(deadline, attInput, listIncomplete, tagList);
             String message;
             switch (attInput) {
             case START:

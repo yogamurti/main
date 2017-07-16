@@ -37,15 +37,15 @@ public class ListCommandTest {
     public void setUp() throws IllegalValueException {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
-        expectedModel.updateFilteredListToShowAllIncomplete();
+        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
         deadline = new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE);
         start = AttributeInputted.START;
         listIncomplete = true;
 
-        listCommand = new ListCommand(listIncomplete);
+        listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
         listCommand.setData(model, new CommandHistory(), null);
-        listCommandWithDeadline = new ListCommand(deadline, start, listIncomplete);
+        listCommandWithDeadline = new ListCommand(deadline, start, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), null);
     }
 
@@ -56,11 +56,11 @@ public class ListCommandTest {
 
     @Test
     public void executeListWithFilterByDeadline() throws Exception {
-        expectedModel.updateFilteredListToShowPeriod(deadline, start, listIncomplete);
+        expectedModel.updateFilteredListToShowPeriod(deadline, start, listIncomplete, null);
         assertCommandSuccess(listCommandWithDeadline, model,
                 ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate(), expectedModel);
         // resets modelManager to initial state for upcoming tests
-        expectedModel.updateFilteredListToShowAllIncomplete();
+        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
     }
 
     @Test
