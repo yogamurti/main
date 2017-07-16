@@ -13,7 +13,7 @@ import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 public class LoadCommandTest {
-    private static final String VALID_FILEPATH = "C:\2Do.xml";
+    private static final String VALID_FILEPATH = "data/2Do.xml";
 
     private boolean isEventCaught = false;
 
