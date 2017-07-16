@@ -1,6 +1,7 @@
 package teamthree.twodo.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -19,8 +20,10 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 
 import org.junit.Test;
 
+import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.Command;
+import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.FloatingTaskBuilder;
@@ -50,6 +53,22 @@ public class AddCommandParserTest {
     }
 
     @Test
+    public void equalsFailsSuccessfully() {
+        AddCommandParser command = new AddCommandParser();
+        Index targetIndex = Index.fromOneBased(1);
+        DeleteCommand other = new DeleteCommand(targetIndex);
+        assertFalse(command.equals(other));
+    }
+
+    @Test
+    public void equalsReturnsTrueSuccessfully() {
+        AddCommandParser command = new AddCommandParser();
+        assertTrue(command.equals(command));
+        AddCommandParser other = new AddCommandParser();
+        assertTrue(command.equals(other));
+    }
+
+    @Test
     public void parseEventSuccess() throws Exception {
         String userInput = " " + NAME_DESC_EVENT + DEADLINE_DESC_EVENT + TAG_DESC_WORK + DESC_EVENT;
         Task expected = new TaskWithDeadlineBuilder().withName(VALID_NAME_EVENT)
@@ -58,21 +77,21 @@ public class AddCommandParserTest {
         AddCommand expectedCommand = new AddCommand(expected);
         assertParseSuccess(userInput, expectedCommand);
     }
+
     @Test
     public void parseFloatSuccess() throws Exception {
         String userInput = " " + NAME_DESC_MOD + TAG_DESC_WORK + DESC_MOD;
-        Task expected = new FloatingTaskBuilder().withName(VALID_NAME_CSMOD)
-                .withDescription(VALID_DESCRIPTION_MOD)
+        Task expected = new FloatingTaskBuilder().withName(VALID_NAME_CSMOD).withDescription(VALID_DESCRIPTION_MOD)
                 .withTags(VALID_TAG_WORK).build();
         AddCommand expectedCommand = new AddCommand(expected);
         assertParseSuccess(userInput, expectedCommand);
     }
+
     @Test
     public void parseDeadlineSuccess() throws Exception {
         String userInput = " " + NAME_DESC_MOD + DEADLINE_DESC_MOD + TAG_DESC_WORK + DESC_MOD;
-        Task expected = new TaskWithDeadlineBuilder().withName(VALID_NAME_CSMOD)
-                .withDeadline(VALID_END_DATE).withDescription(VALID_DESCRIPTION_MOD)
-                .withTags(VALID_TAG_WORK).build();
+        Task expected = new TaskWithDeadlineBuilder().withName(VALID_NAME_CSMOD).withDeadline(VALID_END_DATE)
+                .withDescription(VALID_DESCRIPTION_MOD).withTags(VALID_TAG_WORK).build();
         AddCommand expectedCommand = new AddCommand(expected);
         assertParseSuccess(userInput, expectedCommand);
     }
@@ -90,6 +109,7 @@ public class AddCommandParserTest {
         }
 
     }
+
     /**
      * Asserts the parsing of {@code userInput} is successful and the result
      * matches {@code expectedCommand}
