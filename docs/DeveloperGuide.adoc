@@ -348,9 +348,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
-|`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list
+|`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list and be able to view it across multiple devices
 
 |`* * *` |user |undo the last action |correct a mistake
+
+|`* * *` |user |have flexible command formats |execute actions in a more natural manner
 
 |`* *` |user |add link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
@@ -368,15 +370,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |redo a command I have undone |redo any unintended undo actions
 
-|`* *` |user |have flexible command formats |execute actions in a more natural manner
-
 |`* *` |user |have command shortcuts |execute actions with ease and speed
 
 |`* *` |user with many tagged tasks |clear all tasks that have a certain tag |conveniently clear all related tasks once a project or milestone is completed or cancelled
 
-|`* *` |user | view my task history |look back at the tasks I have completed so far
-
-|`* *` |user |visualize my tasks as a calendar |more easily plan my schedule
+|`*` |user |visualize my tasks as a calendar |more easily plan my schedule
 
 |`*` |user |launch the program quickly, by pressing a keyboard shortcut |conveniently launch the program
 
