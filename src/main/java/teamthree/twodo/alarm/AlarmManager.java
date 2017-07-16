@@ -11,7 +11,6 @@ import java.util.TimerTask;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.ComponentManager;
-import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.model.Model;
@@ -36,13 +35,6 @@ public class AlarmManager extends ComponentManager {
         this.model = model;
         syncWithMasterTaskList(model.getTaskBook().getTaskList());
     }
-
-    public AlarmManager(EventsCenter eventsCenter, Model model) {
-        super(eventsCenter);
-        this.model = model;
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
-    }
-
     /**
      * Synchronizes internal notification list with the main TaskBook
      *

@@ -7,18 +7,12 @@ import java.util.Set;
 
 import teamthree.twodo.model.tag.Tag;
 
-// A task with an end timing specified
 public class TaskWithDeadline extends Task implements ReadOnlyTask {
 
     private Deadline deadline;
     public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags) {
         super(name, description, tags);
         this.deadline = deadline;
-    }
-
-    public TaskWithDeadline(Name name) {
-        super(name);
-        // TODO Auto-generated constructor stub
     }
 
     public TaskWithDeadline(ReadOnlyTask source) {
@@ -34,8 +28,9 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     public Optional<Deadline> getDeadline() {
         return Optional.of(deadline);
     }
-
-    // Formats the person as text, showing all contact details.
+    /**
+     * Formats the person as text, showing all contact details.
+     */
     @Override
     public String getAsText() {
         assert(deadline != null);
@@ -50,8 +45,9 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
-    // Updates this person with the details of {@code replacement}.
+    /**
+     * Updates this person with the details of {@code replacement}.
+     */
     @Override
     public void resetData(ReadOnlyTask replacement) {
         requireNonNull(replacement);
