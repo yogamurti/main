@@ -7,16 +7,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 ==== https://github.com/radneran[V Narendar Nag]
-image::NarenV.jpg[width="150", align="left"]
- +
+image::NarenV.jpg[width="150", height="150", align="left"]
+
 * Components in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#model-component[Model]
 * Aspects/tools in charge of: Team Leader, Scheduling and Tracking
 * Features implemented:
-   * https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#adding-a-task-code-add-a-code[Add task]
-   * https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#deleting-a-task-code-delete-del-d-code[Delete task]
-* Code written: [[functional code](A123456.md)][[test code](A123456.md)]
+** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#adding-a-task-code-add-a-code[Add task]
+** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#deleting-a-task-code-delete-del-d-code[Delete task]
+* Code written: TODO
 * Other major contributions:
-  * Did the initial refactoring from AddressBook to ToDoList (https://github.com/CS2103JUN2017-T3/main/pull/8)[[#8]]
+** Did the initial refactoring from AddressBook to ToDoList (https://github.com/CS2103JUN2017-T3/main/pull/8)[[#8]]
 
 === https://github.com/maltiso[Ang Lang Yi]
 image::JoelAng.jpg[width="150", align="left"]
