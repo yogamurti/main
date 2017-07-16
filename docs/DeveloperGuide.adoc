@@ -322,6 +322,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |undo the last action |correct a mistake
 
+|`* * *` |user |add link:#floating-task[floating tasks] |manage my link:#floating-task[floating tasks]
+
+|`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
+
 |`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
 
 |`* * *` |user |describe my tasks in detail |add more information about the tasks, such as the venue
@@ -335,8 +339,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |mark my tasks as completed |stop being reminded for tasks I have done
 
 |`* * *` |user |mark completed tasks as uncompleted again |appropriately update my to-do list if the task then requires more follow-up action
-
-|`* * *` |user |mark tasks as cannot do |properly take them out of my to-do list
 
 |`* * *` |user |see incomplete tasks |know what I need to do
 
@@ -356,7 +358,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
 
-|`* * *` |user |specify a storage location |access my to-do list using different devices
+|`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list
+
+|`* * *` |user |load a to-do list from a storage location |access my to-do list from different devices and be able to manage multiple to-do lists
+
+|`* *` |user |mark tasks as cannot do |properly take tasks I am unable to complete out of my to-do list
 
 |`* *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
@@ -878,7 +884,21 @@ ____
 Floating task
 
 ____
-Task without a fixed deadline
+Task without an end time
+____
+
+[[task-with-deadline]]
+Task with deadline
+
+____
+Task with an end time and without a start time
+____
+
+[[event]]
+Event
+
+____
+Task with a start time and an end time
 ____
 
 [[recurring-task]]

@@ -262,7 +262,7 @@ Example: `quit`
 |edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true
 |mark / -m|mark {index}|mark 4
 |unmark / -un|unmark {index}|unmark 4
-|option/ -o|option a/[alarm] m/ [mark completion automatically]|option a/1 minute m/true
+|option (In-development)/ -o|option a/[alarm] m/ [mark completion automatically]|option a/1 minute m/true
 |save / -s|save [-h] [directory]|save C:\Program Files\Common Files\2Do.txt
 |clear / -c|clear [-h]|clear
 |exit / quit / -q|quit|quit
