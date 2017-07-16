@@ -829,7 +829,7 @@ Author: Ang Lang Yi
 
 Pros:
 
-* User friendly commands, through simply utilizing its short and simple forms to handle tasks
+* User friendly commands, through simply filling its short and simple forms to handle tasks
 * Simple interface makes it easy to navigate around
 * Calendar interface allows the user to easily find empty slots to schedule tasks
 * Calendar can be viewed in a year, month, day or agenda format
@@ -881,8 +881,8 @@ Pros:
 
 Cons:
 
-* Adding a task is not intuitive as its respective form is cluttered with additional features, which the user can add, that makes it difficult to know which fields are mandatory
-* Setting up the calendar is dependent on another calendar application (e.g. _Google Calendar_) as it enables calendar import by other applications but lacks its own native calendar
+* Adding a task is not intuitive as its respective form is cluttered with additional features that makes it difficult to know which fields are mandatory
+* Setting up the calendar is dependent on another calendar application (e.g. _Google Calendar_) as it supports calendar import by other applications but lacks its own native calendar
 * link:#recurring-task[Recurring tasks] cannot be added
 * A command line interface is not available
 * Internet connection is required
