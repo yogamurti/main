@@ -113,7 +113,7 @@ Example: `add project on friday at 2359`
 Format: `add [-h] n/{name} d/[description] t/[tag1, tag2,...] a/[alarm] u/[urgent]` +
 Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/false`
 ****
-* Floating tasks can be added with _start_, _end_ and _recurrence_ fields empty
+* Floating tasks can be added with _end_ and _recurrence_ fields empty
 * You will not be able to set an _alarm_ for floating tasks using the natural language format
 ****
 
@@ -122,7 +122,7 @@ Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/fals
 Format: `add [-h] n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
 Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days r/false u/true`
 ****
-* Tasks with deadlines can be added with the _start_ field empty and the _end_ field filled
+* Tasks with deadlines can be added with the _end_ field filled and the _start_ field empty
 ****
 
 ==== Events
@@ -138,7 +138,7 @@ Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t
 Format: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/{recurrence} u/[urgent]` +
 Example: `add n/CS2103 monday pre-tutorial meeting s/10/07/17 1200 e/10/07/17 1500 d/For project t/NUS a/1 day r/weekly u/true`
 ****
-* Recurring tasks can be added with the recurrence field filled
+* Recurring tasks can be added with the _end_ and _recurrence_ fields filled
 ****
 
 === Deleting a task : `delete / del / -d / -`
