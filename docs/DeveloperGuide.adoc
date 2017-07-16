@@ -344,15 +344,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |search for tasks using keywords |find details of specific tasks
 
-|`* * *` |user |find tasks that are related by some category |know related tasks easily
+|`* * *` |user |find tasks that are related by some category |know related tasks easily if I have tagged them with their respective categories
 
 |`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
 |`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list
 
-|`* * *` |user |load a to-do list from a storage location |access my to-do list from different devices and be able to manage multiple to-do lists
-
-|`* *` |user |undo the last action |correct a mistake
+|`* * *` |user |undo the last action |correct a mistake
 
 |`* *` |user |add link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
@@ -366,11 +364,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
 
+|`* *` |user |load a to-do list from a storage location |manage my to-do list from different devices and be able to manage multiple to-do lists
+
+|`* *` |user |redo a command I have undone |redo any unintended undo actions
+
 |`* *` |user |have flexible command formats |execute actions in a more natural manner
 
 |`* *` |user |have command shortcuts |execute actions with ease and speed
-
-|`* *` |user |redo a command I have undone |redo any unintended undo actions
 
 |`* *` |user with many tagged tasks |clear all tasks that have a certain tag |conveniently clear all related tasks once a project or milestone is completed or cancelled
 
