@@ -1,6 +1,7 @@
 package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -14,6 +15,7 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 public class LoadCommandTest {
     private static final String VALID_FILEPATH = "data/2Do.xml";
+    private static final String INVALID_FILEPATH = "data/2Do.txt";
 
     private boolean isEventCaught = false;
 
@@ -32,6 +34,14 @@ public class LoadCommandTest {
         CommandResult result = new LoadCommand(VALID_FILEPATH).execute();
         assertEquals(String.format(LoadCommand.MESSAGE_SUCCESS , VALID_FILEPATH), result.feedbackToUser);
         assertTrue(isEventCaught);
+    }
+
+    @Test
+    public void excecute_save_throwCommandException() throws CommandException {
+        CommandResult result = new LoadCommand(INVALID_FILEPATH).execute();
+        assertEquals(String.format(String.format(SaveCommand.MESSAGE_INVALID_PATH, INVALID_FILEPATH)),
+                result.feedbackToUser);
+        assertFalse(isEventCaught);
     }
 
 }
