@@ -338,15 +338,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |mark completed tasks as uncompleted again |appropriately update my to-do list if the task then requires more follow-up action
 
-|`* * *` |user |see uncompleted tasks |know what I need to do
+|`* * *` |user |list all my uncompleted tasks |know what I need to do
 
-|`* * *` |user |find tasks by deadline |know which tasks are most urgent
-
-|`* * *` |user |see tasks that are related |know related tasks easily
+|`* * *` |user |list all my completed tasks |review and reflect on the tasks I have done
 
 |`* * *` |user |search for tasks using keywords |find details of specific tasks
 
-|`* * *` |user |list all tasks |see all of my tasks in a convenient manner
+|`* * *` |user |find tasks that are related by some category |know related tasks easily
+
+|`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
 |`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list
 
