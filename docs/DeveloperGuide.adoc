@@ -477,7 +477,7 @@ Use case ends
 2a. No tasks to display
 
 ____
-2a1. System displays a â€œNo task to displayâ€� message
+2a1. System displays a no task to display message
 
 Use case ends
 ____
@@ -507,7 +507,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. System displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -561,7 +561,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. System displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -601,7 +601,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. System displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -649,7 +649,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. System displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
