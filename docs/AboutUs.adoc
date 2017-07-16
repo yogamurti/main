@@ -6,8 +6,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== https://github.com/radneran[V Narendar Nag]
-image::NarenV.jpg[width="150", align="left"]<br>
+==== https://github.com/radneran[V Narendar Nag]
+image::NarenV.jpg[width="150", align="left"] +
 
 * Components in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#model-component[Model]
 * Aspects/tools in charge of: Team Leader, Scheduling and Tracking
@@ -26,7 +26,7 @@ Responsibilities: GUI + Testing _Documentationem
 
 '''
 
-=== https://github.com/teoshuqi[Teo Shu Qi]
+==== https://github.com/teoshuqi[Teo Shu Qi]
 image::teoshuqi.png[width="150", align="left"]
 
 Role: Developer +
@@ -35,11 +35,8 @@ Responsibilities: Deliverables and deadline, Code quality, Logic
 
 '''
 
-=== https://github.com/yogamurti[Yogamurti Sutanto]
+==== https://github.com/yogamurti[Yogamurti Sutanto]
 image::Yoga.jpg[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Documentationem,  Integration, Storage
-
-
-'''
