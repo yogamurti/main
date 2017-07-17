@@ -186,6 +186,11 @@ public class AddCommandTest {
                 boolean listIncomplete) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void setTaskBook(ReadOnlyTaskBook taskBook) {
+            // TODO Auto-generated method stub
+        }
     }
 
     /**

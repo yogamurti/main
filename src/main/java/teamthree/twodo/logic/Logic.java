@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
+import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
@@ -23,5 +24,7 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
     CommandHistory getCommandHistory();
+
+    void setModel(Model model);
 
 }

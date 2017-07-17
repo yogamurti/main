@@ -15,6 +15,7 @@ public class Config {
     private String appTitle = "Description App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
+    private String taskBookFilePath = "data/2Do.xml";
 
     public static Long getDefaultNotificationPeriod() {
         return notificationPeriod;
@@ -49,7 +50,7 @@ public class Config {
     }
 
     public void setTaskBookFilePath(String taskBookFilePath) {
-        Config.setDefaultConfigFile(taskBookFilePath);
+        this.taskBookFilePath = taskBookFilePath;
     }
 
     @Override
@@ -85,8 +86,7 @@ public class Config {
         return defaultConfigFile;
     }
 
-    public static void setDefaultConfigFile(String file) {
-        defaultConfigFile = file;
+    public String getTaskBookFilePath() {
+        return taskBookFilePath;
     }
-
 }

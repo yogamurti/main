@@ -69,7 +69,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void setTaskBookFilePath(String filePath) throws IOException {
         taskBookStorage.setTaskBookFilePath(filePath);
         config.setTaskBookFilePath(filePath);
-        ConfigUtil.saveConfig(config, filePath);
+        ConfigUtil.saveConfig(config, Config.getDefaultConfigFile());
         raise(new TaskBookStorageChangedEvent(filePath));
     }
 
@@ -101,6 +101,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
+    //@@author A0162253M
     public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
@@ -114,14 +115,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
 
     }
-
+    //@@author A0162253M
     @Subscribe
     private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
         try {
             setTaskBookFilePath(event.filePath);
         } catch (IOException e) {
-            throw new CommandException(String.format(SaveCommand.MESSAGE_FAILURE, event.filePath));
+            throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));
         }
     }
 }

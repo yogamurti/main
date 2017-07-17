@@ -16,6 +16,7 @@ import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
+import teamthree.twodo.logic.commands.LoadCommand;
 import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.commands.OptionsCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
@@ -107,9 +108,13 @@ public class Parser {
         case SaveCommand.COMMAND_WORD_UNIXSTYLE:
             return new SaveCommandParser().parse(arguments);
 
+        case LoadCommand.COMMAND_WORD:
+            return new LoadCommandParser().parse(arguments);
+
         case OptionsCommand.COMMAND_WORD:
         case OptionsCommand.COMMAND_WORD_UNIXSTYLE:
             return new OptionsCommandParser().parse(arguments);
+
 
         case HelpCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {

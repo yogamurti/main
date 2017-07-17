@@ -28,7 +28,7 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskBook taskBook;
+    private TaskBook taskBook;
     private final FilteredList<ReadOnlyTask> filteredTasks;
     private final SortedList<ReadOnlyTask> sortedTasks;
 
@@ -60,6 +60,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyTaskBook getTaskBook() {
         return taskBook;
+    }
+
+    @Override
+    public void setTaskBook(ReadOnlyTaskBook taskBook) {
+        this.taskBook = new TaskBook(taskBook);
     }
 
     /** Raises an event to indicate the model has changed */
@@ -327,5 +332,4 @@ public class ModelManager extends ComponentManager implements Model {
 
         }
     }
-
 }

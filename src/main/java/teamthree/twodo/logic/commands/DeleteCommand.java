@@ -1,3 +1,4 @@
+//@@author A0162253M - reused
 package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.commons.core.Messages;
@@ -18,11 +19,10 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD_SHORT = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the last person listing.\n"
+            + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-    public static final String MESSAGE_CONFIRM_DELETE = "Are you sure you want to delete?";
 
     public final Index targetIndex;
 
@@ -39,17 +39,16 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        //EventsCenter.getInstance().post(new NewResultAvailableEvent(MESSAGE_CONFIRM_DELETE));
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         try {
-            model.deleteTask(personToDelete);
-            history.addToDeleteHistory(personToDelete);
+            model.deleteTask(taskToDelete);
+            history.addToDeleteHistory(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }
