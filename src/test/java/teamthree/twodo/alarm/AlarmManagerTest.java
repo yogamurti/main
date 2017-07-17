@@ -1,6 +1,6 @@
 package teamthree.twodo.alarm;
 
-//import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
-//import org.junit.Test;
+import org.junit.Test;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -57,7 +57,7 @@ public class AlarmManagerTest {
     }
 
 
-    /*@Test
+    @Test
     public void raiseNotificationReminderSuccessfully() {
         // Should raise deadline reached event
         alarm = new AlarmManager(model);
@@ -68,7 +68,7 @@ public class AlarmManagerTest {
             e.toString();
         }
         assertTrue(isEventCaught);
-    }*/
+    }
 
     private class ModelManagerStub implements Model {
         private TaskBook taskbook;
