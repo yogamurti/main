@@ -80,7 +80,7 @@ public class EditCommand extends Command {
             model.updateTask(personToEdit, editedPerson);
             history.addToBeforeEditHistory(personToEdit);
             history.addToAfterEditHistory(editedPerson);
-            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(index.getZeroBased()));
+            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(personToEdit));
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
@@ -269,8 +269,7 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName()) && getDeadline().equals(e.getDeadline())
-                    && getDescription().equals(e.getDescription())
-                    && getTags().equals(e.getTags());
+                    && getDescription().equals(e.getDescription()) && getTags().equals(e.getTags());
         }
     }
 }

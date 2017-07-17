@@ -3,6 +3,8 @@ package teamthree.twodo.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -10,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import teamthree.twodo.commons.core.LogsCenter;
+import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 import teamthree.twodo.commons.events.ui.NewResultAvailableEvent;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.logic.commands.CommandResult;
@@ -20,6 +23,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final int INDEX_OFFSET = 1;
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
@@ -55,6 +59,7 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
+
     @FXML
     private void handleKeyPressed(KeyEvent e) {
         if (e.getCode().equals(KeyCode.UP)) {
@@ -64,21 +69,22 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    /** Displays the previous command input on the command box if it is available*/
+    /**
+     * Displays the previous command input on the command box if it is available
+     */
     private void accessPreviousCommand() {
         if (index > -1) {
             commandTextField.appendText(previousUserInput.get(index));
             index--;
         }
     }
+
     private void accessNextCommand() {
         if (index > previousUserInput.size() - 1) {
             commandTextField.appendText(previousUserInput.get(index));
             index++;
         }
     }
-
-
 
     /**
      * Sets the command box style to indicate a successful command.
@@ -98,6 +104,18 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /* ==================EVENT HANDLERS====================== */
+    /**
+     * Updates the previous user input list with the latest instance of command history.
+     * Index will be updated to the last item on the previous user input list.
+     * @param event {@code NewUserInputEvent}
+     */
+    @Subscribe
+    public void handleNewUserInputEvent(NewUserInputEvent event) {
+        previousUserInput = logic.getCommandHistory().getHistory();
+        index = previousUserInput.size() - INDEX_OFFSET;
     }
 
 }
