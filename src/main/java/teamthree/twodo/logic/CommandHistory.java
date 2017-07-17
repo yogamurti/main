@@ -14,9 +14,8 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-/**
- * Stores the history of commands executed.
- */
+//@@author A0162253M
+// Stores the history of commands executed.
 public class CommandHistory {
     private Stack<String> userInputHistory;
     private Stack<ReadOnlyTask> beforeEditHistory;

@@ -20,6 +20,9 @@ public interface Model {
     /** Returns the TaskBook */
     ReadOnlyTaskBook getTaskBook();
 
+    /** Changes the TaskBook */
+    void setTaskBook(ReadOnlyTaskBook taskBook);
+
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 

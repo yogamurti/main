@@ -7,9 +7,8 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-/**
- * Redo the function that was undo in the previous command
- */
+//@@author A0162253M
+// Redoes the function that was undone in the previous command
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";

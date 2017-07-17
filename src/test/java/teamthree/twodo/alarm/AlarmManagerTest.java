@@ -193,6 +193,10 @@ public class AlarmManagerTest {
             // TODO Auto-generated method stub
         }
 
+        public void setTaskBook(ReadOnlyTaskBook taskBook) {
+            // TODO Auto-generated method stub
+
+        }
     }
 
 }

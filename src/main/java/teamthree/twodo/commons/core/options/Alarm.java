@@ -1,8 +1,8 @@
-//@@author A0139267W
 package teamthree.twodo.commons.core.options;
 
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
+//@@author A0139267W
 // Represents an alarm setting to be set for tasks
 public class Alarm {
     public static final String EMPTY_ALARM = " ";

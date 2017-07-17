@@ -1,4 +1,3 @@
-//@@author A0162253M
 package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.logic.commands.exceptions.CommandException;
@@ -8,9 +7,8 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-/**
- * Undo the previous command by the user
- */
+//@@author A0162253M
+// Undoes the previous command by the user
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

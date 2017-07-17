@@ -188,6 +188,9 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+        public void setTaskBook(ReadOnlyTaskBook taskBook) {
+            // TODO Auto-generated method stub
+        }
     }
 
     /**

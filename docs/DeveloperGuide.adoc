@@ -111,9 +111,9 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the *simplified* class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-image::LogicClassDiagram.png[width="800"]
+image::SimplifiedLogicClassDiagram.png[width="800"]
 _Figure 2.1.2 : Class Diagram of the Logic Component_
 
 [discrete]
@@ -320,57 +320,61 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use 2Do
 
-|`* * *` |user |undo the last action |correct a mistake
+|`* * *` |user |add link:#floating-task[floating tasks] |manage my link:#floating-task[floating tasks]
 
-|`* * *` |user |add tasks without specifying a date |add link:#floating-task[floating tasks]
+|`* * *` |user |add link:#task-with-deadline[tasks with deadlines] |manage my link:#task-with-deadline[tasks with deadlines]
+
+|`* * *` |user |add link:#event[events] |manage my link:#event[events]
 
 |`* * *` |user |describe my tasks in detail |add more information about the tasks, such as the venue
 
 |`* * *` |user |delete tasks |remove tasks that have been cancelled
 
-|`* * *` |user |edit tasks |update my tasksâ€™ details for unforeseen circumstances, such as postponing a deadline
+|`* * *` |user |edit tasks |update my task details for unforeseen circumstances, such as postponing a deadline
 
-|`* * *` |user |add deadlines to my link:#floating-task[floating tasks] |update link:#floating-task[floating tasks] if they then require a deadline
+|`* * *` |user |add deadlines to my link:#floating-task[floating tasks] |update my link:#floating-task[floating tasks] if they then require a deadline
 
 |`* * *` |user |mark my tasks as completed |stop being reminded for tasks I have done
 
 |`* * *` |user |mark completed tasks as uncompleted again |appropriately update my to-do list if the task then requires more follow-up action
 
-|`* * *` |user |mark tasks as cannot do |properly take them out of my to-do list
+|`* * *` |user |list all my uncompleted tasks |know what I need to do
 
-|`* * *` |user |see incomplete tasks |know what I need to do
-
-|`* * *` |user |find tasks by deadline |know which tasks are most urgent
-
-|`* * *` |user |see tasks that are related |know related tasks easily
+|`* * *` |user |list all my completed tasks |review and reflect on the tasks I have done
 
 |`* * *` |user |search for tasks using keywords |find details of specific tasks
 
-|`* * *` |user |list all tasks |see all of my tasks in a convenient manner
+|`* * *` |user |find tasks that are related by some category |know related tasks easily if I have tagged them with their respective categories
 
-|`* * *` |user |list tasks this week or month |see only tasks with urgent deadlines to prevent clutter
+|`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
-|`* * *` |user |set a reminder on tasks |be reminded of my tasks closer to their deadline
+|`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list and be able to view it across multiple devices
 
-|`* * *` |user |have a global reminder setting |not need to set reminders for each task manually
+|`* * *` |user |undo the last action |correct a mistake
 
-|`* * *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
+|`* * *` |user |have flexible command formats |execute actions in a more natural manner
 
-|`* * *` |user |specify a storage location |access my to-do list using different devices
+|`* *` |user |add link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
 
-|`* *` |user |define link:#recurring-task[recurring tasks] |not need to add the same task every time it repeats
+|`* *` |user |mark tasks as cannot do |properly remove tasks that I am unable to complete out of my to-do list
 
-|`* *` |user |have flexible command formats |execute actions in a more natural manner
+|`* *` |user |list tasks this week or month |see only tasks with urgent deadlines to prevent clutter
 
-|`* *` |user |have command shortcuts |execute actions with ease and speed
+|`* *` |user |set a reminder on tasks |be reminded of my tasks closer to their deadline
+
+|`* *` |user |have a global reminder setting |not need to set reminders for each task manually
+
+|`* *` |user |be alerted of tasks whose deadline has eclipsed but I have not marked as complete |decide on an appropriate follow-up action
+
+|`* *` |user |load a to-do list from a storage location |manage my to-do list from different devices and be able to manage multiple to-do lists
 
 |`* *` |user |redo a command I have undone |redo any unintended undo actions
 
+|`* *` |user |have command shortcuts |execute actions with ease and speed
+
 |`* *` |user with many tagged tasks |clear all tasks that have a certain tag |conveniently clear all related tasks once a project or milestone is completed or cancelled
 
-|`* *` |user | view my task history |look back at the tasks I have completed so far
-
-|`* *` |user |visualize my tasks as a calendar |more easily plan my schedule
+|`*` |user |visualize my tasks as a calendar |more easily plan my schedule
 
 |`*` |user |launch the program quickly, by pressing a keyboard shortcut |conveniently launch the program
 
@@ -378,11 +382,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many tasks |sort tasks in different ways |gain a better understanding of the tasks at hand
 
-|`*` |user |get directions |get directions to the taskâ€™s location, from my current location
+|`*` |user |get directions |get directions to the task's location, from my current location
 
 |`*` |user |block timeslots for events |stop scheduling events with conflicting timings
-
-|`*` |user |receive a warning if I try to schedule an event at a blocked timing |know of this timing conflict between events
 
 |`*` |user |unblock timeslots that have been blocked |schedule other events in that timeslot
 
@@ -396,12 +398,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise.
 
 [discrete]
-=== Use case: Add task
+=== Use case: Add a floating task
 
 *MSS*
 
-1. User requests to add a task with a name and optional details
-2. 2Do adds the task and shows a success message
+1. User requests to add a floating task with the name field filled and the end and recurrence fields empty
+2. System adds the floating task and shows a success message
 
 Use case ends
 
@@ -410,16 +412,90 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
+
+Use case ends
+____
+1b. User enters an alarm parameter using the natural language format
+____
+1b1. System displays an error message highlighting this issue
+
+Use case ends
+____
+
+---
+
+[discrete]
+=== Use case: Add a task with a deadline
+
+*MSS*
+
+1. User requests to add a task, with a deadline, with the name and end fields filled and the start field empty
+2. System adds the task, with a deadline, and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
+---
+
+[discrete]
+=== Use case: Add an event
+
+*MSS*
+
+1. User requests to add an event with the name, start and end fields filled
+2. System adds the event and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
 
 Use case ends
 ____
 1b. User enters an end time that is earlier than the start time
 ____
-1b1. 2Do automatically adjusts the end time to the following day
+1b1. System automatically adjusts the end time to the following day and displays a message highlighting this automatic adjustment
 
 Use case ends
 ____
+
+---
+
+[discrete]
+=== Use case: Add a recurring task
+
+*MSS*
+
+1. User requests to add a recurring task with the name, end and recurrence fields filled
+2. System adds the recurring task and shows a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
+---
 
 [discrete]
 === Use case: Delete task
@@ -427,9 +503,9 @@ ____
 *MSS*
 
 1. User requests to delete a task using its name
-2. 2Do prompts the user to confirm deletion
+2. System prompts the user to confirm deletion
 3. User confirms deletion
-4. 2Do deletes the task and shows a success message
+4. System deletes the task and shows a success message
 
 Use case ends
 
@@ -438,7 +514,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -446,7 +522,7 @@ ____
 1b. Multiple tasks with same name has been detected
 
 ____
-1b1. 2Do displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete
+1b1. System displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete +
 1b2. User chooses the task link:#index[index]
 
 Use case resumes at step 2
@@ -458,13 +534,15 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
 === Use case: List tasks
 
 *MSS*
 
 1. User requests to list all tasks
-2. 2Do displays all tasks
+2. System displays all tasks
 
 Use case ends
 
@@ -473,10 +551,12 @@ Use case ends
 2a. No tasks to display
 
 ____
-2a1. 2Do displays a â€œNo task to displayâ€� message
+2a1. System displays a no task to display message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Find task
@@ -484,7 +564,7 @@ ____
 *MSS*
 
 1. User requests to find a task using a keyword
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 
 Use case ends
 
@@ -493,7 +573,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -501,10 +581,12 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Undo last action
@@ -512,7 +594,7 @@ ____
 *MSS*
 
 1. User requests to undo the last action
-2. 2Do undos the last action and returns the to-do list to its previous state
+2. System undos the last action and returns the to-do list to its previous state
 
 Use case ends
 
@@ -521,10 +603,12 @@ Use case ends
 2a. No actions were done previously
 
 ____
-2a1. 2Do displays an error message
+2a1. System displays an error message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Edit task
@@ -532,9 +616,9 @@ ____
 *MSS*
 
 1. User searches for a task using *list* or *find*
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
-4. 2Do updates the task and shows a success message
+4. System updates the task and shows a success message
 
 Use case ends
 
@@ -543,7 +627,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -551,7 +635,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -559,10 +643,12 @@ ____
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
+
+---
 
 [discrete]
 === Use case: Mark task as complete
@@ -570,9 +656,9 @@ ____
 *MSS*
 
 1. User searches for a task using *list* or *find*
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 3. User requests to mark the task as complete by using its index
-4. 2Do updates the task and shows a success message
+4. System updates the task and shows a success message
 
 Use case ends
 
@@ -581,7 +667,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -589,7 +675,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -597,7 +683,7 @@ ____
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
@@ -605,10 +691,12 @@ ____
 3b. Task is already marked as complete
 
 ____
-3b1. 2Do displays an error message
+3b1. System displays an error message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Mark task as incomplete
@@ -616,9 +704,9 @@ ____
 *MSS*
 
 1. User searches for a completed task using *list -h* or *find -h*
-2. 2Do displays all relevant tasks
+2. System displays all relevant tasks
 3. User requests to mark the task as incomplete by using its index
-4. 2Do updates the task and shows a success message
+4. System updates the task and shows a success message
 
 Use case ends
 
@@ -627,7 +715,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -635,7 +723,7 @@ ____
 2b. No tasks to display
 
 ____
-2b1. 2Do displays a â€œNo task to displayâ€� message
+2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -643,7 +731,7 @@ ____
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
@@ -651,10 +739,12 @@ ____
 3b. Task is already marked as complete
 
 ____
-3b1. 2Do displays an error message
+3b1. System displays an error message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Display help guide
@@ -662,7 +752,7 @@ ____
 *MSS*
 
 1. User requests for help guide
-2. 2Do displays help guide
+2. System displays help guide
 
 Use case ends
 
@@ -671,20 +761,22 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Display options
 
 *MSS*
 
-1. User requests to view the general options available on 2Do
-2. 2Do displays its general options
+1. User requests to view the general options available on system
+2. System displays its general options
 3. User requests to change the general options
-4. 2Do updates its general options
+4. System updates its general options
 
 Use case ends
 
@@ -693,10 +785,12 @@ Use case ends
 3a. User input is invalid
 
 ____
-3a1. 2Do displays an error message
+3a1. System displays an error message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Save to-do list
@@ -704,7 +798,7 @@ ____
 *MSS*
 
 1. User requests to save the to-do list
-2. 2Do saves the current to-do list and exports it as a text file in the directory specified
+2. System saves the current to-do list and exports it as a text file in the directory specified
 
 Use case ends
 
@@ -713,10 +807,12 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
+
+---
 
 [discrete]
 === Use case: Clear to-do list
@@ -724,9 +820,9 @@ ____
 *MSS*
 
 1. User requests to clear the to-do list
-2. 2Do prompts the user to confirm the clear request
+2. System prompts the user to confirm the clear request
 3. User confirms the clear request
-4. 2Do clears the to-do list and shows a success message
+4. System clears the to-do list and shows a success message
 
 Use case ends
 
@@ -735,7 +831,7 @@ Use case ends
 1a. User input is invalid
 
 ____
-1a1. 2Do displays an error message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -746,13 +842,15 @@ ____
 Use case ends
 ____
 
+---
+
 [discrete]
-=== Use case: Quit 2Do
+=== Use case: Quit system
 
 *MSS*
 
-1. User requests to quit 2Do
-2. 2Do shuts down
+1. User requests to quit system
+2. System shuts down
 
 Use case ends
 
@@ -782,7 +880,21 @@ ____
 Floating task
 
 ____
-Task without a fixed deadline
+Task without an end time
+____
+
+[[task-with-deadline]]
+Task with deadline
+
+____
+Task with an end time and without a start time
+____
+
+[[event]]
+Event
+
+____
+Task with a start time and an end time
 ____
 
 [[recurring-task]]
@@ -829,11 +941,11 @@ Author: Ang Lang Yi
 
 Pros:
 
-* User friendly commands
-* Simple interface that makes it easy to navigate around
+* User friendly commands, through simply filling its short and simple forms to handle tasks
+* Simple interface makes it easy to navigate around
 * Calendar interface allows the user to easily find empty slots to schedule tasks
 * Calendar can be viewed in a year, month, day or agenda format
-* Import and view other peopleâ€™s calendars for better collaboration
+* Import and view other people's calendars for better collaboration
 * Reminders can be set to a task
 
 Cons:
@@ -842,15 +954,17 @@ Cons:
 * Navigation requires mouse usage instead of command line
 * Internet connection is required
 
+---
+
 *Todoist*
 
 Author: Teo Shu Qi
 
 Pros:
 
-* Features are easy to understand and use
+* Features are intuitive as users simply need to fill in the short and simple forms provided to handle their tasks
 * Different categories are available to separate different kinds of tasks
-* Each category allows a weekly and daily view of its tasks
+* Each category allows a daily and weekly view of its tasks
 * link:#recurring-task[Recurring tasks] can be added
 * Different priority levels can be set for tasks
 * Filter and find tasks according to priority level and link:#floating-task[floating tasks]
@@ -861,6 +975,8 @@ Cons:
 * Some features (e.g. comments)  require a monthly subscription
 * Navigation requires mouse usage instead of command line
 * Internet connection is required
+
+---
 
 *Trello*
 
@@ -877,11 +993,13 @@ Pros:
 
 Cons:
 
-* Features are not intuitive and requires reference to a guide to learn
-* Troublesome to setup the calendar
+* Adding a task is not intuitive as its respective form is cluttered with additional features that makes it difficult to know which fields are mandatory
+* Setting up the calendar is dependent on another calendar application (e.g. _Google Calendar_) as it supports calendar import by other applications but lacks its own native calendar
 * link:#recurring-task[Recurring tasks] cannot be added
 * A command line interface is not available
 * Internet connection is required
+
+---
 
 *Wunderlist*
 
@@ -889,8 +1007,9 @@ Author: Yogamurti Sutanto
 
 Pros:
 
-* User friendly interface
-* Various backgrounds to suit the user's preferences
+* Short and simple forms are used to allow easy handling of tasks
+* Straightforward and uncluttered interface makes it easy for navigation
+* Various backgrounds are available to suit the user's preferences
 * Sort uncompleted tasks in various ways
 * Tasks can be starred to indicate importance and segregate them from other tasks
 * Categories can be added to tasks for better organization
