@@ -20,13 +20,13 @@ public class MarkCommandParserTest {
     private MarkCommandParser parser = new MarkCommandParser();
 
     @Test
-    public void parse_validArgs_returnsMarkCommand() throws Exception {
+    public void parseValidArgsReturnsMarkCommand() throws Exception {
         MarkCommand command = parser.parse("1");
         assertEquals(INDEX_FIRST_TASK, command.targetIndex);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() throws Exception {
+    public void parseInvalidArgsThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
 
