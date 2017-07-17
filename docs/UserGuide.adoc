@@ -250,21 +250,33 @@ Example: `quit`
 
 == Command Summary
 
-[width="80%",cols="33%, 33%, <33%",options="header"]
+[width="80%",options="header",]
 |=======================================================================
 |Command|Main Format|Example
-|help / -h|help [name of command]|help add
+
+|help / -h |help [name of command] |help add
+
 |add / -a /+|add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]|add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true
+
 |delete / del / -d / -|delete [-h] {index}|delete 1
+
 |list / -l|list [-h] s/[start] e/[end]|list s/today
+
 |find / -f|find [-h] {keyword}|find work
+
 |undo / -u|undo|undo
+
 |edit / -e|edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]|edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true
+
 |mark / -m|mark {index}|mark 4
+
 |unmark / -un|unmark {index}|unmark 4
+
 |option (In-development)/ -o|option a/[alarm] m/ [mark completion automatically]|option a/1 minute m/true
+
 |save / -s|save [-h] [directory]|save C:\Program Files\Common Files\2Do.txt
+
 |clear / -c|clear [-h]|clear
+
 |exit / quit / -q|quit|quit
 |=======================================================================
-
