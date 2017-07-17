@@ -32,7 +32,7 @@ image::JoelAng.jpg[width="150", align="left"]
 * Features implemented:
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#listing-all-tasks-code-list-l-code[List all tasks]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#finding-a-task-code-find-f-code[Find task]
-* Code written: TODO
+* Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0107433N.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0107433N.md[[test code]]
 * Other major contributions:
 ** Autosort tasks by deadline https://github.com/CS2103JUN2017-T3/main/pull/118[[#118]]
 
@@ -46,7 +46,7 @@ image::teoshuqi.png[width="150", align="left"]
 * Features implemented:
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#undoing-the-last-action-code-undo-u-code[Undo]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#saving-list-code-save-s-code[Save]
-* Code written: TODO
+* Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0162253M.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0162253M.md[[test code]]
 * Other major contributions:
 ** Implemented history tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
 
@@ -61,7 +61,7 @@ image::Yoga.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#marking-a-task-as-complete-code-mark-m-code[Mark as complete]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#marking-a-task-as-incomplete-code-unmark-un-code[Mark as incomplete]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-the-default-options-code-option-o-code[Adjust default options] (In-development)
-* Code written: TODO
+* Code written: Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0139267W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0139267W.md[[test code]]
 * Other major contributions:
 ** Set up Travis, Appveyor, Coveralls and Codacy
 ** In charge of reviewing and merging pull requests
