@@ -7,28 +7,28 @@ import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Taskbook objects.
  * Example usage: <br>
- *     {@code TaskBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskBook tb = new TaskBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class TaskBookBuilder {
 
     private TaskBook taskBook;
 
-    public AddressBookBuilder() {
+    public TaskBookBuilder() {
         taskBook = new TaskBook();
     }
 
-    public AddressBookBuilder(TaskBook taskBook) {
+    public TaskBookBuilder(TaskBook taskBook) {
         this.taskBook = taskBook;
     }
 
-    public AddressBookBuilder withPerson(Task task) throws DuplicateTaskException {
+    public TaskBookBuilder withTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
+    public TaskBookBuilder withTag(String tagName) throws IllegalValueException {
         taskBook.addTag(new Tag(tagName));
         return this;
     }
