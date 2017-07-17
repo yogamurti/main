@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -61,7 +62,11 @@ public class CommandHistory {
     public void addToUserInputHistory(String userInput) throws ParseException {
         requireNonNull(userInput);
         String commandWord = getCommandWordFromInput(userInput);
-        if (!userInput.equals(RedoCommand.COMMAND_WORD) && !userInput.equals(RedoCommand.COMMAND_WORD_UNIXSTYLE)) {
+        boolean isUndoRedo = userInput.equals(RedoCommand.COMMAND_WORD)
+                || userInput.equals(RedoCommand.COMMAND_WORD_UNIXSTYLE)
+                || userInput.equals(UndoCommand.COMMAND_WORD)
+                || userInput.equals(UndoCommand.COMMAND_WORD_UNIXSTYLE);
+        if (!isUndoRedo) {
             getUserInputHistory().push(commandWord);
         }
     }

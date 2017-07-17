@@ -41,6 +41,7 @@ public class UnmarkCommand extends Command {
 
         try {
             model.unmarkTask(taskToUnmark);
+            history.addToUnmarkHistory(taskToUnmark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
