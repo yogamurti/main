@@ -15,6 +15,7 @@ public class HelpCommandParser {
     public HelpCommandParser() {
     }
 
+    //@@author A0107433N
     public HelpCommand parse(String args) throws ParseException {
         switch (args.trim()) {
         case AddCommand.COMMAND_WORD:
