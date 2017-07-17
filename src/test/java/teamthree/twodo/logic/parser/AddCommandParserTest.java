@@ -1,7 +1,6 @@
 package teamthree.twodo.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -20,10 +19,8 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_WORK;
 
 import org.junit.Test;
 
-import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.Command;
-import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.FloatingTaskBuilder;
@@ -50,22 +47,6 @@ public class AddCommandParserTest {
 
         // no end date
         assertParseFailure(NAME_DESC_MOD + " " + PREFIX_DEADLINE_START + VALID_START_DATE, MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
-    public void equalsFailsSuccessfully() {
-        AddCommandParser command = new AddCommandParser();
-        Index targetIndex = Index.fromOneBased(1);
-        DeleteCommand other = new DeleteCommand(targetIndex);
-        assertFalse(command.equals(other));
-    }
-
-    @Test
-    public void equalsReturnsTrueSuccessfully() {
-        AddCommandParser command = new AddCommandParser();
-        assertTrue(command.equals(command));
-        AddCommandParser other = new AddCommandParser();
-        assertTrue(command.equals(other));
     }
 
     @Test

@@ -36,9 +36,7 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    /**
-     * Creates an AddCommand to add the specified {@code ReadOnlyTask}
-     */
+    // Creates an AddCommand to add the specified {@code ReadOnlyTask}
     public AddCommand(ReadOnlyTask task) {
         if (task instanceof TaskWithDeadline) {
             toAdd = new TaskWithDeadline(task);

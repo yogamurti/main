@@ -18,6 +18,9 @@ import org.junit.Test;
 
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.model.Model;
@@ -183,7 +186,8 @@ public class EditCommandTest {
      */
     private EditCommand prepareCommand(Index index, EditTaskDescriptor descriptor) {
         EditCommand editCommand = new EditCommand(index, descriptor);
-        editCommand.setData(model, new CommandHistory(), null);
+        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        editCommand.setData(model, new CommandHistory(), null, optionsPrefs);
         return editCommand;
     }
 

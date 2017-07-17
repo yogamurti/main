@@ -15,6 +15,9 @@ import org.junit.rules.ExpectedException;
 
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
@@ -102,7 +105,8 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
-        command.setData(model, new CommandHistory(), null);
+        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        command.setData(model, new CommandHistory(), null, optionsPrefs);
         return command;
     }
 
@@ -181,6 +185,11 @@ public class AddCommandTest {
         public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
                 boolean listIncomplete) {
             fail("This method should not be called.");
+        }
+
+        @Override
+        public void setTaskBook(ReadOnlyTaskBook taskBook) {
+            // TODO Auto-generated method stub
         }
     }
 

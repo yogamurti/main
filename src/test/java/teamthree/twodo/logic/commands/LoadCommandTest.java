@@ -12,17 +12,10 @@ import com.google.common.eventbus.Subscribe;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
-import teamthree.twodo.model.Model;
-import teamthree.twodo.model.ModelManager;
-import teamthree.twodo.model.UserPrefs;
-import teamthree.twodo.testutil.TypicalTask;
 
-public class SaveCommandTest {
-
+public class LoadCommandTest {
     private static final String VALID_FILEPATH = "data/2Do.xml";
     private static final String INVALID_FILEPATH = "data/2Do.txt";
-
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
 
     private boolean isEventCaught = false;
 
@@ -37,25 +30,21 @@ public class SaveCommandTest {
     }
 
     @Test
-    public void excecute_save_success() throws CommandException {
-        SaveCommand saveCommand = new SaveCommand(VALID_FILEPATH);
-        saveCommand.setData(model, null, null, null);
-        CommandResult result = saveCommand.execute();
-        assertEquals(String.format(SaveCommand.MESSAGE_SUCCESS , VALID_FILEPATH), result.feedbackToUser);
+    public void excecute_load_success() throws CommandException {
+        CommandResult result = new LoadCommand(VALID_FILEPATH).execute();
+        assertEquals(String.format(LoadCommand.MESSAGE_SUCCESS , VALID_FILEPATH), result.feedbackToUser);
         assertTrue(isEventCaught);
     }
 
     @Test
-    public void excecute_save_throwCommandException() throws CommandException {
+    public void excecute_load_throwCommandException() throws CommandException {
         try {
-            SaveCommand saveCommand = new SaveCommand(INVALID_FILEPATH);
-            saveCommand.setData(model, null, null, null);
-            saveCommand.execute();
-        } catch ( CommandException e) {
+            LoadCommand loadCommand = new LoadCommand(INVALID_FILEPATH);
+            loadCommand.execute();
+        } catch (CommandException e) {
             assertEquals(String.format(String.format(SaveCommand.MESSAGE_INVALID_PATH, INVALID_FILEPATH)),
                 e.getMessage());
             assertFalse(isEventCaught);
         }
     }
 }
-

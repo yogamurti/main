@@ -27,4 +27,5 @@ public class MarkCommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
     }
+
 }

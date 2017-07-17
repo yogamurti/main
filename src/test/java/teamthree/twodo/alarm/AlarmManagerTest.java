@@ -62,7 +62,7 @@ public class AlarmManagerTest {
         alarm = new AlarmManager(model);
         try {
             //Need to wait for event to be caught
-            Thread.sleep(50);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.toString();
         }
@@ -189,6 +189,12 @@ public class AlarmManagerTest {
 
         @Override
         public void updateFilteredListToShowAllComplete() {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setTaskBook(ReadOnlyTaskBook taskBook) {
             // TODO Auto-generated method stub
 
         }
