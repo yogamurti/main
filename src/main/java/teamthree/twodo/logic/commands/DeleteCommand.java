@@ -1,4 +1,3 @@
-//@@author A0162253M - reused
 package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.commons.core.Messages;
@@ -8,9 +7,8 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-/**
- * Deletes a task identified using its last displayed index from the TaskBook.
- */
+//@@author A0162253M - reused
+// Deletes a task identified using its last displayed index from the TaskBook.
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";

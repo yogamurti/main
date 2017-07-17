@@ -1,4 +1,3 @@
-//@@author A0139267W
 package teamthree.twodo.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -224,6 +223,7 @@ public class ParserUtil {
         return dayAndPrefix.length > 1 ? dayAndPrefix[dayAndPrefix.length - 1] : dayAndPrefix[0];
     }
 
+    //@@author A0139267W
     /**
      * Parses a {@code Optional<String> alarm} into an {@code Optional
      * <Alarm>} if {@code alarm} is present.
