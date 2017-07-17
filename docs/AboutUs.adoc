@@ -6,7 +6,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-==== https://github.com/radneran[V Narendar Nag]
+=== https://github.com/radneran[V Narendar Nag]
 image::NarenV.jpg[width="150", align="left"]
 
 * Component(s) in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#model-component[Model]
@@ -38,7 +38,7 @@ image::JoelAng.jpg[width="150", align="left"]
 
 '''
 
-==== https://github.com/teoshuqi[Teo Shu Qi]
+=== https://github.com/teoshuqi[Teo Shu Qi]
 image::teoshuqi.png[width="150", align="left"]
 
 * Component(s) in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#storage-component[Storage]
@@ -52,7 +52,7 @@ image::teoshuqi.png[width="150", align="left"]
 
 '''
 
-==== https://github.com/yogamurti[Yogamurti Sutanto]
+=== https://github.com/yogamurti[Yogamurti Sutanto]
 image::Yoga.jpg[width="150", align="left"]
 
 * Component(s) in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#ui-component[UI]
