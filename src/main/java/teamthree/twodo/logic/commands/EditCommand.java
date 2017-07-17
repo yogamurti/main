@@ -86,7 +86,7 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }
-        model.updateFilteredListToShowAllIncomplete();
+        model.updateFilteredListToShowAllIncomplete(null, false);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
     }
 
