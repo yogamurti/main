@@ -145,10 +145,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowPeriod(Deadline deadline,
+    public void updateFilteredTaskListToShowPeriod(Deadline deadline,
             AttributeInputted attInput, boolean listIncomplete, Set<Tag> tagList) {
         updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput,
                 listIncomplete, tagList)));
+    }
+
+    @Override
+    public void updateFilteredTaskListToEmpty() {
+        filteredTasks.setPredicate(task -> false);
     }
 
     /**

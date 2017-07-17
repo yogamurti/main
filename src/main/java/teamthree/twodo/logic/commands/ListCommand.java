@@ -76,7 +76,7 @@ public class ListCommand extends Command {
                 }
             }
         } else {
-            model.updateFilteredListToShowPeriod(deadline, attInput, listIncomplete, tagList);
+            model.updateFilteredTaskListToShowPeriod(deadline, attInput, listIncomplete, tagList);
             String message;
             switch (attInput) {
             case START:

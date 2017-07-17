@@ -222,7 +222,7 @@ public class LogicManagerTest {
     }
 
     /* The following two tests fail because matcher.matches() fails to find pattern
-     * but the exact same command works when executed outside of the unittest
+     * but the exact same command works when executed outside of the unit test
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -313,7 +313,7 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> personList = helper.generatePersonList(2);
+        List<Task> personList = helper.generateTaskList(2);
 
         // set AB state to 2 persons
         model.resetData(new TaskBook());
@@ -336,9 +336,10 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand(DeleteCommand.COMMAND_WORD);
     }
 
-    /*public void execute_delete_removesCorrectPerson() throws Exception {
+    @Test
+    public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateTaskList(3);
 
         Model expectedModel = new ModelManager(helper.generateTaskBook(threePersons), new UserPrefs());
         expectedModel.deleteTask(threePersons.get(1));
@@ -346,7 +347,7 @@ public class LogicManagerTest {
 
         assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)), expectedModel);
-    }*/
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() {
@@ -459,8 +460,9 @@ public class LogicManagerTest {
          *            used to generate the person data field values
          */
         Task generateTask(int seed) throws Exception {
-            return new Task(new Name("Task " + seed), new Description("Task ID " + seed),
-                    getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
+            return new TaskWithDeadline(new Name("Task " + seed),
+                    new Deadline("today " + seed + "am", "tomorrow " + seed + "pm", Deadline.NULL_VALUE),
+                    new Description("Task ID " + seed), getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
         /** Generates the correct add command based on the person given */
@@ -488,7 +490,7 @@ public class LogicManagerTest {
          */
         TaskBook generateTaskBook(int numGenerated) throws Exception {
             TaskBook taskBook = new TaskBook();
-            addToAddressBook(taskBook, numGenerated);
+            addToTaskBook(taskBook, numGenerated);
             return taskBook;
         }
 
@@ -507,8 +509,8 @@ public class LogicManagerTest {
          * @param taskBook
          *            The TaskBook to which the Persons will be added
          */
-        void addToAddressBook(TaskBook taskBook, int numGenerated) throws Exception {
-            addToAddressBook(taskBook, generatePersonList(numGenerated));
+        void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception {
+            addToAddressBook(taskBook, generateTaskList(numGenerated));
         }
 
         /**
@@ -527,7 +529,7 @@ public class LogicManagerTest {
          *            The model to which the Persons will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception {
-            addToModel(model, generatePersonList(numGenerated));
+            addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
@@ -542,7 +544,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Persons based on the flags.
          */
-        List<Task> generatePersonList(int numGenerated) throws Exception {
+        List<Task> generateTaskList(int numGenerated) throws Exception {
             List<Task> tasks = new ArrayList<>();
             for (int i = 1; i <= numGenerated; i++) {
                 tasks.add(generateTask(i));
