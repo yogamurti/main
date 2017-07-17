@@ -160,13 +160,10 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Subscribe
     private void handleAddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent event) {
+        // Scrolls to newly edited/added task
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        //if (event.targetIndex == AddOrEditCommandExecutedEvent.ADD_EVENT) {
         mainWindow.getTaskListPanel()
-                .scrollTo(mainWindow.getTaskListPanel().getRoot().getChildrenUnmodifiable().indexOf(event.task));
-        /*
-         * } else { mainWindow.getTaskListPanel().scrollTo(event.targetIndex); }
-         */
+                .scrollTo(mainWindow.getTaskListPanel().getListView().getItems().indexOf(event.task));
     }
 
 }

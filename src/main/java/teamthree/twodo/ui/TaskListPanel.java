@@ -17,7 +17,6 @@ import teamthree.twodo.model.task.ReadOnlyTask;
  */
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "TaskListPanel.fxml";
-    private static final int INDEX_OFFSET = 1;
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
@@ -50,8 +49,8 @@ public class TaskListPanel extends UiPart<Region> {
         });
     }
 
-    public int getLastIndexOfListView() {
-        return taskListView.getItems().size() - INDEX_OFFSET;
+    public ListView<ReadOnlyTask> getListView() {
+        return taskListView;
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
