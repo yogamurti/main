@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
     private static final int INDEX_OFFSET = 1;
 
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ArrayList<String> previousUserInput;
     private int index;
@@ -114,6 +114,7 @@ public class CommandBox extends UiPart<Region> {
      */
     @Subscribe
     public void handleNewUserInputEvent(NewUserInputEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         previousUserInput = logic.getCommandHistory().getHistory();
         index = previousUserInput.size() - INDEX_OFFSET;
     }
