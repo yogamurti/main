@@ -250,7 +250,7 @@ Example: `quit`
 
 == Command Summary
 
-[width="80%", cols="^,^,^", options="header",]
+[width="80%", cols="^,^,^", options="header"]
 |=======================================================================
 |Command|Main Format|Example
 
