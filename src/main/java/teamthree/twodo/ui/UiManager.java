@@ -161,11 +161,12 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleAddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetIndex == AddOrEditCommandExecutedEvent.ADD_EVENT) {
-            mainWindow.getTaskListPanel().scrollTo(mainWindow.getTaskListPanel().getLastIndexOfListView());
-        } else {
-            mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-        }
+        //if (event.targetIndex == AddOrEditCommandExecutedEvent.ADD_EVENT) {
+        mainWindow.getTaskListPanel()
+                .scrollTo(mainWindow.getTaskListPanel().getRoot().getChildrenUnmodifiable().indexOf(event.task));
+        /*
+         * } else { mainWindow.getTaskListPanel().scrollTo(event.targetIndex); }
+         */
     }
 
 }
