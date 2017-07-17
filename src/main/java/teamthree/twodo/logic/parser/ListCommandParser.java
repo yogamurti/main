@@ -14,6 +14,10 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 
+//@@author A0107433N
+/**
+ * Parses input arguments and creates a new ListCommand object
+ */
 public class ListCommandParser {
 
     /**
