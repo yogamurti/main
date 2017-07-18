@@ -69,12 +69,12 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskBook latestSavedAddressBook;
+    private ReadOnlyTaskBook latestSavedTaskBook;
     private boolean helpShown;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
-        latestSavedAddressBook = new TaskBook(abce.data);
+        latestSavedTaskBook = new TaskBook(abce.data);
     }
 
     @Subscribe
@@ -88,7 +88,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date
+        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date
         helpShown = false;
     }
 
@@ -168,7 +168,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskBook(), latestSavedAddressBook);
+        assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
     }
 
     @Test
@@ -206,7 +206,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void executeAddInvalidPersonData() {
+    public void executeAddInvalidTaskData() {
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "/ " + PREFIX_DEADLINE_END + "fri 2am "
                 + PREFIX_DESCRIPTION + "valid, desc", Name.MESSAGE_NAME_CONSTRAINTS);
         assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name " + PREFIX_DEADLINE_END
@@ -238,7 +238,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskBook(), latestSavedAddressBook);
+        assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
 
     }
 */
@@ -265,12 +265,12 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskBook(), latestSavedAddressBook);
+        assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
 
     }
 */
     @Test
-    public void executeListShowsAllPersons() throws Exception {
+    public void executeListShowsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         Model expectedModel = new ModelManager(helper.generateTaskBook(2), new UserPrefs());
@@ -283,10 +283,10 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
-     * command targeting a single person in the shown list, using visible index.
+     * command targeting a single task in the shown list, using visible index.
      *
      * @param commandWord
-     *            to test assuming it targets a single person in the last shown
+     *            to test assuming it targets a single task in the last shown
      *            list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
@@ -309,11 +309,11 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> personList = helper.generateTaskList(2);
+        List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 persons
         model.resetData(new TaskBook());
-        for (Task p : personList) {
+        for (Task p : taskList) {
             model.addTask(p);
         }
 
@@ -333,16 +333,16 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void executeDeleteRemovesCorrectPerson() throws Exception {
+    public void executeDeleteRemovesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
+        List<Task> threeTasks = helper.generateTaskList(3);
 
-        Model expectedModel = new ModelManager(helper.generateTaskBook(threePersons), new UserPrefs());
-        expectedModel.deleteTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        Model expectedModel = new ModelManager(helper.generateTaskBook(threeTasks), new UserPrefs());
+        expectedModel.deleteTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
 
         assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)), expectedModel);
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedModel);
     }
 
     @Test
