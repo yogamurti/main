@@ -102,9 +102,10 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
+    /*
     private void showNoTask(Model model) {
         model.updateFilteredTaskList(Collections.emptySet(), true);
 
         assert model.getFilteredAndSortedTaskList().isEmpty();
-    }
+    }*/
 }
