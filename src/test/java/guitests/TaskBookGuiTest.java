@@ -46,7 +46,7 @@ public abstract class TaskBookGuiTest {
 
     public TestName name = new TestName();
 
-    protected TypicalTask td = new TypicalTask();
+    protected TypicalTask td = new TypicalTask(TypicalTask.TaskType.FLOATING);
 
     /**
      * Handles to GUI elements present at the start up are created in advance
