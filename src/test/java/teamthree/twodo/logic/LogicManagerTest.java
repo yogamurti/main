@@ -30,9 +30,6 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.core.options.Alarm;
-import teamthree.twodo.commons.core.options.AutoMark;
-import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
@@ -88,8 +85,7 @@ public class LogicManagerTest {
     @Before
     public void setUp() {
         model = new ModelManager();
-        DefaultOption usersPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
-        logic = new LogicManager(model, usersPrefs);
+        logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date
