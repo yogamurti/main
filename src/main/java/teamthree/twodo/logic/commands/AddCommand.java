@@ -15,6 +15,7 @@ import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
+//@@author A0124399W
 /**
  * Adds a task to the TaskBook.
  */
@@ -51,7 +52,7 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             history.addToAddHistory(toAdd);
-            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent.ADD_EVENT));
+            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(toAdd));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

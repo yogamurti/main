@@ -15,7 +15,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD_UNIXSTYLE = "-r";
     public static final String MESSAGE_SUCCESS = "Successfully redid command!!!\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to redo: You have not yet entered any undo commands.";
-    public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
+    public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to redo: Invalid previous command ";
 
     private static String fullMessage;
 
@@ -74,7 +74,7 @@ public class RedoCommand extends Command {
 
         case ClearCommand.COMMAND_WORD:
             model.resetData(new TaskBook());
-            fullMessage = MESSAGE_SUCCESS.concat("Restored TaskBook");
+            fullMessage = MESSAGE_SUCCESS.concat(ClearCommand.MESSAGE_SUCCESS);
             return new CommandResult(fullMessage);
 
         case UnmarkCommand.COMMAND_WORD:
@@ -94,7 +94,7 @@ public class RedoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToMark));
 
         default:
-            String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(history.getUserInputHistory().peek());
+            String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(previousCommandWord);
             return new CommandResult(message);
         }
     }

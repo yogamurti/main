@@ -1,3 +1,4 @@
+
 package teamthree.twodo.logic;
 
 import static java.util.Objects.requireNonNull;
@@ -7,8 +8,11 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
+import teamthree.twodo.commons.core.EventsCenter;
+import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
+import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -45,6 +49,7 @@ public class CommandHistory {
     public void add(String userInput) {
         requireNonNull(userInput);
         fullUserInputHistory.add(userInput);
+        EventsCenter.getInstance().post(new NewUserInputEvent(this.getHistory()));
     }
 
     /**
@@ -56,12 +61,17 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
+     *
      * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {
         requireNonNull(userInput);
         String commandWord = getCommandWordFromInput(userInput);
-        if (!userInput.equals(RedoCommand.COMMAND_WORD) && !userInput.equals(RedoCommand.COMMAND_WORD_UNIXSTYLE)) {
+        boolean isUndoRedo = userInput.equals(RedoCommand.COMMAND_WORD)
+                || userInput.equals(RedoCommand.COMMAND_WORD_UNIXSTYLE)
+                || userInput.equals(UndoCommand.COMMAND_WORD)
+                || userInput.equals(UndoCommand.COMMAND_WORD_UNIXSTYLE);
+        if (!isUndoRedo) {
             getUserInputHistory().push(commandWord);
         }
     }

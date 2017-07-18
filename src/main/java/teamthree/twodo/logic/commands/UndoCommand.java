@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String COMMAND_WORD_UNIXSTYLE = "-u";
     public static final String MESSAGE_SUCCESS = "Successfully undid command!!!\n";
-    public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands.";
+    public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands. ";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
 
     private static String fullMessage;
@@ -90,12 +90,12 @@ public class UndoCommand extends Command {
             ReadOnlyTask taskToMark = history.getUnmarkHistory().pop();
             undoHistory.addToMarkHistory(taskToMark);
             model.markTask(taskToMark);
-            fullMessage = MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
+            fullMessage = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, taskToMark));
 
         default:
-            String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(history.getUserInputHistory().peek());
-            return new CommandResult(message + previousCommandWord);
+            String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(previousCommandWord);
+            return new CommandResult(message);
         }
     }
 }
