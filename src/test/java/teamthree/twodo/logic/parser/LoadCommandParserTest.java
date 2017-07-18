@@ -21,13 +21,13 @@ public class LoadCommandParserTest {
     private LoadCommandParser parser = new LoadCommandParser();
 
     @Test
-    public void parse_validArgs_returnsLoadCommand() throws Exception {
+    public void parseValidArgsReturnsLoadCommand() throws Exception {
         LoadCommand command = parser.parse(VALID_FILENAME);
         assertEquals(VALID_FILENAME, command.filePath);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() throws Exception {
+    public void parseInvalidArgsThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_USAGE));
 

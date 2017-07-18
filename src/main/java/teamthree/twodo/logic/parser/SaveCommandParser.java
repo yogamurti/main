@@ -4,7 +4,6 @@ import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 
 import java.io.File;
 
-import teamthree.twodo.logic.commands.LoadCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
@@ -22,7 +21,7 @@ public class SaveCommandParser {
         if (!file.isDirectory() || !file.exists()) {
             return new SaveCommand(args.trim());
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
     }
 
