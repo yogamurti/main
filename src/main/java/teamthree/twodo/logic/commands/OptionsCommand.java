@@ -2,10 +2,8 @@ package teamthree.twodo.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import teamthree.twodo.MainApp;
 import teamthree.twodo.automark.AutoMarkManager;
 import teamthree.twodo.commons.core.Config;
-import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.options.Alarm;
 import teamthree.twodo.commons.core.options.AutoMark;
 import teamthree.twodo.commons.core.options.Options;
@@ -38,8 +36,6 @@ public class OptionsCommand extends Command {
     public OptionsCommand(Options option) {
         this.option = option;
         defaultOption = getDefaultOption();
-        LogsCenter.getLogger(MainApp.class).info("1:Option entered :" + option.toString());
-        LogsCenter.getLogger(MainApp.class).info("2:Option entered :" + defaultOption.toString());
     }
 
     @Override
