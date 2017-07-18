@@ -18,7 +18,8 @@ public class TypicalTask {
 
     public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida, partyCompleted;
 
-    public TypicalTask() {
+    /*
+     * public TypicalTask() {
         try {
             cs2103 = new TaskWithDeadlineBuilder().withName("CS2013")
                     .withDescription("Project V0.5").withDeadline("17 april 2018 10am")
@@ -45,8 +46,8 @@ public class TypicalTask {
         } catch (IllegalValueException e) {
             throw new AssertionError("Sample data cannot be invalid", e);
         }
-    }
-    public TypicalTask(int isFloating) {
+    }*/
+    public TypicalTask() {
         try {
             cs2103 = new FloatingTaskBuilder().withName("CS2013")
                     .withDescription("Project V0.5")

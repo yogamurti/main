@@ -41,7 +41,7 @@ public class EditCommandTest extends TaskBookGuiTest {
      * editedPerson); }
      */
     @Test
-    public void edit_notAllFieldsSpecified_success() throws Exception {
+    public void editNotAllFieldsSpecifiedSuccess() throws Exception {
         commandBox.runCommand(listFloating);
         //add task if list is empty
         if (personListPanel.getNumberOfTasks() == 0) {
@@ -58,7 +58,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void edit_clearTags_success() throws Exception {
+    public void editClearTagsSuccess() throws Exception {
         commandBox.runCommand(listFloating);
         //add task if list is empty
         if (personListPanel.getNumberOfTasks() == 0) {
@@ -75,7 +75,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void edit_missingPersonIndex_failure() {
+    public void editMissingPersonIndexFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
         if (personListPanel.getNumberOfTasks() == 0) {
@@ -98,7 +98,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void edit_noFieldsSpecified_failure() {
+    public void editNoFieldsSpecifiedFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
         if (personListPanel.getNumberOfTasks() == 0) {
@@ -110,7 +110,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void edit_invalidValues_failure() {
+    public void editInvalidValuesFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
         if (personListPanel.getNumberOfTasks() == 0) {
@@ -124,7 +124,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void edit_duplicatePerson_failure() {
+    public void editDuplicatePersonFailure() {
         commandBox.runCommand(listFloating);
 
         commandBox.runCommand(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Alice Pauline " + PREFIX_DESCRIPTION

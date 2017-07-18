@@ -46,7 +46,7 @@ public abstract class TaskBookGuiTest {
 
     public TestName name = new TestName();
 
-    protected TypicalTask td = new TypicalTask(1);
+    protected TypicalTask td = new TypicalTask();
 
     /**
      * Handles to GUI elements present at the start up are created in advance
