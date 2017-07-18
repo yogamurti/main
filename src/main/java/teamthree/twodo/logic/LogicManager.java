@@ -34,6 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.optionPrefs = optionPrefs;
     }
 
+    //@@author A0162253M-reused
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         try {

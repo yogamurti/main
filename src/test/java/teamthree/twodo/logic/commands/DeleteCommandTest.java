@@ -53,15 +53,13 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstTaskOnly(model);
-
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_TASK);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
-
         Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        showFirstTaskOnly(expectedModel);
         expectedModel.deleteTask(taskToDelete);
-        showNoTask(expectedModel);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -90,7 +88,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the first person from the address book.
+     * Updates {@code model}'s filtered list to show only the first task from the task book.
      */
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
@@ -103,9 +101,10 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
+    /*
     private void showNoTask(Model model) {
         model.updateFilteredTaskListToEmpty();
 
         assert model.getFilteredAndSortedTaskList().isEmpty();
-    }
+    }*/
 }
