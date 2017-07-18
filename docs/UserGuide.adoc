@@ -182,14 +182,6 @@ Example: `redo`
 * Redoes the last successful undo command executed
 ****
 
-=== Redoing the last action : `redo / -r`
-
-Format: `redo` +
-Example: `redo`
-****
-* Redos the last successful undo action executed
-****
-
 === Editing a task : `edit / -e`
 
 Format: `edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
