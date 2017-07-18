@@ -18,7 +18,7 @@ public class Config {
     private static final long WEEK_TO_MILLIS = DAY_TO_MILLIS * 7;
 
     // Config values customizable through config file
-    private String appTitle = "Description App";
+    private String appTitle = "2Do";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFilePath = "data/2Do.xml";

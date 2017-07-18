@@ -10,7 +10,6 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 public class AddOrEditCommandExecutedEvent extends BaseEvent {
 
     public final ReadOnlyTask task;
-
     public AddOrEditCommandExecutedEvent(ReadOnlyTask task) {
         this.task = task;
     }
