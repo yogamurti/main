@@ -52,8 +52,8 @@ public class RedoCommandTest {
         undoHistory = new UndoCommandHistory();
         redoCommand = new RedoCommand();
         undoCommand = new UndoCommand();
-        redoCommand.setData(model, history, undoHistory, null);
-        undoCommand.setData(model, history, undoHistory, null);
+        redoCommand.setData(model, history, undoHistory);
+        undoCommand.setData(model, history, undoHistory);
         this.taskList = TestUtil.generateSampleTaskData();
     }
 
@@ -91,7 +91,7 @@ public class RedoCommandTest {
 
         //Mark Task to prepare model for undo command
         MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
-        markCommand.setData(model, history, undoHistory, null);
+        markCommand.setData(model, history, undoHistory);
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
         undoCommand.execute();
@@ -112,7 +112,7 @@ public class RedoCommandTest {
 
         //Unmark Task to prepare model for undo command
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
-        unmarkCommand.setData(model, history, undoHistory, null);
+        unmarkCommand.setData(model, history, undoHistory);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
         undoCommand.execute();
@@ -154,7 +154,7 @@ public class RedoCommandTest {
 
         //Delete Task to prepare model for undo command
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TASK);
-        deleteCommand.setData(model, history, undoHistory, null);
+        deleteCommand.setData(model, history, undoHistory);
         deleteCommand.execute();
         this.history.addToUserInputHistory(DeleteCommand.COMMAND_WORD);
         undoCommand.execute();
@@ -178,7 +178,7 @@ public class RedoCommandTest {
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
         EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
-        editCommand.setData(model, history, undoHistory, null);
+        editCommand.setData(model, history, undoHistory);
         editCommand.execute();
         this.history.addToUserInputHistory(EditCommand.COMMAND_WORD);
         undoCommand.execute();
@@ -199,7 +199,7 @@ public class RedoCommandTest {
     @Test
     public void excuteRedoInvalidCommandReturnInvalidMessage() throws ParseException, CommandException {
         HelpCommand helpCommand = new HelpCommand();
-        helpCommand.setData(model, history, undoHistory, null);
+        helpCommand.setData(model, history, undoHistory);
         helpCommand.execute();
         this.history.addToUserInputHistory(HelpCommand.COMMAND_WORD);
         undoCommand.execute();

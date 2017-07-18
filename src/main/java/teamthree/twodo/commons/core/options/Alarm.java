@@ -5,8 +5,6 @@ import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 //@@author A0139267W
 // Represents an alarm setting to be set for tasks
 public class Alarm {
-    public static final String EMPTY_ALARM = " ";
-
     public final String alarm;
 
     public Alarm(String alarm) {
@@ -36,10 +34,6 @@ public class Alarm {
     public int hashCode() {
         requireAllNonNull(alarm);
         return alarm.hashCode();
-    }
-
-    public boolean isEmpty() {
-        return alarm.equals(EMPTY_ALARM);
     }
 
 }
