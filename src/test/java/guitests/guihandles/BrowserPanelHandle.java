@@ -1,12 +1,12 @@
-/*package guitests.guihandles;
+package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 import teamthree.twodo.TestApp;
 
-*//**
+/**
  * A handler for the BrowserPanel of the UI
- *//*
+ */
 public class BrowserPanelHandle extends GuiHandle {
 
     private static final String BROWSER_ID = "#browser";
@@ -15,12 +15,11 @@ public class BrowserPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    *//**
+    /**
      * Clicks on the WebView.
-     *//*
+     */
     public void clickOnWebView() {
         guiRobot.clickOn(BROWSER_ID);
     }
 
 }
-*/

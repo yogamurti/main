@@ -29,9 +29,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 //@@author A0124399W
-/**
- * Edits the details of an existing task in the description book.
- */
+// Edits the details of an existing task in the description book.
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -93,7 +91,6 @@ public class EditCommand extends Command {
             model.updateFilteredListToShowAllIncomplete(null, true);
         }
         EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedPerson));
-
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
     }
 

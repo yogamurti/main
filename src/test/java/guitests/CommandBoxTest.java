@@ -1,4 +1,4 @@
-/*package guitests;
+package guitests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import teamthree.twodo.logic.commands.SelectCommand;
+import teamthree.twodo.logic.commands.ListCommand;
+import teamthree.twodo.testutil.TaskUtil;
 import teamthree.twodo.ui.CommandBox;
 
 public class CommandBoxTest extends TaskBookGuiTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = SelectCommand.COMMAND_WORD + " 3";
+    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD + " -f";
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -22,6 +23,12 @@ public class CommandBoxTest extends TaskBookGuiTest {
 
     @Before
     public void setUp() {
+        //Initial list floating tasks
+        commandBox.runCommand(listFloating);
+        //add if empty
+        if (personListPanel.getNumberOfTasks() == 0) {
+            commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
+        }
         defaultStyleOfCommandBox = new ArrayList<>(commandBox.getStyleClass());
         assertFalse("CommandBox default style classes should not contain error style class.",
                     defaultStyleOfCommandBox.contains(CommandBox.ERROR_STYLE_CLASS));
@@ -49,24 +56,24 @@ public class CommandBoxTest extends TaskBookGuiTest {
         assertBehaviorForSuccessfulCommand();
     }
 
-    *//**
+    /**
      * Runs a command that fails, then verifies that
      * - the return value of runCommand(...) is false,
      * - the text remains,
      * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
-     *//*
+     */
     private void assertBehaviorForFailedCommand() {
         assertFalse(commandBox.runCommand(COMMAND_THAT_FAILS));
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
         assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
-    *//**
+    /**
      * Runs a command that succeeds, then verifies that
      * - the return value of runCommand(...) is true,
      * - the text is cleared,
      * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
-     *//*
+     */
     private void assertBehaviorForSuccessfulCommand() {
         assertTrue(commandBox.runCommand(COMMAND_THAT_SUCCEEDS));
         assertEquals("", commandBox.getCommandInput());
@@ -74,4 +81,4 @@ public class CommandBoxTest extends TaskBookGuiTest {
     }
 
 }
-*/
+

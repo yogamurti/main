@@ -24,11 +24,10 @@ import teamthree.twodo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-/**
- * The manager of the UI component.
- */
+// The manager of the UI component.
 public class UiManager extends ComponentManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
@@ -37,15 +36,17 @@ public class UiManager extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private CategoryManager catMan;
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, CategoryManager catMan) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.catMan = catMan;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, prefs, logic, catMan);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -99,8 +100,9 @@ public class UiManager extends ComponentManager implements Ui {
                         "The Following tasks are nearing their deadlines\n", content.toString());
             }
         });
-    } //@@author
+    }
 
+    //@@author
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
@@ -168,6 +170,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel()
                 .scrollTo(mainWindow.getTaskListPanel().getListView().getItems().indexOf(event.task));
     }
+
     //@@author A0162253M
     @Subscribe
     public void handleNewUserInputEvent(NewUserInputEvent e) {

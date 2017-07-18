@@ -49,7 +49,6 @@ public class TaskCard extends UiPart<Region> {
         } else {
             description.setText(task.getDescription().toString());
         }
-        //email.setText(task.getEmail().value);
         initTags(task);
         // Also add a complete/incomplete tag to indicate its completion status
         String completionStatus = "Incomplete";

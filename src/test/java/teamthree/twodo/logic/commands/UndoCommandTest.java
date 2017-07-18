@@ -33,11 +33,11 @@ import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
 
+//@@author A0162253M
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * UndoCommand.
+ * UndoCommand
  */
-//@@author A0162253M
 public class UndoCommandTest {
 
     private static final int FIRST_INDEX = 1;

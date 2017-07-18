@@ -20,13 +20,13 @@ public class SampleDataUtil {
             Task firstTask = new Task(new Name("CS2103 Tutorial"),
                     new Description("Software Engineering"), getTagSet("NUS"));
             TaskWithDeadline secondTask = new TaskWithDeadline(new Name("CS2103 Project"),
-                    new Deadline("", "next Monday 10am", ""),
+                    new Deadline("next Monday 10am", "next Monday 10am", Deadline.NULL_VALUE),
                     new Description("Final Submission V0.5rc"), getTagSet("NUS"));
             TaskWithDeadline thirdTask = new TaskWithDeadline(new Name("Dinner"),
-                    new Deadline("fri 7pm", "fri 10pm", ""),
+                    new Deadline("fri 7pm", "fri 10pm", Deadline.NULL_VALUE),
                     new Description(" Ang Mo Kio"), getTagSet("Friends", "coursemates"));
             TaskWithDeadline fourthTask = new TaskWithDeadline(new Name("Shopping"),
-                    new Deadline("", "next month 2pm", ""),
+                    new Deadline("next month 2pm", "next month 2pm", Deadline.NULL_VALUE),
                     new Description("New Clothes"), getTagSet("family", "friends"));
             Task fifthTask = new Task(new Name("cca Meeting"), new Description("NUS Tues 3pm"), getTagSet("cca"));
             Task sixthTask = new Task(new Name("BuyLotion"), new Description("NTUC"), getTagSet());

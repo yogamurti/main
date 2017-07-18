@@ -1,4 +1,4 @@
-/*package guitests;
+package guitests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,12 +14,16 @@ public class ClearCommandTest extends TaskBookGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
+        commandBox.runCommand(listFloating);
+        //add task if list is empty
+        if (personListPanel.getNumberOfTasks() == 0) {
+            commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
+        }
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(TaskUtil.getAddCommand(td.hoon));
-        assertTrue(personListPanel.isListMatching(td.hoon));
+        commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
+        assertTrue(personListPanel.isListMatching(td.supermarket));
         commandBox.runCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertListSize(0);
 
@@ -33,4 +37,4 @@ public class ClearCommandTest extends TaskBookGuiTest {
         assertResultMessage("Description book has been cleared!");
     }
 }
-*/
+

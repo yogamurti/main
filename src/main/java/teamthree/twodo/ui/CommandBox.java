@@ -17,6 +17,7 @@ import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
+// Implements the commandbox user interface for the user to interact with the app
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
@@ -56,8 +57,8 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
-    //@@author A0162253M
 
+    //@@author A0162253M
     @FXML
     private void handleKeyPressed(KeyEvent e) {
         if (e.getCode().equals(KeyCode.UP)) {
@@ -67,9 +68,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    /**
-     * Displays the previous command input on the command box if it is available
-     */
+    // Displays the previous command input on the command box if it is available
     private void accessPreviousCommand() {
         if (index > 0) {
             index--;
@@ -89,16 +88,12 @@ public class CommandBox extends UiPart<Region> {
         previousUserInput = newUserInputList;
     }
 
-    /**
-     * Sets the command box style to indicate a successful command.
-     */
+    //Sets the command box style to indicate a successful command.
     private void setStyleToIndicateCommandSuccess() {
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
-    /**
-     * Sets the command box style to indicate a failed command.
-     */
+    //Sets the command box style to indicate a failed command.
     private void setStyleToIndicateCommandFailure() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();
 

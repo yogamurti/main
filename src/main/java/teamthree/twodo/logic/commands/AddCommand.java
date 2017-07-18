@@ -16,9 +16,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 //@@author A0124399W
-/**
- * Adds a task to the TaskBook.
- */
+// Adds a task to the TaskBook.
 public class AddCommand extends Command {
 
     //Command word can be any one of the three
@@ -59,10 +57,12 @@ public class AddCommand extends Command {
         }
 
     }
+
     @Override
     public String toString() {
         return this.toAdd.getAsText();
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -79,6 +79,5 @@ public class AddCommand extends Command {
         AddCommand temp = (AddCommand) other;
         return this.toString().equals(temp.toString());
     }
-
 
 }

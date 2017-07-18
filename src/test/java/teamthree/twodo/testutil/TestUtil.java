@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import teamthree.twodo.commons.util.XmlUtil;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
+import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
@@ -83,7 +85,6 @@ public class TestUtil {
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(SAMPLE_TASK_DATA);
     }
-
 
     /**
      * Appends the file name to the sandbox folder path. Creates the sandbox
@@ -151,6 +152,16 @@ public class TestUtil {
     public static Task[] removeTaskFromList(final Task[] list, Index index) {
         return removeTasksFromList(list, list[index.getZeroBased()]);
     }
+    /**
+     * Returns a copy of the list with the person at specified index removed.
+     *
+     * @param list
+     *            original list to copy from
+     */
+    public static List<ReadOnlyTask> removeTaskFromList(final List<ReadOnlyTask> list, Index index) {
+        list.remove(index.getZeroBased());
+        return list;
+    }
 
     /**
      * Appends persons to the array of persons.
@@ -175,8 +186,8 @@ public class TestUtil {
         return list;
     }
 
-    /*
-     * public static boolean compareCardAndTask(TaskCardHandle card,
-     * ReadOnlyTask person) { return card.isSamePerson(person); }
-     */
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask person) {
+        return card.isSamePerson(person);
+    }
+
 }

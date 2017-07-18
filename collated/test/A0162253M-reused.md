@@ -1,18 +1,6 @@
-package teamthree.twodo.commons.core;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-public class ConfigTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    //@@author A0162253M-reused
+# A0162253M-reused
+###### \java\teamthree\twodo\commons\core\ConfigTest.java
+``` java
     @Test
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : 2Do\n"
@@ -32,3 +20,4 @@ public class ConfigTest {
 
 
 }
+```
