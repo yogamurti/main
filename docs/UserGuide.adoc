@@ -171,7 +171,7 @@ Example: `find work`
 Format: `undo` +
 Example: `undo`
 ****
-* Undos the last successful action executed
+* Undoes the last successful action executed
 ****
 
 === Redoing the undone action : `redo / -r`
@@ -179,7 +179,7 @@ Example: `undo`
 Format: `redo` +
 Example: `redo`
 ****
-* Redoes the last successful undo action executed
+* Redoes the last successful undo command executed
 ****
 
 === Editing a task : `edit / -e`
@@ -237,7 +237,7 @@ Example: `save C:\Program Files\Common Files\2Do.txt`
 Format: `load [directory]` +
 Example: `load C:\Program Files\Common Files\2Do.txt`
 ****
-* Loads the to-do list in the directory specified
+* Loads the to-do list present in the directory specified
 * To then view the loaded to-do list, relaunch 2Do to update its task list
 ****
 
