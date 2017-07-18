@@ -10,7 +10,7 @@ public class Config {
 
     // Default notification period of 1 day. Can be changed by user.
     private static Long notificationPeriod = (long) (1000 * 60 * 60 * 24);
-    private static String notificationPeriodToString = "one day";
+    private static String notificationPeriodToString = "1 day";
     private static String defaultConfigFile = "config.json";
 
     // To change default notification period
