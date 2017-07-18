@@ -18,7 +18,7 @@ public class LoadCommandParser {
     public LoadCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         File file = new File(trimmedArgs);
-        if (!file.isDirectory() || !file.exists()) {
+        if (!file.isDirectory()) {
             return new LoadCommand(args.trim());
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoadCommand.MESSAGE_USAGE));

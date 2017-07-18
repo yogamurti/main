@@ -29,10 +29,9 @@ public class TypicalTask {
                     .withDescription("tutorial").build();
             project = new TaskWithDeadlineBuilder().withName("project").withDeadline("sat 10pm")
                     .withDescription("project").build();
-            dinner = new TaskWithDeadlineBuilder().withName("dinner").withDeadline("next week 10pm")
-                    .withDescription("Thai Food").build();
-            training = new TaskWithDeadlineBuilder().withName("training").withDeadline("next mon 3pm")
-                    .withDescription("cca training").build();
+            dinner = new FloatingTaskBuilder().withName("dinner").withDescription("Thai Food").withTags("fun").build();
+            training = new FloatingTaskBuilder().withName("training").withTags("hobby")
+                    .withDescription("training").build();
             cca = new TaskWithDeadlineBuilder().withName("cca").withDeadline("july 2018 12am")
                     .withDescription("end of term").build();
             partyCompleted = new TaskWithDeadlineBuilder().withName("party").withDeadline("last week 9am")

@@ -5,8 +5,8 @@ import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 //@@author A0139267W
 public class Options {
 
-    private final Alarm alarm;
-    private final AutoMark autoMark;
+    private Alarm alarm;
+    private AutoMark autoMark;
 
     public Options(Alarm alarm, AutoMark autoMark) {
         requireAllNonNull(alarm, autoMark);
@@ -25,6 +25,16 @@ public class Options {
 
     public AutoMark getAutoMark() {
         return autoMark;
+    }
+
+    public void editAlarm(Alarm newAlarm) {
+        requireAllNonNull(newAlarm);
+        alarm = newAlarm;
+    }
+
+    public void editAutoMark(AutoMark newAutoMark) {
+        requireAllNonNull(newAutoMark);
+        autoMark = newAutoMark;
     }
 
     @Override

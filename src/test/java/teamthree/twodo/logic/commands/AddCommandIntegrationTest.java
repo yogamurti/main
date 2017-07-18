@@ -7,9 +7,6 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import teamthree.twodo.commons.core.options.Alarm;
-import teamthree.twodo.commons.core.options.AutoMark;
-import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
@@ -67,8 +64,7 @@ public class AddCommandIntegrationTest {
      */
     private AddCommand prepareCommand(Task task, Model model) {
         AddCommand command = new AddCommand(task);
-        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
-        command.setData(model, new CommandHistory(), null, optionsPrefs);
+        command.setData(model, new CommandHistory(), null);
         return command;
     }
 }
