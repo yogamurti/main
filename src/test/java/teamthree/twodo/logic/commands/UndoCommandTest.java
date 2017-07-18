@@ -90,7 +90,7 @@ public class UndoCommandTest {
 
         //Mark Task to prepare model for undo command
         MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
-        markCommand.setData(model, history, undoHistory, null);
+        markCommand.setData(model, history, undoHistory);
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
 
@@ -110,7 +110,7 @@ public class UndoCommandTest {
 
         //Unmark Task to prepare model for undo command
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
-        unmarkCommand.setData(model, history, undoHistory, null);
+        unmarkCommand.setData(model, history, undoHistory);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
 
@@ -191,7 +191,7 @@ public class UndoCommandTest {
     @Test
     public void excuteUndoInvalidCommandReturnInvalidMessage() throws ParseException, CommandException {
         HelpCommand helpCommand = new HelpCommand();
-        helpCommand.setData(model, history, undoHistory, null);
+        helpCommand.setData(model, history, undoHistory);
         helpCommand.execute();
         this.history.addToUserInputHistory(HelpCommand.COMMAND_WORD);
         CommandResult result = undoCommand.execute();
