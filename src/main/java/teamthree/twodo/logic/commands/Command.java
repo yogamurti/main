@@ -1,7 +1,6 @@
 package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.commons.core.Messages;
-import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
@@ -15,7 +14,6 @@ public abstract class Command {
     protected Model model;
     protected CommandHistory history;
     protected UndoCommandHistory undoHistory;
-    protected DefaultOption optionsPrefs;
 
     /**
      * Constructs a feedback message to summarize an operation that displayed a
@@ -45,10 +43,9 @@ public abstract class Command {
      * @param undoHistory TODO
      */
     public void setData(Model model, CommandHistory history,
-            UndoCommandHistory undoHistory, DefaultOption optionsPref) {
+            UndoCommandHistory undoHistory) {
         this.model = model;
         this.history = history;
         this.undoHistory = undoHistory;
-        this.optionsPrefs = optionsPref;
     }
 }

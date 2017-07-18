@@ -45,9 +45,9 @@ public class ListCommandTest {
         listIncomplete = true;
 
         listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
-        listCommand.setData(model, new CommandHistory(), new UndoCommandHistory(), null);
+        listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
         listCommandWithDeadline = new ListCommand(deadline, start, listIncomplete, false, null);
-        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory(), null);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
     }
 
     @Test

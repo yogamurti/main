@@ -15,9 +15,6 @@ import org.junit.rules.ExpectedException;
 
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
-import teamthree.twodo.commons.core.options.Alarm;
-import teamthree.twodo.commons.core.options.AutoMark;
-import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
@@ -106,8 +103,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
-        DefaultOption optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
-        command.setData(model, new CommandHistory(), null, optionsPrefs);
+        command.setData(model, new CommandHistory(), null);
         return command;
     }
 
