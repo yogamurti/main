@@ -2,6 +2,7 @@ package teamthree.twodo.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.options.Options;
 // import teamthree.twodo.commons.core.EventsCenter;
 // import teamthree.twodo.commons.core.Messages;
@@ -40,9 +41,8 @@ public class OptionsCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_OPTIONS);
         }
         if (!option.getAlarm().isEmpty() && !option.getAlarm().equals(optionsPrefs.getAlarm())) {
+            Config.changeDefaultNotificationPeriod(option.getAlarm().getValue());
             optionsPrefs.editAlarm(option.getAlarm());
-        } else {
-            optionsPrefs.editAlarm(optionsPrefs.getAlarm());
         }
         if (!option.getAutoMark().isEmpty() && !option.getAutoMark().equals(optionsPrefs.getAutoMark())) {
             optionsPrefs.editAutoMark(option.getAutoMark());
