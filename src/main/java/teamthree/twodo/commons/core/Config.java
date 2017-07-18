@@ -10,6 +10,7 @@ public class Config {
 
     // Default notification period of 1 day. Can be changed by user.
     private static Long notificationPeriod = (long) (1000 * 60 * 60 * 24);
+    private static String notificationPeriodToString = "one day";
     private static String defaultConfigFile = "config.json";
 
     // To change default notification period
@@ -97,6 +98,7 @@ public class Config {
 
     //@@author A0139267W
     public static void changeDefaultNotificationPeriod(String newNotificationPeriod) {
+        notificationPeriodToString = newNotificationPeriod;
         Matcher integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);
         assert (integerParser.find());
         integerParser.find();
@@ -108,5 +110,9 @@ public class Config {
             newDefault = WEEK_TO_MILLIS * period;
         }
         notificationPeriod = newDefault;
+    }
+
+    public static String defaultNotificationPeriodToString() {
+        return notificationPeriodToString;
     }
 }

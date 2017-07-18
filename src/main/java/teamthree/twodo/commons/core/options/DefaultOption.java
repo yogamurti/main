@@ -25,7 +25,7 @@ public class DefaultOption extends Options {
 
     @Override
     public String toString() {
-        return "\n" + alarm.toString() + autoMark.toString();
+        return "\n" + alarm.toString();
     }
 
 }
