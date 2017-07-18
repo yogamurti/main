@@ -1,5 +1,6 @@
 package teamthree.twodo.ui;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -16,6 +17,8 @@ import teamthree.twodo.commons.events.ui.ExitAppRequestEvent;
 import teamthree.twodo.commons.util.FxViewUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.category.Category;
+import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
@@ -31,11 +34,13 @@ public class MainWindow extends UiPart<Region> {
 
     private Stage primaryStage;
     private Logic logic;
+    private CategoryManager catManager;
     private Config config;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel personListPanel;
+    private CategoryListPanel catListPanel;
     private CommandBox commandBox;
     private UserPrefs prefs;
 
@@ -52,12 +57,15 @@ public class MainWindow extends UiPart<Region> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane catListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, CategoryManager catMan) {
         super(FXML);
 
         // Set dependencies
@@ -65,6 +73,7 @@ public class MainWindow extends UiPart<Region> {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.catManager = catMan;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -123,6 +132,9 @@ public class MainWindow extends UiPart<Region> {
 
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        catListPanel = new CategoryListPanel((ObservableList<Category>) catManager.getCategoryList());
+        catListPanelPlaceholder.getChildren().add(catListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

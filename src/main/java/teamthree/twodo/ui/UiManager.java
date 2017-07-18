@@ -24,6 +24,7 @@ import teamthree.twodo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
@@ -37,15 +38,17 @@ public class UiManager extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private CategoryManager catMan;
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, CategoryManager catMan) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.catMan = catMan;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, prefs, logic, catMan);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

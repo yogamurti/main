@@ -29,6 +29,7 @@ import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.util.SampleDataUtil;
 import teamthree.twodo.storage.JsonUserPrefsStorage;
 import teamthree.twodo.storage.Storage;
@@ -52,6 +53,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected AlarmManager alarm;
+    protected CategoryManager catMan;
     protected Config config;
     protected UserPrefs userPrefs;
     protected DefaultOption optionsPrefs;
@@ -72,11 +74,13 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
+        catMan = new CategoryManager(model);
+
         optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
 
         logic = new LogicManager(model, optionsPrefs);
 
-        ui = new UiManager(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs, catMan);
 
         initEventsCenter();
 

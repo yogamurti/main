@@ -1,8 +1,8 @@
 package teamthree.twodo.model.category;
 
 /**
- * Class which defines the functionality of a category Category is mainly
- * functionality for maintaining the category list UI component.
+ * Category is a definition of a task. It consists of the general categories of
+ * complete, incomplete, floating, deadline and others (defined by user's tags).
  */
 public class Category {
     private String name;
@@ -19,7 +19,7 @@ public class Category {
     }
 
     // Returns the number of tasks under that category
-    public int getNumberOfConstituents() {
+    public Integer getNumberOfConstituents() {
         return numberOfConstituents;
     }
 
@@ -29,6 +29,19 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Category)) {
+            return false;
+        }
+
+        return name.equals(((Category) other).getName());
     }
 
 }
