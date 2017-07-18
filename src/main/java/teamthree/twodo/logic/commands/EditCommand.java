@@ -80,13 +80,18 @@ public class EditCommand extends Command {
             model.updateTask(personToEdit, editedPerson);
             history.addToBeforeEditHistory(personToEdit);
             history.addToAfterEditHistory(editedPerson);
-            EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(index.getZeroBased()));
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing");
+            throw new AssertionError("The target task cannot be missing");
         }
-        model.updateFilteredListToShowAllIncomplete(null, false);
+        if (editedPerson instanceof TaskWithDeadline) {
+            model.updateFilteredListToShowAllIncomplete(null, false);
+        } else {
+            model.updateFilteredListToShowAllIncomplete(null, true);
+        }
+        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedPerson));
+
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
     }
 
