@@ -14,6 +14,7 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
+//@@author A0124399W
 
 /**
  * Manager class for maintaining the different categories in the task manager.
@@ -22,15 +23,16 @@ public class CategoryManager extends ComponentManager {
 
     private final Model model;
     /**
-     * The following are the three main categories which will be there by
-     * default
+     * ==============DEFAULT CATEGORIES=======================
      */
     private final Category allTasks = new Category("All", 0);
     private final Category completeTasks = new Category("Completed", 0);
     private final Category incompleteTasks = new Category("Incomplete", 0);
     private final Category floatingTasks = new Category("Floating Tasks", 0);
     private final Category tasksWithDeadline = new Category("Tasks with Deadline", 0);
-
+    /**
+     * =======================================================
+     */
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
     private List<Category> defaultCategories = new ArrayList<Category>();
     private List<Category> otherCategories = new ArrayList<Category>();;
@@ -115,7 +117,9 @@ public class CategoryManager extends ComponentManager {
         completeTasks.setNumberOfConstituents(numComplete);
         incompleteTasks.setNumberOfConstituents(numIncomplete);
     }
-
+    /**
+     * Sets both floating and tasks with deadlines
+     */
     private void setFloatingTasks() {
         int numFloating = 0;
         int numWithDeadline = 0;

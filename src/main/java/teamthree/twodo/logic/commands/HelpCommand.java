@@ -26,6 +26,10 @@ public class HelpCommand extends Command {
         this.message = message;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
     @Override
     public CommandResult execute() {
         if (message == null) {
@@ -33,5 +37,16 @@ public class HelpCommand extends Command {
             return new CommandResult(SHOWING_HELP_MESSAGE);
         }
         return new CommandResult(message);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof HelpCommand)) {
+            return false;
+        }
+        return this.message.equals(((HelpCommand) other).getMessage());
     }
 }

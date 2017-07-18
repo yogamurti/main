@@ -6,7 +6,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import teamthree.twodo.model.category.Category;
-
+//@@author A0124399W
 /**
  * Panel containing the list of categories.
  */

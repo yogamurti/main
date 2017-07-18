@@ -1,4 +1,4 @@
-/*package guitests;
+package guitests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -45,7 +45,7 @@ public class StatusBarFooterTest extends TaskBookGuiTest {
     public void syncStatus_mutatingCommandSucceeds_syncStatusUpdated() {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertTrue(commandBox.runCommand(TaskUtil.getAddCommand(td.hoon))); // mutating command succeeds
+        assertTrue(commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket))); // mutating command succeeds
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
@@ -62,4 +62,4 @@ public class StatusBarFooterTest extends TaskBookGuiTest {
     }
 
 }
-*/
+
