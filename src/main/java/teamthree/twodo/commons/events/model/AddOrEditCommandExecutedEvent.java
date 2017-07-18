@@ -2,6 +2,7 @@ package teamthree.twodo.commons.events.model;
 
 import teamthree.twodo.commons.events.BaseEvent;
 import teamthree.twodo.model.task.ReadOnlyTask;
+//@@author A0124399W
 /**
  * Indicates that an Add/Edit Command has been executed.
  *
@@ -16,7 +17,7 @@ public class AddOrEditCommandExecutedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Index of New/Edited Task: " + task.getAsText();
+        return "New/Edited Task: " + task.getAsText();
     }
 
 }

@@ -18,6 +18,7 @@ import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
+//@@author A0124399W
 // Alarm class to give reminders for tasks with deadline.
 public class AlarmManager extends ComponentManager {
     // List of tasks yet to be notified

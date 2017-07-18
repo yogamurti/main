@@ -28,6 +28,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
+//@@author A0124399W
 /**
  * Edits the details of an existing task in the description book.
  */
@@ -80,6 +81,7 @@ public class EditCommand extends Command {
             model.updateTask(personToEdit, editedPerson);
             history.addToBeforeEditHistory(personToEdit);
             history.addToAfterEditHistory(editedPerson);
+
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
@@ -274,8 +276,7 @@ public class EditCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getName().equals(e.getName()) && getDeadline().equals(e.getDeadline())
-                    && getDescription().equals(e.getDescription())
-                    && getTags().equals(e.getTags());
+                    && getDescription().equals(e.getDescription()) && getTags().equals(e.getTags());
         }
     }
 }

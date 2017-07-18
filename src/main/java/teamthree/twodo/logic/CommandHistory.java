@@ -1,3 +1,4 @@
+
 package teamthree.twodo.logic;
 
 import static java.util.Objects.requireNonNull;
@@ -60,6 +61,7 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
+     *
      * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {

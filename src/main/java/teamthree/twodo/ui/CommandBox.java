@@ -3,8 +3,6 @@ package teamthree.twodo.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -24,7 +22,7 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
     private ArrayList<String> previousUserInput;
     private int index;
@@ -58,8 +56,8 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
-
     //@@author A0162253M
+
     @FXML
     private void handleKeyPressed(KeyEvent e) {
         if (e.getCode().equals(KeyCode.UP)) {
@@ -69,30 +67,27 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    /** Displays the previous command input on the command box if it is available*/
+    /**
+     * Displays the previous command input on the command box if it is available
+     */
     private void accessPreviousCommand() {
-        if (index > -1) {
-            commandTextField.appendText(previousUserInput.get(index));
+        if (index > 0) {
             index--;
-        }
-    }
-    private void accessNextCommand() {
-        if (index > previousUserInput.size() - 1) {
+            commandTextField.clear();
             commandTextField.appendText(previousUserInput.get(index));
-            index++;
         }
     }
 
+    private void accessNextCommand() {
+        if (index < previousUserInput.size() - 1) {
+            index++;
+            commandTextField.clear();
+            commandTextField.appendText(previousUserInput.get(index));
+        }
+    }
     public void setPreviousUserInput(ArrayList<String> newUserInputList) {
         previousUserInput = newUserInputList;
     }
-
-    @Subscribe
-    public void handleNewUserInputEvent(NewUserInputEvent e) {
-        this.setPreviousUserInput(e.userInput);
-    }
-
-
 
     /**
      * Sets the command box style to indicate a successful command.
@@ -112,6 +107,11 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    public void handleNewUserInputEvent(NewUserInputEvent e) {
+        this.setPreviousUserInput(e.userInput);
+        index = e.userInput.size();
     }
 
 }
