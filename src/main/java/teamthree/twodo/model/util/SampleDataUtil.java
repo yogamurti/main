@@ -7,21 +7,31 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.tag.Tag;
+import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 public class SampleDataUtil {
     public static Task[] getSamplePersons() {
         try {
-            return new Task[] { new Task(new Name("CS2103 Project"), new Description("V0.2 on Mon"), getTagSet("NUS")),
-                new Task(new Name("CS2103 Tutorial"), new Description("Complete by 4pm"), getTagSet("NUS")),
-                new Task(new Name("Dinner"), new Description("7pm @ Ang Mo Kio"),
-                          getTagSet("Friends", "coursemates")),
-                new Task(new Name("Shopping"), new Description("New Clothes"), getTagSet("family", "friends")),
-                new Task(new Name("cca Meeting"), new Description("NUS Tues 3pm"), getTagSet("NUS", "cca")),
-                new Task(new Name("Buy lotion"), new Description("Lotion for hands"), getTagSet("myself")) };
+            Task firstTask = new Task(new Name("CS2103 Tutorial"),
+                    new Description("Software Engineering"), getTagSet("NUS"));
+            TaskWithDeadline secondTask = new TaskWithDeadline(new Name("CS2103 Project"),
+                    new Deadline("", "next Monday 10am", ""),
+                    new Description("Final Submission V0.5rc"), getTagSet("NUS"));
+            TaskWithDeadline thirdTask = new TaskWithDeadline(new Name("Dinner"),
+                    new Deadline("fri 7pm", "fri 10pm", ""),
+                    new Description(" Ang Mo Kio"), getTagSet("Friends", "coursemates"));
+            TaskWithDeadline fourthTask = new TaskWithDeadline(new Name("Shopping"),
+                    new Deadline("", "next month 2pm", ""),
+                    new Description("New Clothes"), getTagSet("family", "friends"));
+            Task fifthTask = new Task(new Name("cca Meeting"), new Description("NUS Tues 3pm"), getTagSet("cca"));
+            Task sixthTask = new Task(new Name("BuyLotion"), new Description("NTUC"), getTagSet());
+            Task[] sampleTaskList = new Task[] { firstTask, secondTask, thirdTask, fourthTask, fifthTask, sixthTask };
+            return sampleTaskList;
         } catch (IllegalValueException e) {
             throw new AssertionError("sample data cannot be invalid", e);
         }

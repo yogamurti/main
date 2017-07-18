@@ -23,7 +23,7 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_INVALID_PATH = "File Path %1$s is invalid\n";
     public static final String MESSAGE_FAILURE = "Failed to save file to %1$s\n";
     private static final String XML = ".xml";
-    private final String filePath;
+    public final String filePath;
 
     public SaveCommand(String filePath) {
         this.filePath = filePath;
