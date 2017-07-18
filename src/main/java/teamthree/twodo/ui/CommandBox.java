@@ -21,7 +21,6 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    private static final int INDEX_OFFSET = 1;
 
     private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
