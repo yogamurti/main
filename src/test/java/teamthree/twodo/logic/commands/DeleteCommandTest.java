@@ -5,7 +5,6 @@ import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
@@ -51,7 +50,7 @@ public class DeleteCommandTest {
         CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
-    /*@Test
+    @Test
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstTaskOnly(model);
 
@@ -65,7 +64,7 @@ public class DeleteCommandTest {
         showNoTask(expectedModel);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }*/
+    }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
@@ -105,7 +104,7 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoTask(Model model) {
-        model.updateFilteredTaskList(Collections.emptySet(), true);
+        model.updateFilteredTaskListToEmpty();
 
         assert model.getFilteredAndSortedTaskList().isEmpty();
     }

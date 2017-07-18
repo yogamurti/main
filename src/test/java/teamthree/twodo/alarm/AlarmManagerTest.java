@@ -162,7 +162,7 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+        public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
                 boolean listIncompleted, Set<Tag> tagList) {
             // TODO Auto-generated method stub
 
@@ -195,7 +195,11 @@ public class AlarmManagerTest {
 
         public void setTaskBook(ReadOnlyTaskBook taskBook) {
             // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void updateFilteredTaskListToEmpty() {
+            // TODO Auto-generated method stub
         }
     }
 
