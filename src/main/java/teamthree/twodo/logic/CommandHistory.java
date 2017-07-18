@@ -1,4 +1,3 @@
-
 package teamthree.twodo.logic;
 
 import static java.util.Objects.requireNonNull;

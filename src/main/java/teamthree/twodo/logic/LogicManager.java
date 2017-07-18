@@ -13,9 +13,8 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-/**
- * The main LogicManager of the app.
- */
+// The main LogicManager of the app
+
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 

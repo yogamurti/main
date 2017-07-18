@@ -3,6 +3,7 @@ package teamthree.twodo.commons.core.options;
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
 //@@author A0139267W
+// Represents a global option setting that can be edited
 public class Options {
 
     private Alarm alarm;
