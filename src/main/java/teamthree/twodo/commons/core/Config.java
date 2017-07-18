@@ -12,7 +12,7 @@ public class Config {
     private static Long notificationPeriod = (long) (1000 * 60 * 60 * 24);
     private static String defaultConfigFile = "config.json";
     // Config values customizable through config file
-    private String appTitle = "Description App";
+    private String appTitle = "2Do";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFilePath = "data/2Do.xml";
