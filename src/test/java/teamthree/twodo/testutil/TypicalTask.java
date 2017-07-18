@@ -39,9 +39,38 @@ public class TypicalTask {
                     .withDescription("bring booze").isCompleted().build();
 
             // Manually added
-            supermarket = new TaskWithDeadlineBuilder().withName("buy lotion").withDeadline("12 march 2020 10am")
+            supermarket = new TaskWithDeadlineBuilder().withName("buy lotion").withDeadline("12 march 2015 10am")
                     .withDescription("little india").build();
             ida = new TaskWithDeadlineBuilder().withName("Ida Mueller").withDeadline("tomorrow 5pm")
+                    .withDescription("meet at chicago ave").build();
+        } catch (IllegalValueException e) {
+            throw new AssertionError("Sample data cannot be invalid", e);
+        }
+    }
+    public TypicalTask(int isFloating) {
+        try {
+            cs2103 = new FloatingTaskBuilder().withName("CS2013")
+                    .withDescription("Project V0.5")
+                    .withTags("school", "project").build();
+            cs1020 = new FloatingTaskBuilder().withName("CS1020")
+                    .withDescription("labs").withTags("school").build();
+            cs2010 = new FloatingTaskBuilder().withName("cs2010")
+                    .withDescription("tutorial").build();
+            project = new FloatingTaskBuilder().withName("project")
+                    .withDescription("project").build();
+            dinner = new FloatingTaskBuilder().withName("dinner")
+                    .withDescription("Thai Food").build();
+            training = new FloatingTaskBuilder().withName("training")
+                    .withDescription("cca training").build();
+            cca = new FloatingTaskBuilder().withName("cca")
+                    .withDescription("end of term").build();
+            partyCompleted = new FloatingTaskBuilder().withName("party")
+                    .withDescription("bring booze").build();
+
+            // Manually added
+            supermarket = new FloatingTaskBuilder().withName("buy lotion")
+                    .withDescription("little india").build();
+            ida = new FloatingTaskBuilder().withName("Ida Mueller")
                     .withDescription("meet at chicago ave").build();
         } catch (IllegalValueException e) {
             throw new AssertionError("Sample data cannot be invalid", e);

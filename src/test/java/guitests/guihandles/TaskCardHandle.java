@@ -1,4 +1,4 @@
-/*package guitests.guihandles;
+package guitests.guihandles;
 
 import java.util.List;
 import java.util.Set;
@@ -13,9 +13,9 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
-*//**
+/**
  * Provides a handle to a person card in the person list panel.
- *//*
+ */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DESCRIPTION_FIELD_ID = "#description";
@@ -90,4 +90,4 @@ public class TaskCardHandle extends GuiHandle {
         return getFullName() + " " + getDescription();
     }
 }
-*/
+

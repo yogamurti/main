@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import teamthree.twodo.commons.util.XmlUtil;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
+import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
@@ -53,25 +55,32 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[] {
-                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("4th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Boris Mueller"), new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE),
-                        new Description("81th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Carl Kurz"), new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
-                        new Description("wall street"), getTagSet()),
-                new TaskWithDeadline(new Name("Daniel Meier"), new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("10th street"), getTagSet()),
+                new TaskWithDeadline(new Name("Ali Muster"),
+                            new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE), new Description("4th street"),
+                            getTagSet()),
+                new TaskWithDeadline(new Name("Boris Mueller"),
+                            new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE), new Description("81th street"),
+                            getTagSet()),
+                new TaskWithDeadline(new Name("Carl Kurz"),
+                            new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
+                            new Description("wall street"), getTagSet()),
+                new TaskWithDeadline(new Name("Daniel Meier"),
+                            new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE), new Description("10th street"),
+                            getTagSet()),
                 new TaskWithDeadline(new Name("Elle Meyer"),
-                        new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE), new Description("michegan ave"),
-                        getTagSet()),
-                new TaskWithDeadline(new Name("Fiona Kunz"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("little tokyo"), getTagSet()),
+                            new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE),
+                            new Description("michegan ave"), getTagSet()),
+                new TaskWithDeadline(new Name("Fiona Kunz"),
+                            new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE), new Description("little tokyo"),
+                            getTagSet()),
                 new TaskWithDeadline(new Name("George Best"), new Deadline("10am", "10pm", Deadline.NULL_VALUE),
-                        new Description("4th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Hoon Meier"), new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
-                        new Description("little india"), getTagSet()),
-                new TaskWithDeadline(new Name("Ida Mueller"), new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
-                        new Description("chicago ave"), getTagSet()) };
+                            new Description("4th street"), getTagSet()),
+                new TaskWithDeadline(new Name("Hoon Meier"),
+                            new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
+                            new Description("little india"), getTagSet()),
+                new TaskWithDeadline(new Name("Ida Mueller"),
+                            new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
+                            new Description("chicago ave"), getTagSet()) };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
             assert false;
@@ -83,7 +92,6 @@ public class TestUtil {
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(SAMPLE_TASK_DATA);
     }
-
 
     /**
      * Appends the file name to the sandbox folder path. Creates the sandbox
@@ -151,6 +159,16 @@ public class TestUtil {
     public static Task[] removeTaskFromList(final Task[] list, Index index) {
         return removeTasksFromList(list, list[index.getZeroBased()]);
     }
+    /**
+     * Returns a copy of the list with the person at specified index removed.
+     *
+     * @param list
+     *            original list to copy from
+     */
+    public static List<ReadOnlyTask> removeTaskFromList(final List<ReadOnlyTask> list, Index index) {
+        list.remove(index.getZeroBased());
+        return list;
+    }
 
     /**
      * Appends persons to the array of persons.
@@ -175,8 +193,8 @@ public class TestUtil {
         return list;
     }
 
-    /*
-     * public static boolean compareCardAndTask(TaskCardHandle card,
-     * ReadOnlyTask person) { return card.isSamePerson(person); }
-     */
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask person) {
+        return card.isSamePerson(person);
+    }
+
 }

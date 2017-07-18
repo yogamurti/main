@@ -1,15 +1,15 @@
-/*package guitests.guihandles;
+package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 import teamthree.twodo.TestApp;
 
-*//**
+/**
  * Provides a handle for {@code MainWindow}.
- *//*
+ */
 public class MainWindowHandle extends GuiHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final TaskListPanelHandle personListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -19,7 +19,7 @@ public class MainWindowHandle extends GuiHandle {
     public MainWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
 
-        personListPanel = new PersonListPanelHandle(guiRobot, primaryStage);
+        personListPanel = new TaskListPanelHandle(guiRobot, primaryStage);
         resultDisplay = new ResultDisplayHandle(guiRobot, primaryStage);
         commandBox = new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
         statusBarFooter = new StatusBarFooterHandle(guiRobot, primaryStage);
@@ -27,7 +27,7 @@ public class MainWindowHandle extends GuiHandle {
         browserPanel = new BrowserPanelHandle(guiRobot, primaryStage);
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
+    public TaskListPanelHandle getPersonListPanel() {
         return personListPanel;
     }
 
@@ -51,4 +51,3 @@ public class MainWindowHandle extends GuiHandle {
         return browserPanel;
     }
 }
-*/

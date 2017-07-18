@@ -1,4 +1,4 @@
-/*package guitests;
+package guitests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,8 +24,9 @@ public class SampleDataTest extends TaskBookGuiTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() throws Exception {
+        commandBox.runCommand(listFloating);
         Task[] expectedList = SampleDataUtil.getSamplePersons();
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 }
-*/
+
