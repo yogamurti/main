@@ -18,7 +18,6 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Description App\n"
                 + "Current log level : INFO\n"
                 + "Preference file Location : preferences.json\n"
-                + " NotificationPeriod : 144000000\n"
                 + "Task Book file Location data/2Do.xml";
 
         assertEquals(defaultConfigAsString, new Config().toString());

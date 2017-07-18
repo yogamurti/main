@@ -147,7 +147,7 @@ public class RedoCommandTest {
 
 
     @Test
-    public void executeundoDeleteCommandsuccess()
+    public void executeUndoDeleteCommandsuccess()
             throws DuplicateTaskException, CommandException, ParseException, TaskNotFoundException {
 
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
