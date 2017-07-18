@@ -27,9 +27,7 @@ import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-/**
- * The manager of the UI component.
- */
+// The manager of the UI component.
 public class UiManager extends ComponentManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
@@ -102,8 +100,9 @@ public class UiManager extends ComponentManager implements Ui {
                         "The Following tasks are nearing their deadlines\n", content.toString());
             }
         });
-    } //@@author
+    }
 
+    //@@author
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
@@ -171,6 +170,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel()
                 .scrollTo(mainWindow.getTaskListPanel().getListView().getItems().indexOf(event.task));
     }
+
     //@@author A0162253M
     @Subscribe
     public void handleNewUserInputEvent(NewUserInputEvent e) {

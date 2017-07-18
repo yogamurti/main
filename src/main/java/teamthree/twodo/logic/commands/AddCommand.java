@@ -15,10 +15,8 @@ import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
-// @@author A0124399W
-/**
- * Adds a task to the TaskBook.
- */
+//@@author A0124399W
+// Adds a task to the TaskBook.
 public class AddCommand extends Command {
 
     //Command word can be any one of the three

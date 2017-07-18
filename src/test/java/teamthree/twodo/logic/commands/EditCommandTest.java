@@ -88,7 +88,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() throws Exception {
-        showFirstPersonOnly();
+        showFirstTaskOnly();
 
         ReadOnlyTask personInFilteredList = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task editedPerson = new TaskWithDeadlineBuilder(personInFilteredList).withName(VALID_NAME_EVENT).build();
@@ -106,9 +106,9 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() throws Exception {
 
-        Task firstPerson = new TaskWithDeadline(model.getFilteredAndSortedTaskList()
+        Task firstTask = new TaskWithDeadline(model.getFilteredAndSortedTaskList()
                 .get(INDEX_FIRST_TASK.getZeroBased()));
-        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstPerson).build();
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(firstTask).build();
         EditCommand editCommand = prepareCommand(INDEX_SECOND_TASK, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TASK);
@@ -116,18 +116,18 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonFilteredList_failure() throws Exception {
-        showFirstPersonOnly();
+        showFirstTaskOnly();
 
         // edit person in filtered list into a duplicate in address book
-        ReadOnlyTask personInList = model.getTaskBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        ReadOnlyTask taskInList = model.getTaskBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK,
-                new EditTaskDescriptorBuilder(personInList).build());
+                new EditTaskDescriptorBuilder(taskInList).build());
 
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TASK);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() throws Exception {
+    public void execute_invalidTaskIndexUnfilteredList_failure() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
@@ -137,11 +137,11 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list, but
-     * smaller than size of address book
+     * smaller than size of task book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() throws Exception {
-        showFirstPersonOnly();
+    public void execute_invalidTaskIndexFilteredList_failure() throws Exception {
+        showFirstTaskOnly();
         Index outOfBoundIndex = INDEX_SECOND_TASK;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
@@ -191,9 +191,9 @@ public class EditCommandTest {
      * Updates the filtered list to show only the first person in the
      * {@code model}'s address book.
      */
-    private void showFirstPersonOnly() {
-        ReadOnlyTask person = model.getTaskBook().getTaskList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
+    private void showFirstTaskOnly() {
+        ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
+        final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);

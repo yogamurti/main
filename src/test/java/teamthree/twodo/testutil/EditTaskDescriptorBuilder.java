@@ -28,13 +28,13 @@ public class EditTaskDescriptorBuilder {
      * Returns an {@code EditTaskDescriptor} with fields containing
      * {@code person}'s details
      */
-    public EditTaskDescriptorBuilder(ReadOnlyTask person) throws IllegalValueException {
+    public EditTaskDescriptorBuilder(ReadOnlyTask task) throws IllegalValueException {
         descriptor = new EditTaskDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setDescription(person.getDescription());
-        descriptor.setTags(person.getTags());
-        if (person instanceof TaskWithDeadline) {
-            descriptor.setDeadline(person.getDeadline().get());
+        descriptor.setName(task.getName());
+        descriptor.setDescription(task.getDescription());
+        descriptor.setTags(task.getTags());
+        if (task instanceof TaskWithDeadline) {
+            descriptor.setDeadline(task.getDeadline().get());
         }
     }
 

@@ -22,7 +22,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlTaskBookStorage.class);
 
-    private String filePath;
+    protected String filePath;
 
     public XmlTaskBookStorage(String filePath) {
         this.filePath = filePath;
@@ -56,21 +56,21 @@ public class XmlTaskBookStorage implements TaskBookStorage {
             throws DataConversionException, FileNotFoundException {
         requireNonNull(filePath);
 
-        File addressBookFile = new File(filePath);
+        File taskBookFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("TaskBook file " + addressBookFile + " not found");
+        if (!taskBookFile.exists()) {
+            logger.info("TaskBook file " + taskBookFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskBook taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(taskBookOptional);
     }
 
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
-        saveTaskBook(addressBook, filePath);
+    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
+        saveTaskBook(taskBook, filePath);
     }
 
     /**
@@ -80,13 +80,13 @@ public class XmlTaskBookStorage implements TaskBookStorage {
      *            location of the data. Cannot be null
      */
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
+        requireNonNull(taskBook);
         requireNonNull(filePath);
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskBook(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskBook(taskBook));
     }
 
     /**

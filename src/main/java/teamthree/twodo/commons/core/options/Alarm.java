@@ -3,7 +3,7 @@ package teamthree.twodo.commons.core.options;
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
 //@@author A0139267W
-// Represents an alarm setting to be set for tasks
+// Represents an alarm setting that will be automatically set for tasks with deadlines
 public class Alarm {
     public final String alarm;
 

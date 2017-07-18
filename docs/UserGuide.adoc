@@ -171,7 +171,15 @@ Example: `find work`
 Format: `undo` +
 Example: `undo`
 ****
-* Undos the last successful action executed
+* Undoes the last successful action executed
+****
+
+=== Redoing the undone action : `redo / -r`
+
+Format: `redo` +
+Example: `redo`
+****
+* Redoes the last successful undo command executed
 ****
 
 === Editing a task : `edit / -e`
@@ -216,12 +224,21 @@ Example: `option a/1 minute m/true`
 
 === Saving list : `save / -s`
 
-Format: `save [-h] [directory]` +
+Format: `save [directory]` +
 Example: `save C:\Program Files\Common Files\2Do.txt`
 ****
 * Saves the current to-do list and exports it as a text file in the directory specified
 * By default, the file will be saved as to-do.txt on  _C:\Program Files_
 ** 2Do creates the file if it does not exist
+* 2Do uses the to-do list in the last specified file path when it launches
+****
+
+=== Loading list : `load`
+Format: `load [directory]` +
+Example: `load C:\Program Files\Common Files\2Do.txt`
+****
+* Loads the to-do list present in the directory specified
+* To then view the loaded to-do list, relaunch 2Do to update its task list
 ****
 
 === Clearing list : `clear / -c`
@@ -266,15 +283,19 @@ Example: `quit`
 
 |undo / -u |undo |`undo`
 
+|redo / -r |redo |`redo`
+
 |edit / -e |edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent] |`edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true`
 
 |mark / -m |mark {index} |`mark 4`
 
 |unmark / -un |unmark {index} |`unmark 4`
 
-|option (In-development)/ -o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
+|option / -o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
-|save / -s |save [-h] [directory] |`save C:\Program Files\Common Files\2Do.txt`
+|save / -s |save [directory] |`save C:\Program Files\Common Files\2Do.txt`
+
+|load / -s |load [directory] |`load C:\Program Files\Common Files\2Do.txt`
 
 |clear / -c |clear [-h] |`clear`
 
