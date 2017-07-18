@@ -3,6 +3,8 @@ package teamthree.twodo.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -10,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import teamthree.twodo.commons.core.LogsCenter;
+import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 import teamthree.twodo.commons.events.ui.NewResultAvailableEvent;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.logic.commands.CommandResult;
@@ -55,6 +58,8 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
+
+    //@@author A0162253M
     @FXML
     private void handleKeyPressed(KeyEvent e) {
         if (e.getCode().equals(KeyCode.UP)) {
@@ -76,6 +81,15 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.appendText(previousUserInput.get(index));
             index++;
         }
+    }
+
+    public void setPreviousUserInput(ArrayList<String> newUserInputList) {
+        previousUserInput = newUserInputList;
+    }
+
+    @Subscribe
+    public void handleNewUserInputEvent(NewUserInputEvent e) {
+        this.setPreviousUserInput(e.userInput);
     }
 
 

@@ -68,6 +68,11 @@ public class TaskWithDeadlineBuilder {
         return this;
     }
 
+    public TaskWithDeadlineBuilder isCompleted() {
+        this.task.markCompleted();
+        return this;
+    }
+
     public Task build() {
         return this.task;
     }

@@ -23,9 +23,8 @@ import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-/**
- * Manages storage of TaskBook data in local storage.
- */
+// Manages storage of TaskBook data in local storage.
+
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
@@ -101,7 +100,6 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    //@@author A0162253M
     public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
@@ -115,7 +113,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
 
     }
-    //@@author A0162253M
+
     @Subscribe
     private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));

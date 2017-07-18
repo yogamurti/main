@@ -1,4 +1,3 @@
-//@@author A0139267W
 package teamthree.twodo.logic.parser;
 
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -8,6 +7,7 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.MarkCommand;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
+//@@author A0139267W
 // Parses input arguments and creates a new MarkCommand object
 public class MarkCommandParser {
 
