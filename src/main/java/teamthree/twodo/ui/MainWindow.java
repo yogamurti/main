@@ -34,13 +34,12 @@ public class MainWindow extends UiPart<Region> {
 
     private Stage primaryStage;
     private Logic logic;
-    private CategoryManager catManager;
+    private CategoryManager catMan;
     private Config config;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel personListPanel;
-    private CategoryListPanel catListPanel;
     private CommandBox commandBox;
     private UserPrefs prefs;
 
@@ -73,7 +72,7 @@ public class MainWindow extends UiPart<Region> {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
-        this.catManager = catMan;
+        this.catMan = catMan;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -133,7 +132,7 @@ public class MainWindow extends UiPart<Region> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        catListPanel = new CategoryListPanel((ObservableList<Category>) catManager.getCategoryList());
+        CategoryListPanel catListPanel = new CategoryListPanel((ObservableList<Category>) catMan.getCategoryList());
         catListPanelPlaceholder.getChildren().add(catListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
