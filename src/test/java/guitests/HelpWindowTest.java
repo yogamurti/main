@@ -10,6 +10,7 @@ public class HelpWindowTest extends TaskBookGuiTest {
 
     @Test
     public void openHelpWindow() {
+        commandBox.runCommand(listFloating);
         //use accelerator
         commandBox.clickOnTextField();
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
