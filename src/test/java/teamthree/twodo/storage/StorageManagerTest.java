@@ -3,8 +3,12 @@ package teamthree.twodo.storage;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -13,9 +17,11 @@ import org.junit.rules.TemporaryFolder;
 
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
+import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.EventsCollector;
 import teamthree.twodo.testutil.TypicalTask;
 
@@ -71,6 +77,18 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getTaskBookFilePath());
     }
 
+    //@@author A0162253M
+    @Test
+    public void setTaskBookFilePathSuccess() throws IOException {
+        String expectedFilePath = storageManager.getTaskBookFilePath();
+        //Create a StorageManager while injecting a stub that only allows the method setTaskBookFilePath() to be called
+        Storage storage = new StorageManager(new XmlTaskBookStorageStub("dummy"),
+                new JsonUserPrefsStorage("dummy"));
+        storage.setTaskBookFilePath(expectedFilePath);
+        assertEquals(storageManager.getTaskBookFilePath(), storage.getTaskBookFilePath());
+    }
+
+
     @Test
     public void handleTaskBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
@@ -95,6 +113,57 @@ public class StorageManagerTest {
         public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
+    }
+
+    /**
+     * A Stub class that only allows setTaskBookFilePath to be called
+     * @author shuqi
+     */
+    //@@author A0162253M
+    class XmlTaskBookStorageStub extends XmlTaskBookStorage {
+
+        public XmlTaskBookStorageStub (String filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public String getTaskBookFilePath() {
+            return filePath;
+        }
+
+        @Override
+        public void setTaskBookFilePath(String filePath) throws IOException {
+            this.filePath = filePath;
+        }
+
+        @Override
+        public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public Optional<ReadOnlyTaskBook> readTaskBook(String filePath)
+                throws DataConversionException, FileNotFoundException {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void saveNotifiedTasks(HashSet<ReadOnlyTask> notified, String filePath) throws IOException {
+            fail("This method should not be called.");
+        }
+
     }
 
 
