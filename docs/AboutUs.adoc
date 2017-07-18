@@ -45,7 +45,9 @@ image::teoshuqi.png[width="150", align="left"]
 * Aspects/tools in charge of: Code quality, Deliverables and deadline
 * Features implemented:
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#undoing-the-last-action-code-undo-u-code[Undo]
+** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#redoing-the-undone-action-code-redo-r-code[Redo]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#saving-list-code-save-s-code[Save]
+** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#loading-list-code-load-code[Load]
 * Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0162253M.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0162253M.md[[test code]]
 * Other major contributions:
 ** Implemented history tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
@@ -66,3 +68,4 @@ image::Yoga.jpg[width="150", align="left"]
 ** Set up Travis, Appveyor, Coveralls and Codacy
 ** In charge of reviewing and merging pull requests
 ** In charge of managing issue tracker
+** Add auto-mark completion functionality https://github.com/CS2103JUN2017-T3/main/pull/149[[#149]]
