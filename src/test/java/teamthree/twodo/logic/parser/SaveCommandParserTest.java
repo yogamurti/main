@@ -13,7 +13,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 public class SaveCommandParserTest {
 
     private static final String VALID_FILENAME = "Documents\taskbook\2Do.xml";
-    private static final String INVALID_FILENAME = "\\";
+    private static final String INVALID_FILENAME = "C:/";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
