@@ -63,7 +63,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks within the period
      * @param tagList TODO*/
-    void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+    void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
             boolean listIncomplete, Set<Tag> tagList);
 
     /** Saves the taskBook*/
@@ -71,5 +71,8 @@ public interface Model {
 
     /** Sorts the taskBook*/
     void sort();
+
+    /** Updates the filter to show no tasks*/
+    void updateFilteredTaskListToEmpty();
 
 }

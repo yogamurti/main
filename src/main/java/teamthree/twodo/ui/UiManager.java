@@ -15,6 +15,7 @@ import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
+import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.events.ui.JumpToListRequestEvent;
@@ -78,6 +79,7 @@ public class UiManager extends ComponentManager implements Ui {
         showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
     }
 
+    //@@author A0124399W
     private void showReminderAlertAndWait(List<ReadOnlyTask> tasksNearing) {
         final StringBuilder content = new StringBuilder("");
         tasksNearing.forEach((t) -> {
@@ -97,7 +99,7 @@ public class UiManager extends ComponentManager implements Ui {
                         "The Following tasks are nearing their deadlines\n", content.toString());
             }
         });
-    }
+    } //@@author
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
@@ -158,14 +160,18 @@ public class UiManager extends ComponentManager implements Ui {
         showReminderAlertAndWait(event.tasksNearingDeadline);
     }
 
+    //@@author A0124399W
     @Subscribe
     private void handleAddOrEditCommandExecutedEvent(AddOrEditCommandExecutedEvent event) {
+        // Scrolls to newly edited/added task
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.targetIndex == AddOrEditCommandExecutedEvent.ADD_EVENT) {
-            mainWindow.getTaskListPanel().scrollTo(mainWindow.getTaskListPanel().getLastIndexOfListView());
-        } else {
-            mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-        }
+        mainWindow.getTaskListPanel()
+                .scrollTo(mainWindow.getTaskListPanel().getListView().getItems().indexOf(event.task));
+    }
+    //@@author A0162253M
+    @Subscribe
+    public void handleNewUserInputEvent(NewUserInputEvent e) {
+        mainWindow.getCommandBox().handleNewUserInputEvent(e);
     }
 
 }

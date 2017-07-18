@@ -18,6 +18,7 @@ import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
@@ -79,9 +80,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(ReadOnlyTask person) throws DuplicateTaskException {
-        taskBook.addTask(person);
-        updateFilteredListToShowAllIncomplete(null, false);
+    public synchronized void addTask(ReadOnlyTask toAdd) throws DuplicateTaskException {
+        taskBook.addTask(toAdd);
+        if (toAdd instanceof TaskWithDeadline) {
+            updateFilteredListToShowAllIncomplete(null, false);
+        } else {
+            updateFilteredListToShowAllIncomplete(null, true);
+        }
         indicateTaskBookChanged();
     }
 
@@ -145,10 +150,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowPeriod(Deadline deadline,
-            AttributeInputted attInput, boolean listIncomplete, Set<Tag> tagList) {
-        updateFilteredTaskList(new PredicateExpression(new PeriodQualifier(deadline, attInput,
-                listIncomplete, tagList)));
+    public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+            boolean listIncomplete, Set<Tag> tagList) {
+        updateFilteredTaskList(
+                new PredicateExpression(new PeriodQualifier(deadline, attInput, listIncomplete, tagList)));
+    }
+
+    @Override
+    public void updateFilteredTaskListToEmpty() {
+        filteredTasks.setPredicate(task -> false);
     }
 
     /**
@@ -285,8 +295,7 @@ public class ModelManager extends ComponentManager implements Model {
         private boolean listIncomplete;
         private Set<Tag> tagList;
 
-        PeriodQualifier(Deadline deadline, AttributeInputted attInput,
-                boolean listIncomplete, Set<Tag> tagList) {
+        PeriodQualifier(Deadline deadline, AttributeInputted attInput, boolean listIncomplete, Set<Tag> tagList) {
             this.deadlineToCheck = deadline;
             this.attInput = attInput;
             this.listIncomplete = listIncomplete;
@@ -379,6 +388,7 @@ public class ModelManager extends ComponentManager implements Model {
         private boolean floatingQualifies(ReadOnlyTask task) {
             return task.getDeadline().isPresent() != showFloating;
         }
+
         @Override
         public String toString() {
             return tagList.toString();

@@ -1,3 +1,4 @@
+
 package teamthree.twodo.logic;
 
 import static java.util.Objects.requireNonNull;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
+import teamthree.twodo.commons.core.EventsCenter;
+import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
@@ -46,6 +49,7 @@ public class CommandHistory {
     public void add(String userInput) {
         requireNonNull(userInput);
         fullUserInputHistory.add(userInput);
+        EventsCenter.getInstance().post(new NewUserInputEvent(this.getHistory()));
     }
 
     /**
@@ -57,6 +61,7 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
+     *
      * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {

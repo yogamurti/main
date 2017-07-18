@@ -103,7 +103,7 @@ public class DeleteCommandTest {
      */
     /*
     private void showNoTask(Model model) {
-        model.updateFilteredTaskList(Collections.emptySet(), true);
+        model.updateFilteredTaskListToEmpty();
 
         assert model.getFilteredAndSortedTaskList().isEmpty();
     }*/

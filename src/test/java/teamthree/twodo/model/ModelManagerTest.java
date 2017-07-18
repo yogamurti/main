@@ -56,7 +56,7 @@ public class ModelManagerTest {
         modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different filteredList (period) -> return false
-        modelManager.updateFilteredListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
+        modelManager.updateFilteredTaskListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE), AttributeInputted.START, true, null);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         // resets modelManager to initial state for upcoming tests

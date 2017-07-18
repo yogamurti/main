@@ -178,7 +178,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+        public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
                 boolean listIncomplete, Set<Tag> tagList) {
             fail("This method should not be called.");
         }
@@ -189,6 +189,11 @@ public class AddCommandTest {
         }
 
         public void setTaskBook(ReadOnlyTaskBook taskBook) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void updateFilteredTaskListToEmpty() {
             // TODO Auto-generated method stub
         }
     }
