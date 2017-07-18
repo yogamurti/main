@@ -79,6 +79,7 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
+        sb.append("\nTask Book file Location " + taskBookFilePath);
         return sb.toString();
     }
 
