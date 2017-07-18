@@ -17,10 +17,17 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
+import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 //@@author A0139267W
 // Manages the auto-completion marking of tasks whose deadline has elapsed
 public class AutoMarkManager extends ComponentManager {
+    /**
+     *  Only runs the auto completion functionality if the users sets it
+     *  Is false by default
+     */
+    private static boolean setToRun = false;
+
     // List of tasks yet to be completed
     private final List<ReadOnlyTask> uncompletedList = new ArrayList<ReadOnlyTask>();
     // Keeps track of tasks that have been completed
@@ -31,12 +38,21 @@ public class AutoMarkManager extends ComponentManager {
     // In charge of scheduling and executing auto-completion markings
     private final Timer masterClock = new Timer();
 
-    // Completion time of the task with the most imminent deadline
-    private Date nextCompletionTime;
+    // Deadline of the most imminent task
+    private Date nextDeadline;
 
     public AutoMarkManager(Model model) {
         this.model = model;
         syncWithMasterTaskList(model.getTaskBook().getTaskList());
+    }
+
+    public static boolean getSetToRun() {
+        return setToRun;
+    }
+
+    // Enables or disables the auto-completion functionality
+    public static void setToRun(boolean setting) {
+        setToRun = setting;
     }
 
     /**
@@ -49,7 +65,7 @@ public class AutoMarkManager extends ComponentManager {
         if (masterList == null || masterList.isEmpty()) {
             return;
         }
-        // Clear list first to avoid duplicates
+        // Clears list first to avoid duplicates
         uncompletedList.clear();
         // Adds tasks which are not in the completed set
         masterList.forEach((t) -> {
@@ -58,16 +74,19 @@ public class AutoMarkManager extends ComponentManager {
             }
         });
         sortTasksByDeadline();
-        updateNextCompletion();
+        updateNextDeadline();
+        // If this feature is disabled, do not execute the auto completion markings
+        if (!setToRun) {
+            return;
+        }
         startTimerTask();
     }
 
     public void startTimerTask() {
-
-        if (nextCompletionTime == null) {
+        if (nextDeadline == null) {
             return;
         }
-        masterClock.schedule(new NextReminder(), nextCompletionTime);
+        masterClock.schedule(new NextAutomark(), nextDeadline);
 
     }
 
@@ -77,29 +96,34 @@ public class AutoMarkManager extends ComponentManager {
 
     // =====================HELPER CLASS==========================
 
-    private class NextReminder extends TimerTask {
+    private class NextAutomark extends TimerTask {
 
         /**
          * The following command will be run upon reaching the scheduled timing.
          * It will raise a DeadlineTimeReachedEvent with all the
-         * tasks that have reached the completion deadline.
+         * tasks that have reached the deadline.
          *
          * After that it will update internal information.
          */
         @Override
         public void run() {
-            List<ReadOnlyTask> tasksToRemindOf = new ArrayList<ReadOnlyTask>();
+            List<ReadOnlyTask> tasksToAutoMark = new ArrayList<ReadOnlyTask>();
             Date currentDate = new Date();
             uncompletedList.forEach((t) -> {
-                if (getCompletionTime(t).before(currentDate) || getCompletionTime(t).equals(nextCompletionTime)) {
-                    tasksToRemindOf.add(t);
+                if (getCompletionTime(t).before(currentDate) || getCompletionTime(t).equals(nextDeadline)) {
+                    tasksToAutoMark.add(t);
+                    try {
+                        model.markTask(t);
+                    } catch (TaskNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
-            if (tasksToRemindOf.size() > 0) {
-                raise(new DeadlineTimeReachedEvent(tasksToRemindOf));
+            if (tasksToAutoMark.size() > 0) {
+                raise(new DeadlineTimeReachedEvent(tasksToAutoMark));
             }
 
-            updateInternalData(tasksToRemindOf);
+            updateInternalData(tasksToAutoMark);
 
             startTimerTask();
         }
@@ -109,8 +133,8 @@ public class AutoMarkManager extends ComponentManager {
     // =========================HELPER METHODS=================================
 
     /**
-     * Transfers the most recently reminded tasks from the uncompleted list to
-     * the completed set. Updates the nextReminderTime with the deadline
+     * Transfers the most recently auto marked tasks from the uncompleted list to
+     * the completed set. Updates the nextDeadline with the deadline
      * of the next activity on the uncompleted list. Called only after a
      * DeadlineTimeReachedEvent.
      *
@@ -122,7 +146,7 @@ public class AutoMarkManager extends ComponentManager {
     private synchronized void updateInternalData(List<ReadOnlyTask> completedTasks) {
         uncompletedList.removeAll(completedTasks);
         completed.addAll(completedTasks);
-        updateNextCompletion();
+        updateNextDeadline();
     }
 
     // Sorts task list by their deadline
@@ -137,12 +161,12 @@ public class AutoMarkManager extends ComponentManager {
         });
     }
 
-    // Updates nextCompletionTime to the next one on the uncompletedList.
-    private void updateNextCompletion() {
+    // Updates nextDeadline to the next one on the uncompletedList.
+    private void updateNextDeadline() {
         if (!uncompletedList.isEmpty()) {
-            nextCompletionTime = removeInvalidDates() ? null : getCompletionTime(uncompletedList.get(0));
+            nextDeadline = removeInvalidDates() ? null : getCompletionTime(uncompletedList.get(0));
         } else {
-            nextCompletionTime = null;
+            nextDeadline = null;
         }
     }
 

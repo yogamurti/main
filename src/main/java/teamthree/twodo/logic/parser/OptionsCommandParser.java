@@ -6,6 +6,8 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NOTIFICATION_PERIOD;
 
 import java.util.stream.Stream;
 
+import teamthree.twodo.automark.AutoMarkManager;
+import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.options.Alarm;
 import teamthree.twodo.commons.core.options.AutoMark;
 import teamthree.twodo.commons.core.options.Options;
@@ -24,8 +26,6 @@ public class OptionsCommandParser {
      * @throws ParseException
      *             if the user input does not conform the expected format
      */
-    public static final String EMPTY_ALARM = " ";
-    public static final String EMPTY_AUTOMARK = " ";
 
     public OptionsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NOTIFICATION_PERIOD, PREFIX_AUTOMARK);
@@ -35,9 +35,9 @@ public class OptionsCommandParser {
         }
         try {
             Alarm alarm = ParserUtil.parseAlarm(argMultimap.getValue(PREFIX_NOTIFICATION_PERIOD))
-                    .orElse(new Alarm(EMPTY_ALARM));
+                    .orElse(new Alarm(Config.defaultNotificationPeriodToString()));
             AutoMark autoMark = ParserUtil.parseAutoMark(argMultimap.getValue(PREFIX_AUTOMARK))
-                    .orElse(new AutoMark(EMPTY_AUTOMARK));
+                    .orElse(new AutoMark(AutoMarkManager.getSetToRun()));
             Options option = new Options(alarm, autoMark);
             return new OptionsCommand(option);
         } catch (IllegalValueException ive) {

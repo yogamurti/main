@@ -2,6 +2,7 @@ package teamthree.twodo.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import teamthree.twodo.automark.AutoMarkManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.options.Alarm;
 import teamthree.twodo.commons.core.options.AutoMark;
@@ -44,23 +45,27 @@ public class OptionsCommand extends Command {
         if (option.equals(defaultOption)) {
             throw new CommandException(MESSAGE_DUPLICATE_OPTIONS);
         }
-        if (!option.getAlarm().isEmpty() && !option.getAlarm().equals(defaultOption.getAlarm())) {
+        if (!option.getAlarm().equals(defaultOption.getAlarm())) {
             Config.changeDefaultNotificationPeriod(option.getAlarm().getValue());
             defaultOption.editAlarm(option.getAlarm());
             // Checks if the alarm updates were properly executed for both components
             assert(Config.defaultNotificationPeriodToString() == defaultOption.getAlarm().getValue());
         }
-        if (!option.getAutoMark().isEmpty() && !option.getAutoMark().equals(defaultOption.getAutoMark())) {
+        if (!option.getAutoMark().equals(defaultOption.getAutoMark())) {
+            AutoMarkManager.setToRun(option.getAutoMark().getValue());
             defaultOption.editAutoMark(option.getAutoMark());
+            // Checks if the alarm updates were properly executed for both components
+            assert(AutoMarkManager.getSetToRun() == defaultOption.getAutoMark().getValue());
         }
         // history.addToAddHistory(toAdd);
         // EventsCenter.getInstance().post(new asEvent(AddOrEditCommandExecutedEvent.ADD_EVENT));
+
         return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
     }
 
     private DefaultOption getDefaultOption() {
         Alarm alarm = new Alarm (Config.defaultNotificationPeriodToString());
-        AutoMark autoMark = new AutoMark("false");
+        AutoMark autoMark = new AutoMark(AutoMarkManager.getSetToRun());
         return new DefaultOption(alarm, autoMark);
     }
 

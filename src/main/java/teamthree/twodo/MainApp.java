@@ -74,7 +74,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
+        optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark(false));
 
         logic = new LogicManager(model, optionsPrefs);
 
@@ -82,9 +82,10 @@ public class MainApp extends Application {
 
         initEventsCenter();
 
+        autoMark = new AutoMarkManager(model);
+
         alarm = new AlarmManager(model);
 
-        autoMark = new AutoMarkManager(model);
     }
 
     private String getApplicationParameter(String parameterName) {

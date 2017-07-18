@@ -18,7 +18,7 @@ public class DeadlineTimeReachedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of tasks " + tasksNearingDeadline.size() + ". First Task: "
+        return "number of tasks auto marked as completed " + tasksNearingDeadline.size() + ". First Task: "
                 + tasksNearingDeadline.get(0).getAsText();
     }
 
