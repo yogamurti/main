@@ -2,11 +2,12 @@ package teamthree.twodo.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import teamthree.twodo.MainApp;
 import teamthree.twodo.automark.AutoMarkManager;
 import teamthree.twodo.commons.core.Config;
+import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.options.Alarm;
 import teamthree.twodo.commons.core.options.AutoMark;
-import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.core.options.Options;
 // import teamthree.twodo.commons.core.EventsCenter;
 // import teamthree.twodo.commons.core.Messages;
@@ -31,12 +32,14 @@ public class OptionsCommand extends Command {
     public static final String MESSAGE_DUPLICATE_OPTIONS = "The default settings "
             + "set are the same as the current settings";
 
-    private DefaultOption defaultOption;
+    private final Options defaultOption;
     private final Options option;
 
     public OptionsCommand(Options option) {
         this.option = option;
         defaultOption = getDefaultOption();
+        LogsCenter.getLogger(MainApp.class).info("1:Option entered :" + option.toString());
+        LogsCenter.getLogger(MainApp.class).info("2:Option entered :" + defaultOption.toString());
     }
 
     @Override
@@ -63,10 +66,10 @@ public class OptionsCommand extends Command {
         return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
     }
 
-    private DefaultOption getDefaultOption() {
-        Alarm alarm = new Alarm (Config.defaultNotificationPeriodToString());
+    private Options getDefaultOption() {
+        Alarm alarm = new Alarm(Config.defaultNotificationPeriodToString());
         AutoMark autoMark = new AutoMark(AutoMarkManager.getSetToRun());
-        return new DefaultOption(alarm, autoMark);
+        return new Options(alarm, autoMark);
     }
 
 }
