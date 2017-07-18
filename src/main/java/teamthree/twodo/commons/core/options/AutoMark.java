@@ -3,7 +3,7 @@ package teamthree.twodo.commons.core.options;
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
 //@@author A0139267W
-//Represents an auto-mark setting for tasks
+// Represents a toggleable auto-mark setting for tasks
 public class AutoMark {
     public final boolean autoMark;
 

@@ -1,4 +1,3 @@
-// @@author A0162253M
 package teamthree.twodo.logic.commands;
 
 import java.nio.file.InvalidPathException;
@@ -8,8 +7,8 @@ import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
-/** Saves TaskBook to the specified directory */
-
+//@@author A0162253M
+// Saves TaskBook to the specified directory
 public class LoadCommand extends Command {
 
     public static final String COMMAND_WORD = "load";

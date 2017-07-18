@@ -842,7 +842,7 @@ ____
 
 *MSS*
 
-1. User requests to load a to-do list into the system
+1. User requests to load a to-do list text file into the system
 2. System loads the to-do list and prompts the user to relaunch the application to update its task list
 3. User relaunches the application
 4. System displays the loaded to-do list
