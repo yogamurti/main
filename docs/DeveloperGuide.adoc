@@ -398,6 +398,28 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise.
 
 [discrete]
+=== Use case: Display help guide
+
+*MSS*
+
+1. User requests for help guide
+2. System displays help guide
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
+---
+
+[discrete]
 === Use case: Add a floating task
 
 *MSS*
@@ -594,13 +616,35 @@ ____
 *MSS*
 
 1. User requests to undo the last action
-2. System undos the last action and returns the to-do list to its previous state
+2. System undoes the last action and shows a success message
 
 Use case ends
 
 *Extensions*
 
 2a. No actions were done previously
+
+____
+2a1. System displays an error message
+
+Use case ends
+____
+
+---
+
+[discrete]
+=== Use case: Redo last undo command
+
+*MSS*
+
+1. User requests to redo the last undo command
+2. System redoes the last undo command and shows a success message
+
+Use case ends
+
+*Extensions*
+
+2a. The last action was not an undo command
 
 ____
 2a1. System displays an error message
@@ -747,28 +791,6 @@ ____
 ---
 
 [discrete]
-=== Use case: Display help guide
-
-*MSS*
-
-1. User requests for help guide
-2. System displays help guide
-
-Use case ends
-
-*Extensions*
-
-1a. User input is invalid
-
-____
-1a1. System displays an error message
-
-Use case ends
-____
-
----
-
-[discrete]
 === Use case: Display options
 
 *MSS*
@@ -799,6 +821,31 @@ ____
 
 1. User requests to save the to-do list
 2. System saves the current to-do list and exports it as a text file in the directory specified
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+
+____
+
+---
+
+[discrete]
+=== Use case: Load to-do list
+
+*MSS*
+
+1. User requests to load a to-do list into the system
+2. System loads the to-do list and prompts the user to relaunch the application to update its task list
+3. User relaunches the application
+4. System displays the loaded to-do list
 
 Use case ends
 

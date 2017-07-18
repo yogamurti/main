@@ -291,7 +291,7 @@ Example: `quit`
 
 |unmark / -un |unmark {index} |`unmark 4`
 
-|option (In-development)/ -o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
+|option / -o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
 |save / -s |save [directory] |`save C:\Program Files\Common Files\2Do.txt`
 
