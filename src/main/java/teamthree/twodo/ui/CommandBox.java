@@ -3,8 +3,6 @@ package teamthree.twodo.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -59,6 +57,7 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
     }
+    //@@author A0162253M
 
     @FXML
     private void handleKeyPressed(KeyEvent e) {
@@ -73,17 +72,22 @@ public class CommandBox extends UiPart<Region> {
      * Displays the previous command input on the command box if it is available
      */
     private void accessPreviousCommand() {
-        if (index > -1) {
-            commandTextField.appendText(previousUserInput.get(index));
+        if (index > 0) {
             index--;
+            commandTextField.clear();
+            commandTextField.appendText(previousUserInput.get(index));
         }
     }
 
     private void accessNextCommand() {
-        if (index > previousUserInput.size() - 1) {
-            commandTextField.appendText(previousUserInput.get(index));
+        if (index < previousUserInput.size() - 1) {
             index++;
+            commandTextField.clear();
+            commandTextField.appendText(previousUserInput.get(index));
         }
+    }
+    public void setPreviousUserInput(ArrayList<String> newUserInputList) {
+        previousUserInput = newUserInputList;
     }
 
     /**
@@ -106,17 +110,9 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
-    /* ==================EVENT HANDLERS====================== */
-    /**
-     * Updates the previous user input list with the latest instance of command history.
-     * Index will be updated to the last item on the previous user input list.
-     * @param event {@code NewUserInputEvent}
-     */
-    @Subscribe
-    public void handleNewUserInputEvent(NewUserInputEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        previousUserInput = logic.getCommandHistory().getHistory();
-        index = previousUserInput.size() - INDEX_OFFSET;
+    public void handleNewUserInputEvent(NewUserInputEvent e) {
+        this.setPreviousUserInput(e.userInput);
+        index = e.userInput.size();
     }
 
 }

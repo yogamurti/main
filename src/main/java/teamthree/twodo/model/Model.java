@@ -4,6 +4,7 @@ import java.util.Set;
 
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
@@ -47,22 +48,31 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList();
 
-    /** Updates the filter of the filtered task list to show all complete tasks */
-    void updateFilteredListToShowAllComplete();
+    /** Updates the filter of the filtered task list to show all complete tasks
+     * @param tagList TODO
+     * @param listFloating TODO*/
+    void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating);
 
-    /** Updates the filter of the filtered task list to show all incomplete tasks */
-    void updateFilteredListToShowAllIncomplete();
-
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to show all incomplete tasks
+     * @param tagList TODO
+     * @param listFloating TODO*/
+    void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating);
 
     /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete);
+    void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete);
 
-    /** Updates the filter of the filtered task list to show all tasks within the period */
-    void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput, boolean listIncomplete);
+    /** Updates the filter of the filtered task list to show all tasks within the period
+     * @param tagList TODO*/
+    void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+            boolean listIncomplete, Set<Tag> tagList);
 
     /** Saves the taskBook*/
     void saveTaskBook();
+
+    /** Sorts the taskBook*/
+    void sort();
+
+    /** Updates the filter to show no tasks*/
+    void updateFilteredTaskListToEmpty();
 
 }

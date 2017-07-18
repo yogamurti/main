@@ -1,4 +1,3 @@
-//@@author A0162253M
 package teamthree.twodo.logic;
 
 import static java.util.Objects.requireNonNull;
@@ -12,9 +11,8 @@ import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-/**
- * Stores the history of Undo commands executed.
- */
+//@@author A0162253M
+// Stores the history of Undo commands executed.
 public class UndoCommandHistory {
     private Stack<String> userInputHistory;
     private Stack<ReadOnlyTask> beforeEditHistory;

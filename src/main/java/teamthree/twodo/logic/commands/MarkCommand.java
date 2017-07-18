@@ -1,4 +1,3 @@
-//@@author A0139267W
 package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.commons.core.Messages;
@@ -8,6 +7,7 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
+//@@author A0139267W
 // Marks a task as complete using its last displayed index from the TaskBook.
 public class MarkCommand extends Command {
 

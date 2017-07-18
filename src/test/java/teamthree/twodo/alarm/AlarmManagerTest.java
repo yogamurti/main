@@ -22,6 +22,7 @@ import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ReadOnlyTaskBook;
 import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -149,26 +150,20 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete() {
+        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
             // TODO Auto-generated method stub
 
         }
 
         @Override
-        public void updateFilteredTaskList(Set<String> keywords) {
+        public void updateFilteredTaskList(Set<String> keywords, boolean listIncompleted) {
             // TODO Auto-generated method stub
 
         }
 
         @Override
-        public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncompleted) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
-                boolean listIncompleted) {
+        public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+                boolean listIncompleted, Set<Tag> tagList) {
             // TODO Auto-generated method stub
 
         }
@@ -188,15 +183,23 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllComplete() {
+        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
             // TODO Auto-generated method stub
 
         }
 
         @Override
+        public void sort() {
+            // TODO Auto-generated method stub
+        }
+
         public void setTaskBook(ReadOnlyTaskBook taskBook) {
             // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void updateFilteredTaskListToEmpty() {
+            // TODO Auto-generated method stub
         }
     }
 

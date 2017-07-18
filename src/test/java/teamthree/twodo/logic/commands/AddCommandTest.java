@@ -24,6 +24,7 @@ import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -147,17 +148,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete() {
+        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
             fail("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredListToShowAllComplete() {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredTaskList(Set<String> keywords) {
+        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
             fail("This method should not be called.");
         }
 
@@ -177,18 +173,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskListExtensively(Set<String> keywords, boolean listIncomplete) {
+        public void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete) {
             fail("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredListToShowPeriod(Deadline deadline, AttributeInputted attInput,
-                boolean listIncomplete) {
+        public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
+                boolean listIncomplete, Set<Tag> tagList) {
             fail("This method should not be called.");
         }
 
         @Override
+        public void sort() {
+            fail("This method should not be called.");
+        }
+
         public void setTaskBook(ReadOnlyTaskBook taskBook) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void updateFilteredTaskListToEmpty() {
             // TODO Auto-generated method stub
         }
     }

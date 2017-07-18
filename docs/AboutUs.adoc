@@ -6,7 +6,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-==== https://github.com/radneran[V Narendar Nag]
+=== https://github.com/radneran[V Narendar Nag]
 image::NarenV.jpg[width="150", align="left"]
 
 * Component(s) in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#model-component[Model]
@@ -16,7 +16,7 @@ image::NarenV.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#adding-a-task-code-add-a-code[Add task]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#deleting-a-task-code-delete-del-d-code[Delete task]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-a-task-code-edit-e-code[Edit task]
-* Code written: TODO
+* Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0124399W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0124399W.md[[test code]]
 * Other major contributions:
 ** Add natural language handling https://github.com/CS2103JUN2017-T3/main/pull/4[[#4]]
 ** Did the initial refactoring from AddressBook to ToDoList https://github.com/CS2103JUN2017-T3/main/pull/8[[#8]]
@@ -32,13 +32,13 @@ image::JoelAng.jpg[width="150", align="left"]
 * Features implemented:
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#listing-all-tasks-code-list-l-code[List all tasks]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#finding-a-task-code-find-f-code[Find task]
-* Code written: TODO
+* Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0107433N.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0107433N.md[[test code]]
 * Other major contributions:
 ** Autosort tasks by deadline https://github.com/CS2103JUN2017-T3/main/pull/118[[#118]]
 
 '''
 
-==== https://github.com/teoshuqi[Teo Shu Qi]
+=== https://github.com/teoshuqi[Teo Shu Qi]
 image::teoshuqi.png[width="150", align="left"]
 
 * Component(s) in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#storage-component[Storage]
@@ -46,13 +46,13 @@ image::teoshuqi.png[width="150", align="left"]
 * Features implemented:
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#undoing-the-last-action-code-undo-u-code[Undo]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#saving-list-code-save-s-code[Save]
-* Code written: TODO
+* Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0162253M.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0162253M.md[[test code]]
 * Other major contributions:
 ** Implemented history tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
 
 '''
 
-==== https://github.com/yogamurti[Yogamurti Sutanto]
+=== https://github.com/yogamurti[Yogamurti Sutanto]
 image::Yoga.jpg[width="150", align="left"]
 
 * Component(s) in charge of: https://github.com/CS2103JUN2017-T3/main/blob/master/docs/DeveloperGuide.adoc#ui-component[UI]
@@ -61,7 +61,7 @@ image::Yoga.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#marking-a-task-as-complete-code-mark-m-code[Mark as complete]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#marking-a-task-as-incomplete-code-unmark-un-code[Mark as incomplete]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-the-default-options-code-option-o-code[Adjust default options] (In-development)
-* Code written: TODO
+* Code written: Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0139267W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0139267W.md[[test code]]
 * Other major contributions:
 ** Set up Travis, Appveyor, Coveralls and Codacy
 ** In charge of reviewing and merging pull requests
