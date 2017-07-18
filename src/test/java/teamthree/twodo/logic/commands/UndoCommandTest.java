@@ -60,7 +60,7 @@ public class UndoCommandTest {
 
 
     @Test
-    public void executeundoAddCommandsuccess()
+    public void executeUndoAddCommandSuccess()
             throws DuplicateTaskException, CommandException, ParseException, TaskNotFoundException {
 
         ReadOnlyTask taskToAdd = taskList.get(FIRST_INDEX);
@@ -80,12 +80,12 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executenoPreviousCommandsuccess() throws CommandException {
+    public void executeNoPreviousCommandSuccess() throws CommandException {
         assertCommandResult(undoCommand, UndoCommand.MESSAGE_NO_HISTORY);
     }
 
     @Test
-    public void executeundoMarkCommandsuccess()
+    public void executeUndoMarkCommandSuccess()
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
 
         //Mark Task to prepare model for undo command
@@ -105,7 +105,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeundoUnmarkCommandsuccess()
+    public void executeUndoUnmarkCommandSuccess()
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
 
         //Unmark Task to prepare model for undo command
@@ -125,7 +125,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeundoClearCommandsuccess() throws CommandException, ParseException {
+    public void executeUndoClearCommandSuccess() throws CommandException, ParseException {
 
         ReadOnlyTaskBook taskBook = model.getTaskBook();
 
@@ -142,7 +142,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeundoDeleteCommandsuccess()
+    public void executeUndoDeleteCommandSuccess()
             throws DuplicateTaskException, CommandException, ParseException, TaskNotFoundException {
 
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -162,7 +162,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeundoEditCommandsuccess()
+    public void executeUndoEditCommandSuccess()
             throws CommandException, TaskNotFoundException, IllegalValueException {
 
         Index indexLastTask = Index.fromOneBased(model.getFilteredAndSortedTaskList().size());
@@ -189,7 +189,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void excuteundoInvalidCommandreturnInvalidMessage() throws ParseException, CommandException {
+    public void excuteUndoInvalidCommandReturnInvalidMessage() throws ParseException, CommandException {
         HelpCommand helpCommand = new HelpCommand();
         helpCommand.setData(model, history, undoHistory, null);
         helpCommand.execute();

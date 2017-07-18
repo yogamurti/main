@@ -114,6 +114,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     }
 
+    //@@author A0162253M
     @Subscribe
     private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));

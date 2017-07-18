@@ -5,7 +5,6 @@ import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_SECOND_TASK;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
