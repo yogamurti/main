@@ -11,13 +11,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import teamthree.twodo.alarm.AlarmManager;
+import teamthree.twodo.automark.AutoMarkManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.Version;
-import teamthree.twodo.commons.core.options.Alarm;
-import teamthree.twodo.commons.core.options.AutoMark;
-import teamthree.twodo.commons.core.options.DefaultOption;
 import teamthree.twodo.commons.events.ui.ExitAppRequestEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.ConfigUtil;
@@ -52,9 +50,9 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected AlarmManager alarm;
+    protected AutoMarkManager autoMark;
     protected Config config;
     protected UserPrefs userPrefs;
-    protected DefaultOption optionsPrefs;
 
     @Override
     public void init() throws Exception {
@@ -72,15 +70,16 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
-
-        logic = new LogicManager(model, optionsPrefs);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
 
+        autoMark = new AutoMarkManager(model);
+
         alarm = new AlarmManager(model);
+
     }
 
     private String getApplicationParameter(String parameterName) {
