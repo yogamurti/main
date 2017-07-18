@@ -1,8 +1,8 @@
-//@@author A0139267W
 package teamthree.twodo.commons.core.options;
 
 import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 
+//@@author A0139267W
 public class Options {
 
     private final Alarm alarm;

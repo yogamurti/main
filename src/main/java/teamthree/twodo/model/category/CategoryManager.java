@@ -5,6 +5,7 @@ import java.util.List;
 
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.model.Model;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 public class CategoryManager extends ComponentManager {
@@ -32,15 +33,24 @@ public class CategoryManager extends ComponentManager {
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
     }
+
     /**
-     * Update the category list with all tags in the Model 
+     * Update the category list with all tags in the Model
      */
     private void updateCategoryListWithTags() {
-        model.getTaskBook().getTagList().forEach((tag)->{
-            for(ReadOnlyTask t: model.getTaskBook().getTaskBook()) {
-                if(t.getTags().contains(tag))
-            }
+        model.getTaskBook().getTagList().forEach((tag) -> {
+            categoryList.add(new Category(tag.tagName, getNumberOfConstituents(tag)));
         });
+    }
+
+    private int getNumberOfConstituents(Tag tag) {
+        int numConstituents = 0;
+        for (ReadOnlyTask t : model.getTaskBook().getTaskList()) {
+            if (t.getTags().contains(tag)) {
+                numConstituents++;
+            }
+        }
+        return numConstituents;
     }
 
     // Updates all the default categories

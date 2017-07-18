@@ -1,4 +1,3 @@
-//@@author A0139267W
 package teamthree.twodo.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -10,6 +9,7 @@ import teamthree.twodo.commons.core.options.Options;
 // import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
+//@@author A0139267W
 // Edits the global options settings
 public class OptionsCommand extends Command {
 
