@@ -72,15 +72,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-<<<<<<< HEAD
         catMan = new CategoryManager(model);
 
-        optionsPrefs = new DefaultOption(new Alarm("LOLTEST"), new AutoMark("false"));
-
-        logic = new LogicManager(model, optionsPrefs);
-=======
         logic = new LogicManager(model);
->>>>>>> d613daaa5ee31e6333d6c20ba59ff54623046865
 
         ui = new UiManager(logic, config, userPrefs, catMan);
 
