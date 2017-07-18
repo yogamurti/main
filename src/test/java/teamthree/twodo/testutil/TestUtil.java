@@ -53,24 +53,24 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[] {
-                new TaskWithDeadline(new Name("Ali Muster"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("4th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Boris Mueller"), new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE),
-                        new Description("81th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Carl Kurz"), new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
-                        new Description("wall street"), getTagSet()),
-                new TaskWithDeadline(new Name("Daniel Meier"), new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("10th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Elle Meyer"),
-                        new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE), new Description("michegan ave"),
+                new TaskWithDeadline(new Name("Class"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
+                        new Description("Homework"), getTagSet()),
+                new TaskWithDeadline(new Name("Tutorial"), new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE),
+                        new Description("Chapter 4"), getTagSet()),
+                new TaskWithDeadline(new Name("Lecture"), new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
+                        new Description("Chapter 5"), getTagSet()),
+                new TaskWithDeadline(new Name("Labs"), new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE),
+                        new Description("Sit-in Lab"), getTagSet()),
+                new TaskWithDeadline(new Name("CCA"),
+                        new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE), new Description("Proposal"),
                         getTagSet()),
-                new TaskWithDeadline(new Name("Fiona Kunz"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
+                new TaskWithDeadline(new Name("Party"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
                         new Description("little tokyo"), getTagSet()),
-                new TaskWithDeadline(new Name("George Best"), new Deadline("10am", "10pm", Deadline.NULL_VALUE),
+                new TaskWithDeadline(new Name("Clothes Shopping"), new Deadline("10am", "10pm", Deadline.NULL_VALUE),
                         new Description("4th street"), getTagSet()),
-                new TaskWithDeadline(new Name("Hoon Meier"), new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
+                new TaskWithDeadline(new Name("Meeting Friends"), new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
                         new Description("little india"), getTagSet()),
-                new TaskWithDeadline(new Name("Ida Mueller"), new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
+                new TaskWithDeadline(new Name("Family lunch"), new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
                         new Description("chicago ave"), getTagSet()) };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
@@ -155,16 +155,16 @@ public class TestUtil {
     /**
      * Appends persons to the array of persons.
      *
-     * @param persons
-     *            A array of persons.
-     * @param personsToAdd
-     *            The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
+     * @param tasks
+     *            A array of tasks.
+     * @param tasksToAdd
+     *            The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
      */
-    public static Task[] addTasksToList(final Task[] persons, Task... personsToAdd) {
-        List<Task> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new Task[listOfPersons.size()]);
+    public static Task[] addTasksToList(final Task[] tasks, Task... tasksToAdd) {
+        List<Task> listOfTasks = asList(tasks);
+        listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new Task[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {

@@ -54,11 +54,11 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void taskBookReadSave() throws Exception {
         /*
          * Description: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlTaskBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlTaskBookStorageTest} class.
          */
         TaskBook original = new TypicalTask().getTypicalTaskBook();
         storageManager.saveTaskBook(original);
@@ -67,14 +67,14 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getTaskBookFilePath() {
         assertNotNull(storageManager.getTaskBookFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleTaskBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"),
+        Storage storage = new StorageManager(new XmlTaskBookStorageExceptionThrowingStub("dummy"),
                                              new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTaskBookChangedEvent(new TaskBookChangedEvent(new TaskBook()));
@@ -85,9 +85,9 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
+    class XmlTaskBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
+        public XmlTaskBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 

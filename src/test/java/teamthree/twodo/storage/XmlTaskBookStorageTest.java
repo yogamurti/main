@@ -18,8 +18,8 @@ import teamthree.twodo.model.task.Task;
 //import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.TypicalTask;
 
-public class XmlAddressBookStorageTest {
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+public class XmlTaskBookStorageTest {
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskBookStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -60,7 +60,7 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveTaskBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTask td = new TypicalTask();
         TaskBook original = td.getTypicalTaskBook();
@@ -87,19 +87,19 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() throws IOException {
+    public void saveTaskBook_nullTaskBook_throwsNullPointerException() throws IOException {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveTaskBook(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
-        new XmlTaskBookStorage(filePath).saveTaskBook(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
+        new XmlTaskBookStorage(filePath).saveTaskBook(taskBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() throws IOException {
+    public void saveTaskBook_nullFilePath_throwsNullPointerException() throws IOException {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new TaskBook(), null);
+        saveTaskBook(new TaskBook(), null);
     }
 
 

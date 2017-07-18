@@ -9,7 +9,7 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 
 //@@author A0107433N
-// Lists all persons in the address book to the user
+// Lists all persons in the task book to the user
 
 public class ListCommand extends Command {
 
