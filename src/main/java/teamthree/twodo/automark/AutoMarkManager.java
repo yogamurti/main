@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.events.model.DeadlineTimeReachedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
@@ -19,12 +20,12 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-//@@author A0139267W
+// @@author A0139267W
 // Manages the auto-completion marking of tasks whose deadline has elapsed
 public class AutoMarkManager extends ComponentManager {
     /**
-     *  Only runs the auto completion functionality if the users sets it
-     *  Is false by default
+     * Only runs the auto completion functionality if the users sets it Is false
+     * by default
      */
     private static boolean setToRun = false;
 
@@ -103,8 +104,8 @@ public class AutoMarkManager extends ComponentManager {
 
         /**
          * The following command will be run upon reaching the scheduled timing.
-         * It will raise a DeadlineTimeReachedEvent with all the
-         * tasks that have reached the deadline.
+         * It will raise a DeadlineTimeReachedEvent with all the tasks that have
+         * reached the deadline.
          *
          * After that it will update internal information.
          */
@@ -115,11 +116,16 @@ public class AutoMarkManager extends ComponentManager {
             uncompletedList.forEach((t) -> {
                 if (getCompletionTime(t).before(currentDate) || getCompletionTime(t).equals(nextDeadline)) {
                     tasksToAutoMark.add(t);
-                    try {
-                        model.markTask(t);
-                    } catch (TaskNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                model.markTask(t);
+                            } catch (TaskNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
             });
             if (tasksToAutoMark.size() > 0) {
@@ -136,14 +142,13 @@ public class AutoMarkManager extends ComponentManager {
     // =========================HELPER METHODS=================================
 
     /**
-     * Transfers the most recently auto marked tasks from the uncompleted list to
-     * the completed set. Updates the nextDeadline with the deadline
-     * of the next activity on the uncompleted list. Called only after a
+     * Transfers the most recently auto marked tasks from the uncompleted list
+     * to the completed set. Updates the nextDeadline with the deadline of the
+     * next activity on the uncompleted list. Called only after a
      * DeadlineTimeReachedEvent.
      *
      * @param completedTasks
-     *            the tasks which were sent with the
-     *            DeadlineTimeReachedEvent
+     *            the tasks which were sent with the DeadlineTimeReachedEvent
      */
 
     private synchronized void updateInternalData(List<ReadOnlyTask> completedTasks) {

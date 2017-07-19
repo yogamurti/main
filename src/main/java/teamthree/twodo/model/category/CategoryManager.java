@@ -1,6 +1,7 @@
 package teamthree.twodo.model.category;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
@@ -14,8 +15,7 @@ import teamthree.twodo.model.Model;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
-
-//@@author A0124399W
+// @@author A0124399W
 /**
  * Manager class for maintaining the different categories in the task manager.
  */
@@ -35,15 +35,16 @@ public class CategoryManager extends ComponentManager {
      */
     private ObservableList<Category> categoryList = FXCollections.observableArrayList();
     private List<Category> defaultCategories = new ArrayList<Category>();
-    private List<Category> otherCategories = new ArrayList<Category>();;
+    private OtherCategoryManager otherCategories;
 
     public CategoryManager(Model model) {
         this.model = model;
         initDefaultCategories();
-        updateCategoryListWithTags();
+        otherCategories = new OtherCategoryManager();
         resetCategoryList();
     }
 
+    //Initializes just the default categories
     private void initDefaultCategories() {
         updateDefaultCategories();
         addToDefaultCategoryList(allTasks, completeTasks, incompleteTasks, floatingTasks, tasksWithDeadline);
@@ -53,37 +54,20 @@ public class CategoryManager extends ComponentManager {
         return new UnmodifiableObservableList<Category>(categoryList);
     }
 
+    //Updates all categories
+    private void refreshAllMainList() {
+        updateDefaultCategories();
+        otherCategories.syncWithMasterTagList();
+        resetCategoryList();
+    }
+
     /**
      * Resets the main category list with the default and other categories.
      */
     public synchronized void resetCategoryList() {
         categoryList.clear();
         categoryList.addAll(defaultCategories);
-        categoryList.addAll(otherCategories);
-    }
-
-    /**
-     * Update the other categories list with all tags in the Model.
-     */
-    private void updateCategoryListWithTags() {
-        ArrayList<Category> tempList = new ArrayList<Category>();
-        model.getTaskBook().getTagList().forEach((tag) -> {
-            int numConstituents;
-            if ((numConstituents = getNumberOfConstituents(tag)) > 0) {
-                tempList.add(new Category(tag.tagName, numConstituents));
-            }
-        });
-        otherCategories = tempList;
-    }
-
-    private int getNumberOfConstituents(Tag tag) {
-        int numConstituents = 0;
-        for (ReadOnlyTask t : model.getTaskBook().getTaskList()) {
-            if (t.getTags().contains(tag)) {
-                numConstituents++;
-            }
-        }
-        return numConstituents;
+        categoryList.addAll(otherCategories.getCategories());
     }
 
     // Updates all the default categories
@@ -92,13 +76,13 @@ public class CategoryManager extends ComponentManager {
         setCompleteTasks();
         setFloatingTasks();
     }
-
+    //Adds multiple categories to the default list
     private void addToDefaultCategoryList(Category... categories) {
         for (Category category : categories) {
             defaultCategories.add(category);
         }
     }
-
+    //Sets the number of all tasks category
     private void setAllTasks() {
         allTasks.setNumberOfConstituents(model.getTaskBook().getTaskList().size());
     }
@@ -117,6 +101,7 @@ public class CategoryManager extends ComponentManager {
         completeTasks.setNumberOfConstituents(numComplete);
         incompleteTasks.setNumberOfConstituents(numIncomplete);
     }
+
     /**
      * Sets both floating and tasks with deadlines
      */
@@ -143,11 +128,49 @@ public class CategoryManager extends ComponentManager {
         refreshAllMainList();
     }
 
-    //Updates all categories
-    private void refreshAllMainList() {
-        updateDefaultCategories();
-        updateCategoryListWithTags();
-        resetCategoryList();
+    /** =======================INNER CLASSES=========================== */
+    /**
+     * Keeps track of the user-defined tags and the tasks which contain them.
+     * Provides functionality to edit tags at a general level.
+     */
+    private class OtherCategoryManager {
+        //Main mapping between tags and tasks which contain them
+        private final HashMap<Tag, ArrayList<ReadOnlyTask>> categoryMap = new HashMap<Tag, ArrayList<ReadOnlyTask>>();
+
+        OtherCategoryManager() {
+            syncWithMasterTagList();
+        }
+
+        /**
+         * Synchronizes inner categoryMap with the master tag list in the Model.
+         */
+        private synchronized void syncWithMasterTagList() {
+            categoryMap.clear();
+            ObservableList<Tag> masterList = model.getTaskBook().getTagList();
+            masterList.forEach((tag) -> {
+                ArrayList<ReadOnlyTask> tasksWithTag = new ArrayList<ReadOnlyTask>();
+                model.getTaskBook().getTaskList().forEach((task) -> {
+                    if (task.getTags().contains(tag)) {
+                        tasksWithTag.add(task);
+                    }
+                });
+                if (!tasksWithTag.isEmpty()) {
+                    categoryMap.put(tag, tasksWithTag);
+                }
+            });
+        }
+
+        /**
+         * Returns a sorted list of all categories
+         */
+        private ArrayList<Category> getCategories() {
+            ArrayList<Category> otherCategoryList = new ArrayList<Category>();
+            categoryMap.forEach((key, value) -> {
+                otherCategoryList.add(new Category(key.tagName, value.size()));
+            });
+            otherCategoryList.sort((cat, next) -> cat.getName().compareTo(next.getName()));
+            return otherCategoryList;
+        }
     }
 
 }
