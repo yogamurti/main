@@ -148,7 +148,7 @@ public class UndoCommandTest {
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
 
         //Delete Task to prepare model for undo command
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TASK);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TASK, false);
         deleteCommand.setData(model, history, undoHistory);
         deleteCommand.execute();
         this.history.addToUserInputHistory(DeleteCommand.COMMAND_WORD);
