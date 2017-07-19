@@ -150,7 +150,7 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
+        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
             // TODO Auto-generated method stub
 
         }

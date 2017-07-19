@@ -21,6 +21,7 @@ import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TypicalTask;
 
+//@@author A0107433N
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
@@ -32,34 +33,34 @@ public class ListCommandTest {
     private ListCommand listCommandWithDeadline;
     private boolean listIncomplete;
     private AttributeInputted start;
-    private Deadline deadline;
+    private Deadline testDeadline;
 
     @Before
     public void setUp() throws IllegalValueException {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
-        deadline = new Deadline("yesterday 10am", "yesterday 10am",
+        testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE);
         start = AttributeInputted.START;
         listIncomplete = true;
 
         listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
         listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
-        listCommandWithDeadline = new ListCommand(deadline, start, listIncomplete, false, null);
+        listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
     }
 
     @Test
     public void executeListIsNotFilteredShowsSameList() throws Exception {
+        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
     @Test
     public void executeListWithFilterByDeadline() throws Exception {
-        expectedModel.updateFilteredTaskListToShowPeriod(deadline, start, listIncomplete, null);
-        assertCommandSuccess(listCommandWithDeadline, model,
-                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate(), expectedModel);
+        expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, start, listIncomplete, null);
+        assertCommandSuccess(listCommandWithDeadline, model, String.format(
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START, testDeadline.getStartDate()), expectedModel);
         // resets modelManager to initial state for upcoming tests
         expectedModel.updateFilteredListToShowAllIncomplete(null, false);
     }
@@ -92,5 +93,13 @@ public class ListCommandTest {
         CommandResult result = command.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void equalsReturnsTrueSuccessfully() {
+        ListCommand command = new ListCommand(testDeadline, start, listIncomplete, false, null);
+        assertTrue(command.equals(command));
+        ListCommand other = new ListCommand(testDeadline, start, listIncomplete, false, null);
+        assertTrue(command.equals(other));
     }
 }

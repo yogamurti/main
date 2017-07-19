@@ -144,7 +144,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
+        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
             fail("This method should not be called.");
         }
 

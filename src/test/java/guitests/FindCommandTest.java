@@ -40,7 +40,7 @@ public class FindCommandTest extends TaskBookGuiTest {
     private void assertFindResult(String command, Task... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage("Found " + expectedHits.length + " incomplete tasks");
+        assertResultMessage(String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedHits.length));
         assertTrue(personListPanel.isListMatching(expectedHits));
     }
 }
