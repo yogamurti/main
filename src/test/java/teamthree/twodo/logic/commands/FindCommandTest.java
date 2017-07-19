@@ -45,8 +45,8 @@ public class FindCommandTest {
     }
 
     @Test
-    public void executeListWithFilterByDeadline() throws Exception {
-        boolean listIncomplete = true;
+    public void executeFindCorrectCompleteTask() throws Exception {
+        boolean listIncomplete = false;
         FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
                 new TypicalTask().partyCompleted.getName().fullName.split("\\s+"))), listIncomplete);
         findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());

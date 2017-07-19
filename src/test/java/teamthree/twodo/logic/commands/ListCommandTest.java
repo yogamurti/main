@@ -59,8 +59,8 @@ public class ListCommandTest {
     @Test
     public void executeListWithFilterByDeadline() throws Exception {
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, start, listIncomplete, null);
-        assertCommandSuccess(listCommandWithDeadline, model,
-                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START + testDeadline.getStartDate(), expectedModel);
+        assertCommandSuccess(listCommandWithDeadline, model, String.format(
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START, testDeadline.getStartDate()), expectedModel);
         // resets modelManager to initial state for upcoming tests
         expectedModel.updateFilteredListToShowAllIncomplete(null, false);
     }
