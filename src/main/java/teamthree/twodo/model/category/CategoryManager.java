@@ -65,6 +65,12 @@ public class CategoryManager extends ComponentManager {
         return toDel;
     }
 
+    public synchronized Tag addCategory(String newTagName, List<Task> tasks) throws IllegalValueException {
+        Tag toAdd = otherCategories.addCategory(newTagName, tasks);
+        resetCategoryList();
+        return toAdd;
+    }
+
     //Updates all categories
     private void refreshAllMainList() {
         updateDefaultCategories();
@@ -211,8 +217,23 @@ public class CategoryManager extends ComponentManager {
             return toDel;
         }
 
-        private void renameCategory(Index targetCategory, String newName) {
-
+        private Tag addCategory(String newTagName, List<Task> tasks) throws IllegalValueException {
+            Tag toAdd = new Tag(newTagName);
+            ArrayList<Task> tasksUnderCategory = new ArrayList<>();
+            tasksUnderCategory.addAll(tasks);
+            tasksUnderCategory.forEach((task) -> {
+                Task editedTask = task;
+                HashSet<Tag> tags = new HashSet<Tag>(task.getTags());
+                tags.add(toAdd);
+                editedTask.setTags(tags);
+                try {
+                    model.updateTask(task, editedTask);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            syncWithMasterTagList();
+            return toAdd;
         }
     }
 }

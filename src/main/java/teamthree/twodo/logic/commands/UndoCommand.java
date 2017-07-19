@@ -1,6 +1,5 @@
 package teamthree.twodo.logic.commands;
 
-import javafx.application.Platform;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskBook;
@@ -74,12 +73,7 @@ public class UndoCommand extends Command {
 
         case ClearCommand.COMMAND_WORD:
             ReadOnlyTaskBook taskBook = history.getClearHistory().pop();
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    model.resetData(taskBook);
-                }
-            });
+            model.resetData(taskBook);
             fullMessage = MESSAGE_SUCCESS.concat("Restored TaskBook");
             return new CommandResult(fullMessage);
 
