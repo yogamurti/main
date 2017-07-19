@@ -1,18 +1,19 @@
 package teamthree.twodo.commons.events;
 
+import teamthree.twodo.model.ReadOnlyTaskBook;
+
 //@@author A0162253M
-// Indicates and updates when a new model is loaded
+// Indicates and updates when a new model is to be loaded
 public class LoadNewModelEvent extends BaseEvent {
 
-    public final String filePath;
+    public final ReadOnlyTaskBook taskBook;
 
-    public LoadNewModelEvent(String filePath) {
-        this.filePath = filePath;
+    public LoadNewModelEvent(ReadOnlyTaskBook taskBook) {
+        this.taskBook = taskBook;
     }
-
     @Override
     public String toString() {
-        return "Loading new Model from " + filePath;
+        return this.getClass().getSimpleName();
     }
 
 }

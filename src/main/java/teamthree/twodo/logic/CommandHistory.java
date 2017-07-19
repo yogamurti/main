@@ -124,7 +124,7 @@ public class CommandHistory {
     }
 
     /**
-     * Appends {@code taskBook} to the list of cleared taskBook entered.
+     * Appends {@code filePath} to the list of cleared filePath entered.
      */
     public void addToClearHistory(ReadOnlyTaskBook taskBook) {
         requireNonNull(taskBook);
