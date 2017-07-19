@@ -132,7 +132,7 @@ public class MainWindow extends UiPart<Region> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        CategoryListPanel catListPanel = new CategoryListPanel((ObservableList<Category>) catMan.getCategoryList());
+        CategoryListPanel catListPanel = new CategoryListPanel(catMan.getCategoryList());
         catListPanelPlaceholder.getChildren().add(catListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
