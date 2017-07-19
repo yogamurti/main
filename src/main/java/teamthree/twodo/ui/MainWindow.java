@@ -1,6 +1,5 @@
 package teamthree.twodo.ui;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -17,7 +16,6 @@ import teamthree.twodo.commons.events.ui.ExitAppRequestEvent;
 import teamthree.twodo.commons.util.FxViewUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
-import teamthree.twodo.model.category.Category;
 import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
@@ -41,7 +39,6 @@ public class MainWindow extends UiPart<Region> {
     private BrowserPanel browserPanel;
     private TaskListPanel personListPanel;
     private CommandBox commandBox;
-    private UserPrefs prefs;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -71,7 +68,6 @@ public class MainWindow extends UiPart<Region> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.config = config;
-        this.prefs = prefs;
         this.catMan = catMan;
 
         // Configure the UI
