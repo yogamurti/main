@@ -10,7 +10,9 @@ import com.google.common.eventbus.Subscribe;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.LogsCenter;
-import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
+import teamthree.twodo.commons.core.Messages;
+import teamthree.twodo.commons.events.LoadNewModelEvent;
+import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
@@ -109,17 +111,29 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Subscribe
-    private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
-
-    }
-
-    @Subscribe
     private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
         try {
             setTaskBookFilePath(event.filePath);
         } catch (IOException e) {
             throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));
+        }
+    }
+
+    @Subscribe
+    public void handleLoadCommandExecutedEvent(LoadCommandExecutedEvent event) throws CommandException {
+        logger.info(
+                LogsCenter.getEventHandlingLogMessage(event, "Load command executed, saving new filepath to config"));
+        try {
+            Optional<ReadOnlyTaskBook> loadedTaskBook;
+            if ((loadedTaskBook = readTaskBook(event.filePath)).isPresent()) {
+                setTaskBookFilePath(event.filePath);
+                raise(new LoadNewModelEvent(loadedTaskBook.get()));
+            }
+        } catch (IOException e) {
+            throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));
+        } catch (DataConversionException e) {
+            throw new CommandException(Messages.MESSAGE_LOAD_FAILED);
         }
     }
 }

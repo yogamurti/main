@@ -23,6 +23,7 @@ import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.UnmarkCommand;
+import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,6 +35,7 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     /**
      * Parses user input into command for execution.
      *
@@ -42,6 +44,7 @@ public class Parser {
      * @return the command based on the user input
      * @throws ParseException
      *             if the user input does not conform the expected format
+     * @throws CommandException
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -114,7 +117,6 @@ public class Parser {
         case OptionsCommand.COMMAND_WORD:
         case OptionsCommand.COMMAND_WORD_UNIXSTYLE:
             return new OptionsCommandParser().parse(arguments);
-
 
         case HelpCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {

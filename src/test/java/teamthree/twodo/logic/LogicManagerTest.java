@@ -502,7 +502,7 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given TaskBook
          *
-         * @param taskBook
+         * @param filePath
          *            The TaskBook to which the Persons will be added
          */
         private void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception {
