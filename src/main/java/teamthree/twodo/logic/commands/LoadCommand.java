@@ -1,10 +1,9 @@
 package teamthree.twodo.logic.commands;
 
 import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
+import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 //@@author A0162253M
@@ -34,8 +33,8 @@ public class LoadCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_PATH, filePath));
         }
         try {
-            Paths.get(filePath);
-            EventsCenter.getInstance().post(new TaskBookFilePathChangedEvent(filePath));
+            //Paths.get(filePath);
+            EventsCenter.getInstance().post(new LoadCommandExecutedEvent(filePath));
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
         } catch (InvalidPathException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_PATH, filePath));

@@ -66,10 +66,10 @@ public interface Model {
     void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
             boolean listIncomplete, Set<Tag> tagList);
 
-    /** Saves the taskBook*/
+    /** Saves the filePath*/
     void saveTaskBook();
 
-    /** Sorts the taskBook*/
+    /** Sorts the filePath*/
     void sort();
 
     /** Updates the filter to show no tasks*/

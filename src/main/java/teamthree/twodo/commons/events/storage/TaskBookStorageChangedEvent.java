@@ -14,8 +14,8 @@ public class TaskBookStorageChangedEvent extends BaseEvent {
 
     public final String filePath;
 
-    public TaskBookStorageChangedEvent(String filePath) {
-        this.filePath = filePath;
+    public TaskBookStorageChangedEvent(String filepath) {
+        this.filePath = filepath;
     }
 
     @Override

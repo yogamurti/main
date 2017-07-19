@@ -187,7 +187,7 @@ public class CategoryManager extends ComponentManager {
         }
 
         /**
-         * Deletes a user-defined category.
+         * Deletes a user-defined category. Returns the Tag that was deleted.
          *
          * @param targetIndex
          * @throws IllegalValueException
@@ -209,6 +209,10 @@ public class CategoryManager extends ComponentManager {
             });
             syncWithMasterTagList();
             return toDel;
+        }
+
+        private void renameCategory(Index targetCategory, String newName) {
+
         }
     }
 }
