@@ -5,6 +5,7 @@ import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
+import teamthree.twodo.model.category.CategoryManager;
 
 /**
  * Represents a command with hidden internal logic and the ability to be
@@ -12,6 +13,7 @@ import teamthree.twodo.model.Model;
  */
 public abstract class Command {
     protected Model model;
+    protected CategoryManager catMan;
     protected CommandHistory history;
     protected UndoCommandHistory undoHistory;
 
@@ -43,9 +45,17 @@ public abstract class Command {
      * @param undoHistory, history, model
      */
     public void setData(Model model, CommandHistory history,
+            UndoCommandHistory undoHistory, CategoryManager catMan) {
+        this.model = model;
+        this.history = history;
+        this.undoHistory = undoHistory;
+        this.catMan = catMan;
+    }
+    public void setData(Model model, CommandHistory history,
             UndoCommandHistory undoHistory) {
         this.model = model;
         this.history = history;
         this.undoHistory = undoHistory;
+        this.catMan = null;
     }
 }
