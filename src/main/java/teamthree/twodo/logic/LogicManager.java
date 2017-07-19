@@ -58,10 +58,12 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredAndSortedTaskList();
     }
 
+    @Override
     public CommandHistory getCommandHistory() {
         return history;
     }
 
+    @Override
     public void setModel(Model model) {
         this.model = model;
     }

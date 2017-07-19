@@ -19,6 +19,7 @@ public class RedoCommand extends Command {
 
     private static String fullMessage;
 
+    @Override
     public CommandResult execute() throws CommandException {
         if (undoHistory.getUserInputHistory().isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
