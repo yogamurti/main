@@ -37,7 +37,7 @@ public class ListCommandTest {
 
     @Before
     public void setUp() throws IllegalValueException {
-        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE);
@@ -72,7 +72,7 @@ public class ListCommandTest {
     }
 
     /**
-     * Updates the filtered list to show only the first task in the {@code model}'s task book.
+     * Updates the filtered list to show only the first task in the {@code model}'s task list.
      */
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
@@ -85,7 +85,7 @@ public class ListCommandTest {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
+     * - the address book and the filtered task list in the {@code model} matches that of {@code expectedModel}
      */
 
     public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)

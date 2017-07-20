@@ -13,9 +13,9 @@ import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.testutil.TaskUtil;
 import teamthree.twodo.ui.CommandBox;
 
-public class CommandBoxTest extends TaskBookGuiTest {
+public class CommandBoxTest extends TaskListGuiTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD + " -f";
+    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD + " f";
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -26,7 +26,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
         //Initial list floating tasks
         commandBox.runCommand(listFloating);
         //add if empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
         defaultStyleOfCommandBox = new ArrayList<>(commandBox.getStyleClass());

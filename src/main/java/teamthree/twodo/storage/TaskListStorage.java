@@ -9,12 +9,12 @@ import teamthree.twodo.model.ReadOnlyTaskList;
 /**
  * Represents a storage for {@link teamthree.twodo.model.TaskList}.
  */
-public interface TaskBookStorage {
+public interface TaskListStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    String getTaskBookFilePath();
+    String getTaskListFilePath();
 
     /**
      * Returns TaskList data as a {@link ReadOnlyTaskList}.
@@ -22,30 +22,30 @@ public interface TaskBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTaskList> readTaskBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
 
     /**
-     * @see #getTaskBookFilePath()
+     * @see #getTaskListFilePath()
      */
-    Optional<ReadOnlyTaskList> readTaskBook(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyTaskList} to the storage.
-     * @param addressBook cannot be null.
+     * @param taskList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTaskBook(ReadOnlyTaskList addressBook) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
     /**
-     * @see #saveTaskBook(ReadOnlyTaskList)
+     * @see #saveTaskList(ReadOnlyTaskList)
      */
-    void saveTaskBook(ReadOnlyTaskList addressBook, String filePath) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException;
 
     /**
      * Changes the filePath at which task book will be saved at
      * @param filePath cannot be invalid or null
      * @throws IOException if there is any problem in the filePath
      */
-    void setTaskBookFilePath(String filePath) throws IOException;
+    void setTaskListFilePath(String filePath) throws IOException;
 
 }

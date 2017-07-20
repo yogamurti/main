@@ -32,9 +32,9 @@ import teamthree.twodo.model.util.SampleDataUtil;
 import teamthree.twodo.storage.JsonUserPrefsStorage;
 import teamthree.twodo.storage.Storage;
 import teamthree.twodo.storage.StorageManager;
-import teamthree.twodo.storage.TaskBookStorage;
+import teamthree.twodo.storage.TaskListStorage;
 import teamthree.twodo.storage.UserPrefsStorage;
-import teamthree.twodo.storage.XmlTaskBookStorage;
+import teamthree.twodo.storage.XmlTaskListStorage;
 import teamthree.twodo.ui.Ui;
 import teamthree.twodo.ui.UiManager;
 
@@ -65,8 +65,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        TaskBookStorage taskBookStorage = new XmlTaskBookStorage(config.getTaskBookFilePath());
-        storage = new StorageManager(taskBookStorage, userPrefsStorage);
+        TaskListStorage taskListStorage = new XmlTaskListStorage(config.getTaskBookFilePath());
+        storage = new StorageManager(taskListStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -92,14 +92,14 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskList> addressBookOptional;
+        Optional<ReadOnlyTaskList> taskListOptional;
         ReadOnlyTaskList initialData;
         try {
-            addressBookOptional = storage.readTaskBook();
-            if (!addressBookOptional.isPresent()) {
+            taskListOptional = storage.readTaskList();
+            if (!taskListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TaskList");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
             initialData = new TaskList();

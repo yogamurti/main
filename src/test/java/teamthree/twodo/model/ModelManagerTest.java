@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.model.task.Deadline;
-import teamthree.twodo.testutil.TaskBookBuilder;
+import teamthree.twodo.testutil.TaskListBuilder;
 import teamthree.twodo.testutil.TypicalTask;
 
 //@@author A0107433N
@@ -20,7 +20,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws Exception {
-        TaskList taskList = new TaskBookBuilder().withTask(typicalTask.partyCompleted)
+        TaskList taskList = new TaskListBuilder().withTask(typicalTask.partyCompleted)
                 .withTask(typicalTask.cs2103).withTask(typicalTask.cs1020).build();
         TaskList differentTaskBook = new TaskList();
         UserPrefs userPrefs = new UserPrefs();
@@ -70,7 +70,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setTaskBookName("differentName");
+        differentUserPrefs.setTaskListName("differentName");
         assertTrue(modelManager.equals(new ModelManager(taskList, differentUserPrefs)));
     }
 }

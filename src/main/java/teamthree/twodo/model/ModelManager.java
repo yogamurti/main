@@ -27,7 +27,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data. All changes to any
+ * Represents the in-memory model of the task list data. All changes to any
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -40,13 +40,13 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given filePath and userPrefs.
      */
-    public ModelManager(ReadOnlyTaskList taskBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskList taskList, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(taskBook, userPrefs);
+        requireAllNonNull(taskList, userPrefs);
 
-        logger.fine("Initializing with task book: " + taskBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task list: " + taskList + " and user prefs " + userPrefs);
 
-        this.taskList = new TaskList(taskBook);
+        this.taskList = new TaskList(taskList);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
         updateFilteredListToShowAllIncomplete(null, false);
         sortedTasks = new SortedList<>(filteredTasks);
@@ -59,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskList newData) {
         taskList.resetData(newData);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -68,19 +68,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setTaskBook(ReadOnlyTaskList taskBook) {
+    public void setTaskList(ReadOnlyTaskList taskBook) {
         this.taskList = new TaskList(taskBook);
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateTaskBookChanged() {
+    private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -91,24 +91,24 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             updateFilteredListToShowAllIncomplete(null, true);
         }
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.markTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.unmarkTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
-    public void saveTaskBook() {
-        indicateTaskBookChanged();
+    public void saveTaskList() {
+        indicateTaskListChanged();
     }
 
     @Override
@@ -117,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedTask);
 
         taskList.updateTask(target, editedTask);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     //@@author A0107433N
@@ -207,15 +207,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     /* ==================EVENT HANDLERS======================== */
     /**
-     * Responds to taskbook storage change after load event.
-     * @param event contains the taskbook to update to
+     * Responds to taskList storage change after load event.
+     * @param event contains the taskList to update to
      */
     @Subscribe
     public void handleLoadNewModelEvent(LoadNewModelEvent event) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                resetData(event.taskBook);
+                resetData(event.taskList);
             }
         });
     }

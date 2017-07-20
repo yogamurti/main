@@ -100,7 +100,7 @@ public class TypicalTask {
         }
     }
 
-    public static void loadTaskBookWithSampleData(TaskList ab) {
+    public static void loadTaskListWithSampleData(TaskList ab) {
         for (Task task : new TypicalTask().getTypicalTasks()) {
             try {
                 if (task instanceof TaskWithDeadline) {
@@ -118,9 +118,9 @@ public class TypicalTask {
         return new Task[] { cs2103, cs1020, cs2010, project, dinner, training, cca, partyCompleted };
     }
 
-    public TaskList getTypicalTaskBook() {
+    public TaskList getTypicalTaskList() {
         TaskList ab = new TaskList();
-        loadTaskBookWithSampleData(ab);
+        loadTaskListWithSampleData(ab);
         return ab;
     }
 }

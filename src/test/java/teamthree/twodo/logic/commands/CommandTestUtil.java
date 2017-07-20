@@ -32,13 +32,13 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged
+     * - the task list and the filtered task list in the {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
 
-        TaskList expectedTaskBook = new TaskList(actualModel.getTaskList());
+        TaskList expectedTaskList = new TaskList(actualModel.getTaskList());
         List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
 
         try {
@@ -46,7 +46,7 @@ public class CommandTestUtil {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedTaskBook, actualModel.getTaskList());
+            assertEquals(expectedTaskList, actualModel.getTaskList());
             assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedTaskList());
         }
     }

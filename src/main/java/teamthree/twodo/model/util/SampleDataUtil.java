@@ -15,7 +15,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 public class SampleDataUtil {
-    public static Task[] getSamplePersons() {
+    public static Task[] getSampleTasks() {
         try {
             Task firstTask = new Task(new Name("CS2103 Tutorial"),
                     new Description("Software Engineering"), getTagSet("NUS"));
@@ -37,15 +37,15 @@ public class SampleDataUtil {
         }
     }
 
-    public static ReadOnlyTaskList getSampleAddressBook() {
+    public static ReadOnlyTaskList getSampleTaskList() {
         try {
             TaskList sampleAb = new TaskList();
-            for (Task samplePerson : getSamplePersons()) {
-                sampleAb.addTask(samplePerson);
+            for (Task sampleTask : getSampleTasks()) {
+                sampleAb.addTask(sampleTask);
             }
             return sampleAb;
         } catch (DuplicateTaskException e) {
-            throw new AssertionError("sample data cannot contain duplicate persons", e);
+            throw new AssertionError("sample data cannot contain duplicate tasks", e);
         }
     }
 

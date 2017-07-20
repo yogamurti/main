@@ -3,7 +3,7 @@ package guitests;
 import teamthree.twodo.model.TaskList;
 import teamthree.twodo.testutil.TestUtil;
 
-public class SampleDataTest extends TaskBookGuiTest {
+public class SampleDataTest extends TaskListGuiTest {
     @Override
     protected TaskList getInitialData() {
         // return null to force test app to load data from file only
@@ -20,7 +20,7 @@ public class SampleDataTest extends TaskBookGuiTest {
     public void addressBook_dataFileDoesNotExist_loadSampleData() throws Exception {
         commandBox.runCommand(listFloating);
         Task[] expectedList = SampleDataUtil.getSamplePersons();
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(expectedList));
     }*/
 }
 

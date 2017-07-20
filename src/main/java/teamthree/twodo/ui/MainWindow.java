@@ -210,8 +210,8 @@ public class MainWindow extends UiPart<Region> {
         return this.commandBox;
     }
 
-    void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
+    void loadTaskPage(ReadOnlyTask task) {
+        browserPanel.loadPersonPage(task);
     }
 
     void releaseResources() {

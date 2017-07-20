@@ -22,12 +22,12 @@ public class SaveCommandTest {
     private static final String VALID_FILEPATH = "data/2Do.xml";
     private static final String INVALID_FILEPATH = "data/2Do.txt";
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     private boolean isEventCaught = false;
 
     @Subscribe
-    private void handleTaskBookFilePathChangedEvent(TaskListFilePathChangedEvent e) {
+    private void handleTaskListFilePathChangedEvent(TaskListFilePathChangedEvent e) {
         isEventCaught = true;
     }
 

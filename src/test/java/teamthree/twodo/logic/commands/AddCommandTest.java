@@ -154,7 +154,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveTaskBook() {
+        public void saveTaskList() {
             fail("This method should not be called.");
         }
 
@@ -185,13 +185,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTaskBook(ReadOnlyTaskList taskBook) {
-            // TODO Auto-generated method stub
+        public void setTaskList(ReadOnlyTaskList taskBook) {
+            fail("This method should not be called.");
         }
 
         @Override
         public void updateFilteredTaskListToEmpty() {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
         }
     }
 

@@ -19,7 +19,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TypicalTask;
 
-public class TaskBookTest {
+public class TaskListTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -39,8 +39,8 @@ public class TaskBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyTaskBook_replacesData() {
-        TaskList newData = new TypicalTask().getTypicalTaskBook();
+    public void resetData_withValidReadOnlyTaskList_replacesData() {
+        TaskList newData = new TypicalTask().getTypicalTaskList();
         taskList.resetData(newData);
         assertEquals(newData, taskList);
     }
@@ -51,7 +51,7 @@ public class TaskBookTest {
         // Repeat td.alice twice
         List<Task> newTasks = Arrays.asList(new Task(td.cs2103), new Task(td.cs2103));
         List<Tag> newTags = new ArrayList<>(td.cs2103.getTags());
-        TaskBookStub newData = new TaskBookStub(newTasks, newTags);
+        TaskListStub newData = new TaskListStub(newTasks, newTags);
 
         thrown.expect(AssertionError.class);
         taskList.resetData(newData);
@@ -59,12 +59,12 @@ public class TaskBookTest {
 
     @Test
     public void resetData_withDuplicateTags_throwsAssertionError() {
-        TaskList typicalTaskBook = new TypicalTask().getTypicalTaskBook();
-        List<ReadOnlyTask> newPersons = typicalTaskBook.getTaskList();
-        List<Tag> newTags = new ArrayList<>(typicalTaskBook.getTagList());
+        TaskList typicalTaskList = new TypicalTask().getTypicalTaskList();
+        List<ReadOnlyTask> newTasks = typicalTaskList.getTaskList();
+        List<Tag> newTags = new ArrayList<>(typicalTaskList.getTagList());
         // Repeat the first tag twice
         newTags.add(newTags.get(0));
-        TaskBookStub newData = new TaskBookStub(newPersons, newTags);
+        TaskListStub newData = new TaskListStub(newTasks, newTags);
 
         thrown.expect(AssertionError.class);
         taskList.resetData(newData);
@@ -73,11 +73,11 @@ public class TaskBookTest {
     /**
      * A stub ReadOnlyTaskList whose tasks and tags lists can violate interface constraints.
      */
-    private static class TaskBookStub implements ReadOnlyTaskList {
+    private static class TaskListStub implements ReadOnlyTaskList {
         private final ObservableList<ReadOnlyTask> tasks = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
-        TaskBookStub(Collection<? extends ReadOnlyTask> tasks, Collection<? extends Tag> tags) {
+        TaskListStub(Collection<? extends ReadOnlyTask> tasks, Collection<? extends Tag> tags) {
             this.tasks.setAll(tasks);
             this.tags.setAll(tags);
         }

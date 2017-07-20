@@ -21,7 +21,7 @@ public interface Model {
     ReadOnlyTaskList getTaskList();
 
     /** Changes the TaskList */
-    void setTaskBook(ReadOnlyTaskList taskList);
+    void setTaskList(ReadOnlyTaskList taskList);
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
@@ -36,7 +36,7 @@ public interface Model {
     void unmarkTask(ReadOnlyTask task) throws TaskNotFoundException;
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given task {@code target} with {@code editedTask}.
      *
      * @throws DuplicateTaskException if updating the task's details causes the task to be equivalent to
      *      another existing task in the list.
@@ -67,7 +67,7 @@ public interface Model {
             boolean listIncomplete, Set<Tag> tagList);
 
     /** Saves the filePath*/
-    void saveTaskBook();
+    void saveTaskList();
 
     /** Sorts the filePath*/
     void sort();

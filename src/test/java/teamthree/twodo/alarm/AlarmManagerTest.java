@@ -1,6 +1,7 @@
 package teamthree.twodo.alarm;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,30 +72,30 @@ public class AlarmManagerTest {
     }
 
     private class ModelManagerStub implements Model {
-        private TaskList taskbook;
+        private TaskList tasklist;
 
         public ModelManagerStub() {
             try {
-                setTaskbook(new TaskList(generateSampleTaskBook()));
+                setTaskList(new TaskList(generateSampleTaskList()));
             } catch (IllegalValueException e) {
                 // should not reach here
                 e.printStackTrace();
             }
         }
 
-        private TaskList generateSampleTaskBook() throws IllegalValueException {
+        private TaskList generateSampleTaskList() throws IllegalValueException {
             try {
                 List<Task> samples = new ArrayList<Task>();
                 samples.addAll(TestUtil.generateSampleTaskData());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm");
                 samples.add(new TaskWithDeadlineBuilder().withDeadline(dateFormat.format(new Date())).build());
                 TaskList sampleTb = new TaskList();
-                for (Task samplePerson : samples) {
-                    sampleTb.addTask(samplePerson);
+                for (Task sampleTask : samples) {
+                    sampleTb.addTask(sampleTask);
                 }
                 return sampleTb;
             } catch (DuplicateTaskException e) {
-                throw new AssertionError("sample data cannot contain duplicate persons", e);
+                throw new AssertionError("sample data cannot contain duplicate tasks", e);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new AssertionError("Got rekt", e);
@@ -103,105 +104,94 @@ public class AlarmManagerTest {
 
         @Override
         public void resetData(ReadOnlyTaskList newData) {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
         public ReadOnlyTaskList getTaskList() {
-            return taskbook;
+            return tasklist;
+        }
+
+        public void setTaskList(TaskList taskList) {
+            this.tasklist = taskList;
+        }
+
+        @Override
+        public void setTaskList(ReadOnlyTaskList taskList) {
+            fail("This method should not be called.");
         }
 
         @Override
         public void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
 
         }
 
         @Override
         public void addTask(ReadOnlyTask task) throws DuplicateTaskException {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
         public void markTask(ReadOnlyTask task) throws TaskNotFoundException {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
         public void unmarkTask(ReadOnlyTask task) throws TaskNotFoundException {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
 
         }
 
         @Override
         public void updateTask(ReadOnlyTask target, ReadOnlyTask editedTask)
                 throws DuplicateTaskException, TaskNotFoundException {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
 
         }
 
         @Override
         public UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList() {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
             return null;
         }
 
         @Override
         public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
         public void updateFilteredTaskList(Set<String> keywords, boolean listIncompleted) {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
         public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
                 boolean listIncompleted, Set<Tag> tagList) {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
-        public void saveTaskBook() {
-            // TODO Auto-generated method stub
-
-        }
-
-        public TaskList getTaskbook() {
-            return taskbook;
-        }
-
-        public void setTaskbook(TaskList taskbook) {
-            this.taskbook = taskbook;
+        public void saveTaskList() {
+            fail("This method should not be called.");
         }
 
         @Override
         public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
-            // TODO Auto-generated method stub
-
+            fail("This method should not be called.");
         }
 
         @Override
         public void sort() {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void setTaskBook(ReadOnlyTaskList taskBook) {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
         }
 
         @Override
         public void updateFilteredTaskListToEmpty() {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
         }
+
     }
 
 }

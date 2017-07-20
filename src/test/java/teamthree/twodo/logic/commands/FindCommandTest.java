@@ -27,7 +27,7 @@ public class FindCommandTest {
 
     @Before
     public void setUp() throws IllegalValueException {
-        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
     }
 
@@ -75,7 +75,7 @@ public class FindCommandTest {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
+     * - the taskList and the filtered task list in the {@code model} matches that of {@code expectedModel}
      */
 
     public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)

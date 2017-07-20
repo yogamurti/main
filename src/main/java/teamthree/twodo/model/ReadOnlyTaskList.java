@@ -6,13 +6,13 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an TaskList
  */
 public interface ReadOnlyTaskList {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the tasks list.
+     * This list will not contain any duplicate tasks.
      */
     ObservableList<ReadOnlyTask> getTaskList();
 

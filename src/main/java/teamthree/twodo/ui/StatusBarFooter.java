@@ -65,7 +65,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(TaskListChangedEvent abce) {
+    public void handleTaskListChangedEvent(TaskListChangedEvent abce) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
@@ -74,8 +74,8 @@ public class StatusBarFooter extends UiPart<Region> {
 
     //@@author A0162253M
     @Subscribe
-    public void handleTaskBookStorageChangedEvent(TaskListStorageChangedEvent e) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(e, "Task Book saved to " + e.filePath));
+    public void handleTaskListStorageChangedEvent(TaskListStorageChangedEvent e) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(e, "Task List saved to " + e.filePath));
         setSaveLocation(e.filePath);
     }
 }

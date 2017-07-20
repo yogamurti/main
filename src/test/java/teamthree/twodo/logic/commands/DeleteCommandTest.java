@@ -23,7 +23,7 @@ import teamthree.twodo.testutil.TypicalTask;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -66,7 +66,7 @@ public class DeleteCommandTest {
         showFirstTaskOnly(model);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of TaskList
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
@@ -84,7 +84,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the first task from the task book.
+     * Updates {@code model}'s filtered list to show only the first task from the task list.
      */
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
@@ -93,14 +93,4 @@ public class DeleteCommandTest {
 
         assert model.getFilteredAndSortedTaskList().size() == 1;
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    /*
-    private void showNoTask(Model model) {
-        model.updateFilteredTaskListToEmpty();
-
-        assert model.getFilteredAndSortedTaskList().isEmpty();
-    }*/
 }

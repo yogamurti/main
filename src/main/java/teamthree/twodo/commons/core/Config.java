@@ -55,7 +55,7 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public void setTaskBookFilePath(String taskBookFilePath) {
+    public void setTaskListFilePath(String taskBookFilePath) {
         this.taskBookFilePath = taskBookFilePath;
     }
 

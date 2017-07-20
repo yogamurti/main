@@ -26,7 +26,7 @@ public class EditTaskDescriptorBuilder {
 
     /**
      * Returns an {@code EditTaskDescriptor} with fields containing
-     * {@code person}'s details
+     * {@code task}'s details
      */
     public EditTaskDescriptorBuilder(ReadOnlyTask task) throws IllegalValueException {
         descriptor = new EditTaskDescriptor();

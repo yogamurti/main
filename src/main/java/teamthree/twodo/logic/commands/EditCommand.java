@@ -106,7 +106,7 @@ public class EditCommand extends Command {
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
-        
+
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
             return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags);
@@ -124,7 +124,8 @@ public class EditCommand extends Command {
      * @return final deadline with all updates
      */
     private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
-        boolean isDeadlineUnchanged = !editTaskDescriptor.getDeadline().isPresent() && taskToEdit instanceof TaskWithDeadline;
+        boolean isDeadlineUnchanged = !editTaskDescriptor.getDeadline().isPresent()
+                && taskToEdit instanceof TaskWithDeadline;
         if (isDeadlineUnchanged) {
             return taskToEdit.getDeadline().get();
         }

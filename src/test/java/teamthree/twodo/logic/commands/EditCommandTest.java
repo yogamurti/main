@@ -37,7 +37,7 @@ import teamthree.twodo.testutil.TypicalTask;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
@@ -47,6 +47,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
+        //Creating Expected Model
         Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
         expectedModel.updateTask(model.getFilteredAndSortedTaskList().get(0), editedTask);
 
@@ -58,10 +59,12 @@ public class EditCommandTest {
         Index indexLastTask = Index.fromOneBased(model.getFilteredAndSortedTaskList().size());
         ReadOnlyTask lastTask = model.getFilteredAndSortedTaskList().get(indexLastTask.getZeroBased());
 
+        //EditedTask for Expected Model
         TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(lastTask);
         Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
                 .withTags(VALID_TAG_SPONGEBOB).build();
 
+        //Prepare EditCommand for model
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
         EditCommand editCommand = prepareCommand(indexLastTask, descriptor);
@@ -77,9 +80,9 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() throws Exception {
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK, new EditTaskDescriptor());
-        ReadOnlyTask editedPerson = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        ReadOnlyTask editedTask = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
 
@@ -90,21 +93,21 @@ public class EditCommandTest {
     public void execute_filteredList_success() throws Exception {
         showFirstTaskOnly();
 
-        ReadOnlyTask personInFilteredList = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        Task editedPerson = new TaskWithDeadlineBuilder(personInFilteredList).withName(VALID_NAME_EVENT).build();
+        ReadOnlyTask taskInFilteredList = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task editedTask = new TaskWithDeadlineBuilder(taskInFilteredList).withName(VALID_NAME_EVENT).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK,
                 new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
-        expectedModel.updateTask(model.getFilteredAndSortedTaskList().get(0), editedPerson);
+        expectedModel.updateTask(model.getFilteredAndSortedTaskList().get(0), editedTask);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() throws Exception {
+    public void execute_duplicateTaskUnfilteredList_failure() throws Exception {
 
         Task firstTask = new TaskWithDeadline(model.getFilteredAndSortedTaskList()
                 .get(INDEX_FIRST_TASK.getZeroBased()));
@@ -115,10 +118,10 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() throws Exception {
+    public void execute_duplicateTaskFilteredList_failure() throws Exception {
         showFirstTaskOnly();
 
-        // edit person in filtered list into a duplicate in address book
+        // edit task in filtered list into a duplicate in TaskList
         ReadOnlyTask taskInList = model.getTaskList().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK,
                 new EditTaskDescriptorBuilder(taskInList).build());
@@ -137,13 +140,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list, but
-     * smaller than size of task book
+     * smaller than size of task list
      */
     @Test
     public void execute_invalidTaskIndexFilteredList_failure() throws Exception {
         showFirstTaskOnly();
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of TaskList
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
 
         EditCommand editCommand = prepareCommand(outOfBoundIndex,

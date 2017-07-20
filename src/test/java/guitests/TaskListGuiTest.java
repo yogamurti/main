@@ -35,7 +35,7 @@ import teamthree.twodo.testutil.TypicalTask;
  * A GUI Test class for TaskList.
  */
 
-public abstract class TaskBookGuiTest {
+public abstract class TaskListGuiTest {
 
     /**
      * The TestName Rule makes the current test name available inside test
@@ -55,7 +55,7 @@ public abstract class TaskBookGuiTest {
 
     protected MainWindowHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle personListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
@@ -79,7 +79,7 @@ public abstract class TaskBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainWindowHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             browserPanel = mainGui.getBrowserPanel();
@@ -102,7 +102,7 @@ public abstract class TaskBookGuiTest {
 
     protected TaskList getInitialData() {
         TaskList ab = new TaskList();
-        TypicalTask.loadTaskBookWithSampleData(ab);
+        TypicalTask.loadTaskListWithSampleData(ab);
         return ab;
     }
 
@@ -120,18 +120,18 @@ public abstract class TaskBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, person));
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the task list is equal to the given number.
      */
 
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfTasks();
+        int numberOfPeople = taskListPanel.getNumberOfTasks();
         assertEquals(size, numberOfPeople);
     }
 

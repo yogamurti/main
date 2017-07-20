@@ -28,9 +28,9 @@ public class TaskWithDeadlineBuilder {
     public TaskWithDeadlineBuilder() throws IllegalValueException {
         Name defaultName = new Name(DEFAULT_NAME);
         Deadline defaultDeadline = new Deadline(DEFAULT_DEADLINE, DEFAULT_DEADLINE, Deadline.NULL_VALUE);
-        Description defaultAddress = new Description(DEFAULT_DESCRIPTION);
+        Description defaultDescription = new Description(DEFAULT_DESCRIPTION);
         Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-        this.task = new TaskWithDeadline(defaultName, defaultDeadline, defaultAddress, defaultTags);
+        this.task = new TaskWithDeadline(defaultName, defaultDeadline, defaultDescription, defaultTags);
     }
 
     /**

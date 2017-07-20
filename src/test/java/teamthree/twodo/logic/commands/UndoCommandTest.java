@@ -50,7 +50,7 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         undoCommand = new UndoCommand();

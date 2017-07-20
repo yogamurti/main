@@ -36,7 +36,7 @@ public class SaveCommand extends Command {
         try {
             Paths.get(filePath);
             EventsCenter.getInstance().post(new TaskListFilePathChangedEvent(filePath));
-            model.saveTaskBook();
+            model.saveTaskList();
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
         } catch (InvalidPathException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_PATH, filePath));

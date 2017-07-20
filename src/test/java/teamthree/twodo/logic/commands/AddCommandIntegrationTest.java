@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
     }
 
     @Test

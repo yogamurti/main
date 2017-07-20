@@ -152,7 +152,7 @@ public class LogicManagerTest {
      * <br>
      * - the internal model manager data are same as those in the
      * {@code expectedModel} <br>
-     * - {@code expectedModel}'s address book was saved to the storage file.
+     * - {@code expectedModel}'s taskList was saved to the storage file.
      */
     private <T> void assertCommandBehavior(Class<T> expectedException, String inputCommand, String expectedMessage,
             Model expectedModel) {
@@ -273,9 +273,9 @@ public class LogicManagerTest {
     public void executeListShowsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Model expectedModel = new ModelManager(helper.generateTaskBook(2), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(2), new UserPrefs());
 
-        // prepare address book state
+        // prepare TaskList state
         helper.addToModel(model, 2);
 
         assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
@@ -300,18 +300,18 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
-     * command targeting a single person in the shown list, using visible index.
+     * command targeting a single task in the shown list, using visible index.
      *
      * @param commandWord
-     *            to test assuming it targets a single person in the last shown
+     *            to test assuming it targets a single task in the last shown
      *            list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> taskList = helper.generateTaskList(2);
+        List<Task> taskList = helper.createTaskList(2);
 
-        // set AB state to 2 persons
+        // set AB state to 2 tasks
         model.resetData(new TaskList());
         for (Task p : taskList) {
             model.addTask(p);
@@ -335,9 +335,9 @@ public class LogicManagerTest {
     @Test
     public void executeDeleteRemovesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<Task> threeTasks = helper.createTaskList(3);
 
-        Model expectedModel = new ModelManager(helper.generateTaskBook(threeTasks), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(threeTasks), new UserPrefs());
         expectedModel.deleteTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
@@ -448,12 +448,12 @@ public class LogicManagerTest {
 
         /**
          * Generates a valid task using the given seed. Running this function
-         * with the same parameter values guarantees the returned person will
+         * with the same parameter values guarantees the returned task will
          * have the same state. Each unique seed will generate a unique Task
          * object.
          *
          * @param seed
-         *            used to generate the person data field values
+         *            used to generate the task data field values
          */
         private Task generateTask(int seed) throws Exception {
             return new TaskWithDeadline(new Name("Task " + seed),
@@ -461,7 +461,7 @@ public class LogicManagerTest {
                     new Description("Task ID " + seed), getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the task given */
         private String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -482,20 +482,20 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an TaskList with auto-generated persons.
+         * Generates an TaskList with auto-generated tasks.
          */
-        private TaskList generateTaskBook(int numGenerated) throws Exception {
+        private TaskList generateTaskList(int numGenerated) throws Exception {
             TaskList taskList = new TaskList();
-            addToTaskBook(taskList, numGenerated);
+            addToTaskList(taskList, numGenerated);
             return taskList;
         }
 
         /**
-         * Generates an TaskList based on the list of Persons given.
+         * Generates an TaskList based on the list of Tasks given.
          */
-        private TaskList generateTaskBook(List<Task> tasks) throws Exception {
+        private TaskList generateTaskList(List<Task> tasks) throws Exception {
             TaskList taskList = new TaskList();
-            addToAddressBook(taskList, tasks);
+            addToTaskList(taskList, tasks);
             return taskList;
         }
 
@@ -503,17 +503,17 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given TaskList
          *
          * @param filePath
-         *            The TaskList to which the Persons will be added
+         *            The TaskList to which the Tasks will be added
          */
-        private void addToTaskBook(TaskList taskList, int numGenerated) throws Exception {
-            addToAddressBook(taskList, generateTaskList(numGenerated));
+        private void addToTaskList(TaskList taskList, int numGenerated) throws Exception {
+            addToTaskList(taskList, createTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given TaskList
+         * Adds the given list of Tasks to the given TaskList
          */
-        private void addToAddressBook(TaskList taskList, List<Task> personsToAdd) throws Exception {
-            for (Task p : personsToAdd) {
+        private void addToTaskList(TaskList taskList, List<Task> tasksToAdd) throws Exception {
+            for (Task p : tasksToAdd) {
                 taskList.addTask(p);
             }
         }
@@ -522,25 +522,25 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          *
          * @param model
-         *            The model to which the Persons will be added
+         *            The model to which the Tasks will be added
          */
         private void addToModel(Model model, int numGenerated) throws Exception {
-            addToModel(model, generateTaskList(numGenerated));
+            addToModel(model, createTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given model
+         * Adds the given list of Tasks to the given model
          */
-        private void addToModel(Model model, List<Task> personsToAdd) throws Exception {
-            for (Task p : personsToAdd) {
+        private void addToModel(Model model, List<Task> tasksToAdd) throws Exception {
+            for (Task p : tasksToAdd) {
                 model.addTask(p);
             }
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of Tasks based on the flags.
          */
-        private List<Task> generateTaskList(int numGenerated) throws Exception {
+        private List<Task> createTaskList(int numGenerated) throws Exception {
             List<Task> tasks = new ArrayList<>();
             for (int i = 1; i <= numGenerated; i++) {
                 tasks.add(generateTask(i));

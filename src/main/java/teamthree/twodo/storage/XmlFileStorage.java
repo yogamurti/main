@@ -10,15 +10,15 @@ import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.XmlUtil;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores taskList data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given taskList data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableTaskBook addressBook) throws FileNotFoundException {
+    public static void saveDataToFile(File file, XmlSerializableTaskList taskList) throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, taskList);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }
@@ -37,12 +37,12 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns TaskList in the file or an empty TaskList
      */
-    public static XmlSerializableTaskBook loadDataFromSaveFile(File file)
+    public static XmlSerializableTaskList loadDataFromSaveFile(File file)
             throws DataConversionException, FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableTaskBook.class);
+            return XmlUtil.getDataFromFile(file, XmlSerializableTaskList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

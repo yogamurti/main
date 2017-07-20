@@ -34,9 +34,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlTaskBookStorage addressBookStorage = new XmlTaskBookStorage(getTempFilePath("ab"));
+        XmlTaskListStorage taskListStorage = new XmlTaskListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(taskListStorage, userPrefsStorage);
     }
 
 
@@ -60,42 +60,42 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void taskBookReadSave() throws Exception {
+    public void taskListReadSave() throws Exception {
         /*
          * Description: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlTaskBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlTaskBookStorageTest} class.
+         * {@link XmlTaskListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlTaskListStorageTest} class.
          */
-        TaskList original = new TypicalTask().getTypicalTaskBook();
-        storageManager.saveTaskBook(original);
-        ReadOnlyTaskList retrieved = storageManager.readTaskBook().get();
+        TaskList original = new TypicalTask().getTypicalTaskList();
+        storageManager.saveTaskList(original);
+        ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
         assertEquals(original, new TaskList(retrieved));
     }
 
     @Test
-    public void getTaskBookFilePath() {
-        assertNotNull(storageManager.getTaskBookFilePath());
+    public void getTaskListFilePath() {
+        assertNotNull(storageManager.getTaskListFilePath());
     }
 
     //@@author A0162253M
     @Test
-    public void setTaskBookFilePathSuccess() throws IOException {
-        String expectedFilePath = storageManager.getTaskBookFilePath();
+    public void setTaskListFilePathSuccess() throws IOException {
+        String expectedFilePath = storageManager.getTaskListFilePath();
         //Create a StorageManager while injecting a stub that only allows the method setTaskBookFilePath() to be called
-        Storage storage = new StorageManager(new XmlTaskBookStorageStub("dummy"),
+        Storage storage = new StorageManager(new XmlTaskListStorageStub("dummy"),
                 new JsonUserPrefsStorage("dummy"));
-        storage.setTaskBookFilePath(expectedFilePath);
-        assertEquals(storageManager.getTaskBookFilePath(), storage.getTaskBookFilePath());
+        storage.setTaskListFilePath(expectedFilePath);
+        assertEquals(storageManager.getTaskListFilePath(), storage.getTaskListFilePath());
     }
 
 
     @Test
-    public void handleTaskBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleTaskListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlTaskBookStorageExceptionThrowingStub("dummy"),
+        Storage storage = new StorageManager(new XmlTaskListStorageExceptionThrowingStub("dummy"),
                                              new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleTaskBookChangedEvent(new TaskListChangedEvent(new TaskList()));
+        storage.handleTaskListChangedEvent(new TaskListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -103,59 +103,59 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlTaskBookStorageExceptionThrowingStub extends XmlTaskBookStorage {
+    class XmlTaskListStorageExceptionThrowingStub extends XmlTaskListStorage {
 
-        public XmlTaskBookStorageExceptionThrowingStub(String filePath) {
+        public XmlTaskListStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveTaskBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
+        public void saveTaskList(ReadOnlyTaskList addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
 
     /**
-     * A Stub class that only allows setTaskBookFilePath to be called
+     * A Stub class that only allows setTaskListFilePath to be called
      * @author shuqi
      */
     //@@author A0162253M
-    class XmlTaskBookStorageStub extends XmlTaskBookStorage {
+    class XmlTaskListStorageStub extends XmlTaskListStorage {
 
-        public XmlTaskBookStorageStub (String filePath) {
+        public XmlTaskListStorageStub (String filePath) {
             super(filePath);
         }
 
         @Override
-        public String getTaskBookFilePath() {
+        public String getTaskListFilePath() {
             return filePath;
         }
 
         @Override
-        public void setTaskBookFilePath(String filePath) throws IOException {
+        public void setTaskListFilePath(String filePath) throws IOException {
             this.filePath = filePath;
         }
 
         @Override
-        public Optional<ReadOnlyTaskList> readTaskBook() throws DataConversionException, IOException {
+        public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
             fail("This method should not be called.");
             return null;
         }
 
         @Override
-        public Optional<ReadOnlyTaskList> readTaskBook(String filePath)
+        public Optional<ReadOnlyTaskList> readTaskList(String filePath)
                 throws DataConversionException, FileNotFoundException {
             fail("This method should not be called.");
             return null;
         }
 
         @Override
-        public void saveTaskBook(ReadOnlyTaskList addressBook) throws IOException {
+        public void saveTaskList(ReadOnlyTaskList taskListk) throws IOException {
             fail("This method should not be called.");
         }
 
         @Override
-        public void saveTaskBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
+        public void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {
             fail("This method should not be called.");
         }
 

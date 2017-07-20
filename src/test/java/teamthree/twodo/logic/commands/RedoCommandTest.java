@@ -47,7 +47,7 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         redoCommand = new RedoCommand();
@@ -212,7 +212,7 @@ public class RedoCommandTest {
 
 
     /**
-     * Asserts that the result message from the execution of {@code historyCommand} equals to {@code expectedMessage}
+     * Asserts that the result message from the execution of {@code redoCommand} equals to {@code expectedMessage}
      * @throws CommandException
      */
     private void assertCommandResult(RedoCommand redoCommand, String expectedMessage) throws CommandException {
