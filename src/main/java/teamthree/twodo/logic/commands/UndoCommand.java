@@ -1,11 +1,16 @@
 package teamthree.twodo.logic.commands;
 
+import java.util.ArrayList;
+
+import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
+
 
 // @@author A0162253M
 // Undoes the previous command by the user
@@ -16,6 +21,10 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Successfully undid command!!!\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands. ";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
+
+    public static final String DELETE_TAG = "tag";
+
+    private static final String MESSAGE_ADD_TAG_SUCCESS = "Added Tag: ";
 
     private static String fullMessage;
 
@@ -34,11 +43,13 @@ public class UndoCommand extends Command {
             assert false : "The target task cannot be missing";
         } catch (ParseException e) {
             assert false : "The Command is invalid";
+        } catch (IllegalValueException e) {
+            assert false : "The Value is illegal";
         }
         return undoResult;
     }
 
-    private CommandResult processUserInput() throws TaskNotFoundException, DuplicateTaskException, ParseException {
+    private CommandResult processUserInput() throws TaskNotFoundException, IllegalValueException, CommandException {
         final String previousCommandWord = history.getUserInputHistory().pop();
         undoHistory.addToUserInputHistory(previousCommandWord);
         switch (previousCommandWord) {
@@ -70,6 +81,14 @@ public class UndoCommand extends Command {
             model.addTask(taskToAdd);
             fullMessage = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
             return new CommandResult(String.format(fullMessage, taskToAdd));
+
+        case DELETE_TAG:
+            ArrayList<Task> taskList = history.getTaskWithTagsHistory().pop();
+            String tagName = history.getTagNameHistory().pop();
+            //undoHistory
+            catMan.addCategory(tagName, taskList);
+            fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tagName);
+            return new CommandResult(fullMessage);
 
         case ClearCommand.COMMAND_WORD:
             ReadOnlyTaskList taskBook = history.getClearHistory().pop();
