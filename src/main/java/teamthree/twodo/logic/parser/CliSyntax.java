@@ -11,5 +11,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_NOTIFICATION_PERIOD = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_AUTOMARK = new Prefix("m/");
+    public static final Prefix PREFIX_CATEGORY = new Prefix("tag");
 
 }

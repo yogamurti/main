@@ -13,20 +13,20 @@ import teamthree.twodo.model.task.Deadline;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-l";
-    public static final String COMMAND_WORD_HISTORY = "-h";
-    public static final String COMMAND_WORD_FLOATING = "-f";
+    public static final String COMMAND_WORD_FAST = "l";
+    public static final String COMMAND_WORD_HISTORY = "/h";
+    public static final String COMMAND_WORD_FLOATING = "f";
 
     public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks with deadline";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_FLOATING = "Listed all incomplete floating tasks";
     public static final String MESSAGE_SUCCESS_COMPLETE = "Listed all completed tasks with deadline";
-    public static final String MESSAGE_SUCCESS_COMPLETE_FLOATING = "Listed all incomplete floating tasks";
-    public static final String MESSAGE_SUCCESS_INCOMPLETE_START = "Listed all incomplete tasks after ";
-    public static final String MESSAGE_SUCCESS_COMPLETE_START = "Listed all completed tasks after ";
-    public static final String MESSAGE_SUCCESS_INCOMPLETE_END = "Listed all incomplete tasks before ";
-    public static final String MESSAGE_SUCCESS_COMPLETE_END = "Listed all completed tasks before ";
-    public static final String MESSAGE_SUCCESS_INCOMPLETE_BOTH = "Listed all incomplete tasks between ";
-    public static final String MESSAGE_SUCCESS_COMPLETE_BOTH = "Listed all completed tasks between ";
+    public static final String MESSAGE_SUCCESS_COMPLETE_FLOATING = "Listed all complete floating tasks";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE_START = "Listed all incomplete tasks after %1$s";
+    public static final String MESSAGE_SUCCESS_COMPLETE_START = "Listed all completed tasks after %1$s";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE_END = "Listed all incomplete tasks before %1$s";
+    public static final String MESSAGE_SUCCESS_COMPLETE_END = "Listed all completed tasks before %1$s";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE_BOTH = "Listed all incomplete tasks between %1$s and %1$s";
+    public static final String MESSAGE_SUCCESS_COMPLETE_BOTH = "Listed all completed tasks between %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all incomplete tasks within specified period.\n"
             + "If only start date specified, list all tasks after start date. "
@@ -80,24 +80,25 @@ public class ListCommand extends Command {
             switch (attInput) {
             case START:
                 if (listIncomplete) {
-                    message = MESSAGE_SUCCESS_INCOMPLETE_START + deadline.getStartDate();
+                    message = String.format(MESSAGE_SUCCESS_INCOMPLETE_START, deadline.getStartDate());
                 } else {
-                    message = MESSAGE_SUCCESS_COMPLETE_START + deadline.getStartDate();
+                    message = String.format(MESSAGE_SUCCESS_COMPLETE_START, deadline.getStartDate());
                 }
                 break;
             case END:
                 if (listIncomplete) {
-                    message = MESSAGE_SUCCESS_INCOMPLETE_END + deadline.getEndDate();
+                    message = String.format(MESSAGE_SUCCESS_INCOMPLETE_END, deadline.getEndDate());
                 } else {
-                    message = MESSAGE_SUCCESS_COMPLETE_END + deadline.getEndDate();
+                    message = String.format(MESSAGE_SUCCESS_COMPLETE_END, deadline.getEndDate());
                 }
                 break;
             case BOTH:
                 if (listIncomplete) {
-                    message = MESSAGE_SUCCESS_INCOMPLETE_BOTH + deadline.getStartDate()
-                        + " and " + deadline.getEndDate();
+                    message = String.format(MESSAGE_SUCCESS_INCOMPLETE_BOTH, deadline.getStartDate(),
+                            deadline.getEndDate());
                 } else {
-                    message = MESSAGE_SUCCESS_COMPLETE_BOTH + deadline.getStartDate() + " and " + deadline.getEndDate();
+                    message = String.format(MESSAGE_SUCCESS_COMPLETE_BOTH, deadline.getStartDate(),
+                            deadline.getEndDate());
                 }
                 break;
             default:
@@ -113,6 +114,13 @@ public class ListCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        Boolean incomplete = listIncomplete;
+        Boolean floating = listFloating;
+        return attInput.name() + incomplete + tagList + floating;
+    }
+
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -125,7 +133,6 @@ public class ListCommand extends Command {
         }
 
         // state check
-        ListCommand temp = (ListCommand) other;
-        return this.toString().equals(temp.toString());
+        return this.toString().equals(other.toString());
     }
 }

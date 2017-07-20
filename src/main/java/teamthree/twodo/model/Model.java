@@ -55,7 +55,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all incomplete tasks
      * @param tagList TODO
-     * @param listFloating TODO*/
+     * @param taskType TODO*/
     void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating);
 
     /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
@@ -66,10 +66,10 @@ public interface Model {
     void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
             boolean listIncomplete, Set<Tag> tagList);
 
-    /** Saves the taskBook*/
+    /** Saves the filePath*/
     void saveTaskBook();
 
-    /** Sorts the taskBook*/
+    /** Sorts the filePath*/
     void sort();
 
     /** Updates the filter to show no tasks*/

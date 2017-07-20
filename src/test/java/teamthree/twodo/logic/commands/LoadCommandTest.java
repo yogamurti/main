@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
+import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 public class LoadCommandTest {
@@ -20,7 +20,7 @@ public class LoadCommandTest {
     private boolean isEventCaught = false;
 
     @Subscribe
-    private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent e) {
+    private void handleLoadCommandExecutedEvent(LoadCommandExecutedEvent e) {
         isEventCaught = true;
     }
 
@@ -30,7 +30,7 @@ public class LoadCommandTest {
     }
 
     @Test
-    public void excecute_load_success() throws CommandException {
+    public void execute_load_success() throws CommandException {
         CommandResult result = new LoadCommand(VALID_FILEPATH).execute();
         assertEquals(String.format(LoadCommand.MESSAGE_SUCCESS , VALID_FILEPATH), result.feedbackToUser);
         assertTrue(isEventCaught);

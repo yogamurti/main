@@ -23,6 +23,7 @@ import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.UnmarkCommand;
+import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,6 +35,7 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     /**
      * Parses user input into command for execution.
      *
@@ -42,6 +44,7 @@ public class Parser {
      * @return the command based on the user input
      * @throws ParseException
      *             if the user input does not conform the expected format
+     * @throws CommandException
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -56,44 +59,44 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_UNIXSTYLE:
+        case AddCommand.COMMAND_WORD_FAST:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_WORD_UNIXSTYLE:
+        case EditCommand.COMMAND_WORD_FAST:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_QUICK:
-        case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
+        case DeleteCommand.COMMAND_WORD_FAST:
         case DeleteCommand.COMMAND_WORD_SHORT:
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case MarkCommand.COMMAND_WORD_FAST:
             return new MarkCommandParser().parse(arguments);
 
         case UnmarkCommand.COMMAND_WORD:
-        case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case UnmarkCommand.COMMAND_WORD_FAST:
             return new UnmarkCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_WORD_UNIXSTYLE:
+        case FindCommand.COMMAND_WORD_FAST:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_WORD_UNIXSTYLE:
+        case ListCommand.COMMAND_WORD_FAST:
             return new ListCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-        case UndoCommand.COMMAND_WORD_UNIXSTYLE:
+        case UndoCommand.COMMAND_WORD_FAST:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-        case RedoCommand.COMMAND_WORD_UNIXSTYLE:
+        case RedoCommand.COMMAND_WORD_FAST:
             return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
@@ -101,20 +104,19 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:
-        case ExitCommand.COMMAND_WORD_UNIXSTYLE:
+        case ExitCommand.COMMAND_WORD_FAST:
             return new ExitCommand();
 
         case SaveCommand.COMMAND_WORD:
-        case SaveCommand.COMMAND_WORD_UNIXSTYLE:
+        case SaveCommand.COMMAND_WORD_FAST:
             return new SaveCommandParser().parse(arguments);
 
         case LoadCommand.COMMAND_WORD:
             return new LoadCommandParser().parse(arguments);
 
         case OptionsCommand.COMMAND_WORD:
-        case OptionsCommand.COMMAND_WORD_UNIXSTYLE:
+        case OptionsCommand.COMMAND_WORD_FAST:
             return new OptionsCommandParser().parse(arguments);
-
 
         case HelpCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {

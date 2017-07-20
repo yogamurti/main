@@ -2,6 +2,7 @@ package teamthree.twodo.model.category;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
@@ -10,17 +11,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
+import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
+
 // @@author A0124399W
 /**
  * Manager class for maintaining the different categories in the task manager.
  */
 public class CategoryManager extends ComponentManager {
-
+    public static final Index INDEX_LAST_DEFAULT = Index.fromOneBased(5);
     private final Model model;
     /**
      * ==============DEFAULT CATEGORIES=======================
@@ -54,6 +59,18 @@ public class CategoryManager extends ComponentManager {
         return new UnmodifiableObservableList<Category>(categoryList);
     }
 
+    public synchronized Tag deleteCategory(Index targetIndex) throws IllegalValueException {
+        Tag toDel = otherCategories.deleteCategory(targetIndex);
+        resetCategoryList();
+        return toDel;
+    }
+
+    public synchronized Tag addCategory(String newTagName, List<Task> tasks) throws IllegalValueException {
+        Tag toAdd = otherCategories.addCategory(newTagName, tasks);
+        resetCategoryList();
+        return toAdd;
+    }
+
     //Updates all categories
     private void refreshAllMainList() {
         updateDefaultCategories();
@@ -76,12 +93,14 @@ public class CategoryManager extends ComponentManager {
         setCompleteTasks();
         setFloatingTasks();
     }
+
     //Adds multiple categories to the default list
     private void addToDefaultCategoryList(Category... categories) {
         for (Category category : categories) {
             defaultCategories.add(category);
         }
     }
+
     //Sets the number of all tasks category
     private void setAllTasks() {
         allTasks.setNumberOfConstituents(model.getTaskBook().getTaskList().size());
@@ -135,7 +154,7 @@ public class CategoryManager extends ComponentManager {
      */
     private class OtherCategoryManager {
         //Main mapping between tags and tasks which contain them
-        private final HashMap<Tag, ArrayList<ReadOnlyTask>> categoryMap = new HashMap<Tag, ArrayList<ReadOnlyTask>>();
+        private final HashMap<Tag, ArrayList<Task>> categoryMap = new HashMap<Tag, ArrayList<Task>>();
 
         OtherCategoryManager() {
             syncWithMasterTagList();
@@ -148,10 +167,11 @@ public class CategoryManager extends ComponentManager {
             categoryMap.clear();
             ObservableList<Tag> masterList = model.getTaskBook().getTagList();
             masterList.forEach((tag) -> {
-                ArrayList<ReadOnlyTask> tasksWithTag = new ArrayList<ReadOnlyTask>();
+                ArrayList<Task> tasksWithTag = new ArrayList<Task>();
                 model.getTaskBook().getTaskList().forEach((task) -> {
                     if (task.getTags().contains(tag)) {
-                        tasksWithTag.add(task);
+                        tasksWithTag
+                                .add(task instanceof TaskWithDeadline ? new TaskWithDeadline(task) : new Task(task));
                     }
                 });
                 if (!tasksWithTag.isEmpty()) {
@@ -171,6 +191,49 @@ public class CategoryManager extends ComponentManager {
             otherCategoryList.sort((cat, next) -> cat.getName().compareTo(next.getName()));
             return otherCategoryList;
         }
-    }
 
+        /**
+         * Deletes a user-defined category. Returns the Tag that was deleted.
+         *
+         * @param targetIndex
+         * @throws IllegalValueException
+         */
+        private Tag deleteCategory(Index targetIndex) throws IllegalValueException {
+            //Get category to delete from last shown list
+            Tag toDel = new Tag(categoryList.get(targetIndex.getZeroBased()).getName());
+            ArrayList<Task> tasksUnderCategory = categoryMap.get(toDel);
+            tasksUnderCategory.forEach((task) -> {
+                Task editedTask = task;
+                HashSet<Tag> tags = new HashSet<Tag>(task.getTags());
+                tags.remove(toDel);
+                editedTask.setTags(tags);
+                try {
+                    model.updateTask(task, editedTask);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            syncWithMasterTagList();
+            return toDel;
+        }
+
+        private Tag addCategory(String newTagName, List<Task> tasks) throws IllegalValueException {
+            Tag toAdd = new Tag(newTagName);
+            ArrayList<Task> tasksUnderCategory = new ArrayList<>();
+            tasksUnderCategory.addAll(tasks);
+            tasksUnderCategory.forEach((task) -> {
+                Task editedTask = task;
+                HashSet<Tag> tags = new HashSet<Tag>(task.getTags());
+                tags.add(toAdd);
+                editedTask.setTags(tags);
+                try {
+                    model.updateTask(task, editedTask);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            syncWithMasterTagList();
+            return toAdd;
+        }
+    }
 }

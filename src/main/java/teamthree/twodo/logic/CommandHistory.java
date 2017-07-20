@@ -67,9 +67,9 @@ public class CommandHistory {
         requireNonNull(userInput);
         String commandWord = getCommandWordFromInput(userInput);
         boolean isUndoRedo = userInput.equals(RedoCommand.COMMAND_WORD)
-                || userInput.equals(RedoCommand.COMMAND_WORD_UNIXSTYLE)
+                || userInput.equals(RedoCommand.COMMAND_WORD_FAST)
                 || userInput.equals(UndoCommand.COMMAND_WORD)
-                || userInput.equals(UndoCommand.COMMAND_WORD_UNIXSTYLE);
+                || userInput.equals(UndoCommand.COMMAND_WORD_FAST);
         if (!isUndoRedo) {
             getUserInputHistory().push(commandWord);
         }
@@ -124,7 +124,7 @@ public class CommandHistory {
     }
 
     /**
-     * Appends {@code taskBook} to the list of cleared taskBook entered.
+     * Appends {@code filePath} to the list of cleared filePath entered.
      */
     public void addToClearHistory(ReadOnlyTaskBook taskBook) {
         requireNonNull(taskBook);

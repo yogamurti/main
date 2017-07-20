@@ -2,7 +2,7 @@ package teamthree.twodo.commons.events.storage;
 
 import teamthree.twodo.commons.events.BaseEvent;
 /**
- * Indicates that the file path of the taskBook has been changed
+ * Indicates that the file path of the filePath has been changed
  */
 
 //@@author A0162253M

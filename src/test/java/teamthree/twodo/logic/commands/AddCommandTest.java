@@ -47,7 +47,7 @@ public class AddCommandTest {
         try {
             AddCommand command = new AddCommand(new FloatingTaskBuilder().build());
             Index targetIndex = Index.fromOneBased(1);
-            DeleteCommand other = new DeleteCommand(targetIndex);
+            DeleteCommand other = new DeleteCommand(targetIndex, false);
             assertFalse(command.equals(other));
         } catch (IllegalValueException e) {
             // should not reach here
@@ -144,7 +144,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
+        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
             fail("This method should not be called.");
         }
 

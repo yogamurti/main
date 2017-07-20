@@ -7,11 +7,15 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
+import teamthree.twodo.commons.events.LoadNewModelEvent;
 import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
@@ -34,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final SortedList<ReadOnlyTask> sortedTasks;
 
     /**
-     * Initializes a ModelManager with the given taskBook and userPrefs.
+     * Initializes a ModelManager with the given filePath and userPrefs.
      */
     public ModelManager(ReadOnlyTaskBook taskBook, UserPrefs userPrefs) {
         super();
@@ -122,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Return a list of {@code ReadOnlyTask} backed by the internal list of
-     * {@code taskBook}
+     * {@code filePath}
      */
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList() {
@@ -201,6 +205,21 @@ public class ModelManager extends ComponentManager implements Model {
         return taskBook.equals(other.taskBook) && filteredTasks.equals(other.filteredTasks);
     }
 
+    /* ==================EVENT HANDLERS======================== */
+    /**
+     * Responds to taskbook storage change after load event.
+     * @param event contains the taskbook to update to
+     */
+    @Subscribe
+    public void handleLoadNewModelEvent(LoadNewModelEvent event) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                resetData(event.taskBook);
+            }
+        });
+    }
+
     // ========== Inner classes/interfaces used for filtering
     // =================================================
 
@@ -269,13 +288,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {
-            boolean qualifies = false;
             Set<Tag> tags = task.getTags();
+            if (tags.isEmpty()) {
+                return false;
+            }
+            boolean qualifies = false;
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
+                Tag tag = tagIterator.next();
                 qualifies = keyWords.stream()
-                        .filter(keyword -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, keyword))
-                        .findAny().isPresent();
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
             }
             return qualifies;
         }
@@ -340,8 +362,9 @@ public class ModelManager extends ComponentManager implements Model {
             Set<Tag> tags = task.getTags();
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
+                Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
+                        .filter(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName))
                         .findAny().isPresent();
             }
             return qualifies;

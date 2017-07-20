@@ -74,7 +74,7 @@ public class MainApp extends Application {
 
         catMan = new CategoryManager(model);
 
-        logic = new LogicManager(model);
+        logic = new LogicManager(model, catMan);
 
         ui = new UiManager(logic, config, userPrefs, catMan);
 
