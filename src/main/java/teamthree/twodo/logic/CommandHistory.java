@@ -83,7 +83,7 @@ public class CommandHistory {
         boolean isUndoRedo = arguments[0].equals(RedoCommand.COMMAND_WORD)
                 || arguments[0].equals(RedoCommand.COMMAND_WORD_FAST)
                 || arguments[0].equals(UndoCommand.COMMAND_WORD)
-                || arguments[0].equals(UndoCommand.COMMAND_WORD_UNIXSTYLE);
+                || arguments[0].equals(UndoCommand.COMMAND_WORD_FAST);
 
         if (!isUndoRedo) {
             boolean isDeleteCommandWord = arguments[0].equals(DeleteCommand.COMMAND_WORD)

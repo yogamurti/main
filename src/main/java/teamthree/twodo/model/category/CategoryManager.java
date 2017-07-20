@@ -10,7 +10,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import teamthree.twodo.commons.core.ComponentManager;
-import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.events.model.TaskListChangedEvent;
