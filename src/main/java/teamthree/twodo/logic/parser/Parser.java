@@ -67,7 +67,7 @@ public class Parser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_QUICK:
-        case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
+        case DeleteCommand.COMMAND_WORD_FAST:
         case DeleteCommand.COMMAND_WORD_SHORT:
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -84,15 +84,15 @@ public class Parser {
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_WORD_UNIXSTYLE:
+        case FindCommand.COMMAND_WORD_FAST:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_WORD_UNIXSTYLE:
+        case ListCommand.COMMAND_WORD_FAST:
             return new ListCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-        case UndoCommand.COMMAND_WORD_UNIXSTYLE:
+        case UndoCommand.COMMAND_WORD_FAST:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:

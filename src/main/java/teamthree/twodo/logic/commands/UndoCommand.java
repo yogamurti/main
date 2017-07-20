@@ -62,7 +62,7 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(fullMessage, edittedTask));
 
         case DeleteCommand.COMMAND_WORD_QUICK:
-        case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
+        case DeleteCommand.COMMAND_WORD_FAST:
         case DeleteCommand.COMMAND_WORD_SHORT:
         case DeleteCommand.COMMAND_WORD:
             ReadOnlyTask taskToAdd = history.getDeleteHistory().pop();
