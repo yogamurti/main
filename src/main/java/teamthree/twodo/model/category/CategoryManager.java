@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.tag.Tag;
@@ -103,14 +103,14 @@ public class CategoryManager extends ComponentManager {
 
     //Sets the number of all tasks category
     private void setAllTasks() {
-        allTasks.setNumberOfConstituents(model.getTaskBook().getTaskList().size());
+        allTasks.setNumberOfConstituents(model.getTaskList().getTaskList().size());
     }
 
     // Sets the number of complete and incomplete tasks categories
     private void setCompleteTasks() {
         int numComplete = 0;
         int numIncomplete = 0;
-        for (ReadOnlyTask t : model.getTaskBook().getTaskList()) {
+        for (ReadOnlyTask t : model.getTaskList().getTaskList()) {
             if (t.isCompleted()) {
                 numComplete++;
             } else {
@@ -127,7 +127,7 @@ public class CategoryManager extends ComponentManager {
     private void setFloatingTasks() {
         int numFloating = 0;
         int numWithDeadline = 0;
-        for (ReadOnlyTask t : model.getTaskBook().getTaskList()) {
+        for (ReadOnlyTask t : model.getTaskList().getTaskList()) {
             if (!(t instanceof TaskWithDeadline)) {
                 numFloating++;
             } else {
@@ -140,10 +140,10 @@ public class CategoryManager extends ComponentManager {
 
     /** ========================EVENT HANDLERS========================= */
     /**
-     * Updates the category list when there is a change in the taskbook.
+     * Updates the category list when there is a change in the tasklist.
      */
     @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
+    public void handleTaskListChangedEvent(TaskListChangedEvent event) {
         refreshAllMainList();
     }
 
@@ -165,10 +165,10 @@ public class CategoryManager extends ComponentManager {
          */
         private synchronized void syncWithMasterTagList() {
             categoryMap.clear();
-            ObservableList<Tag> masterList = model.getTaskBook().getTagList();
+            ObservableList<Tag> masterList = model.getTaskList().getTagList();
             masterList.forEach((tag) -> {
                 ArrayList<Task> tasksWithTag = new ArrayList<Task>();
-                model.getTaskBook().getTaskList().forEach((task) -> {
+                model.getTaskList().getTaskList().forEach((task) -> {
                     if (task.getTags().contains(tag)) {
                         tasksWithTag
                                 .add(task instanceof TaskWithDeadline ? new TaskWithDeadline(task) : new Task(task));

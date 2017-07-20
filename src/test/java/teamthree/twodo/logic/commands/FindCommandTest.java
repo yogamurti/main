@@ -28,7 +28,7 @@ public class FindCommandTest {
     @Before
     public void setUp() throws IllegalValueException {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
     }
 
     @Test

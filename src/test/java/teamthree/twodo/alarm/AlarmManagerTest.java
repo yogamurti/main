@@ -20,8 +20,8 @@ import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.model.Model;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -71,24 +71,24 @@ public class AlarmManagerTest {
     }
 
     private class ModelManagerStub implements Model {
-        private TaskBook taskbook;
+        private TaskList taskbook;
 
         public ModelManagerStub() {
             try {
-                setTaskbook(new TaskBook(generateSampleTaskBook()));
+                setTaskbook(new TaskList(generateSampleTaskBook()));
             } catch (IllegalValueException e) {
                 // should not reach here
                 e.printStackTrace();
             }
         }
 
-        private TaskBook generateSampleTaskBook() throws IllegalValueException {
+        private TaskList generateSampleTaskBook() throws IllegalValueException {
             try {
                 List<Task> samples = new ArrayList<Task>();
                 samples.addAll(TestUtil.generateSampleTaskData());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm");
                 samples.add(new TaskWithDeadlineBuilder().withDeadline(dateFormat.format(new Date())).build());
-                TaskBook sampleTb = new TaskBook();
+                TaskList sampleTb = new TaskList();
                 for (Task samplePerson : samples) {
                     sampleTb.addTask(samplePerson);
                 }
@@ -102,13 +102,13 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void resetData(ReadOnlyTaskBook newData) {
+        public void resetData(ReadOnlyTaskList newData) {
             // TODO Auto-generated method stub
 
         }
 
         @Override
-        public ReadOnlyTaskBook getTaskBook() {
+        public ReadOnlyTaskList getTaskList() {
             return taskbook;
         }
 
@@ -174,11 +174,11 @@ public class AlarmManagerTest {
 
         }
 
-        public TaskBook getTaskbook() {
+        public TaskList getTaskbook() {
             return taskbook;
         }
 
-        public void setTaskbook(TaskBook taskbook) {
+        public void setTaskbook(TaskList taskbook) {
             this.taskbook = taskbook;
         }
 
@@ -194,7 +194,7 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void setTaskBook(ReadOnlyTaskBook taskBook) {
+        public void setTaskBook(ReadOnlyTaskList taskBook) {
             // TODO Auto-generated method stub
         }
 

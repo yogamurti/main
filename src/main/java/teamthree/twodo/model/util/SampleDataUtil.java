@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
@@ -37,9 +37,9 @@ public class SampleDataUtil {
         }
     }
 
-    public static ReadOnlyTaskBook getSampleAddressBook() {
+    public static ReadOnlyTaskList getSampleAddressBook() {
         try {
-            TaskBook sampleAb = new TaskBook();
+            TaskList sampleAb = new TaskList();
             for (Task samplePerson : getSamplePersons()) {
                 sampleAb.addTask(samplePerson);
             }

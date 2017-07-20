@@ -25,7 +25,7 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
  * Wraps all data at the address-book level Duplicates are not allowed (by
  * .equals comparison)
  */
-public class TaskBook implements ReadOnlyTaskBook {
+public class TaskList implements ReadOnlyTaskList {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -43,13 +43,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         tags = new UniqueTagList();
     }
 
-    public TaskBook() {
+    public TaskList() {
     }
 
     /**
-     * Creates an TaskBook using the Persons and Tags in the {@code toBeCopied}
+     * Creates an TaskList using the Persons and Tags in the {@code toBeCopied}
      */
-    public TaskBook(ReadOnlyTaskBook toBeCopied) {
+    public TaskList(ReadOnlyTaskList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -57,14 +57,14 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// list overwrite operations
 
     public void setTasks(List<? extends ReadOnlyTask> tasks) throws DuplicateTaskException {
-        this.tasks.setPersons(tasks);
+        this.tasks.setTasks(tasks);
     }
 
     public void setTags(Collection<Tag> tags) throws UniqueTagList.DuplicateTagException {
         this.tags.setTags(tags);
     }
 
-    public void resetData(ReadOnlyTaskBook newData) {
+    public void resetData(ReadOnlyTaskList newData) {
         requireNonNull(newData);
         try {
             setTasks(newData.getTaskList());
@@ -102,7 +102,7 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     /**
      * Replaces the given person {@code target} in the list with
-     * {@code editedReadOnlyPerson}. {@code TaskBook}'s tag list will be updated
+     * {@code editedReadOnlyPerson}. {@code TaskList}'s tag list will be updated
      * with the tags of {@code editedReadOnlyPerson}.
      *
      * @throws DuplicateTaskException
@@ -210,9 +210,9 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskBook // instanceof handles nulls
-                        && this.tasks.equals(((TaskBook) other).tasks)
-                        && this.tags.equalsOrderInsensitive(((TaskBook) other).tags));
+                || (other instanceof TaskList // instanceof handles nulls
+                        && this.tasks.equals(((TaskList) other).tasks)
+                        && this.tags.equalsOrderInsensitive(((TaskList) other).tags));
     }
 
     @Override

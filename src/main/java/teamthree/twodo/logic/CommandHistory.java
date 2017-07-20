@@ -14,7 +14,7 @@ import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 //@@author A0162253M
@@ -27,7 +27,7 @@ public class CommandHistory {
     private Stack<ReadOnlyTask> addHistory;
     private Stack<ReadOnlyTask> markHistory;
     private Stack<ReadOnlyTask> unmarkHistory;
-    private Stack<ReadOnlyTaskBook> clearHistory;
+    private Stack<ReadOnlyTaskList> clearHistory;
     private ArrayList<String> fullUserInputHistory;
 
     public CommandHistory() {
@@ -37,7 +37,7 @@ public class CommandHistory {
         deleteHistory = new Stack<ReadOnlyTask>();
         markHistory = new Stack<ReadOnlyTask>();
         unmarkHistory = new Stack<ReadOnlyTask>();
-        clearHistory = new Stack<ReadOnlyTaskBook>();
+        clearHistory = new Stack<ReadOnlyTaskList>();
         userInputHistory = new Stack<String>();
         fullUserInputHistory = new ArrayList<>();
     }
@@ -70,6 +70,7 @@ public class CommandHistory {
                 || userInput.equals(RedoCommand.COMMAND_WORD_FAST)
                 || userInput.equals(UndoCommand.COMMAND_WORD)
                 || userInput.equals(UndoCommand.COMMAND_WORD_FAST);
+
         if (!isUndoRedo) {
             getUserInputHistory().push(commandWord);
         }
@@ -126,7 +127,7 @@ public class CommandHistory {
     /**
      * Appends {@code filePath} to the list of cleared filePath entered.
      */
-    public void addToClearHistory(ReadOnlyTaskBook taskBook) {
+    public void addToClearHistory(ReadOnlyTaskList taskBook) {
         requireNonNull(taskBook);
         clearHistory.push(taskBook);
     }
@@ -166,7 +167,7 @@ public class CommandHistory {
         return unmarkHistory;
     }
 
-    public Stack<ReadOnlyTaskBook> getClearHistory() {
+    public Stack<ReadOnlyTaskList> getClearHistory() {
         requireNonNull(clearHistory);
         return clearHistory;
     }

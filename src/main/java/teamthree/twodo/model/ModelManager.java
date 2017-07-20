@@ -16,7 +16,7 @@ import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.events.LoadNewModelEvent;
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.model.tag.Tag;
@@ -33,59 +33,59 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private TaskBook taskBook;
+    private TaskList taskList;
     private final FilteredList<ReadOnlyTask> filteredTasks;
     private final SortedList<ReadOnlyTask> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given filePath and userPrefs.
      */
-    public ModelManager(ReadOnlyTaskBook taskBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskList taskBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(taskBook, userPrefs);
 
         logger.fine("Initializing with task book: " + taskBook + " and user prefs " + userPrefs);
 
-        this.taskBook = new TaskBook(taskBook);
-        filteredTasks = new FilteredList<>(this.taskBook.getTaskList());
+        this.taskList = new TaskList(taskBook);
+        filteredTasks = new FilteredList<>(this.taskList.getTaskList());
         updateFilteredListToShowAllIncomplete(null, false);
         sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
-        this(new TaskBook(), new UserPrefs());
+        this(new TaskList(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyTaskBook newData) {
-        taskBook.resetData(newData);
+    public void resetData(ReadOnlyTaskList newData) {
+        taskList.resetData(newData);
         indicateTaskBookChanged();
     }
 
     @Override
-    public ReadOnlyTaskBook getTaskBook() {
-        return taskBook;
+    public ReadOnlyTaskList getTaskList() {
+        return taskList;
     }
 
     @Override
-    public void setTaskBook(ReadOnlyTaskBook taskBook) {
-        this.taskBook = new TaskBook(taskBook);
+    public void setTaskBook(ReadOnlyTaskList taskBook) {
+        this.taskList = new TaskList(taskBook);
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskBookChanged() {
-        raise(new TaskBookChangedEvent(taskBook));
+        raise(new TaskListChangedEvent(taskList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.removeTask(target);
+        taskList.removeTask(target);
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void addTask(ReadOnlyTask toAdd) throws DuplicateTaskException {
-        taskBook.addTask(toAdd);
+        taskList.addTask(toAdd);
         if (toAdd instanceof TaskWithDeadline) {
             updateFilteredListToShowAllIncomplete(null, false);
         } else {
@@ -96,13 +96,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void markTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.markTask(target);
+        taskList.markTask(target);
         indicateTaskBookChanged();
     }
 
     @Override
     public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.unmarkTask(target);
+        taskList.unmarkTask(target);
         indicateTaskBookChanged();
     }
 
@@ -116,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws DuplicateTaskException, TaskNotFoundException {
         requireAllNonNull(target, editedTask);
 
-        taskBook.updateTask(target, editedTask);
+        taskList.updateTask(target, editedTask);
         indicateTaskBookChanged();
     }
 
@@ -202,7 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return taskBook.equals(other.taskBook) && filteredTasks.equals(other.filteredTasks);
+        return taskList.equals(other.taskList) && filteredTasks.equals(other.filteredTasks);
     }
 
     /* ==================EVENT HANDLERS======================== */

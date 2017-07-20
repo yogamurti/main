@@ -6,7 +6,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.GuiSettings;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.storage.UserPrefsStorage;
 import teamthree.twodo.storage.XmlSerializableTaskBook;
@@ -24,13 +24,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected static final String TASK_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyTaskBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskList> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyTaskBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskList> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;

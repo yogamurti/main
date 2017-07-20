@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
+import teamthree.twodo.commons.events.storage.TaskListFilePathChangedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
@@ -27,7 +27,7 @@ public class SaveCommandTest {
     private boolean isEventCaught = false;
 
     @Subscribe
-    private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent e) {
+    private void handleTaskBookFilePathChangedEvent(TaskListFilePathChangedEvent e) {
         isEventCaught = true;
     }
 

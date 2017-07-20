@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <persons>
+        <name>Buy Lotion</name>
+        <description>SPF50</description>
+        <tagged>Vacation</tagged>
+    </persons>
+    <tags>Vacation</tags>
+</addressbook>

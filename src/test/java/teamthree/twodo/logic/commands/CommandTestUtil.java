@@ -8,7 +8,7 @@ import java.util.List;
 
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
@@ -38,7 +38,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
 
-        TaskBook expectedTaskBook = new TaskBook(actualModel.getTaskBook());
+        TaskList expectedTaskBook = new TaskList(actualModel.getTaskList());
         List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
 
         try {
@@ -46,7 +46,7 @@ public class CommandTestUtil {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedTaskBook, actualModel.getTaskBook());
+            assertEquals(expectedTaskBook, actualModel.getTaskList());
             assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedTaskList());
         }
     }

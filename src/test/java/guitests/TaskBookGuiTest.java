@@ -26,13 +26,13 @@ import javafx.stage.Stage;
 import teamthree.twodo.TestApp;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.BaseEvent;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
 
 /**
- * A GUI Test class for TaskBook.
+ * A GUI Test class for TaskList.
  */
 
 public abstract class TaskBookGuiTest {
@@ -100,8 +100,8 @@ public abstract class TaskBookGuiTest {
      * to use the data in the file specified in {@link #getDataFileLocation()}
      */
 
-    protected TaskBook getInitialData() {
-        TaskBook ab = new TaskBook();
+    protected TaskList getInitialData() {
+        TaskList ab = new TaskList();
         TypicalTask.loadTaskBookWithSampleData(ab);
         return ab;
     }

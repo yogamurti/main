@@ -20,7 +20,7 @@ import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyTaskBook newData) {
+        public void resetData(ReadOnlyTaskList newData) {
             fail("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyTaskBook getTaskBook() {
+        public ReadOnlyTaskList getTaskList() {
             fail("This method should not be called.");
             return null;
         }
@@ -185,7 +185,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTaskBook(ReadOnlyTaskBook taskBook) {
+        public void setTaskBook(ReadOnlyTaskList taskBook) {
             // TODO Auto-generated method stub
         }
 

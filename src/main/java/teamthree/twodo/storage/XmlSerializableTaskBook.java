@@ -12,16 +12,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 
 /**
- * An Immutable TaskBook that is serializable to XML format
+ * An Immutable TaskList that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
+public class XmlSerializableTaskBook implements ReadOnlyTaskList {
 
     @XmlElement
     private List<XmlAdaptedTask> persons;
@@ -40,7 +40,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     /**
      * Conversion
      */
-    public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
+    public XmlSerializableTaskBook(ReadOnlyTaskList src) {
         this();
         persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));

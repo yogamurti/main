@@ -2,7 +2,7 @@ package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -72,9 +72,9 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToAdd));
 
         case ClearCommand.COMMAND_WORD:
-            ReadOnlyTaskBook taskBook = history.getClearHistory().pop();
+            ReadOnlyTaskList taskBook = history.getClearHistory().pop();
             model.resetData(taskBook);
-            fullMessage = MESSAGE_SUCCESS.concat("Restored TaskBook");
+            fullMessage = MESSAGE_SUCCESS.concat("Restored TaskList");
             return new CommandResult(fullMessage);
 
         case MarkCommand.COMMAND_WORD:

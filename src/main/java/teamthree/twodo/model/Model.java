@@ -15,13 +15,13 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskBook newData);
+    void resetData(ReadOnlyTaskList newData);
 
-    /** Returns the TaskBook */
-    ReadOnlyTaskBook getTaskBook();
+    /** Returns the TaskList */
+    ReadOnlyTaskList getTaskList();
 
-    /** Changes the TaskBook */
-    void setTaskBook(ReadOnlyTaskBook taskBook);
+    /** Changes the TaskList */
+    void setTaskBook(ReadOnlyTaskList taskList);
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;

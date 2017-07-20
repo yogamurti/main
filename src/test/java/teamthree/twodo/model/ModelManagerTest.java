@@ -20,14 +20,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws Exception {
-        TaskBook taskBook = new TaskBookBuilder().withTask(typicalTask.partyCompleted)
+        TaskList taskList = new TaskBookBuilder().withTask(typicalTask.partyCompleted)
                 .withTask(typicalTask.cs2103).withTask(typicalTask.cs1020).build();
-        TaskBook differentTaskBook = new TaskBook();
+        TaskList differentTaskBook = new TaskList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        ModelManager modelManager = new ModelManager(taskBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(taskBook, userPrefs);
+        ModelManager modelManager = new ModelManager(taskList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(taskList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -45,32 +45,32 @@ public class ModelManagerTest {
         // different filteredList (key words) -> returns false
         modelManager.updateFilteredTaskList(new HashSet<>(
                 Arrays.asList(typicalTask.cs2103.getName().fullName.split(" "))), true);
-        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(taskList, userPrefs)));
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different filteredList (completed) -> return false
         modelManager.updateFilteredListToShowAllComplete(null, false);
-        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(taskList, userPrefs)));
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different filteredList (period) -> return false
         modelManager.updateFilteredTaskListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE), AttributeInputted.START, true, null);
-        assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(taskList, userPrefs)));
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different sortedList -> returns true
         modelManager.sort();
-        assertTrue(modelManager.equals(new ModelManager(taskBook, userPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(taskList, userPrefs)));
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredListToShowAllIncomplete(null, false);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setTaskBookName("differentName");
-        assertTrue(modelManager.equals(new ModelManager(taskBook, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(taskList, differentUserPrefs)));
     }
 }

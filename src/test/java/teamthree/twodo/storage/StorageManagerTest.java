@@ -15,11 +15,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.EventsCollector;
@@ -66,10 +66,10 @@ public class StorageManagerTest {
          * {@link XmlTaskBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlTaskBookStorageTest} class.
          */
-        TaskBook original = new TypicalTask().getTypicalTaskBook();
+        TaskList original = new TypicalTask().getTypicalTaskBook();
         storageManager.saveTaskBook(original);
-        ReadOnlyTaskBook retrieved = storageManager.readTaskBook().get();
-        assertEquals(original, new TaskBook(retrieved));
+        ReadOnlyTaskList retrieved = storageManager.readTaskBook().get();
+        assertEquals(original, new TaskList(retrieved));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class StorageManagerTest {
         Storage storage = new StorageManager(new XmlTaskBookStorageExceptionThrowingStub("dummy"),
                                              new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleTaskBookChangedEvent(new TaskBookChangedEvent(new TaskBook()));
+        storage.handleTaskBookChangedEvent(new TaskListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -110,7 +110,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+        public void saveTaskBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
@@ -137,25 +137,25 @@ public class StorageManagerTest {
         }
 
         @Override
-        public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+        public Optional<ReadOnlyTaskList> readTaskBook() throws DataConversionException, IOException {
             fail("This method should not be called.");
             return null;
         }
 
         @Override
-        public Optional<ReadOnlyTaskBook> readTaskBook(String filePath)
+        public Optional<ReadOnlyTaskList> readTaskBook(String filePath)
                 throws DataConversionException, FileNotFoundException {
             fail("This method should not be called.");
             return null;
         }
 
         @Override
-        public void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException {
+        public void saveTaskBook(ReadOnlyTaskList addressBook) throws IOException {
             fail("This method should not be called.");
         }
 
         @Override
-        public void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException {
+        public void saveTaskBook(ReadOnlyTaskList addressBook, String filePath) throws IOException {
             fail("This method should not be called.");
         }
 

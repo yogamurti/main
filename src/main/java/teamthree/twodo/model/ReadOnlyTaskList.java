@@ -8,7 +8,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyTaskBook {
+public interface ReadOnlyTaskList {
 
     /**
      * Returns an unmodifiable view of the persons list.

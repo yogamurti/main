@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the address book.
+ * Represents a Task's name in the TaskList.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -21,7 +21,7 @@ public class Name {
     public final String fullName;
 
     /**
-     * Validates given name.
+     * Validates given Task Name.
      *
      * @throws IllegalValueException if given name string is invalid.
      */
@@ -35,7 +35,7 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid Task name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

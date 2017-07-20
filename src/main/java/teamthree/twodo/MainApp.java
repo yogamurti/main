@@ -24,8 +24,8 @@ import teamthree.twodo.logic.Logic;
 import teamthree.twodo.logic.LogicManager;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.util.SampleDataUtil;
@@ -58,7 +58,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing TaskBook ]===========================");
+        logger.info("=============================[ Initializing TaskList ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -92,20 +92,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskBook> addressBookOptional;
-        ReadOnlyTaskBook initialData;
+        Optional<ReadOnlyTaskList> addressBookOptional;
+        ReadOnlyTaskList initialData;
         try {
             addressBookOptional = storage.readTaskBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample TaskBook");
+                logger.info("Data file not found. Will be starting with a sample TaskList");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TaskBook");
-            initialData = new TaskBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
+            initialData = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty TaskBook");
-            initialData = new TaskBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaskList");
+            initialData = new TaskList();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -159,7 +159,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty TaskBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaskList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -179,7 +179,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting TaskBook " + MainApp.VERSION);
+        logger.info("Starting TaskList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

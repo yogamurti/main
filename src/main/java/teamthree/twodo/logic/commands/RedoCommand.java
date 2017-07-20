@@ -2,7 +2,7 @@ package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -74,7 +74,7 @@ public class RedoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToAdd));
 
         case ClearCommand.COMMAND_WORD:
-            model.resetData(new TaskBook());
+            model.resetData(new TaskList());
             fullMessage = MESSAGE_SUCCESS.concat(ClearCommand.MESSAGE_SUCCESS);
             return new CommandResult(fullMessage);
 

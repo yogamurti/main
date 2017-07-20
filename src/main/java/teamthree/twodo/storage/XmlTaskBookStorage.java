@@ -12,11 +12,11 @@ import java.util.logging.Logger;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.FileUtil;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
- * A class to access TaskBook data stored as an xml file on the hard disk.
+ * A class to access TaskList data stored as an xml file on the hard disk.
  */
 public class XmlTaskBookStorage implements TaskBookStorage {
 
@@ -39,7 +39,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskList> readTaskBook() throws DataConversionException, IOException {
         return readTaskBook(filePath);
     }
 
@@ -53,35 +53,35 @@ public class XmlTaskBookStorage implements TaskBookStorage {
      */
 
     @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath)
+    public Optional<ReadOnlyTaskList> readTaskBook(String filePath)
             throws DataConversionException, FileNotFoundException {
         requireNonNull(filePath);
 
         File taskBookFile = new File(filePath);
 
         if (!taskBookFile.exists()) {
-            logger.info("TaskBook file " + taskBookFile + " not found");
+            logger.info("TaskList file " + taskBookFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskBook taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskList taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(taskBookOptional);
     }
 
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
+    public void saveTaskBook(ReadOnlyTaskList taskBook) throws IOException {
         saveTaskBook(taskBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveTaskBook(ReadOnlyTaskBook)}
+     * Similar to {@link #saveTaskBook(ReadOnlyTaskList)}
      *
      * @param filePath
      *            location of the data. Cannot be null
      */
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
+    public void saveTaskBook(ReadOnlyTaskList taskBook, String filePath) throws IOException {
         requireNonNull(taskBook);
         requireNonNull(filePath);
 

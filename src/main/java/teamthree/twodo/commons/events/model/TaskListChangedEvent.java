@@ -1,14 +1,14 @@
 package teamthree.twodo.commons.events.model;
 
 import teamthree.twodo.commons.events.BaseEvent;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 
-/** Indicates the TaskBook in the model has changed*/
-public class TaskBookChangedEvent extends BaseEvent {
+/** Indicates the TaskList in the model has changed*/
+public class TaskListChangedEvent extends BaseEvent {
 
-    public final ReadOnlyTaskBook data;
+    public final ReadOnlyTaskList data;
 
-    public TaskBookChangedEvent(ReadOnlyTaskBook data) {
+    public TaskListChangedEvent(ReadOnlyTaskList data) {
         this.data = data;
     }
 

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Optional;
 
 import teamthree.twodo.commons.exceptions.DataConversionException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 
 /**
- * Represents a storage for {@link teamthree.twodo.model.TaskBook}.
+ * Represents a storage for {@link teamthree.twodo.model.TaskList}.
  */
 public interface TaskBookStorage {
 
@@ -17,29 +17,29 @@ public interface TaskBookStorage {
     String getTaskBookFilePath();
 
     /**
-     * Returns TaskBook data as a {@link ReadOnlyTaskBook}.
+     * Returns TaskList data as a {@link ReadOnlyTaskList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskBook() throws DataConversionException, IOException;
 
     /**
      * @see #getTaskBookFilePath()
      */
-    Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskBook(String filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyTaskBook} to the storage.
+     * Saves the given {@link ReadOnlyTaskList} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException;
+    void saveTaskBook(ReadOnlyTaskList addressBook) throws IOException;
 
     /**
-     * @see #saveTaskBook(ReadOnlyTaskBook)
+     * @see #saveTaskBook(ReadOnlyTaskList)
      */
-    void saveTaskBook(ReadOnlyTaskBook addressBook, String filePath) throws IOException;
+    void saveTaskBook(ReadOnlyTaskList addressBook, String filePath) throws IOException;
 
     /**
      * Changes the filePath at which task book will be saved at

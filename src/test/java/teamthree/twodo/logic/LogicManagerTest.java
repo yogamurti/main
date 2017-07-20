@@ -30,7 +30,7 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
@@ -46,8 +46,8 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
@@ -69,12 +69,12 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskBook latestSavedTaskBook;
+    private ReadOnlyTaskList latestSavedTaskBook;
     private boolean helpShown;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
-        latestSavedTaskBook = new TaskBook(abce.data);
+    private void handleLocalModelChangedEvent(TaskListChangedEvent abce) {
+        latestSavedTaskBook = new TaskList(abce.data);
     }
 
     @Subscribe
@@ -88,7 +88,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date
+        latestSavedTaskBook = new TaskList(model.getTaskList()); // last saved assumed to be up to date
         helpShown = false;
     }
 
@@ -141,7 +141,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private <T> void assertCommandFailure(String inputCommand, Class<T> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -168,7 +168,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
+        assertEquals(expectedModel.getTaskList(), latestSavedTaskBook);
     }
 
     @Test
@@ -312,7 +312,7 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 persons
-        model.resetData(new TaskBook());
+        model.resetData(new TaskList());
         for (Task p : taskList) {
             model.addTask(p);
         }
@@ -482,39 +482,39 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an TaskBook with auto-generated persons.
+         * Generates an TaskList with auto-generated persons.
          */
-        private TaskBook generateTaskBook(int numGenerated) throws Exception {
-            TaskBook taskBook = new TaskBook();
-            addToTaskBook(taskBook, numGenerated);
-            return taskBook;
+        private TaskList generateTaskBook(int numGenerated) throws Exception {
+            TaskList taskList = new TaskList();
+            addToTaskBook(taskList, numGenerated);
+            return taskList;
         }
 
         /**
-         * Generates an TaskBook based on the list of Persons given.
+         * Generates an TaskList based on the list of Persons given.
          */
-        private TaskBook generateTaskBook(List<Task> tasks) throws Exception {
-            TaskBook taskBook = new TaskBook();
-            addToAddressBook(taskBook, tasks);
-            return taskBook;
+        private TaskList generateTaskBook(List<Task> tasks) throws Exception {
+            TaskList taskList = new TaskList();
+            addToAddressBook(taskList, tasks);
+            return taskList;
         }
 
         /**
-         * Adds auto-generated Task objects to the given TaskBook
+         * Adds auto-generated Task objects to the given TaskList
          *
          * @param filePath
-         *            The TaskBook to which the Persons will be added
+         *            The TaskList to which the Persons will be added
          */
-        private void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception {
-            addToAddressBook(taskBook, generateTaskList(numGenerated));
+        private void addToTaskBook(TaskList taskList, int numGenerated) throws Exception {
+            addToAddressBook(taskList, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given TaskBook
+         * Adds the given list of Persons to the given TaskList
          */
-        private void addToAddressBook(TaskBook taskBook, List<Task> personsToAdd) throws Exception {
+        private void addToAddressBook(TaskList taskList, List<Task> personsToAdd) throws Exception {
             for (Task p : personsToAdd) {
-                taskBook.addTask(p);
+                taskList.addTask(p);
             }
         }
 

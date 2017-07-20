@@ -38,7 +38,7 @@ public class ListCommandTest {
     @Before
     public void setUp() throws IllegalValueException {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE);
         start = AttributeInputted.START;
@@ -75,7 +75,7 @@ public class ListCommandTest {
      * Updates the filtered list to show only the first task in the {@code model}'s task book.
      */
     private void showFirstTaskOnly(Model model) {
-        ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
+        ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 

@@ -13,7 +13,7 @@ import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's deadline in the address book. Consists of start, end and
+ * Represents a Task's deadline in the task list. Consists of start, end and
  * notification times. If task only has start time, end time will be = start
  * time. Notification time = start time + notification period (either default or
  * user provided)
@@ -141,14 +141,6 @@ public class Deadline {
         }
         return Config.getDefaultNotificationPeriod();
     }
-
-    /**
-     * Returns true if a given string is a valid person phone number.
-     */
-    /*
-     * public static boolean isValidDeadline(String test) { return
-     * test.matches(PHONE_VALIDATION_REGEX); }
-     */
 
     @Override
     public String toString() {

@@ -29,7 +29,7 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         return Optional.of(deadline);
     }
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the TaskWithDeadline as text
      */
     @Override
     public String getAsText() {
@@ -46,7 +46,7 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
         return builder.toString();
     }
     /**
-     * Updates this person with the details of {@code replacement}.
+     * Updates this task with the details of {@code replacement}.
      */
     @Override
     public void resetData(ReadOnlyTask replacement) {

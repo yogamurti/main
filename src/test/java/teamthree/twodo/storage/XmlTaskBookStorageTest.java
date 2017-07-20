@@ -12,8 +12,8 @@ import org.junit.rules.TemporaryFolder;
 
 import teamthree.twodo.commons.util.FileUtil;
 //import teamthree.twodo.commons.exceptions.DataConversionException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.Task;
 //import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.TypicalTask;
@@ -33,7 +33,7 @@ public class XmlTaskBookStorageTest {
         readTaskBook(null);
     }
 
-    private java.util.Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyTaskList> readTaskBook(String filePath) throws Exception {
         return new XmlTaskBookStorage(filePath).readTaskBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -63,26 +63,26 @@ public class XmlTaskBookStorageTest {
     public void readAndSaveTaskBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTask td = new TypicalTask();
-        TaskBook original = td.getTypicalTaskBook();
+        TaskList original = td.getTypicalTaskBook();
         XmlTaskBookStorage xmlTaskBookStorage = new XmlTaskBookStorage(filePath);
 
         //Save in new file and read back
         xmlTaskBookStorage.saveTaskBook(original, filePath);
-        ReadOnlyTaskBook readBack = xmlTaskBookStorage.readTaskBook(filePath).get();
-        assertEquals(original, new TaskBook(readBack));
+        ReadOnlyTaskList readBack = xmlTaskBookStorage.readTaskBook(filePath).get();
+        assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(td.supermarket));
         //original.removeTask(new TaskWithDeadline(td.alice));
         xmlTaskBookStorage.saveTaskBook(original, filePath);
         readBack = xmlTaskBookStorage.readTaskBook(filePath).get();
-        assertEquals(original, new TaskBook(readBack));
+        assertEquals(original, new TaskList(readBack));
 
         //Save and read without specifying file path
         original.addTask(new Task(td.ida));
         xmlTaskBookStorage.saveTaskBook(original); //file path not specified
         readBack = xmlTaskBookStorage.readTaskBook().get(); //file path not specified
-        assertEquals(original, new TaskBook(readBack));
+        assertEquals(original, new TaskList(readBack));
 
     }
 
@@ -92,14 +92,14 @@ public class XmlTaskBookStorageTest {
         saveTaskBook(null, "SomeFile.xml");
     }
 
-    private void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
+    private void saveTaskBook(ReadOnlyTaskList taskBook, String filePath) throws IOException {
         new XmlTaskBookStorage(filePath).saveTaskBook(taskBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void saveTaskBook_nullFilePath_throwsNullPointerException() throws IOException {
         thrown.expect(NullPointerException.class);
-        saveTaskBook(new TaskBook(), null);
+        saveTaskBook(new TaskList(), null);
     }
 
 

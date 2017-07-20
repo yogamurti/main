@@ -22,7 +22,7 @@ import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -47,7 +47,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
         expectedModel.updateTask(model.getFilteredAndSortedTaskList().get(0), editedTask);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
         expectedModel.updateTask(lastTask, editedTask);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -81,7 +81,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -97,7 +97,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
         expectedModel.updateTask(model.getFilteredAndSortedTaskList().get(0), editedPerson);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -119,7 +119,7 @@ public class EditCommandTest {
         showFirstTaskOnly();
 
         // edit person in filtered list into a duplicate in address book
-        ReadOnlyTask taskInList = model.getTaskBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        ReadOnlyTask taskInList = model.getTaskList().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TASK,
                 new EditTaskDescriptorBuilder(taskInList).build());
 
@@ -144,7 +144,7 @@ public class EditCommandTest {
         showFirstTaskOnly();
         Index outOfBoundIndex = INDEX_SECOND_TASK;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
 
         EditCommand editCommand = prepareCommand(outOfBoundIndex,
                 new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT).build());
@@ -192,7 +192,7 @@ public class EditCommandTest {
      * {@code model}'s address book.
      */
     private void showFirstTaskOnly() {
-        ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
+        ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 

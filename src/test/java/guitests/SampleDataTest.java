@@ -1,11 +1,11 @@
 package guitests;
 
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.testutil.TestUtil;
 
 public class SampleDataTest extends TaskBookGuiTest {
     @Override
-    protected TaskBook getInitialData() {
+    protected TaskList getInitialData() {
         // return null to force test app to load data from file only
         return null;
     }
