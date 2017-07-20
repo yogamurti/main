@@ -59,11 +59,11 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_UNIXSTYLE:
+        case AddCommand.COMMAND_WORD_FAST:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_WORD_UNIXSTYLE:
+        case EditCommand.COMMAND_WORD_FAST:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_QUICK:
@@ -73,11 +73,11 @@ public class Parser {
             return new DeleteCommandParser().parse(arguments);
 
         case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case MarkCommand.COMMAND_WORD_FAST:
             return new MarkCommandParser().parse(arguments);
 
         case UnmarkCommand.COMMAND_WORD:
-        case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case UnmarkCommand.COMMAND_WORD_FAST:
             return new UnmarkCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
@@ -96,7 +96,7 @@ public class Parser {
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-        case RedoCommand.COMMAND_WORD_UNIXSTYLE:
+        case RedoCommand.COMMAND_WORD_FAST:
             return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
@@ -104,18 +104,18 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:
-        case ExitCommand.COMMAND_WORD_UNIXSTYLE:
+        case ExitCommand.COMMAND_WORD_FAST:
             return new ExitCommand();
 
         case SaveCommand.COMMAND_WORD:
-        case SaveCommand.COMMAND_WORD_UNIXSTYLE:
+        case SaveCommand.COMMAND_WORD_FAST:
             return new SaveCommandParser().parse(arguments);
 
         case LoadCommand.COMMAND_WORD:
             return new LoadCommandParser().parse(arguments);
 
         case OptionsCommand.COMMAND_WORD:
-        case OptionsCommand.COMMAND_WORD_UNIXSTYLE:
+        case OptionsCommand.COMMAND_WORD_FAST:
             return new OptionsCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:

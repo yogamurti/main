@@ -21,10 +21,10 @@ public class HelpCommandParser {
         switch (args.trim()) {
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_UNIXSTYLE:
+        case AddCommand.COMMAND_WORD_FAST:
             return new HelpCommand(AddCommand.MESSAGE_USAGE);
         case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_WORD_UNIXSTYLE:
+        case EditCommand.COMMAND_WORD_FAST:
             return new HelpCommand(EditCommand.MESSAGE_USAGE);
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_WORD_QUICK:

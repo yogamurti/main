@@ -12,7 +12,7 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-u";
+    public static final String COMMAND_WORD_FAST = "u";
     public static final String MESSAGE_SUCCESS = "Successfully undid command!!!\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands. ";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
@@ -45,7 +45,7 @@ public class UndoCommand extends Command {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_UNIXSTYLE:
+        case AddCommand.COMMAND_WORD_FAST:
             ReadOnlyTask taskToDelete = history.getAddHistory().pop();
             undoHistory.addToDeleteHistory(taskToDelete);
             model.deleteTask(taskToDelete);
@@ -78,7 +78,7 @@ public class UndoCommand extends Command {
             return new CommandResult(fullMessage);
 
         case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case MarkCommand.COMMAND_WORD_FAST:
             ReadOnlyTask taskToUnmark = history.getMarkHistory().pop();
             undoHistory.addToUnmarkHistory(taskToUnmark);
             model.unmarkTask(taskToUnmark);
@@ -86,7 +86,7 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToUnmark));
 
         case UnmarkCommand.COMMAND_WORD:
-        case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case UnmarkCommand.COMMAND_WORD_FAST:
             ReadOnlyTask taskToMark = history.getUnmarkHistory().pop();
             undoHistory.addToMarkHistory(taskToMark);
             model.markTask(taskToMark);

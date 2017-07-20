@@ -18,7 +18,7 @@ public class OptionsCommand extends Command {
 
     // Command word can be either one of the two
     public static final String COMMAND_WORD = "option";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-o";
+    public static final String COMMAND_WORD_FAST = "o";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits 2Do's default options.\n"

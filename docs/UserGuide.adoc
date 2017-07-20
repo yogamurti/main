@@ -79,7 +79,7 @@ Reccurence
 
 ====
 
-=== Viewing help : `help / -h`
+=== Viewing help : `help `
 
 Format: `help [name of command]` +
 Example: `help add`
@@ -89,12 +89,12 @@ Example: `help add`
 * Usage information for the particular command will also be given in the case of incorrect usage
 ****
 
-=== Adding a task : `add / -a / +`
+=== Adding a task : `add / a / +`
 
 ==== General
 
-Format 1: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/Reunion a/2 days r/yearly u/true`
+Format 1: `add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] ` +
+Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/Reunion a/2 days`
 ****
 * Creates a task with provided attributes and adds it to your list
 * _start_ and _end_ are in the format {date} {time}
@@ -102,24 +102,17 @@ Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/
 * `u/true` can be added to indicate a task is urgent
 ****
 
-Format 2: `add [-h] {name} on {date} at {time}` +
-Example: `add project on friday at 2359`
-****
-* Supports keywords _on_, _at_ and _days_
-****
-
 ==== Floating tasks
 
-Format: `add [-h] n/{name} d/[description] t/[tag1, tag2,...] a/[alarm] u/[urgent]` +
+Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]]` +
 Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/false`
 ****
-* Floating tasks can be added with _end_ and _recurrence_ fields empty
-* You will not be able to set an _alarm_ for floating tasks using the natural language format
+* You will not be able to set an _alarm_ for floating tasks 
 ****
 
 ==== Tasks with deadlines
 
-Format: `add [-h] n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
+Format: `add n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
 Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days r/false u/true`
 ****
 * Tasks with deadlines can be added with the _end_ field filled and the _start_ field empty
@@ -127,46 +120,41 @@ Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at leas
 
 ==== Events
 
-Format: `add [-h] n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent]` +
-Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days r/false u/true`
+Format: `add n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
+Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days `
 ****
 * Events can be added with the _start_ and _end_ fields filled
 ****
 
-==== Recurring tasks
 
-Format: `add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/{recurrence} u/[urgent]` +
-Example: `add n/CS2103 monday pre-tutorial meeting s/10/07/17 1200 e/10/07/17 1500 d/For project t/NUS a/1 day r/weekly u/true`
-****
-* Recurring tasks can be added with the _end_ and _recurrence_ fields filled
-****
+=== Deleting a task : `delete / del / d / -`
 
-=== Deleting a task : `delete / del / -d / -`
-
-Format: `delete [-h] {index}` +
+Format: `delete {index}` +
 Example: `delete 1`
 ****
 * Deletes task at that index (positive number) in the most recent call of list
 ****
 
-=== Listing all tasks : `list / -l`
+=== Listing all tasks : `list / l`
 
-Format: `list [-h] s/[start] e/[end]` +
+Format: `list [/h] s/[start] e/[end]` +
 Example: `list s/05/03/17`
 ****
-* Lists all uncompleted tasks if no additional arguments
+* [/h] represents completed tasks
+* Lists completed tasks
+* Lists all uncompleted events and tasks with deadline if no additional arguments
 * Lists uncompleted tasks according to dates provided
 ****
 
-=== Finding a task : `find / -f`
+=== Finding a task : `find / f`
 
-Format: `find [-h] {keyword}` +
+Format: `find [/h] {keyword}` +
 Example: `find work`
 ****
 * Scans through all tasks to find for keyword in any attribute and list it
 ****
 
-=== Undoing the last action : `undo / -u`
+=== Undoing the last action : `undo / u`
 
 Format: `undo` +
 Example: `undo`
@@ -174,7 +162,7 @@ Example: `undo`
 * Undoes the last successful action executed
 ****
 
-=== Redoing the undone action : `redo / -r`
+=== Redoing the undone action : `redo / r`
 
 Format: `redo` +
 Example: `redo`
@@ -182,17 +170,17 @@ Example: `redo`
 * Redoes the last successful undo command executed
 ****
 
-=== Editing a task : `edit / -e`
+=== Editing a task : `edit / e`
 
-Format: `edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent]` +
-Example: `edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1630 d/Special Term t/NUS a/2 days u/true`
+Format: `edit {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm]` +
+Example: `edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1630 d/Special Term t/NUS `
 ****
 * Edits task at that index in the most recent call of list
 * _new start_ and _new end_ are in the format {date} {time}
 * _new alarm_ sets a new notification to appear at the specified date
 ****
 
-=== Marking a task as complete : `mark / -m`
+=== Marking a task as complete : `mark / m`
 
 Format: `mark {index}` +
 Example: `mark 4`
@@ -200,7 +188,7 @@ Example: `mark 4`
 * Marks the task at that index in the most recent call of a list as complete
 ****
 
-=== Marking a task as incomplete : `unmark / -un`
+=== Marking a task as incomplete : `unmark / un`
 
 Format: `unmark {index}` +
 Example: `unmark 4`
@@ -208,7 +196,7 @@ Example: `unmark 4`
 * Marks a (completed) task as incomplete
 ****
 
-=== Editing the default options : `option / -o`
+=== Editing the default options : `option / o`
 
 Format: `option a/[alarm] m/[mark completion automatically]` +
 Example: `option a/1 minute m/true`
@@ -222,7 +210,7 @@ Example: `option a/1 minute m/true`
 ** This can be changed to automatically marking the activity as completed without prompting
 ****
 
-=== Saving list : `save / -s`
+=== Saving list : `save / s`
 
 Format: `save [directory]` +
 Example: `save C:\Program Files\Common Files\2Do.txt`
@@ -241,16 +229,16 @@ Example: `load C:\Program Files\Common Files\2Do.txt`
 * To then view the loaded to-do list, relaunch 2Do to update its task list
 ****
 
-=== Clearing list : `clear / -c`
+=== Clearing list : `clear / c`
 
-Format: `clear [-h]` +
+Format: `clear ` +
 Example: `clear`
 ****
 * Master resets the current to-do list
 * Local file containing the current to-do list will be wiped clean as well
 ****
 
-=== Quitting 2Do : `exit / quit / -q`
+=== Quitting 2Do : `exit / quit / q`
 
 Format: `quit` +
 Example: `quit`
@@ -271,33 +259,33 @@ Example: `quit`
 |=======================================================================
 |Command|Main Format|Example
 
-|help / -h |help [name of command] |`help add`
+|help  |help [name of command] |`help add`
 
-|add / -a /+ |add [-h] n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent] |`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days r/yearly u/true`
+|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent] |`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days `
 
-|delete / del / -d / - |delete [-h] {index} |`delete 1`
+|delete / del / d / - |delete [-h] {index} |`delete 1`
 
-|list / -l |list [-h] s/[start] e/[end] |`list s/today`
+|list / l |list [/h] s/[start] e/[end] |`list s/today`
 
-|find / -f |find [-h] {keyword} |`find work`
+|find / f |find [/h] {keyword} |`find work`
 
-|undo / -u |undo |`undo`
+|undo / u |undo |`undo`
 
-|redo / -r |redo |`redo`
+|redo / r |redo |`redo`
 
-|edit / -e |edit [-h] {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent] |`edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days u/true`
+|edit / e |edit {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent] |`edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days `
 
-|mark / -m |mark {index} |`mark 4`
+|mark / m |mark {index} |`mark 4`
 
-|unmark / -un |unmark {index} |`unmark 4`
+|unmark / un |unmark {index} |`unmark 4`
 
-|option / -o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
+|option / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
-|save / -s |save [directory] |`save C:\Program Files\Common Files\2Do.txt`
+|save / s |save [directory] |`save C:\Program Files\Common Files\2Do.txt`
 
-|load / -s |load [directory] |`load C:\Program Files\Common Files\2Do.txt`
+|load  |load [directory] |`load C:\Program Files\Common Files\2Do.txt`
 
-|clear / -c |clear [-h] |`clear`
+|clear / c |clear |`clear`
 
-|exit / quit / -q |quit |`quit`
+|exit / quit / q |quit |`quit`
 |=======================================================================
