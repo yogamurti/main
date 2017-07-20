@@ -288,13 +288,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {
-            boolean qualifies = false;
             Set<Tag> tags = task.getTags();
+            if (tags.isEmpty()) {
+                return false;
+            }
+            boolean qualifies = false;
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
+                Tag tag = tagIterator.next();
                 qualifies = keyWords.stream()
-                        .filter(keyword -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, keyword))
-                        .findAny().isPresent();
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
             }
             return qualifies;
         }
@@ -359,8 +362,9 @@ public class ModelManager extends ComponentManager implements Model {
             Set<Tag> tags = task.getTags();
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
+                Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
+                        .filter(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName))
                         .findAny().isPresent();
             }
             return qualifies;

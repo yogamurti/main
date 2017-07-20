@@ -58,6 +58,20 @@ public class FindCommandTest {
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
 
+    @Test
+    public void executeFindNonExistentTask() throws Exception {
+        boolean listIncomplete = true;
+        FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
+                new TypicalTask().supermarket.getName().fullName.split("\\s+"))), listIncomplete);
+        findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
+        Set<String> keyWords = new HashSet<>(Arrays.asList(
+                new TypicalTask().supermarket.getName().fullName.split("\\s+")));
+
+        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
+                expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
+    }
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
