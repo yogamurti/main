@@ -21,8 +21,8 @@ import teamthree.twodo.testutil.TypicalTask;
 
 //@@author A0139267W
 public class MarkCommandTest {
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
 

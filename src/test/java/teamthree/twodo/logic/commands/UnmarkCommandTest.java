@@ -26,8 +26,8 @@ import teamthree.twodo.testutil.TypicalTask;
 
 //@@author A0139267W
 public class UnmarkCommandTest {
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         /**
@@ -82,6 +82,7 @@ public class UnmarkCommandTest {
         ReadOnlyTask taskToMark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);
 
+
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         showFirstIncompletedTaskOnly(expectedModel);
         expectedModel.markTask(taskToMark);
@@ -122,6 +123,7 @@ public class UnmarkCommandTest {
         showFirstIncompletedTaskOnly(model);
         ReadOnlyTask taskToMark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);
+
 
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         showFirstIncompletedTaskOnly(expectedModel);
@@ -201,6 +203,7 @@ public class UnmarkCommandTest {
      * Does not show any task if the indexed first task has been marked as completed
      */
     private void showFirstIncompletedTaskOnly(Model model) {
+
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
