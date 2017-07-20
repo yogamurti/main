@@ -116,10 +116,9 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         } else {
-            Task taskToUpdate = internalList.get(index);
-            taskToUpdate.markCompleted();
-            // TODO confirm if the expression below is required
-            internalList.set(index, taskToUpdate);
+            Task taskToMark = internalList.get(index);
+            taskToMark.markCompleted();
+            internalList.set(index, taskToMark);
             personFoundAndMarked = true;
         }
         return personFoundAndMarked;
