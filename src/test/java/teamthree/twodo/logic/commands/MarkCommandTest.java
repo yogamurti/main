@@ -67,7 +67,7 @@ public class MarkCommandTest {
         showFirstTaskOnly(model);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // Ensures that outOfBoundIndex is still in bounds of address book list
+        // Ensures that outOfBoundIndex is still in bounds of task list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
 
         MarkCommand markCommand = prepareCommand(outOfBoundIndex);
@@ -82,7 +82,7 @@ public class MarkCommandTest {
         return markCommand;
     }
 
-    // Obtains the appropriate expectedMessage obtained after a successful MarkCommand
+    // Obtains the appropriate expected message obtained after a successful MarkCommand
     private String getExpectedMessage(Model expectedModel, ReadOnlyTask taskToMark) {
         // Finds the updated task
         final String[] splitName = taskToMark.getName().fullName.split("\\s+");
