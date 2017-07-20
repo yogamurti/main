@@ -107,7 +107,7 @@ Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/
 Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]]` +
 Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/false`
 ****
-* You will not be able to set an _alarm_ for floating tasks 
+* You will not be able to set an _alarm_ for floating tasks
 ****
 
 ==== Tasks with deadlines
