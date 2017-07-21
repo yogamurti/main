@@ -153,7 +153,7 @@ public class UnmarkCommandTest {
         ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(INDEX_FIRST_TASK);
 
-        Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
         expectedModel.unmarkTask(taskToUnmark);
 
         String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
