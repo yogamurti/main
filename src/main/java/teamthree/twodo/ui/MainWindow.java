@@ -25,7 +25,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart<Region> {
 
-    private static final String ICON = "/images/2Do_32.png";
+    private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
@@ -210,8 +210,8 @@ public class MainWindow extends UiPart<Region> {
         return this.commandBox;
     }
 
-    void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadPersonPage(task);
+    void loadTaskPage(ReadOnlyTask person) {
+        browserPanel.loadPersonPage(person);
     }
 
     void releaseResources() {
