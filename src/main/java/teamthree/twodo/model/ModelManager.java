@@ -48,8 +48,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskBook = new TaskBook(taskBook);
         filteredTasks = new FilteredList<>(this.taskBook.getTaskList());
-        updateFilteredTaskListToShowAll(null, false, true);
         sortedTasks = new SortedList<>(filteredTasks);
+        updateFilteredTaskListToShowAll(null, false, true);
     }
 
     public ModelManager() {
@@ -136,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean listFloating, boolean listIncomplete) {
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, listFloating, listFloating)));
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, listIncomplete, listFloating)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
