@@ -144,12 +144,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
+        public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean showFloating, boolean listIncomplete) {
             fail("This method should not be called.");
         }
 
@@ -169,7 +164,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete) {
+        public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete) {
             fail("This method should not be called.");
         }
 

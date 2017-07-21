@@ -43,30 +43,30 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentTaskBook, userPrefs)));
 
         // different filteredList (key words) -> returns false
-        modelManager.updateFilteredTaskList(new HashSet<>(
+        modelManager.updateFilteredTaskListByKeywords(new HashSet<>(
                 Arrays.asList(typicalTask.cs2103.getName().fullName.split(" "))), true);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredListToShowAllIncomplete(null, false);
+        modelManager.updateFilteredTaskListToShowAll(null, false, true);
 
         // different filteredList (completed) -> return false
-        modelManager.updateFilteredListToShowAllComplete(null, false);
+        modelManager.updateFilteredTaskListToShowAll(null, false, false);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredListToShowAllIncomplete(null, false);
+        modelManager.updateFilteredTaskListToShowAll(null, false, true);
 
         // different filteredList (period) -> return false
         modelManager.updateFilteredTaskListToShowPeriod(new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE), AttributeInputted.START, true, null);
         assertFalse(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredListToShowAllIncomplete(null, false);
+        modelManager.updateFilteredTaskListToShowAll(null, false, true);
 
         // different sortedList -> returns true
         modelManager.sort();
         assertTrue(modelManager.equals(new ModelManager(taskBook, userPrefs)));
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredListToShowAllIncomplete(null, false);
+        modelManager.updateFilteredTaskListToShowAll(null, false, true);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

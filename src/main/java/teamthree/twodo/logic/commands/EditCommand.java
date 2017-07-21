@@ -86,9 +86,9 @@ public class EditCommand extends Command {
             throw new AssertionError("The target task cannot be missing");
         }
         if (editedPerson instanceof TaskWithDeadline) {
-            model.updateFilteredListToShowAllIncomplete(null, false);
+            model.updateFilteredTaskListToShowAll(null, false, true);
         } else {
-            model.updateFilteredListToShowAllIncomplete(null, true);
+            model.updateFilteredTaskListToShowAll(null, true, true);
         }
         EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedPerson));
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));

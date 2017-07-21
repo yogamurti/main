@@ -39,7 +39,7 @@ public class FindCommandTest {
         findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
         Set<String> keyWords = new HashSet<>(Arrays.asList(new TypicalTask().cs2103.getName().fullName.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -53,7 +53,7 @@ public class FindCommandTest {
         Set<String> keyWords = new HashSet<>(Arrays.asList(
                 new TypicalTask().cs2103.getTags().toArray()[0].toString().split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -67,7 +67,7 @@ public class FindCommandTest {
         Set<String> keyWords = new HashSet<>(Arrays.asList(
                 new TypicalTask().cs2103.getDescription().value.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -81,7 +81,7 @@ public class FindCommandTest {
         Set<String> keyWords = new HashSet<>(Arrays.asList(
                 new TypicalTask().partyCompleted.getName().fullName.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_COMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -95,7 +95,7 @@ public class FindCommandTest {
         Set<String> keyWords = new HashSet<>(Arrays.asList(
                 new TypicalTask().supermarket.getName().fullName.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
