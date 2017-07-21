@@ -136,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean listFloating, boolean listIncomplete) {
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, true, listFloating)));
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, listFloating, listFloating)));
     }
 
     private void updateFilteredTaskList(Expression expression) {

@@ -159,6 +159,7 @@ public class UnmarkCommandTest {
 
         CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
     }
+
     // Returns a {@code MarkCommand} with the parameter {@code index}
     private MarkCommand prepareMarkCommand(Index index) {
         MarkCommand markCommand = new MarkCommand(index);
