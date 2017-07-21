@@ -2,7 +2,9 @@ package teamthree.twodo.logic.commands;
 
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.TaskList;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
@@ -54,6 +56,13 @@ public class RedoCommand extends Command {
             model.deleteTask(taskToDelete);
             fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, taskToDelete));
+
+        case UndoCommand.DELETE_TAG:
+            ReadOnlyTaskList taskList = undoHistory.getDelTagHistory().pop();
+            Tag tag = undoHistory.getTagHistory().pop();
+            model.resetData(taskList);
+            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS + tag);
+            return new CommandResult(fullMessage);
 
         case EditCommand.COMMAND_WORD:
             ReadOnlyTask taskToEdit = undoHistory.getBeforeEditHistory().pop();

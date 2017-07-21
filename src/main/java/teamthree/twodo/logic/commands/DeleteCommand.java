@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_DEFAULT_TAG_INDEX);
             }
             try {
-                history.addToTaskWithTagsHistory(new TaskList(model.getTaskList()));
+                history.addToDelTagHistory(new TaskList(model.getTaskList()));
                 Tag toDel = catMan.deleteCategory(targetIndex);
                 history.addToTagHistory(toDel);
                 return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, toDel.tagName));

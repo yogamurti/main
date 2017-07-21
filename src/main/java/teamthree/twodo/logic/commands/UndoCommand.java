@@ -4,8 +4,10 @@ import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
@@ -62,11 +64,11 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToDelete));
 
         case EditCommand.COMMAND_WORD:
-            ReadOnlyTask edittedTask = history.getBeforeEditHistory().pop();
-            ReadOnlyTask originalTask = history.getAfterEditHistory().pop();
-            undoHistory.addToBeforeEditHistory(edittedTask);
-            undoHistory.addToAfterEditHistory(originalTask);
-            model.updateTask(originalTask, edittedTask);
+            ReadOnlyTask originalTask = history.getBeforeEditHistory().pop();
+            ReadOnlyTask edittedTask = history.getAfterEditHistory().pop();
+            undoHistory.addToBeforeEditHistory(new Task(edittedTask));
+            undoHistory.addToAfterEditHistory(new Task(originalTask));
+            model.updateTask(edittedTask, originalTask);
             fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, edittedTask));
 
@@ -81,8 +83,10 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToAdd));
 
         case DELETE_TAG:
-            ReadOnlyTaskList taskList = history.getTaskWithTagsHistory().pop();
+            ReadOnlyTaskList taskList = history.getDelTagHistory().pop();
             Tag tag = history.getTagHistory().pop();
+            undoHistory.addToDelTagHistory(new TaskList(model.getTaskList()));
+            undoHistory.addToTagHistory(tag);
             model.resetData(taskList);
             fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tag.tagName);
             return new CommandResult(fullMessage);

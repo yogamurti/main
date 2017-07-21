@@ -160,7 +160,7 @@ public class CommandHistory {
         clearHistory.push(taskBook);
     }
 
-    public void addToTaskWithTagsHistory(ReadOnlyTaskList taskList) {
+    public void addToDelTagHistory(ReadOnlyTaskList taskList) {
         requireNonNull(taskList);
         delTagHistory.push(taskList);
     }
@@ -210,7 +210,7 @@ public class CommandHistory {
         return clearHistory;
     }
 
-    public Stack<ReadOnlyTaskList> getTaskWithTagsHistory() {
+    public Stack<ReadOnlyTaskList> getDelTagHistory() {
         requireNonNull(delTagHistory);
         return delTagHistory;
     }

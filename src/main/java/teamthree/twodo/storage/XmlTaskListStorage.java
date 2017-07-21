@@ -16,7 +16,7 @@ import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
- * A class to access TaskList data stored as an xml file on the hard disk.
+ * A class to access TaskBook data stored as an xml file on the hard disk.
  */
 public class XmlTaskListStorage implements TaskListStorage {
 
@@ -57,25 +57,25 @@ public class XmlTaskListStorage implements TaskListStorage {
             throws DataConversionException, FileNotFoundException {
         requireNonNull(filePath);
 
-        File taskListFile = new File(filePath);
+        File taskBookFile = new File(filePath);
 
-        if (!taskListFile.exists()) {
-            logger.info("TaskList file " + taskListFile + " not found");
+        if (!taskBookFile.exists()) {
+            logger.info("TaskBook file " + taskBookFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskList taskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskList taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(taskListOptional);
+        return Optional.of(taskBookOptional);
     }
 
     @Override
-    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
-        saveTaskList(taskList, filePath);
+    public void saveTaskList(ReadOnlyTaskList taskBook) throws IOException {
+        saveTaskList(taskBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveTaskList(ReadOnlyTaskList)}
+     * Similar to {@link #saveTaskList(ReadOnlyTaskBook)}
      *
      * @param filePath
      *            location of the data. Cannot be null
