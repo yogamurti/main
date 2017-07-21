@@ -93,7 +93,7 @@ public class EditCommandTest extends TaskListGuiTest {
         if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 8 " + PREFIX_NAME + "Bobby");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 34 " + PREFIX_NAME + "Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 

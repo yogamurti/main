@@ -38,7 +38,7 @@ public class UserPrefs {
         return notifiedListFilePath;
     }
 
-    public void setTaskBookFilePath(String addressBookFilePath) {
+    public void setTaskListFilePath(String addressBookFilePath) {
         this.taskListFilePath = addressBookFilePath;
     }
 

@@ -57,7 +57,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setTaskBookFilePath(saveFileLocation);
+        userPrefs.setTaskListFilePath(saveFileLocation);
         userPrefs.setTaskListName(TASK_LIST_NAME);
         return userPrefs;
     }

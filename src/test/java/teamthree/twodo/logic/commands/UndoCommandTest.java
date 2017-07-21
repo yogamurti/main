@@ -190,13 +190,13 @@ public class UndoCommandTest {
 
     @Test
     public void excuteUndoInvalidCommandReturnInvalidMessage() throws ParseException, CommandException {
-        HelpCommand helpCommand = new HelpCommand();
-        helpCommand.setData(model, history, undoHistory);
-        helpCommand.execute();
-        this.history.addToUserInputHistory(HelpCommand.COMMAND_WORD);
+        HistoryCommand historyCommand = new HistoryCommand();
+        historyCommand.setData(model, history, undoHistory);
+        historyCommand.execute();
+        this.history.addToUserInputHistory(HistoryCommand.COMMAND_WORD);
         CommandResult result = undoCommand.execute();
 
-        String expectedMessage = UndoCommand.MESSAGE_INVALID_PREVIOUS_COMMAND.concat(HelpCommand.COMMAND_WORD);
+        String expectedMessage = UndoCommand.MESSAGE_INVALID_PREVIOUS_COMMAND.concat(HistoryCommand.COMMAND_WORD);
 
         assertEquals(result.feedbackToUser, expectedMessage);
     }
