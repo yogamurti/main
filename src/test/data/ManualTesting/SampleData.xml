@@ -1,9 +1,206 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
-    <persons>
+<?xml version="1.0" encoding="UTF-8" standalone="true"?>
+<2Do>
+    <tasks>
         <name>Buy Lotion</name>
         <description>SPF50</description>
         <tagged>Vacation</tagged>
-    </persons>
+    </tasks>
+    <tasks>
+        <name>Research on project</name>
+        <deadline>
+            <endDate>2017-07-19T12:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-19T12:00:00+08:00</startDate>
+        </deadline>
+        <description>MsWord,Arial</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Software 0.3 version</name>
+        <deadline>
+            <endDate>2017-08-01T20:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-01T20:00:00+08:00</startDate>
+        </deadline>
+        <description>No Description.</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Software 0.4 version</name>
+        <deadline>
+            <endDate>2017-08-08T20:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-01T20:00:00+08:00</startDate>
+        </deadline>
+        <description>No Description.</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Software 0.5 version</name>
+        <deadline>
+            <endDate>2017-08-16T20:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-16T20:00:00+08:00</startDate>
+        </deadline>
+        <description>No Description.</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Software FINAL Product</name>
+        <deadline>
+            <endDate>2017-08-20T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-20T17:00:00+08:00</startDate>
+        </deadline>
+        <description>No more bugs, colllated</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Demo for Software Product</name>
+        <deadline>
+            <endDate>2017-08-25T15:30:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-25T15:00:00+08:00</startDate>
+        </deadline>
+        <description>Smart Casual</description>
+        <tagged>Presentation</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Team preparation</name>
+        <deadline>
+            <endDate>2017-08-21T15:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-21T10:00:00+08:00</startDate>
+        </deadline>
+        <description>Discuss about presentation</description>
+        <tagged>Presentation</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Pay Phone Bills</name>
+        <deadline>
+            <endDate>2017-07-25T00:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-25T00:00:00+08:00</startDate>
+        </deadline>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+        <tagged>Finance</tagged>
+    </tasks>
+    <tasks>
+        <name>Financial aid application</name>
+        <deadline>
+            <endDate>2017-08-14T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-14T17:00:00+08:00</startDate>
+        </deadline>
+        <description>Prepare Hardcopy Documents</description>
+        <tagged>Finance</tagged>
+    </tasks>
+    <tasks>
+        <name>Update LinkedIn profile</name>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </tasks>
+    <tasks>
+        <name>Memorise Presentaion script</name>
+        <deadline>
+            <endDate>2017-08-24T00:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-24T00:00:00+08:00</startDate>
+        </deadline>
+        <description>No Description.</description>
+        <tagged>Presentation</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Organise Whatsapp conversation</name>
+        <description>archive and delete</description>
+    </tasks>
+    <tasks>
+        <name>Software 0.2 version</name>
+        <deadline>
+            <endDate>2017-07-23T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-23T17:00:00+08:00</startDate>
+        </deadline>
+        <description>basic design</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Software Product Architecture</name>
+        <deadline>
+            <endDate>2017-07-16T12:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-16T12:00:00+08:00</startDate>
+        </deadline>
+        <description>basic structure</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Software Product Theme</name>
+        <deadline>
+            <endDate>2017-07-09T15:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-09T15:00:00+08:00</startDate>
+        </deadline>
+        <description>No Description.</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Weekend Party</name>
+        <deadline>
+            <endDate>2017-07-08T11:59:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-08T17:00:00+08:00</startDate>
+        </deadline>
+        <description>Holland Village</description>
+        <tagged>Personal</tagged>
+    </tasks>
+    <tasks>
+        <name>Submit Product Design</name>
+        <deadline>
+            <endDate>2017-07-12T20:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-12T20:00:00+08:00</startDate>
+        </deadline>
+        <description>MsWord,IVLE</description>
+        <tagged>Projects</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>Day trip Batam</name>
+        <deadline>
+            <endDate>2017-07-04T21:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-04T08:00:00+08:00</startDate>
+        </deadline>
+        <description>bring extra clothes</description>
+        <tagged>Vacation</tagged>
+    </tasks>
+    <tasks>
+        <name>Call Mom</name>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </tasks>
+    <tasks>
+        <name>Call Dad</name>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </tasks>
     <tags>Vacation</tags>
-</addressbook>
+    <tags>Projects</tags>
+    <tags>NUS</tags>
+    <tags>Presentation</tags>
+    <tags>Personal</tags>
+    <tags>Finance</tags>
+</2Dok>

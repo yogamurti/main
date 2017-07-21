@@ -20,7 +20,7 @@ import teamthree.twodo.model.task.Task;
 /**
  * An Immutable TaskList that is serializable to XML format
  */
-@XmlRootElement(name = "TaskList")
+@XmlRootElement(name = "2Do")
 public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement

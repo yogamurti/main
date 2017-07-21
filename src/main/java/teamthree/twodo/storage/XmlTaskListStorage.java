@@ -57,16 +57,16 @@ public class XmlTaskListStorage implements TaskListStorage {
             throws DataConversionException, FileNotFoundException {
         requireNonNull(filePath);
 
-        File taskBookFile = new File(filePath);
+        File taskListFile = new File(filePath);
 
-        if (!taskBookFile.exists()) {
-            logger.info("TaskList file " + taskBookFile + " not found");
+        if (!taskListFile.exists()) {
+            logger.info("TaskList file " + taskListFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskList taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskList taskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(taskBookOptional);
+        return Optional.of(taskListOptional);
     }
 
     @Override
