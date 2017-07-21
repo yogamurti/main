@@ -230,7 +230,6 @@ public class UnmarkCommandTest {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
 
-        TaskList expectedTaskList = new TaskList(actualModel.getTaskList());
         List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
 
         try {

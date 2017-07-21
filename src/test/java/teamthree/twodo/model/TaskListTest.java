@@ -33,13 +33,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void resetData_null_throwsNullPointerException() {
+    public void resetDataNullThrowsNullPointerException() {
         thrown.expect(NullPointerException.class);
         taskList.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyTaskList_replacesData() {
+    public void resetDataWithValidReadOnlyTaskListReplacesData() {
         TaskList newData = new TypicalTask().getTypicalTaskList();
         taskList.resetData(newData);
         assertEquals(newData, taskList);

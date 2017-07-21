@@ -6,11 +6,9 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 //import teamthree.twodo.commons.events.model.DeleteCategoryEvent;
 import teamthree.twodo.logic.commands.DeleteCommand;
@@ -22,13 +20,10 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
-import teamthree.twodo.storage.StorageManager;
 
 //@@author A0162253M
 // Stores the history of commands executed.
 public class CommandHistory {
-
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     private Stack<String> userInputHistory;
     private Stack<ReadOnlyTask> beforeEditHistory;

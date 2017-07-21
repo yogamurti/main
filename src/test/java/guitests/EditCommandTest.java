@@ -131,7 +131,7 @@ public class EditCommandTest extends TaskListGuiTest {
                 + PREFIX_DESCRIPTION + "Singtel, M1 " + PREFIX_TAG + "Phone");
         commandBox.runCommand(AddCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
                 + PREFIX_TAG + "school");
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
                 + PREFIX_TAG + "school");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
