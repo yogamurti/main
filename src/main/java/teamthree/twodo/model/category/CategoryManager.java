@@ -202,9 +202,7 @@ public class CategoryManager extends ComponentManager {
         private Tag deleteCategory(Index targetIndex) throws IllegalValueException {
             //Get category to delete from last shown list
             Tag toDel = new Tag(categoryList.get(targetIndex.getZeroBased()).getName());
-            //String tagName = categoryList.get(targetIndex.getZeroBased()).getName();
             ArrayList<Task> tasksUnderCategory = categoryMap.get(toDel);
-            //EventsCenter.getInstance().post(new DeleteCategoryEvent(tasksUnderCategory, tagName));
             tasksUnderCategory.forEach((task) -> {
                 Task editedTask = task;
                 HashSet<Tag> tags = new HashSet<Tag>(task.getTags());

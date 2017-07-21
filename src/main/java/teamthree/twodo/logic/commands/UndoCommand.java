@@ -1,13 +1,11 @@
 package teamthree.twodo.logic.commands;
 
-import java.util.ArrayList;
-
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
@@ -83,11 +81,10 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(fullMessage, taskToAdd));
 
         case DELETE_TAG:
-            ArrayList<Task> taskList = history.getTaskWithTagsHistory().pop();
-            String tagName = history.getTagNameHistory().pop();
-            //undoHistory
-            catMan.addCategory(tagName, taskList);
-            fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tagName);
+            ReadOnlyTaskList taskList = history.getTaskWithTagsHistory().pop();
+            Tag tag = history.getTagHistory().pop();
+            model.resetData(taskList);
+            fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tag.tagName);
             return new CommandResult(fullMessage);
 
         case ClearCommand.COMMAND_WORD:

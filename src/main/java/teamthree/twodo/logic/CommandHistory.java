@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.logic.NewUserInputEvent;
-//import teamthree.twodo.commons.events.model.DeleteCategoryEvent;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
@@ -18,12 +17,15 @@ import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.model.task.Task;
+
 
 //@@author A0162253M
 // Stores the history of commands executed.
 public class CommandHistory {
+
+    //private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     private Stack<String> userInputHistory;
     private Stack<ReadOnlyTask> beforeEditHistory;
@@ -34,8 +36,8 @@ public class CommandHistory {
     private Stack<ReadOnlyTask> unmarkHistory;
     private Stack<ReadOnlyTaskList> clearHistory;
     private ArrayList<String> fullUserInputHistory;
-    private Stack<ArrayList<Task>> taskWithTagsHistory;
-    private Stack<String> tagNameHistory;
+    private Stack<ReadOnlyTaskList> delTagHistory;
+    private Stack<Tag> tagHistory;
 
     public CommandHistory() {
         beforeEditHistory = new Stack<ReadOnlyTask>();
@@ -47,8 +49,8 @@ public class CommandHistory {
         clearHistory = new Stack<ReadOnlyTaskList>();
         userInputHistory = new Stack<String>();
         fullUserInputHistory = new ArrayList<>();
-        taskWithTagsHistory = new Stack<ArrayList<Task>>();
-        tagNameHistory = new Stack<String>();
+        delTagHistory = new Stack<ReadOnlyTaskList>();
+        tagHistory = new Stack<Tag>();
     }
 
     /**
@@ -158,14 +160,14 @@ public class CommandHistory {
         clearHistory.push(taskBook);
     }
 
-    public void addToTaskWithTagsHistory(ArrayList<Task> taskList) {
+    public void addToTaskWithTagsHistory(ReadOnlyTaskList taskList) {
         requireNonNull(taskList);
-        taskWithTagsHistory.push(taskList);
+        delTagHistory.push(taskList);
     }
 
-    public void addToTagNameHistory(String tagName) {
-        requireNonNull(tagName);
-        tagNameHistory.push(tagName);
+    public void addToTagHistory(Tag tag) {
+        requireNonNull(tag);
+        tagHistory.push(tag);
     }
 
     public Stack<String> getUserInputHistory() {
@@ -208,21 +210,15 @@ public class CommandHistory {
         return clearHistory;
     }
 
-    public Stack<ArrayList<Task>> getTaskWithTagsHistory() {
-        requireNonNull(taskWithTagsHistory);
-        return taskWithTagsHistory;
+    public Stack<ReadOnlyTaskList> getTaskWithTagsHistory() {
+        requireNonNull(delTagHistory);
+        return delTagHistory;
     }
 
-    public Stack<String> getTagNameHistory() {
-        requireNonNull(tagNameHistory);
-        return tagNameHistory;
+    public Stack<Tag> getTagHistory() {
+        requireNonNull(tagHistory);
+        return tagHistory;
     }
-
-    /*public void handleDeleteCategoryEvent(DeleteCategoryEvent e) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(e, "Stored Task In Deleted Category"));
-        addToTaskWithTagsHistory(e.tasksUnderCategory);
-        addToTagNameHistory(e.tagName);
-    }*/
 
     private String[] seperateInput(String userInput) throws ParseException {
         final Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
