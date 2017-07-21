@@ -5,7 +5,7 @@ import static teamthree.twodo.commons.util.CollectionUtil.requireAllNonNull;
 //@@author A0139267W
 // Represents an alarm setting that will be automatically set for tasks with deadlines
 public class Alarm {
-    public final String alarm;
+    private final String alarm;
 
     public Alarm(String alarm) {
         requireAllNonNull(alarm);
@@ -27,7 +27,7 @@ public class Alarm {
         requireAllNonNull(alarm);
         return other == this // short circuit if same object
                 || (other instanceof Alarm // instanceof handles nulls
-                && this.alarm.equals(((Alarm) other).alarm)); // state check
+                && this.alarm.equals(((Alarm) other).getValue())); // state check
     }
 
     @Override

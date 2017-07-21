@@ -68,4 +68,13 @@ public class OptionsCommand extends Command {
         return new Options(alarm, autoMark);
     }
 
+    public Options getOption() {
+        return option;
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof OptionsCommand // instanceof handles nulls
+                && this.option.equals(((OptionsCommand) other).getOption())); // state check
+    }
 }
