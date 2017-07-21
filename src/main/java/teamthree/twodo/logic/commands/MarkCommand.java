@@ -13,7 +13,7 @@ public class MarkCommand extends Command {
 
     // Command word can be either one of the two
     public static final String COMMAND_WORD = "mark";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-m";
+    public static final String COMMAND_WORD_FAST = "m";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing as complete.\n"

@@ -10,8 +10,8 @@ import java.util.Set;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-f";
-    public static final String COMMAND_WORD_HISTORY = "-h";
+    public static final String COMMAND_WORD_FAST = "f";
+    public static final String COMMAND_WORD_HISTORY = "/h";
 
     public static final String MESSAGE_SUCCESS_INCOMPLETE = "%1$s incomplete tasks found";
     public static final String MESSAGE_SUCCESS_COMPLETE = "%1$s complete tasks found";

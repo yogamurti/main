@@ -59,44 +59,44 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_UNIXSTYLE:
+        case AddCommand.COMMAND_WORD_FAST:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_WORD_UNIXSTYLE:
+        case EditCommand.COMMAND_WORD_FAST:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_QUICK:
-        case DeleteCommand.COMMAND_WORD_UNIXSTYLE:
+        case DeleteCommand.COMMAND_WORD_FAST:
         case DeleteCommand.COMMAND_WORD_SHORT:
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case MarkCommand.COMMAND_WORD_FAST:
             return new MarkCommandParser().parse(arguments);
 
         case UnmarkCommand.COMMAND_WORD:
-        case UnmarkCommand.COMMAND_WORD_UNIXSTYLE:
+        case UnmarkCommand.COMMAND_WORD_FAST:
             return new UnmarkCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_WORD_UNIXSTYLE:
+        case FindCommand.COMMAND_WORD_FAST:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_WORD_UNIXSTYLE:
+        case ListCommand.COMMAND_WORD_FAST:
             return new ListCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-        case UndoCommand.COMMAND_WORD_UNIXSTYLE:
+        case UndoCommand.COMMAND_WORD_FAST:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-        case RedoCommand.COMMAND_WORD_UNIXSTYLE:
+        case RedoCommand.COMMAND_WORD_FAST:
             return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
@@ -104,18 +104,18 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:
-        case ExitCommand.COMMAND_WORD_UNIXSTYLE:
+        case ExitCommand.COMMAND_WORD_FAST:
             return new ExitCommand();
 
         case SaveCommand.COMMAND_WORD:
-        case SaveCommand.COMMAND_WORD_UNIXSTYLE:
+        case SaveCommand.COMMAND_WORD_FAST:
             return new SaveCommandParser().parse(arguments);
 
         case LoadCommand.COMMAND_WORD:
             return new LoadCommandParser().parse(arguments);
 
         case OptionsCommand.COMMAND_WORD:
-        case OptionsCommand.COMMAND_WORD_UNIXSTYLE:
+        case OptionsCommand.COMMAND_WORD_FAST:
             return new OptionsCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:

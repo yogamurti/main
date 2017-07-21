@@ -13,14 +13,14 @@ import teamthree.twodo.model.task.Deadline;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-    public static final String COMMAND_WORD_UNIXSTYLE = "-l";
-    public static final String COMMAND_WORD_HISTORY = "-h";
-    public static final String COMMAND_WORD_FLOATING = "-f";
+    public static final String COMMAND_WORD_FAST = "l";
+    public static final String COMMAND_WORD_HISTORY = "/h";
+    public static final String COMMAND_WORD_FLOATING = "f";
 
     public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks with deadline";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_FLOATING = "Listed all incomplete floating tasks";
     public static final String MESSAGE_SUCCESS_COMPLETE = "Listed all completed tasks with deadline";
-    public static final String MESSAGE_SUCCESS_COMPLETE_FLOATING = "Listed all incomplete floating tasks";
+    public static final String MESSAGE_SUCCESS_COMPLETE_FLOATING = "Listed all complete floating tasks";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_START = "Listed all incomplete tasks after %1$s";
     public static final String MESSAGE_SUCCESS_COMPLETE_START = "Listed all completed tasks after %1$s";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_END = "Listed all incomplete tasks before %1$s";
