@@ -32,41 +32,82 @@ public class ListCommandTest {
     private ListCommand listCommand;
     private ListCommand listCommandWithDeadline;
     private boolean listIncomplete;
-    private AttributeInputted start;
-    private Deadline testDeadline;
 
     @Before
     public void setUp() throws IllegalValueException {
         model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
-        testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
-                Deadline.NULL_VALUE);
-        start = AttributeInputted.START;
         listIncomplete = true;
 
-        listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
-        listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
-        listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
-        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
     }
 
     @Test
     public void executeListIsNotFilteredShowsSameList() throws Exception {
+        listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
+        listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
+
         expectedModel.updateFilteredListToShowAllIncomplete(null, false);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
 
     @Test
-    public void executeListWithFilterByDeadline() throws Exception {
+    public void executeListWithFilterByDeadlineStart() throws Exception {
+        Deadline testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
+                Deadline.NULL_VALUE);
+        AttributeInputted start = AttributeInputted.START;
+        listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
+
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, start, listIncomplete, null);
         assertCommandSuccess(listCommandWithDeadline, model, String.format(
                 ListCommand.MESSAGE_SUCCESS_INCOMPLETE_START, testDeadline.getStartDate()), expectedModel);
-        // resets modelManager to initial state for upcoming tests
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
     }
 
     @Test
+    public void executeListWithFilterByDeadlineEnd() throws Exception {
+        Deadline testDeadline = new Deadline("tomorrow 10am", "tomorrow 10am",
+                Deadline.NULL_VALUE);
+        AttributeInputted end = AttributeInputted.END;
+        listCommandWithDeadline = new ListCommand(testDeadline, end, listIncomplete, false, null);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
+
+        expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, end, listIncomplete, null);
+        assertCommandSuccess(listCommandWithDeadline, model, String.format(
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_END, testDeadline.getStartDate()), expectedModel);
+    }
+
+    @Test
+    public void executeListWithFilterByDeadlineBoth() throws Exception {
+        Deadline testDeadline = new Deadline("last week 10am", "next week 10am",
+                Deadline.NULL_VALUE);
+        AttributeInputted both = AttributeInputted.BOTH;
+        listCommandWithDeadline = new ListCommand(testDeadline, both, listIncomplete, false, null);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
+
+        expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, both, listIncomplete, null);
+        assertCommandSuccess(listCommandWithDeadline, model, String.format(
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_BOTH, testDeadline.getStartDate(),
+                testDeadline.getEndDate()), expectedModel);
+    }
+
+    /*@Test
+    public void executeListWithFilterByTag() throws Exception {
+        AttributeInputted both = AttributeInputted.BOTH;
+        Set<Tag> testTagList = new TypicalTask().cs2103.getTags();
+        listCommandWithDeadline = new ListCommand(null, both, listIncomplete, false, testTagList);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
+
+        expectedModel.updateFilteredTaskListToShowPeriod(null, both, listIncomplete, testTagList);
+        assertCommandSuccess(listCommandWithDeadline, model, String.format(
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_BOTH, testDeadline.getStartDate(),
+                testDeadline.getEndDate()), expectedModel);
+    }*/
+
+    @Test
     public void executeListIsFilteredShowsFirstTask() throws Exception {
+        // resets modelManager to initial state for upcoming tests
+        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+
         showFirstTaskOnly(model);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedModel);
     }
@@ -96,7 +137,13 @@ public class ListCommandTest {
     }
 
     @Test
-    public void equalsReturnsTrueSuccessfully() {
+    public void equalsReturnsTrueSuccessfully() throws IllegalValueException {
+        Deadline testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
+                Deadline.NULL_VALUE);
+        AttributeInputted start = AttributeInputted.START;
+        listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
+        listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
+
         ListCommand command = new ListCommand(testDeadline, start, listIncomplete, false, null);
         assertTrue(command.equals(command));
         ListCommand other = new ListCommand(testDeadline, start, listIncomplete, false, null);
