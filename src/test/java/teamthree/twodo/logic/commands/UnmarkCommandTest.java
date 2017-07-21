@@ -155,7 +155,7 @@ public class UnmarkCommandTest {
         expectedModel.unmarkTask(taskToUnmark);
 
         String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 
         CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
     }
