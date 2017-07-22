@@ -163,14 +163,13 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeUndoEditCommandSuccess()
-            throws CommandException, TaskNotFoundException, IllegalValueException {
-
+        public void executeUndoEditCommandSuccess()
+                throws CommandException, TaskNotFoundException, IllegalValueException {
         Index indexFirstTask = Index.fromOneBased(1);
         ReadOnlyTask firstTask = model.getFilteredAndSortedTaskList().get(indexFirstTask.getZeroBased());
         TaskWithDeadline initialTask = new TaskWithDeadline(firstTask);
 
-        //Edit Task to prepare model for undo command
+        //Delete Task to prepare model for undo command
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
         EditCommand editCommand = new EditCommand(indexFirstTask, descriptor);
@@ -182,7 +181,6 @@ public class UndoCommandTest {
         TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(firstTask);
         Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
                 .withTags(VALID_TAG_SPONGEBOB).build();
-
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         expectedModel.updateTask(editedTask, initialTask);
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);

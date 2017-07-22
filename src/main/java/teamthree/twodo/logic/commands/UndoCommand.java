@@ -52,79 +52,166 @@ public class UndoCommand extends Command {
 
     private CommandResult processUserInput() throws TaskNotFoundException, IllegalValueException, CommandException {
         final String previousCommandWord = history.getUserInputHistory().pop();
-        undoHistory.addToUserInputHistory(previousCommandWord);
+        undoHistory.addToUserInputHistory(previousCommandWord); //Save CommandWord for RedoCommand
+        
+        //Process previous Command Word and undo the command
         switch (previousCommandWord) {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_WORD_QUICK:
         case AddCommand.COMMAND_WORD_FAST:
-            ReadOnlyTask taskToDelete = history.getAddHistory().pop();
-            undoHistory.addToDeleteHistory(taskToDelete);
-            model.deleteTask(taskToDelete);
-            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToDelete));
+            return undoAddCommand();
 
         case EditCommand.COMMAND_WORD:
-            ReadOnlyTask originalTask = history.getBeforeEditHistory().pop();
-            ReadOnlyTask edittedTask = history.getAfterEditHistory().pop();
-            if (edittedTask.getDeadline().isPresent()) {
-                undoHistory.addToBeforeEditHistory(new TaskWithDeadline(edittedTask));
-            } else {
-                undoHistory.addToBeforeEditHistory(new Task(edittedTask));
-            }
-            if (originalTask.getDeadline().isPresent()) {
-                undoHistory.addToAfterEditHistory(new TaskWithDeadline(originalTask));
-            } else {
-                undoHistory.addToAfterEditHistory(new Task(originalTask));
-            }
-            model.updateTask(edittedTask, originalTask);
-            fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, edittedTask));
+            return undoEditCommand();
 
         case DeleteCommand.COMMAND_WORD_QUICK:
         case DeleteCommand.COMMAND_WORD_FAST:
         case DeleteCommand.COMMAND_WORD_SHORT:
         case DeleteCommand.COMMAND_WORD:
-            ReadOnlyTask taskToAdd = history.getDeleteHistory().pop();
-            undoHistory.addToAddHistory(taskToAdd);
-            model.addTask(taskToAdd);
-            fullMessage = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToAdd));
+            return undoDeleteCommand();
 
         case DELETE_TAG:
-            ReadOnlyTaskList taskList = history.getDelTagHistory().pop();
-            Tag tag = history.getTagHistory().pop();
-            undoHistory.addToDelTagHistory(new TaskList(model.getTaskList()));
-            undoHistory.addToTagHistory(tag);
-            model.resetData(taskList);
-            fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tag.tagName);
-            return new CommandResult(fullMessage);
+            return undoDeleteTagCommand();
 
         case ClearCommand.COMMAND_WORD:
-            ReadOnlyTaskList taskBook = history.getClearHistory().pop();
-            model.resetData(taskBook);
-            fullMessage = MESSAGE_SUCCESS.concat("Restored TaskList");
-            return new CommandResult(fullMessage);
+            return undoClearCommand();
 
         case MarkCommand.COMMAND_WORD:
         case MarkCommand.COMMAND_WORD_FAST:
-            ReadOnlyTask taskToUnmark = history.getMarkHistory().pop();
-            undoHistory.addToUnmarkHistory(taskToUnmark);
-            model.unmarkTask(taskToUnmark);
-            fullMessage = MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToUnmark));
+            return undoMarkCommand();
 
         case UnmarkCommand.COMMAND_WORD:
         case UnmarkCommand.COMMAND_WORD_FAST:
-            ReadOnlyTask taskToMark = history.getUnmarkHistory().pop();
-            undoHistory.addToMarkHistory(taskToMark);
-            model.markTask(taskToMark);
-            fullMessage = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToMark));
+            return undoUnmarkCommand();
 
         default:
+            //For Previous Command like find, list which cannot be undone
             String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(previousCommandWord);
             return new CommandResult(message);
         }
+    }
+
+    /**
+     * Mark task that was marked and store {@code taskToUnmark} for RedoCommand
+     * @return  a Command Result to inform users of that the Unmark command has been undone
+     * @throws TaskNotFoundException if the task to be marked cannot be found in the model
+     */
+    private CommandResult undoUnmarkCommand() throws TaskNotFoundException {
+        ReadOnlyTask taskToMark = history.getUnmarkHistory().pop(); //Retrieve Task to mark
+        undoHistory.addToMarkHistory(taskToMark); //Store Task for RedoCommand
+        model.markTask(taskToMark);
+        fullMessage = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToMark));
+    }
+
+    /**
+     * Unmark task that was marked and store {@code taskToUnmark} for RedoCommand
+     * @return  a Command Result to inform users of that the unmark command has been undone
+     * @throws TaskNotFoundException if the task to be unmarked cannot be found in the model
+     */
+    private CommandResult undoMarkCommand() throws TaskNotFoundException {
+        ReadOnlyTask taskToUnmark = history.getMarkHistory().pop();
+        undoHistory.addToUnmarkHistory(taskToUnmark); //Store Task for RedoCommand
+        model.unmarkTask(taskToUnmark);
+        fullMessage = MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToUnmark));
+    }
+
+    /** 
+     * Restores Original TaskLIst before Clear Command
+     * @return  a Command Result to inform users of that the clear command has been undone
+     */
+    private CommandResult undoClearCommand() {
+        ReadOnlyTaskList taskBook = history.getClearHistory().pop();
+        model.resetData(taskBook);
+        fullMessage = MESSAGE_SUCCESS.concat("Restored TaskList");
+        return new CommandResult(fullMessage);
+    }
+
+    /**
+     * Add back Deleted Tag and Stores {@code tag} and {@code taskList} for RedoCommand
+     * @return  a Command Result to inform users of that the delete Tag command has been undone
+     */
+    private CommandResult undoDeleteTagCommand() {
+        ReadOnlyTaskList taskList = history.getDelTagHistory().pop();
+        Tag tag = history.getTagHistory().pop();
+        undoHistory.addToDelTagHistory(new TaskList(model.getTaskList())); //Store current model b4 tag is added
+        undoHistory.addToTagHistory(tag); //Store Tag for RedoCommand
+        model.resetData(taskList);
+        fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tag.tagName);
+        return new CommandResult(fullMessage);
+    }
+
+    /**
+     * Add back Deleted Task and Stores {@code taskToAdd} for RedoCommand
+     * @return a Command Result to inform users of that the delete command has been undone
+     * @throws DuplicateTaskException if there is a duplicate of the deleted task to be added back into the model
+     */
+    private CommandResult undoDeleteCommand() throws DuplicateTaskException {
+        ReadOnlyTask taskToAdd = history.getDeleteHistory().pop();
+        undoHistory.addToAddHistory(taskToAdd); //Store Task for RedoCommand
+        model.addTask(taskToAdd);
+        fullMessage = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToAdd));
+    }
+
+    /**
+     * Restores back original Task and Stores {@code originalTask} and {@code edittedTask} for RedoCommand
+     * @return  a Command Result to inform users of that the edit command has been undone
+     * @throws DuplicateTaskException if the edited task already exists in the model
+     * @throws TaskNotFoundException if the target task to be edited is not found in the model
+     */
+    private CommandResult undoEditCommand() throws DuplicateTaskException, TaskNotFoundException {
+        ReadOnlyTask originalTask = history.getBeforeEditHistory().pop();
+        ReadOnlyTask edittedTask = history.getAfterEditHistory().pop();
+        saveTargetTaskForRedo(originalTask);
+        saveEditedTargetTaskForRedo(edittedTask);
+        model.updateTask(edittedTask, originalTask);
+        fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, edittedTask));
+    }
+
+    /**
+     * Store Target Task to be edited during RedoCommand to reverse action of this current UndoCommand
+     * Create a new Task/TaskWithDeadline depending on whether the task has deadline
+     * @param originalTask must not be null
+     */
+    private void saveTargetTaskForRedo(ReadOnlyTask originalTask) {
+        assert originalTask !=null;
+        if (originalTask.getDeadline().isPresent()) {
+            undoHistory.addToAfterEditHistory(new TaskWithDeadline(originalTask));
+        } else {
+            undoHistory.addToAfterEditHistory(new Task(originalTask));
+        }
+    }
+
+    /**
+     * Store Editted Task that should be in model after RedoCommand.
+     * Create a new Task/TaskWithDeadline depending on whether the task has deadline
+     * @param edittedTask must not be null
+     */
+    private void saveEditedTargetTaskForRedo(ReadOnlyTask edittedTask) {
+        assert edittedTask !=null;
+        if (edittedTask.getDeadline().isPresent()) {
+            undoHistory.addToBeforeEditHistory(new TaskWithDeadline(edittedTask));
+        } else {
+            undoHistory.addToBeforeEditHistory(new Task(edittedTask));
+        }
+    }
+
+    /**
+     * Deleting the task added and stores {@code taskToDelete} for RedoCommand
+     * @return a Command Result to inform users of that the add command has been undone
+     * @throws TaskNotFoundException if the task to be deleted cannot be found in the model
+     */
+    private CommandResult undoAddCommand() throws TaskNotFoundException {
+        ReadOnlyTask taskToDelete = history.getAddHistory().pop();
+        assert taskToDelete !=null;
+
+        undoHistory.addToDeleteHistory(taskToDelete); //Store Task for RedoCommand
+        model.deleteTask(taskToDelete);
+        fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToDelete));
     }
 }

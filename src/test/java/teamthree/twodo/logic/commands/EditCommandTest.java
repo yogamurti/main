@@ -55,23 +55,24 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() throws Exception {
-        Index indexFirstTask = Index.fromOneBased(1);
-        ReadOnlyTask firstTask = model.getFilteredAndSortedTaskList().get(0);
+    public void executeSomeFieldsSpecifiedUnfilteredListSuccess() throws Exception {
+        Index indexLastTask = Index.fromOneBased(model.getFilteredAndSortedTaskList().size());
+        ReadOnlyTask lastTask = model.getFilteredAndSortedTaskList().get(indexLastTask.getZeroBased());
 
-        TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(firstTask);
+        //EditedTask for Expected Model
+        TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(lastTask);
         Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
                 .withTags(VALID_TAG_SPONGEBOB).build();
 
         //Prepare EditCommand for model
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
-        EditCommand editCommand = prepareCommand(indexFirstTask, descriptor);
+        EditCommand editCommand = prepareCommand(indexLastTask, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
         Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
-        expectedModel.updateTask(firstTask, editedTask);
+        expectedModel.updateTask(lastTask, editedTask);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -196,7 +197,7 @@ public class EditCommandTest {
     private void showFirstTaskOnly() {
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
+        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
     }

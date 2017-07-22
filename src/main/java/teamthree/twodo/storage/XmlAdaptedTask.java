@@ -53,7 +53,7 @@ public class XmlAdaptedTask {
         if (source.getDeadline().isPresent()) {
             deadline = source.getDeadline().get();
         }
-        // email = source.getEmail().value;
+
         description = source.getDescription().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -62,7 +62,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task
+     * Converts this jaxb-friendly adapted task object into the model's Task
      * object.
      *
      * @throws IllegalValueException

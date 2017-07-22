@@ -7,7 +7,7 @@ import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 //@@author A0162253M
-// Saves TaskList to the specified directory
+// Load TaskList to the specified directory
 public class LoadCommand extends Command {
 
     public static final String COMMAND_WORD = "load";
@@ -29,11 +29,11 @@ public class LoadCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
+        //Ensure file is a Xml File
         if (!isXml(filePath)) {
             throw new CommandException(String.format(MESSAGE_INVALID_PATH, filePath));
         }
         try {
-            //Paths.get(filePath);
             EventsCenter.getInstance().post(new LoadCommandExecutedEvent(filePath));
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
         } catch (InvalidPathException e) {

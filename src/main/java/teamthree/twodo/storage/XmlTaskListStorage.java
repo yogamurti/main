@@ -75,7 +75,7 @@ public class XmlTaskListStorage implements TaskListStorage {
     }
 
     /**
-     * Similar to {@link #saveTaskList(ReadOnlyTaskBook)}
+     * Similar to {@link #saveTaskList(ReadOnlyTaskList)}
      *
      * @param filePath
      *            location of the data. Cannot be null

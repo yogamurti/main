@@ -16,6 +16,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 
 // The main LogicManager of the app
 
+//@@author A0162253M-reused
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -39,7 +40,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.undoHistory = new UndoCommandHistory();
         this.catMan = null;
     }
-    //@@author A0162253M-reused
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         try {

@@ -60,28 +60,28 @@ public class XmlTaskListStorageTest {
     }*/
 
     @Test
-    public void readAndSaveTaskBook_allInOrder_success() throws Exception {
+    public void readAndSaveTaskList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTask td = new TypicalTask();
         TaskList original = td.getTypicalTaskList();
-        XmlTaskListStorage xmlTaskBookStorage = new XmlTaskListStorage(filePath);
+        XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 
         //Save in new file and read back
-        xmlTaskBookStorage.saveTaskList(original, filePath);
-        ReadOnlyTaskList readBack = xmlTaskBookStorage.readTaskList(filePath).get();
+        xmlTaskListStorage.saveTaskList(original, filePath);
+        ReadOnlyTaskList readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(td.supermarket));
         //original.removeTask(new TaskWithDeadline(td.alice));
-        xmlTaskBookStorage.saveTaskList(original, filePath);
-        readBack = xmlTaskBookStorage.readTaskList(filePath).get();
+        xmlTaskListStorage.saveTaskList(original, filePath);
+        readBack = xmlTaskListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Save and read without specifying file path
         original.addTask(new Task(td.ida));
-        xmlTaskBookStorage.saveTaskList(original); //file path not specified
-        readBack = xmlTaskBookStorage.readTaskList().get(); //file path not specified
+        xmlTaskListStorage.saveTaskList(original); //file path not specified
+        readBack = xmlTaskListStorage.readTaskList().get(); //file path not specified
         assertEquals(original, new TaskList(readBack));
 
     }

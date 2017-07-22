@@ -32,7 +32,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
+        model.updateFilteredTaskList(keyWords, listIncomplete);
         return new CommandResult(printSuccessMessage());
     }
 

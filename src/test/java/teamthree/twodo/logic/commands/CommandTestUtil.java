@@ -28,18 +28,6 @@ public class CommandTestUtil {
         assertEquals(expectedModel, actualModel);
     }
 
-    //@@author A0139267W
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage}
-     */
-    public static void assertCommandSuccessSkeleton(Command command, String expectedMessage)
-            throws CommandException {
-        CommandResult result = command.execute();
-        assertEquals(expectedMessage, result.feedbackToUser);
-    }
-
-    //@@author
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
@@ -62,21 +50,4 @@ public class CommandTestUtil {
             assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedTaskList());
         }
     }
-
-    //@@author A0139267W
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     */
-
-    public static void assertCommandFailureSkeleton(Command command, String expectedMessage) {
-        try {
-            command.execute();
-            fail("The expected CommandException was not thrown.");
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-        }
-    }
-
 }
