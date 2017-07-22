@@ -75,6 +75,16 @@ public class MarkCommandTest {
         CommandTestUtil.assertCommandFailure(markCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void execute_alreadyMarkedTask_throwsCommandException() throws Exception {
+        MarkCommand markCommand = prepareCommand(INDEX_FIRST_TASK);
+
+        markCommand.execute();
+
+        model.updateFilteredTaskListToShowAll(null, false, false);
+        assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
+        CommandTestUtil.assertCommandFailureSkeleton(markCommand, MarkCommand.MESSAGE_ALREADY_MARKED_TASK);
+    }
     // Returns a {@code MarkCommand} with the parameter {@code index}
     private MarkCommand prepareCommand(Index index) {
         MarkCommand markCommand = new MarkCommand(index);

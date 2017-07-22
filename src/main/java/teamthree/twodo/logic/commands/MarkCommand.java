@@ -21,6 +21,7 @@ public class MarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 4 ";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked task as complete: %1$s";
+    public static final String MESSAGE_ALREADY_MARKED_TASK = "Task already marked as complete!";
 
     public final Index targetIndex;
 
@@ -30,7 +31,6 @@ public class MarkCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -38,6 +38,10 @@ public class MarkCommand extends Command {
         }
 
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex.getZeroBased());
+
+        if (taskToMark.isCompleted()) {
+            throw new CommandException(MESSAGE_ALREADY_MARKED_TASK);
+        }
 
         try {
             model.markTask(taskToMark);

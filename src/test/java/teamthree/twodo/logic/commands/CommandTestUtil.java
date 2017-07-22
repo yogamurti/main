@@ -52,7 +52,6 @@ public class CommandTestUtil {
 
         TaskBook expectedTaskBook = new TaskBook(actualModel.getTaskBook());
         List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
-
         try {
             command.execute();
             fail("The expected CommandException was not thrown.");
