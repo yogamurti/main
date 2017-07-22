@@ -27,7 +27,7 @@ public class MainWindowHandle extends GuiHandle {
         browserPanel = new BrowserPanelHandle(guiRobot, primaryStage);
     }
 
-    public TaskListPanelHandle getPersonListPanel() {
+    public TaskListPanelHandle getTaskListPanel() {
         return personListPanel;
     }
 

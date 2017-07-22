@@ -23,7 +23,7 @@ import teamthree.twodo.testutil.TypicalTask;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -54,7 +54,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_TASK);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         showFirstTaskOnly(expectedModel);
         expectedModel.deleteTask(taskToDelete);
 
@@ -66,8 +66,8 @@ public class DeleteCommandTest {
         showFirstTaskOnly(model);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
+        // ensures that outOfBoundIndex is still in bounds of TaskList
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -84,23 +84,13 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the first task from the task book.
+     * Updates {@code model}'s filtered list to show only the first task from the task list.
      */
     private void showFirstTaskOnly(Model model) {
-        ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
+        ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
+        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
 
         assert model.getFilteredAndSortedTaskList().size() == 1;
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    /*
-    private void showNoTask(Model model) {
-        model.updateFilteredTaskListToEmpty();
-
-        assert model.getFilteredAndSortedTaskList().isEmpty();
-    }*/
 }

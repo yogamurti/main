@@ -19,7 +19,7 @@ public class TaskCard extends UiPart<Region> {
      * JavaFX during runtime.
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">
-     *      The issue on TaskBook level 4</a>
+     *      The issue on TaskList level 4</a>
      */
 
     @FXML

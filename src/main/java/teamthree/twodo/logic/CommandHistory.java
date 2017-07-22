@@ -2,6 +2,7 @@ package teamthree.twodo.logic;
 
 import static java.util.Objects.requireNonNull;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -9,17 +10,23 @@ import java.util.regex.Matcher;
 
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.logic.NewUserInputEvent;
+import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
 import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
+
 
 //@@author A0162253M
 // Stores the history of commands executed.
 public class CommandHistory {
+
+    //private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+
     private Stack<String> userInputHistory;
     private Stack<ReadOnlyTask> beforeEditHistory;
     private Stack<ReadOnlyTask> afterEditHistory;
@@ -27,8 +34,10 @@ public class CommandHistory {
     private Stack<ReadOnlyTask> addHistory;
     private Stack<ReadOnlyTask> markHistory;
     private Stack<ReadOnlyTask> unmarkHistory;
-    private Stack<ReadOnlyTaskBook> clearHistory;
+    private Stack<ReadOnlyTaskList> clearHistory;
     private ArrayList<String> fullUserInputHistory;
+    private Stack<ReadOnlyTaskList> delTagHistory;
+    private Stack<Tag> tagHistory;
 
     public CommandHistory() {
         beforeEditHistory = new Stack<ReadOnlyTask>();
@@ -37,9 +46,11 @@ public class CommandHistory {
         deleteHistory = new Stack<ReadOnlyTask>();
         markHistory = new Stack<ReadOnlyTask>();
         unmarkHistory = new Stack<ReadOnlyTask>();
-        clearHistory = new Stack<ReadOnlyTaskBook>();
+        clearHistory = new Stack<ReadOnlyTaskList>();
         userInputHistory = new Stack<String>();
         fullUserInputHistory = new ArrayList<>();
+        delTagHistory = new Stack<ReadOnlyTaskList>();
+        tagHistory = new Stack<Tag>();
     }
 
     /**
@@ -65,13 +76,31 @@ public class CommandHistory {
      */
     public void addToUserInputHistory(String userInput) throws ParseException {
         requireNonNull(userInput);
-        String commandWord = getCommandWordFromInput(userInput);
-        boolean isUndoRedo = userInput.equals(RedoCommand.COMMAND_WORD)
-                || userInput.equals(RedoCommand.COMMAND_WORD_FAST)
-                || userInput.equals(UndoCommand.COMMAND_WORD)
-                || userInput.equals(UndoCommand.COMMAND_WORD_FAST);
+        String[] arguments = seperateInput(userInput);
+        boolean isUndoRedo = arguments[0].equals(RedoCommand.COMMAND_WORD)
+                || arguments[0].equals(RedoCommand.COMMAND_WORD_FAST)
+                || arguments[0].equals(UndoCommand.COMMAND_WORD)
+                || arguments[0].equals(UndoCommand.COMMAND_WORD_FAST);
+
         if (!isUndoRedo) {
-            getUserInputHistory().push(commandWord);
+            boolean isDeleteCommandWord = arguments[0].equals(DeleteCommand.COMMAND_WORD)
+                    || arguments[0].equals(DeleteCommand.COMMAND_WORD_QUICK)
+                    || arguments[0].equals(DeleteCommand.COMMAND_WORD_SHORT)
+                    || arguments[0].equals(DeleteCommand.COMMAND_WORD_FAST);
+
+            if (isDeleteCommandWord) {
+                String[] splitArgs = arguments[1].trim().split(" ");
+                boolean isDeleteTag = splitArgs.length > 1
+                    && splitArgs[0].trim().equals(PREFIX_CATEGORY.toString());
+
+                if (isDeleteTag) {
+                    getUserInputHistory().push(PREFIX_CATEGORY.toString());
+                } else {
+                    getUserInputHistory().push(arguments[0]);
+                }
+            } else {
+                getUserInputHistory().push(arguments[0]);
+            }
         }
     }
 
@@ -126,9 +155,19 @@ public class CommandHistory {
     /**
      * Appends {@code filePath} to the list of cleared filePath entered.
      */
-    public void addToClearHistory(ReadOnlyTaskBook taskBook) {
+    public void addToClearHistory(ReadOnlyTaskList taskBook) {
         requireNonNull(taskBook);
         clearHistory.push(taskBook);
+    }
+
+    public void addToDelTagHistory(ReadOnlyTaskList taskList) {
+        requireNonNull(taskList);
+        delTagHistory.push(taskList);
+    }
+
+    public void addToTagHistory(Tag tag) {
+        requireNonNull(tag);
+        tagHistory.push(tag);
     }
 
     public Stack<String> getUserInputHistory() {
@@ -166,18 +205,30 @@ public class CommandHistory {
         return unmarkHistory;
     }
 
-    public Stack<ReadOnlyTaskBook> getClearHistory() {
+    public Stack<ReadOnlyTaskList> getClearHistory() {
         requireNonNull(clearHistory);
         return clearHistory;
     }
 
-    private String getCommandWordFromInput(String userInput) throws ParseException {
+    public Stack<ReadOnlyTaskList> getDelTagHistory() {
+        requireNonNull(delTagHistory);
+        return delTagHistory;
+    }
+
+    public Stack<Tag> getTagHistory() {
+        requireNonNull(tagHistory);
+        return tagHistory;
+    }
+
+    private String[] seperateInput(String userInput) throws ParseException {
         final Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
-        return commandWord;
+        final String args = matcher.group("arguments");
+        String[] result = {commandWord, args};
+        return result;
     }
 }

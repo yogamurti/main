@@ -3,16 +3,16 @@ package teamthree.twodo.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends TaskBookStorage, UserPrefsStorage {
+public interface Storage extends TaskListStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,18 +21,18 @@ public interface Storage extends TaskBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getTaskBookFilePath();
+    String getTaskListFilePath();
 
     @Override
-    Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
 
     @Override
-    void saveTaskBook(ReadOnlyTaskBook addressBook) throws IOException;
+    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
     /**
-     * Saves the current version of the Description Book to the hard disk.
+     * Saves the current version of the TaskList to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleTaskBookChangedEvent(TaskBookChangedEvent abce);
+    void handleTaskListChangedEvent(TaskListChangedEvent abce);
 }

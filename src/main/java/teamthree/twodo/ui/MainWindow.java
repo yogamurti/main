@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Region> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private TaskListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private CommandBox commandBox;
 
     @FXML
@@ -125,8 +125,8 @@ public class MainWindow extends UiPart<Region> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         CategoryListPanel catListPanel = new CategoryListPanel(catMan.getCategoryList());
         catListPanelPlaceholder.getChildren().add(catListPanel.getRoot());
@@ -203,7 +203,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     public TaskListPanel getTaskListPanel() {
-        return this.personListPanel;
+        return this.taskListPanel;
     }
 
     public CommandBox getCommandBox() {

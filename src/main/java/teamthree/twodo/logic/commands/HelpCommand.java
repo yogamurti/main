@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     public static final String MESSAGE_HISTORY_USAGE = "Only find and list commands use this function.\n"
-            + "Add -h when using either commands to access the completed task list.";
+            + "Add /h when using either commands to access the completed task list.";
 
     private String message;
 

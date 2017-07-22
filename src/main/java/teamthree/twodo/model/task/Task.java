@@ -12,7 +12,7 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in the description book. Guarantees: details are present
+ * Represents a Task in the TaskList. Guarantees: details are present
  * and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -24,7 +24,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Every field must be present and not null. By default, the task is set as
-     * incompleted when it is created.
+     * Incomplete when it is created.
      */
     public Task(Name name, Description description, Set<Tag> tags) {
         requireAllNonNull(name, description, tags);
@@ -68,7 +68,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag set.
+     * Replaces this task's tags with the tags in the argument tag set.
      */
     public void setTags(Set<Tag> replacement) {
         tags.setTags(new UniqueTagList(replacement));
@@ -90,7 +90,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Updates this person with the details of {@code replacement}.
+     * Updates this task with the details of {@code replacement}.
      */
     public void resetData(ReadOnlyTask replacement) {
         requireNonNull(replacement);

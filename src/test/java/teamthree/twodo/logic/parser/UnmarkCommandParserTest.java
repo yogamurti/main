@@ -13,8 +13,8 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0139267W
 public class UnmarkCommandParserTest {
-    private static final String VALID_FIRST_INDEX = "1";
-    private static final String INVALID_INDEX = "a";
+    private static String VALID_FIRST_INDEX = "1";
+    private static String INVALID_INDEX = "a";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

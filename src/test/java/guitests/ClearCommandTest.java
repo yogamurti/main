@@ -8,7 +8,7 @@ import teamthree.twodo.logic.commands.ClearCommand;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.testutil.TaskUtil;
 
-public class ClearCommandTest extends TaskBookGuiTest {
+public class ClearCommandTest extends TaskListGuiTest {
 
     @Test
     public void clear() {
@@ -16,14 +16,14 @@ public class ClearCommandTest extends TaskBookGuiTest {
         //verify a non-empty list can be cleared
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
-        assertTrue(personListPanel.isListMatching(td.supermarket));
+        assertTrue(taskListPanel.isListMatching(td.supermarket));
         commandBox.runCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertListSize(0);
 
@@ -34,7 +34,7 @@ public class ClearCommandTest extends TaskBookGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
-        assertResultMessage("Description book has been cleared!");
+        assertResultMessage("Task List has been cleared!");
     }
 }
 

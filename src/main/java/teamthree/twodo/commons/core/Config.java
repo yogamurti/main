@@ -55,7 +55,7 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public void setTaskBookFilePath(String taskBookFilePath) {
+    public void setTaskListFilePath(String taskBookFilePath) {
         this.taskBookFilePath = taskBookFilePath;
     }
 
@@ -102,6 +102,7 @@ public class Config {
         notificationPeriodToString = newNotificationPeriod;
         Matcher integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);
         assert (integerParser.find());
+        integerParser.find();
         int period = Integer.parseInt(integerParser.group().trim());
         long newDefault = 0;
         if (newNotificationPeriod.toLowerCase().contains("day")) {

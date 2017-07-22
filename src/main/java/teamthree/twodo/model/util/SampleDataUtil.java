@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import teamthree.twodo.commons.exceptions.IllegalValueException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.Description;
@@ -15,7 +15,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
 public class SampleDataUtil {
-    public static Task[] getSamplePersons() {
+    public static Task[] getSampleTasks() {
         try {
             Task firstTask = new Task(new Name("CS2103 Tutorial"),
                     new Description("Software Engineering"), getTagSet("NUS"));
@@ -37,15 +37,15 @@ public class SampleDataUtil {
         }
     }
 
-    public static ReadOnlyTaskBook getSampleAddressBook() {
+    public static ReadOnlyTaskList getSampleTaskList() {
         try {
-            TaskBook sampleAb = new TaskBook();
-            for (Task samplePerson : getSamplePersons()) {
-                sampleAb.addTask(samplePerson);
+            TaskList sampleAb = new TaskList();
+            for (Task sampleTask : getSampleTasks()) {
+                sampleAb.addTask(sampleTask);
             }
             return sampleAb;
         } catch (DuplicateTaskException e) {
-            throw new AssertionError("sample data cannot contain duplicate persons", e);
+            throw new AssertionError("sample data cannot contain duplicate tasks", e);
         }
     }
 

@@ -29,7 +29,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 //@@author A0124399W
-// Edits the details of an existing task in the description book.
+// Edits the details of an existing task in the Tasklist.
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -45,7 +45,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the 2Do list.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in your 2Do list";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -72,26 +72,34 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToEdit = lastShownList.get(index.getZeroBased());
-        Task editedPerson = createEditedPerson(personToEdit, editTaskDescriptor);
+        ReadOnlyTask taskToEdit = lastShownList.get(index.getZeroBased());
+        Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+        if (taskToEdit.getDeadline().isPresent()) {
+            history.addToBeforeEditHistory(new TaskWithDeadline(taskToEdit));
+        } else {
+            history.addToBeforeEditHistory(new Task(taskToEdit));
+        }
+        if (editedTask.getDeadline().isPresent()) {
+            history.addToAfterEditHistory(new TaskWithDeadline(editedTask));
+        } else {
+            history.addToAfterEditHistory(new Task(editedTask));
+        }
 
         try {
-            model.updateTask(personToEdit, editedPerson);
-            history.addToBeforeEditHistory(personToEdit);
-            history.addToAfterEditHistory(editedPerson);
+            model.updateTask(taskToEdit, editedTask);
 
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             throw new AssertionError("The target task cannot be missing");
         }
-        if (editedPerson instanceof TaskWithDeadline) {
-            model.updateFilteredTaskListToShowAll(null, false, true);
+        if (editedTask instanceof TaskWithDeadline) {
+            model.updateFilteredListToShowAllIncomplete(null, false);
         } else {
-            model.updateFilteredTaskListToShowAll(null, true, true);
+            model.updateFilteredListToShowAllIncomplete(null, true);
         }
-        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedPerson));
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
+        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
     /**
@@ -101,11 +109,12 @@ public class EditCommand extends Command {
      * If edit adds a deadline to floating task, a TaskWithDeadline object is
      * returned.
      */
-    private static Task createEditedPerson(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Task createEditedTask(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
+
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
             return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags);
@@ -123,7 +132,9 @@ public class EditCommand extends Command {
      * @return final deadline with all updates
      */
     private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
-        if (!editTaskDescriptor.getDeadline().isPresent() && taskToEdit instanceof TaskWithDeadline) {
+        boolean isDeadlineUnchanged = !editTaskDescriptor.getDeadline().isPresent()
+                && taskToEdit instanceof TaskWithDeadline;
+        if (isDeadlineUnchanged) {
             return taskToEdit.getDeadline().get();
         }
         Deadline updates = editTaskDescriptor.getDeadline().get();

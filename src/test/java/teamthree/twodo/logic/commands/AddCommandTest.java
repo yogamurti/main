@@ -20,7 +20,7 @@ import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.commands.ListCommand.AttributeInputted;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyTaskBook newData) {
+        public void resetData(ReadOnlyTaskList newData) {
             fail("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyTaskBook getTaskBook() {
+        public ReadOnlyTaskList getTaskList() {
             fail("This method should not be called.");
             return null;
         }
@@ -144,12 +144,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean showFloating, boolean listIncomplete) {
+        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
             fail("This method should not be called.");
         }
 
         @Override
-        public void saveTaskBook() {
+        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void saveTaskList() {
             fail("This method should not be called.");
         }
 
@@ -164,7 +169,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete) {
+        public void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete) {
             fail("This method should not be called.");
         }
 
@@ -180,13 +185,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTaskBook(ReadOnlyTaskBook taskBook) {
-            // TODO Auto-generated method stub
+        public void setTaskList(ReadOnlyTaskList taskBook) {
+            fail("This method should not be called.");
         }
 
         @Override
         public void updateFilteredTaskListToEmpty() {
-            // TODO Auto-generated method stub
+            fail("This method should not be called.");
         }
     }
 

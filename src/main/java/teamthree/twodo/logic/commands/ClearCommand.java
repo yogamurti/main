@@ -2,22 +2,22 @@ package teamthree.twodo.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 
 /**
- * Clears the TaskBooks.
+ * Clears the TaskList.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Description book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Task List has been cleared!";
 
 
     @Override
     public CommandResult execute() {
         requireNonNull(model);
-        history.addToClearHistory(new TaskBook(model.getTaskBook()));
-        model.resetData(new TaskBook());
+        history.addToClearHistory(new TaskList(model.getTaskList()));
+        model.resetData(new TaskList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

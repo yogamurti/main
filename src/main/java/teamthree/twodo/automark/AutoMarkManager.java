@@ -13,7 +13,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.events.model.DeadlineTimeReachedEvent;
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -44,7 +44,7 @@ public class AutoMarkManager extends ComponentManager {
 
     public AutoMarkManager(Model model) {
         this.model = model;
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
 
     public static boolean getSetToRun() {
@@ -198,8 +198,8 @@ public class AutoMarkManager extends ComponentManager {
 
     // Synchronizes the uncompleted list with the master list when there is a change
     @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
+    public void handleTaskListChangedEvent(TaskListChangedEvent event) {
+        syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
 
 }

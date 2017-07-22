@@ -20,9 +20,9 @@ public class FloatingTaskBuilder {
 
     public FloatingTaskBuilder() throws IllegalValueException {
         Name defaultName = new Name(DEFAULT_NAME);
-        Description defaultAddress = new Description(DEFAULT_DESCRIPTION);
+        Description defaultDescription = new Description(DEFAULT_DESCRIPTION);
         Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-        this.task = new Task(defaultName, defaultAddress, defaultTags);
+        this.task = new Task(defaultName, defaultDescription, defaultTags);
     }
 
     /**

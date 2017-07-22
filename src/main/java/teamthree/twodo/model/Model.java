@@ -15,13 +15,13 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskBook newData);
+    void resetData(ReadOnlyTaskList newData);
 
-    /** Returns the TaskBook */
-    ReadOnlyTaskBook getTaskBook();
+    /** Returns the TaskList */
+    ReadOnlyTaskList getTaskList();
 
-    /** Changes the TaskBook */
-    void setTaskBook(ReadOnlyTaskBook taskBook);
+    /** Changes the TaskList */
+    void setTaskList(ReadOnlyTaskList taskList);
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
@@ -36,7 +36,7 @@ public interface Model {
     void unmarkTask(ReadOnlyTask task) throws TaskNotFoundException;
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given task {@code target} with {@code editedTask}.
      *
      * @throws DuplicateTaskException if updating the task's details causes the task to be equivalent to
      *      another existing task in the list.
@@ -48,14 +48,18 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList();
 
+    /** Updates the filter of the filtered task list to show all complete tasks
+     * @param tagList TODO
+     * @param listFloating TODO*/
+    void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating);
+
     /** Updates the filter of the filtered task list to show all incomplete tasks
      * @param tagList TODO
-     * @param listIncomplete TODO
      * @param taskType TODO*/
-    void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean listFloating, boolean listIncomplete);
+    void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating);
 
     /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete);
+    void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete);
 
     /** Updates the filter of the filtered task list to show all tasks within the period
      * @param tagList TODO*/
@@ -63,7 +67,7 @@ public interface Model {
             boolean listIncomplete, Set<Tag> tagList);
 
     /** Saves the filePath*/
-    void saveTaskBook();
+    void saveTaskList();
 
     /** Sorts the filePath*/
     void sort();

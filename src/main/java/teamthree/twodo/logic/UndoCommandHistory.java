@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 //@@author A0162253M
@@ -22,6 +24,8 @@ public class UndoCommandHistory {
     private Stack<ReadOnlyTask> markHistory;
     private Stack<ReadOnlyTask> unmarkHistory;
     private Stack<ReadOnlyTask> undoHistory;
+    private Stack<ReadOnlyTaskList> delTagHistory;
+    private Stack<Tag> tagHistory;
 
     public UndoCommandHistory() {
         beforeEditHistory = new Stack<ReadOnlyTask>();
@@ -32,6 +36,8 @@ public class UndoCommandHistory {
         unmarkHistory = new Stack<ReadOnlyTask>();
         userInputHistory = new Stack<String>();
         undoHistory = new Stack<ReadOnlyTask>();
+        delTagHistory = new Stack<ReadOnlyTaskList>();
+        tagHistory = new Stack<Tag>();
     }
 
     /**
@@ -97,6 +103,17 @@ public class UndoCommandHistory {
         undoHistory.push(task);
     }
 
+    public void addToDelTagHistory(ReadOnlyTaskList taskList) {
+        requireNonNull(taskList);
+        delTagHistory.push(taskList);
+    }
+
+    public void addToTagHistory(Tag tag) {
+        requireNonNull(tag);
+        tagHistory.push(tag);
+    }
+
+
     public Stack<String> getUserInputHistory() {
         requireNonNull(userInputHistory);
         return userInputHistory;
@@ -135,6 +152,16 @@ public class UndoCommandHistory {
     public Stack<ReadOnlyTask> getUnmarkHistory() {
         requireNonNull(unmarkHistory);
         return unmarkHistory;
+    }
+
+    public Stack<ReadOnlyTaskList> getDelTagHistory() {
+        requireNonNull(delTagHistory);
+        return delTagHistory;
+    }
+
+    public Stack<Tag> getTagHistory() {
+        requireNonNull(tagHistory);
+        return tagHistory;
     }
 
     private String getCommandWordFromInput(String userInput) throws ParseException {

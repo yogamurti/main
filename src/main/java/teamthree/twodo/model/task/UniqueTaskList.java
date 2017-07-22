@@ -13,7 +13,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not
+ * A list of tasks that enforces uniqueness between its elements and does not
  * allow nulls.
  *
  * Supports a minimal set of list operations.
@@ -35,10 +35,10 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a task to the list.
      *
      * @throws DuplicateTaskException
-     *             if the person to add is a duplicate of an existing person in
+     *             if the task to add is a duplicate of an existing task in
      *             the list.
      */
     public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
@@ -54,52 +54,49 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the task {@code target} in the list with {@code editedTask}.
      *
      * @throws DuplicateTaskException
-     *             if updating the person's details causes the person to be
+     *             if updating the rask's details causes the task to be
      *             equivalent to another existing person in the list.
      * @throws TaskNotFoundException
      *             if {@code target} could not be found in the list.
      */
-    public void updateTask(ReadOnlyTask target, ReadOnlyTask editedPerson)
+    public void updateTask(ReadOnlyTask target, ReadOnlyTask editedTask)
             throws DuplicateTaskException, TaskNotFoundException {
-        requireNonNull(editedPerson);
+        requireNonNull(editedTask);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new TaskNotFoundException();
         }
 
-        Task personToUpdate = internalList.get(index);
-        if (!personToUpdate.equals(editedPerson) && internalList.contains(editedPerson)) {
+        Task taskToUpdate = internalList.get(index);
+        if (!taskToUpdate.equals(editedTask) && internalList.contains(editedTask)) {
             throw new DuplicateTaskException();
         }
         //For the scenario where user wants to update floating task to a task with deadline
-        if (!(personToUpdate instanceof TaskWithDeadline) && editedPerson instanceof TaskWithDeadline) {
-            personToUpdate = new TaskWithDeadline(editedPerson);
+        if (!(taskToUpdate instanceof TaskWithDeadline) && editedTask instanceof TaskWithDeadline) {
+            taskToUpdate = new TaskWithDeadline(editedTask);
         } else {
-            personToUpdate.resetData(editedPerson);
+            taskToUpdate.resetData(editedTask);
         }
-        // TODO: The code below is just a workaround to notify observers of the updated person.
-        // The right way is to implement observable properties in the Task class.
-        // Then, PersonCard should then bind its text labels to those observable properties.
-        internalList.set(index, personToUpdate);
+        internalList.set(index, taskToUpdate);
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent task from the list.
      *
      * @throws TaskNotFoundException
-     *             if no such person could be found in the list.
+     *             if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         requireNonNull(toRemove);
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
-        return personFoundAndDeleted;
+        return taskFoundAndDeleted;
     }
 
     /**
@@ -111,17 +108,17 @@ public class UniqueTaskList implements Iterable<Task> {
 
     public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
         requireNonNull(toMark);
-        boolean personFoundAndMarked = false;
+        boolean taskFoundAndMarked = false;
         int index = internalList.indexOf(toMark);
         if (index == -1) {
             throw new TaskNotFoundException();
         } else {
-            Task taskToMark = internalList.get(index);
-            taskToMark.markCompleted();
-            internalList.set(index, taskToMark);
-            personFoundAndMarked = true;
+            Task taskToUpdate = internalList.get(index);
+            taskToUpdate.markCompleted();
+            internalList.set(index, taskToUpdate);
+            taskFoundAndMarked = true;
         }
-        return personFoundAndMarked;
+        return taskFoundAndMarked;
     }
 
     /**
@@ -133,34 +130,33 @@ public class UniqueTaskList implements Iterable<Task> {
 
     public boolean unmark(ReadOnlyTask toUnmark) throws TaskNotFoundException {
         requireNonNull(toUnmark);
-        boolean personFoundAndUnmarked = false;
+        boolean taskFoundAndUnmarked = false;
         int index = internalList.indexOf(toUnmark);
         if (index == -1) {
             throw new TaskNotFoundException();
         } else {
             Task taskToUpdate = internalList.get(index);
             taskToUpdate.markIncompleted();
-            // TODO confirm if the expression below is required
             internalList.set(index, taskToUpdate);
-            personFoundAndUnmarked = true;
+            taskFoundAndUnmarked = true;
         }
-        return personFoundAndUnmarked;
+        return taskFoundAndUnmarked;
     }
 
-    public void setPersons(UniqueTaskList replacement) {
+    public void setTasks(UniqueTaskList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setPersons(List<? extends ReadOnlyTask> persons) throws DuplicateTaskException {
+    public void setTasks(List<? extends ReadOnlyTask> tasks) throws DuplicateTaskException {
         final UniqueTaskList replacement = new UniqueTaskList();
-        for (final ReadOnlyTask person : persons) {
-            if (person instanceof TaskWithDeadline) {
-                replacement.add(new TaskWithDeadline(person));
+        for (final ReadOnlyTask task : tasks) {
+            if (task instanceof TaskWithDeadline) {
+                replacement.add(new TaskWithDeadline(task));
             } else {
-                replacement.add(new Task(person));
+                replacement.add(new Task(task));
             }
         }
-        setPersons(replacement);
+        setTasks(replacement);
     }
 
     public UnmodifiableObservableList<Task> asObservableList() {

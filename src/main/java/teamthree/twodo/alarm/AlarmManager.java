@@ -12,7 +12,7 @@ import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.ComponentManager;
 import teamthree.twodo.commons.events.alarm.DeadlineNotificationTimeReachedEvent;
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.task.Deadline;
 import teamthree.twodo.model.task.ReadOnlyTask;
@@ -34,13 +34,13 @@ public class AlarmManager extends ComponentManager {
 
     public AlarmManager(Model model) {
         this.model = model;
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
     /**
-     * Synchronizes internal notification list with the main TaskBook
+     * Synchronizes internal notification list with the main TaskList
      *
      * @param masterList
-     *            Full List of tasks from the taskbook
+     *            Full List of tasks from the taskList
      */
     private synchronized void syncWithMasterTaskList(List<ReadOnlyTask> masterList) {
         if (masterList == null || masterList.isEmpty()) {
@@ -163,8 +163,8 @@ public class AlarmManager extends ComponentManager {
 
     // Synchronizes the notification list with the master list when there is a change
     @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
+    public void handleTaskBookChangedEvent(TaskListChangedEvent event) {
+        syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
 
 }

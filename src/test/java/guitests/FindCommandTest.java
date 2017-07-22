@@ -10,13 +10,13 @@ import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TaskUtil;
 
-public class FindCommandTest extends TaskBookGuiTest {
+public class FindCommandTest extends TaskListGuiTest {
 
     @Test
     public void find_nonEmptyList() {
         commandBox.runCommand(listFloating);
         //add all tasks if not all present
-        if (personListPanel.getNumberOfTasks() < td.getTypicalTasks().length) {
+        if (taskListPanel.getNumberOfTasks() < td.getTypicalTasks().length) {
             for (Task task : td.getTypicalTasks()) {
                 commandBox.runCommand(TaskUtil.getAddCommand(task));
             }
@@ -41,6 +41,6 @@ public class FindCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedHits.length));
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
