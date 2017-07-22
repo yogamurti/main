@@ -89,7 +89,7 @@ public class DeleteCommandTest {
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskBook().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
+        model.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
 
         assert model.getFilteredAndSortedTaskList().size() == 1;
     }
