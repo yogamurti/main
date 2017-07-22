@@ -150,13 +150,13 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
+        public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean showFloating, boolean listIncomplete) {
             // TODO Auto-generated method stub
 
         }
 
         @Override
-        public void updateFilteredTaskList(Set<String> keywords, boolean listIncompleted) {
+        public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncompleted) {
             // TODO Auto-generated method stub
 
         }
@@ -180,12 +180,6 @@ public class AlarmManagerTest {
 
         public void setTaskbook(TaskBook taskbook) {
             this.taskbook = taskbook;
-        }
-
-        @Override
-        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
