@@ -47,9 +47,10 @@ public class CommandTestUtil {
      * - the address book and the filtered person list in the {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-        // we are unable to defensively copy the model for comparison later, so we can
-        // only do so by copying its components.
-
+        /**
+         *  we are unable to defensively copy the model for comparison later, so we can
+         * only do so by copying its components.
+         */
         TaskBook expectedTaskBook = new TaskBook(actualModel.getTaskBook());
         List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
         try {
@@ -63,6 +64,24 @@ public class CommandTestUtil {
     }
 
     //@@author A0139267W
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the filtered task list in the {@code actualModel} remain unchanged
+     */
+
+    public static void assertCommandFailureWithoutTaskList(Command command, Model actualModel, String expectedMessage) {
+        List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
+        try {
+            command.execute();
+            fail("The expected CommandException was not thrown.");
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedTaskList());
+        }
+    }
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>

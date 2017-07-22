@@ -79,11 +79,13 @@ public class MarkCommandTest {
          *  Attempts to mark the marked task
          *  The recently marked task should be the only marked task in the model
          */
-
         model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
-        CommandTestUtil.assertCommandFailureSkeleton(markCommand, MarkCommand.MESSAGE_ALREADY_MARKED_TASK);
+
+        CommandTestUtil.assertCommandFailureWithoutTaskList(markCommand, model,
+                MarkCommand.MESSAGE_ALREADY_MARKED_TASK);
     }
+
     // Returns a {@code MarkCommand} with the parameter {@code index}
     private MarkCommand prepareCommand(Index index) {
         MarkCommand markCommand = new MarkCommand(index);
