@@ -2,7 +2,7 @@ package teamthree.twodo.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-//import static org.junit.Assert.fail;
+import static org.junit.Assert.fail;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static teamthree.twodo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -16,8 +16,7 @@ import static teamthree.twodo.testutil.TypicalTask.INDEX_THIRD_TASK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-//import java.util.Collections;
-//import java.util.HashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,14 +33,13 @@ import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
-//import teamthree.twodo.logic.commands.Command;
 import teamthree.twodo.logic.commands.CommandResult;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.ExitCommand;
 import teamthree.twodo.logic.commands.FindCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
+import teamthree.twodo.logic.commands.HistoryCommand;
 import teamthree.twodo.logic.commands.ListCommand;
-//import teamthree.twodo.logic.commands.UndoCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
@@ -55,7 +53,7 @@ import teamthree.twodo.model.task.Description;
 import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
-//import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
+import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
 public class LogicManagerTest {
 
@@ -217,10 +215,8 @@ public class LogicManagerTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
-    /* The following two tests fail because matcher.matches() fails to find pattern
-     * but the exact same command works when executed outside of the unit test
     @Test
-    public void execute_add_successful() throws Exception {
+    public void executeAddSuccessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.event();
@@ -241,9 +237,9 @@ public class LogicManagerTest {
         assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
 
     }
-*/
-    /*@Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+
+    @Test
+    public void executeAddDuplicateNotAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.event();
@@ -268,7 +264,7 @@ public class LogicManagerTest {
         assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
 
     }
-*/
+
     @Test
     public void executeListShowsAllTasks() throws Exception {
         // prepare expectations
@@ -351,25 +347,28 @@ public class LogicManagerTest {
         assertParseException(FindCommand.COMMAND_WORD + " ", expectedMessage);
     }
 
-    /*@Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    @Test
+    public void executeFindOnlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
         Task pTarget2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
         Task p1 = new TaskWithDeadlineBuilder().withName("KE Y").build();
-        Task p2 = new TaskWithDeadlineBuilder().withName("KEYKEYKEY sduauo").build();
+        Task p2 = new TaskWithDeadlineBuilder().withName("KEKEKE sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredTaskList(new HashSet<>(Collections.singletonList("KEY")));
+        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
+        Set<String> keywordSet = new HashSet<>();
+        keywordSet.add("KEY");
+        expectedModel.updateFilteredTaskListByKeywords(keywordSet, true);
         helper.addToModel(model, fourPersons);
+
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
-                expectedModel);
+                String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
+                        expectedModel.getFilteredAndSortedTaskList().size()), expectedModel);
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void executeFindIsNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
         Task p2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
@@ -377,16 +376,16 @@ public class LogicManagerTest {
         Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
-                expectedModel);
+                String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
+                        expectedModel.getFilteredAndSortedTaskList().size()), expectedModel);
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void executeFindMatchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = new TaskWithDeadlineBuilder().withName("bla bla KEY bla").build();
         Task p2 = new TaskWithDeadlineBuilder().withName("bla KEY bla bceofeia").build();
@@ -394,16 +393,16 @@ public class LogicManagerTest {
         Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredTaskList().size()),
-                expectedModel);
-    }*/
+                String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
+                        expectedModel.getFilteredAndSortedTaskList().size()), expectedModel);
+    }
 
-    /*@Test
-    public void execute_verifyHistory_success() throws Exception {
+    @Test
+    public void executeVerifyHistorySuccess() throws Exception {
         String validCommand = "clear";
         logic.execute(validCommand);
 
@@ -423,10 +422,10 @@ public class LogicManagerTest {
             assertEquals(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, ce.getMessage());
         }
 
-        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
         assertCommandSuccess("history", expectedMessage, model);
-    }*/
+    }
 
     /**
      * A utility class to generate test data.
@@ -441,7 +440,7 @@ public class LogicManagerTest {
 
         public TaskWithDeadline event() throws Exception {
             Name name = new Name("Gay Parade");
-            Deadline deadline = new Deadline("next fri", "next sat", "1 day");
+            Deadline deadline = new Deadline("next fri 10am", "next sat 10am", Deadline.NULL_VALUE);
             Description privateDescription = new Description("111, alpha street");
             return new TaskWithDeadline(name, deadline, privateDescription, getTagSet("tag1", "longertag2"));
         }
@@ -468,6 +467,8 @@ public class LogicManagerTest {
             cmd.append(AddCommand.COMMAND_WORD);
             cmd.append(" " + PREFIX_NAME.getPrefix()).append(p.getName());
             cmd.append(" " + PREFIX_DESCRIPTION.getPrefix()).append(p.getDescription());
+            //Remove /n char
+            cmd.delete(cmd.length() - 1, cmd.length());
             if (p instanceof TaskWithDeadline) {
                 cmd.append(" " + PREFIX_DEADLINE_START.getPrefix())
                         .append(p.getDeadline().get().getStartDate().toString());
