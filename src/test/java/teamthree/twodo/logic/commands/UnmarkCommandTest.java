@@ -33,6 +33,7 @@ public class UnmarkCommandTest {
         expectedModel.markTask(taskToUnmark);
 
         markCommand.execute();
+
         /**
          *  Unmarks the marked task
          *  The recently marked task should be the only marked task in the model
@@ -64,7 +65,6 @@ public class UnmarkCommandTest {
         showFirstIncompletedTaskOnly(model);
         ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);
-
 
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         showFirstIncompletedTaskOnly(expectedModel);
@@ -104,7 +104,6 @@ public class UnmarkCommandTest {
         Index outOfBoundIndex = INDEX_SECOND_TASK;
         // Ensures that outOfBoundIndex is still in bounds of task list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
-
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(outOfBoundIndex);
 
         CommandTestUtil.assertCommandFailureWithoutTaskList(unmarkCommand, model,
@@ -118,6 +117,7 @@ public class UnmarkCommandTest {
         CommandTestUtil.assertCommandFailureWithoutTaskList(unmarkCommand, model,
                 UnmarkCommand.MESSAGE_NOT_MARKED_TASK);
     }
+
     // Returns a {@code MarkCommand} with the parameter {@code index}
     private MarkCommand prepareMarkCommand(Index index) {
         MarkCommand markCommand = new MarkCommand(index);
@@ -155,7 +155,6 @@ public class UnmarkCommandTest {
      * Does not show any task if the indexed first task has been marked as completed
      */
     private void showFirstIncompletedTaskOnly(Model model) {
-
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);

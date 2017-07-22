@@ -234,7 +234,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
+        assertEquals(expectedModel.getTaskList(), latestSavedTaskBook);
 
     }
 
@@ -248,7 +248,7 @@ public class LogicManagerTest {
         model.addTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         String expectedMessage = AddCommand.MESSAGE_DUPLICATE_TASK;
         try {
 
@@ -261,7 +261,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskBook(), latestSavedTaskBook);
+        assertEquals(expectedModel.getTaskList(), latestSavedTaskBook);
 
     }
 
@@ -356,10 +356,10 @@ public class LogicManagerTest {
         Task p2 = new TaskWithDeadlineBuilder().withName("KEKEKE sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(fourPersons), new UserPrefs());
         Set<String> keywordSet = new HashSet<>();
         keywordSet.add("KEY");
-        expectedModel.updateFilteredTaskListByKeywords(keywordSet, true);
+        expectedModel.updateFilteredTaskList(keywordSet, true);
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
@@ -376,7 +376,7 @@ public class LogicManagerTest {
         Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
@@ -393,7 +393,7 @@ public class LogicManagerTest {
         Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",

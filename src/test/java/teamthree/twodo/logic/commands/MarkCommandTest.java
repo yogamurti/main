@@ -122,4 +122,3 @@ public class MarkCommandTest {
         model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
     }
 }
-
