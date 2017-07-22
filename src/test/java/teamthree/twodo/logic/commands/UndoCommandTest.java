@@ -1,12 +1,15 @@
 package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_END_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Before;
@@ -108,21 +111,30 @@ public class UndoCommandTest {
     @Test
     public void executeUndoUnmarkCommandSuccess()
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
-
         //Unmark Task to prepare model for undo command
+        // Marks the indexed first task from the task book
+        ReadOnlyTask taskToUndo = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
+        markCommand.setData(model, history, undoHistory);
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
+        expectedModel.markTask(taskToUndo);
+        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(getExpectedMessage(expectedModel, taskToUndo));
+        markCommand.execute();
+        /**
+         *  Unmarks the marked task
+         *  The recently marked task should be the only marked task in the model
+         */
+        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
+        model.updateFilteredListToShowAllComplete(null, false);
+        assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
 
-        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
-        ReadOnlyTask taskToUnmark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
-        expectedModel.markTask(taskToUnmark);
-
         CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, taskToUnmark), expectedModel);
-
+                String.format(expectedMessage, taskToUndo), expectedModel);
     }
 
     @Test
@@ -210,5 +222,25 @@ public class UndoCommandTest {
     private void assertCommandResult(UndoCommand undoCommand, String expectedMessage) throws CommandException {
         assertEquals(expectedMessage, undoCommand.execute().feedbackToUser);
     }
+
+    //@@author A0139267W
+    // Obtains the appropriate expected message obtained after a successful MarkCommand
+    private String getExpectedMessage(Model expectedModel, ReadOnlyTask taskToMark) {
+        // Finds the updated task
+        final String[] splitName = taskToMark.getName().fullName.split("\\s+");
+        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), false);
+        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
+
+        ReadOnlyTask markedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+
+        /**
+         *  Resets task list to its initial state
+         *  Initial state is assumed to be the task list that lists all incomplete tasks
+         */
+        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+
+        return String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, markedTask);
+    }
+
 }
 
