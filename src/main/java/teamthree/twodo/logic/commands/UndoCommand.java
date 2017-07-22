@@ -53,7 +53,7 @@ public class UndoCommand extends Command {
     private CommandResult processUserInput() throws TaskNotFoundException, IllegalValueException, CommandException {
         final String previousCommandWord = history.getUserInputHistory().pop();
         undoHistory.addToUserInputHistory(previousCommandWord); //Save CommandWord for RedoCommand
-        
+
         //Process previous Command Word and undo the command
         switch (previousCommandWord) {
 
@@ -118,7 +118,7 @@ public class UndoCommand extends Command {
         return new CommandResult(String.format(fullMessage, taskToUnmark));
     }
 
-    /** 
+    /**
      * Restores Original TaskLIst before Clear Command
      * @return  a Command Result to inform users of that the clear command has been undone
      */
@@ -178,7 +178,7 @@ public class UndoCommand extends Command {
      * @param originalTask must not be null
      */
     private void saveTargetTaskForRedo(ReadOnlyTask originalTask) {
-        assert originalTask !=null;
+        assert originalTask != null;
         if (originalTask.getDeadline().isPresent()) {
             undoHistory.addToAfterEditHistory(new TaskWithDeadline(originalTask));
         } else {
@@ -192,7 +192,7 @@ public class UndoCommand extends Command {
      * @param edittedTask must not be null
      */
     private void saveEditedTargetTaskForRedo(ReadOnlyTask edittedTask) {
-        assert edittedTask !=null;
+        assert edittedTask != null;
         if (edittedTask.getDeadline().isPresent()) {
             undoHistory.addToBeforeEditHistory(new TaskWithDeadline(edittedTask));
         } else {
@@ -207,7 +207,7 @@ public class UndoCommand extends Command {
      */
     private CommandResult undoAddCommand() throws TaskNotFoundException {
         ReadOnlyTask taskToDelete = history.getAddHistory().pop();
-        assert taskToDelete !=null;
+        assert taskToDelete != null;
 
         undoHistory.addToDeleteHistory(taskToDelete); //Store Task for RedoCommand
         model.deleteTask(taskToDelete);
