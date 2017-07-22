@@ -48,7 +48,7 @@ public class UnmarkCommandTest {
          *  Unmarks the marked task
          *  The recently marked task should be the only marked task in the model
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask taskToUnmark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -59,13 +59,13 @@ public class UnmarkCommandTest {
 
         String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
 
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(outOfBoundIndex);
 
@@ -97,7 +97,7 @@ public class UnmarkCommandTest {
          *  Unmarks the marked task
          *  The recently marked task should be the first marked task in the model
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
         showFirstCompletedTaskOnly(expectedModel);
 
@@ -109,7 +109,7 @@ public class UnmarkCommandTest {
 
         String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
 
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         showFirstCompletedTaskOnly(model);
         CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
     }
@@ -136,7 +136,7 @@ public class UnmarkCommandTest {
         CommandTestUtil.assertCommandSuccess(markCommand, model, expectedMessage, expectedModel);
 
         // UnmarkCommand attempt
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         showFirstCompletedTaskOnly(model);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;
@@ -157,7 +157,7 @@ public class UnmarkCommandTest {
         expectedModel.unmarkTask(taskToUnmark);
 
         String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 
         CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
     }
@@ -179,7 +179,7 @@ public class UnmarkCommandTest {
     private String getExpectedMarkedMessage(Model expectedModel, ReadOnlyTask taskToMark) {
         // Finds the updated task
         final String[] splitName = taskToMark.getName().fullName.split("\\s+");
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), false);
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask markedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -188,7 +188,7 @@ public class UnmarkCommandTest {
          *  Resets task list to its initial state
          *  Initial state is assumed to be the task list that lists all incomplete tasks
          */
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 
         return String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, markedTask);
     }
@@ -197,7 +197,7 @@ public class UnmarkCommandTest {
     private String getExpectedUnmarkedMessage(Model expectedModel, ReadOnlyTask taskToUnmark) {
         // Finds the updated task
         final String[] splitName = taskToUnmark.getName().fullName.split("\\s+");
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask unmarkedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -206,7 +206,7 @@ public class UnmarkCommandTest {
          *  Resets task list to its initial state
          *  Initial state is assumed to be the task list that lists all completed tasks
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
 
         return String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, unmarkedTask);
     }
@@ -219,7 +219,7 @@ public class UnmarkCommandTest {
 
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
+        model.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
     }
 
     /**
@@ -229,7 +229,7 @@ public class UnmarkCommandTest {
     private void showFirstCompletedTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), false);
+        model.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), false);
     }
 
     /**

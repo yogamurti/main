@@ -68,7 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setTaskBook(ReadOnlyTaskList taskList) {
+    public void setTaskList(ReadOnlyTaskList taskList) {
         this.taskList = new TaskList(taskList);
     }
 
@@ -107,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void saveTaskBook() {
+    public void saveTaskList() {
         indicateTaskBookChanged();
     }
 

@@ -376,7 +376,7 @@ public class LogicManagerTest {
         Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
@@ -393,7 +393,7 @@ public class LogicManagerTest {
         Task p4 = new TaskWithDeadlineBuilder().withName("KEy sduauo").build();
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateTaskBook(fourPersons), new UserPrefs());
+        Model expectedModel = new ModelManager(helper.generateTaskList(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",

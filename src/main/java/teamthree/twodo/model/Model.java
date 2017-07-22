@@ -21,7 +21,7 @@ public interface Model {
     ReadOnlyTaskList getTaskList();
 
     /** Changes the TaskBook */
-    void setTaskBook(ReadOnlyTaskList taskList);
+    void setTaskList(ReadOnlyTaskList taskList);
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
@@ -63,7 +63,7 @@ public interface Model {
             boolean listIncomplete, Set<Tag> tagList);
 
     /** Saves the filePath*/
-    void saveTaskBook();
+    void saveTaskList();
 
     /** Sorts the filePath*/
     void sort();
