@@ -26,6 +26,7 @@ import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
@@ -165,27 +166,24 @@ public class UndoCommandTest {
     public void executeUndoEditCommandSuccess()
             throws CommandException, TaskNotFoundException, IllegalValueException {
 
-        Index indexLastTask = Index.fromOneBased(model.getFilteredAndSortedTaskList().size());
-        ReadOnlyTask lastTask = model.getFilteredAndSortedTaskList().get(indexLastTask.getZeroBased());
-
-        //Delete Task to prepare model for undo command
+        //Preparing Edit Command
+        ReadOnlyTask initialTask = model.getTaskList().getTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
-        EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
+       Task newTask = new TaskWithDeadlineBuilder().build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TASK, descriptor);
         editCommand.setData(model, history, undoHistory);
         editCommand.execute();
-        this.history.addToUserInputHistory(EditCommand.COMMAND_WORD);
+        history.addToUserInputHistory(EditCommand.COMMAND_WORD);
+        System.out.println(initialTask);
 
-        //Building expected model and message
-        TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(lastTask);
-        Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
-                .withTags(VALID_TAG_SPONGEBOB).build();
-        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
-        expectedModel.updateTask(editedTask, lastTask);
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
 
-        CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, editedTask), expectedModel);
+        //Creating Expected Model
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
+        expectedModel.updateTask(oldTask, initialTask);
+
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, ), expectedModel);
     }
 
     @Test

@@ -8,6 +8,7 @@ import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
@@ -66,8 +67,16 @@ public class UndoCommand extends Command {
         case EditCommand.COMMAND_WORD:
             ReadOnlyTask originalTask = history.getBeforeEditHistory().pop();
             ReadOnlyTask edittedTask = history.getAfterEditHistory().pop();
-            undoHistory.addToBeforeEditHistory(new Task(edittedTask));
-            undoHistory.addToAfterEditHistory(new Task(originalTask));
+            if (edittedTask.getDeadline().isPresent()) {
+                undoHistory.addToBeforeEditHistory(new TaskWithDeadline(edittedTask));
+            } else {
+                undoHistory.addToBeforeEditHistory(new Task(edittedTask));
+            }
+            if (originalTask.getDeadline().isPresent()) {
+                undoHistory.addToAfterEditHistory(new TaskWithDeadline(originalTask));
+            } else {
+                undoHistory.addToAfterEditHistory(new Task(originalTask));
+            }
             model.updateTask(edittedTask, originalTask);
             fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
             return new CommandResult(String.format(fullMessage, edittedTask));

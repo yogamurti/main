@@ -30,7 +30,6 @@ public abstract class UiPart<T> {
      */
     public UiPart(URL fxmlFileUrl) {
         requireNonNull(fxmlFileUrl);
-        System.out.println(fxmlFileUrl.toString());
         fxmlLoader = new FXMLLoader(fxmlFileUrl);
         fxmlLoader.setController(this);
         try {

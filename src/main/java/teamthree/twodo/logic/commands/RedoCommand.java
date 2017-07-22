@@ -61,7 +61,7 @@ public class RedoCommand extends Command {
             ReadOnlyTaskList taskList = undoHistory.getDelTagHistory().pop();
             Tag tag = undoHistory.getTagHistory().pop();
             model.resetData(taskList);
-            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS + tag);
+            fullMessage = MESSAGE_SUCCESS.concat(String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tag.tagName));
             return new CommandResult(fullMessage);
 
         case EditCommand.COMMAND_WORD:

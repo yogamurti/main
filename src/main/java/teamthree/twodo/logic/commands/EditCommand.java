@@ -74,8 +74,16 @@ public class EditCommand extends Command {
 
         ReadOnlyTask taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
-        history.addToBeforeEditHistory(new Task(taskToEdit));
-        history.addToAfterEditHistory(new Task(editedTask));
+        if (taskToEdit.getDeadline().isPresent()) {
+            history.addToBeforeEditHistory(new TaskWithDeadline(taskToEdit));
+        } else {
+            history.addToBeforeEditHistory(new Task(taskToEdit));
+        }
+        if (editedTask.getDeadline().isPresent()) {
+            history.addToAfterEditHistory(new TaskWithDeadline(editedTask));
+        } else {
+            history.addToAfterEditHistory(new Task(editedTask));
+        }
 
         try {
             model.updateTask(taskToEdit, editedTask);
