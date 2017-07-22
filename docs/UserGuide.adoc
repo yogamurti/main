@@ -34,7 +34,7 @@ This app will not work with earlier versions of Java 8.
 e.g. typing *`help`* and pressing kbd:[Enter] will display all commands available.
 .  Some example commands you can try:
 * *`add projectX`* : adds a task with *projectX* as its name
-* *`list`* : lists all tasks
+* *`list`* : lists all incomplete tasks
 * *`delete 2`* : deletes the 2nd task shown in the current list
 * *`quit`* : quits 2Do
 .  Refer to the link:#features[Features] section below for details of each command.
@@ -65,16 +65,10 @@ Dates
 Time
 
 ****
-* Format: 24HR
+* Format 1: 24HR +
 `Example: 1759`
-****
-
-Reccurence
-****
-* Format 1: days / weeks / months / years +
-`Example: 4 days`
-* Format 2: keywords +
-`Example: daily / weekly / yearly / annually`
+* Format 2: natural language +
+`Example: 10am`
 ****
 
 ====
@@ -99,7 +93,6 @@ Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/
 * Creates a task with provided attributes and adds it to your list
 * _start_ and _end_ are in the format {date} {time}
 * _alarm_ sets an notification to appear at the specified date
-* `u/true` can be added to indicate a task is urgent
 ****
 
 ==== Floating tasks
@@ -137,13 +130,13 @@ Example: `delete 1`
 
 === Listing all tasks : `list / l`
 
-Format: `list [/h] s/[start] e/[end]` +
-Example: `list s/05/03/17`
+Format: `list [/h] [/f] s/[start] e/[end] t/[tag1, tag2,...]` +
+Example: `list s/05/03/17 1200 t/project t/personal`
 ****
-* [/h] represents completed tasks
-* Lists completed tasks
-* Lists all uncompleted events and tasks with deadline if no additional arguments
-* Lists uncompleted tasks according to dates provided
+* Lists all incomplete tasks if no additional arguments
+* Lists uincomplete tasks according to dates and/or tags provided
+* Adding /h lists completed tasks instead of incomplete tasks
+* Adding /f lists only floating tasks instead of all tasks
 ****
 
 === Finding a task : `find / f`
@@ -152,6 +145,7 @@ Format: `find [/h] {keyword}` +
 Example: `find work`
 ****
 * Scans through all tasks to find for keyword in any attribute and list it
+* Adding /h lists completed tasks instead of incomplete tasks
 ****
 
 === Undoing the last action : `undo / u`
@@ -265,7 +259,7 @@ Example: `quit`
 
 |delete / del / d / - |delete [-h] {index} |`delete 1`
 
-|list / l |list [/h] s/[start] e/[end] |`list s/today`
+|list / l |list [/h] [/f] s/[start] e/[end] t/[tag1, tag2,...]|`list s/today 10am`
 
 |find / f |find [/h] {keyword} |`find work`
 
@@ -273,7 +267,7 @@ Example: `quit`
 
 |redo / r |redo |`redo`
 
-|edit / e |edit {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm] r/[recurrence] u/[urgent] |`edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days `
+|edit / e |edit {index} n/[new name] s/[new start] e/[new end] d/[new description] t/[new tags] a/[new alarm]|`edit 2 n/CS2103 s/19/06/17 1000 e/28/07/17 1430 d/Special Term t/NUS a/2 days `
 
 |mark / m |mark {index} |`mark 4`
 
