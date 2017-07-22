@@ -5,30 +5,26 @@ import static java.util.Objects.requireNonNull;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's note in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Represents a Task's note in the TaskList.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
 
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Task description can take any value, and it can be blank";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
     /**
-     * Validates given address.
+     * Validates if a given string is a valid description
      *
      * @throws IllegalValueException if given address string is invalid.
      */
     public Description(String description) throws IllegalValueException {
         requireNonNull(description);
-        if (!isValidAddress(description)) {
+        if (!isValidDescription(description)) {
             value = "No description.";
         } else {
             this.value = description;
@@ -36,9 +32,9 @@ public class Description {
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid description.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 

@@ -4,11 +4,11 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
+import teamthree.twodo.commons.events.storage.TaskListFilePathChangedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 //@@author A0162253M
-// Saves TaskBook to the specified directory
+// Saves TaskList to the specified directory
 public class SaveCommand extends Command {
 
     public static final String COMMAND_WORD = "save";
@@ -35,8 +35,8 @@ public class SaveCommand extends Command {
         }
         try {
             Paths.get(filePath);
-            EventsCenter.getInstance().post(new TaskBookFilePathChangedEvent(filePath));
-            model.saveTaskBook();
+            EventsCenter.getInstance().post(new TaskListFilePathChangedEvent(filePath));
+            model.saveTaskList();
             return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
         } catch (InvalidPathException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_PATH, filePath));

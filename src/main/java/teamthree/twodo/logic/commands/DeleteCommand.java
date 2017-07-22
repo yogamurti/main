@@ -5,13 +5,14 @@ import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 // @@author A0162253M - reused
-// Deletes a task identified using its last displayed index from the TaskBook.
+// Deletes a task identified using its last displayed index from the TaskList.
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
@@ -20,8 +21,10 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD_SHORT = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1 ";
+            + ": Deletes the task or tag identified by the index number used in the last task listing.\n"
+            + "Parameters: [tag] INDEX (must be a positive integer)\n"
+            + "Example for Deleting Task: " + COMMAND_WORD + " 1\n"
+            + "Example for Deleting Task: " + COMMAND_WORD + "tag 1\n";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
@@ -43,7 +46,9 @@ public class DeleteCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_DEFAULT_TAG_INDEX);
             }
             try {
+                history.addToDelTagHistory(new TaskList(model.getTaskList()));
                 Tag toDel = catMan.deleteCategory(targetIndex);
+                history.addToTagHistory(toDel);
                 return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, toDel.tagName));
             } catch (IllegalValueException e) {
                 //impossible to get this exception

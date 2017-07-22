@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
 
-public class HelpWindowTest extends TaskBookGuiTest {
+public class HelpWindowTest extends TaskListGuiTest {
 
     @Test
     public void openHelpWindow() {
@@ -18,7 +18,7 @@ public class HelpWindowTest extends TaskBookGuiTest {
         resultDisplay.clickOnTextArea();
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
-        personListPanel.clickOnListView();
+        taskListPanel.clickOnListView();
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
         /*        //use menu button

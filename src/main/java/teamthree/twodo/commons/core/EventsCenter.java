@@ -7,7 +7,7 @@ import com.google.common.eventbus.EventBus;
 import teamthree.twodo.commons.events.BaseEvent;
 
 /**
- * Manages the event dispatching of the app.
+ * Manages the event dispatching of 2Do.
  */
 public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);

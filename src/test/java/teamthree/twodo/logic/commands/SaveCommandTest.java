@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.google.common.eventbus.Subscribe;
 
 import teamthree.twodo.commons.core.EventsCenter;
-import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
+import teamthree.twodo.commons.events.storage.TaskListFilePathChangedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
@@ -22,12 +22,12 @@ public class SaveCommandTest {
     private static final String VALID_FILEPATH = "data/2Do.xml";
     private static final String INVALID_FILEPATH = "data/2Do.txt";
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     private boolean isEventCaught = false;
 
     @Subscribe
-    private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent e) {
+    private void handleTaskListFilePathChangedEvent(TaskListFilePathChangedEvent e) {
         isEventCaught = true;
     }
 

@@ -8,7 +8,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 //@@author A0139267W
-// Marks a task as incomplete using its last displayed index from the TaskBook.
+// Marks a task as incomplete using its last displayed index from the TaskList.
 public class UnmarkCommand extends Command {
 
     // Command word can be either one of the two

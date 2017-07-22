@@ -22,10 +22,10 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Wraps all data at the address-book level Duplicates are not allowed (by
+ * Wraps all data at the Task-List level Duplicates are not allowed (by
  * .equals comparison)
  */
-public class TaskBook implements ReadOnlyTaskBook {
+public class TaskList implements ReadOnlyTaskList {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -43,13 +43,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         tags = new UniqueTagList();
     }
 
-    public TaskBook() {
+    public TaskList() {
     }
 
     /**
-     * Creates an TaskBook using the Persons and Tags in the {@code toBeCopied}
+     * Creates an TaskList using the Tasks and Tags in the {@code toBeCopied}
      */
-    public TaskBook(ReadOnlyTaskBook toBeCopied) {
+    public TaskList(ReadOnlyTaskList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -57,24 +57,24 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// list overwrite operations
 
     public void setTasks(List<? extends ReadOnlyTask> tasks) throws DuplicateTaskException {
-        this.tasks.setPersons(tasks);
+        this.tasks.setTasks(tasks);
     }
 
     public void setTags(Collection<Tag> tags) throws UniqueTagList.DuplicateTagException {
         this.tags.setTags(tags);
     }
 
-    public void resetData(ReadOnlyTaskBook newData) {
+    public void resetData(ReadOnlyTaskList newData) {
         requireNonNull(newData);
         try {
             setTasks(newData.getTaskList());
         } catch (DuplicateTaskException e) {
-            assert false : "AddressBooks should not have duplicate tasks";
+            assert false : "TaskLists should not have duplicate tasks";
         }
         try {
             setTags(newData.getTagList());
         } catch (UniqueTagList.DuplicateTagException e) {
-            assert false : "AddressBooks should not have duplicate tags";
+            assert false : "TaskLists should not have duplicate tags";
         }
         syncMasterTagListWith(tasks);
     }
@@ -82,12 +82,12 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// person-level operations
 
     /**
-     * Adds a person to the address book. Also checks the new person's tags and
+     * Adds a task to the taskList. Also checks the new task's tags and
      * updates {@link #tags} with any new tags found, and updates the Tag
-     * objects in the person to point to those in {@link #tags}.
+     * objects in the task to point to those in {@link #tags}.
      *
      * @throws DuplicateTaskException
-     *             if an equivalent person already exists.
+     *             if an equivalent task already exists.
      */
     public void addTask(ReadOnlyTask t) throws DuplicateTaskException {
         Task newTask;
@@ -101,13 +101,13 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with
-     * {@code editedReadOnlyPerson}. {@code TaskBook}'s tag list will be updated
-     * with the tags of {@code editedReadOnlyPerson}.
+     * Replaces the given task {@code target} in the list with
+     * {@code editedReadOnlyTask}. {@code TaskList}'s tag list will be updated
+     * with the tags of {@code editedReadOnlyTask}.
      *
      * @throws DuplicateTaskException
-     *             if updating the person's details causes the person to be
-     *             equivalent to another existing person in the list.
+     *             if updating the task's details causes the task to be
+     *             equivalent to another existing task in the list.
      * @throws TaskNotFoundException
      *             if {@code target} could not be found in the list.
      *
@@ -124,14 +124,11 @@ public class TaskBook implements ReadOnlyTaskBook {
             editedTask = new Task(editedReadOnlyTask);
         }
         syncMasterTagListWith(editedTask);
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
         tasks.updateTask(target, editedTask);
     }
 
     /**
-     * Ensures that every tag in this person: - exists in the master list
+     * Ensures that every tag in this task: - exists in the master list
      * {@link #tags} - points to a Tag object in the master list
      */
     private void syncMasterTagListWith(Task task) {
@@ -139,11 +136,11 @@ public class TaskBook implements ReadOnlyTaskBook {
         tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
-        // used for checking person tag references
+        // used for checking task tag references
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
         tags.forEach(tag -> masterTagObjects.put(tag, tag));
 
-        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
+        // Rebuild the list of task tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         taskTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         task.setTags(correctTagReferences);
@@ -210,9 +207,9 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskBook // instanceof handles nulls
-                        && this.tasks.equals(((TaskBook) other).tasks)
-                        && this.tags.equalsOrderInsensitive(((TaskBook) other).tags));
+                || (other instanceof TaskList // instanceof handles nulls
+                        && this.tasks.equals(((TaskList) other).tasks)
+                        && this.tags.equalsOrderInsensitive(((TaskList) other).tags));
     }
 
     @Override

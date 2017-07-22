@@ -23,7 +23,7 @@ import teamthree.twodo.testutil.TaskUtil;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower
 // level tests.
-public class EditCommandTest extends TaskBookGuiTest {
+public class EditCommandTest extends TaskListGuiTest {
 
 
     /*
@@ -44,41 +44,41 @@ public class EditCommandTest extends TaskBookGuiTest {
     public void editNotAllFieldsSpecifiedSuccess() throws Exception {
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
 
         String detailsToEdit = PREFIX_TAG + "sweetie " + PREFIX_TAG + "bestie";
         Index filteredListIndex = INDEX_FIRST_TASK;
 
-        ReadOnlyTask personToEdit = personListPanel.getListView().getItems().get(filteredListIndex.getZeroBased());
-        Task editedPerson = new FloatingTaskBuilder(personToEdit).withTags("sweetie", "bestie").build();
+        ReadOnlyTask taskToEdit = taskListPanel.getListView().getItems().get(filteredListIndex.getZeroBased());
+        Task editedTask = new FloatingTaskBuilder(taskToEdit).withTags("sweetie", "bestie").build();
 
-        assertEditSuccess(filteredListIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(filteredListIndex, detailsToEdit, editedTask);
     }
 
     @Test
     public void editClearTagsSuccess() throws Exception {
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
 
         String detailsToEdit = PREFIX_TAG.getPrefix();
         Index filteredListIndex = INDEX_FIRST_TASK;
 
-        ReadOnlyTask personToEdit = personListPanel.getListView().getItems().get(filteredListIndex.getZeroBased());
-        Task editedPerson = new FloatingTaskBuilder(personToEdit).withTags().build();
+        ReadOnlyTask taskToEdit = taskListPanel.getListView().getItems().get(filteredListIndex.getZeroBased());
+        Task editedTask = new FloatingTaskBuilder(taskToEdit).withTags().build();
 
-        assertEditSuccess(filteredListIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(filteredListIndex, detailsToEdit, editedTask);
     }
 
     @Test
     public void editMissingPersonIndexFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
 
@@ -90,10 +90,10 @@ public class EditCommandTest extends TaskBookGuiTest {
     public void edit_invalidPersonIndex_failure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 8 " + PREFIX_NAME + "Bobby");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 34 " + PREFIX_NAME + "Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
@@ -101,7 +101,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     public void editNoFieldsSpecifiedFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
 
@@ -113,7 +113,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     public void editInvalidValuesFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
-        if (personListPanel.getNumberOfTasks() == 0) {
+        if (taskListPanel.getNumberOfTasks() == 0) {
             commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
         }
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_DEADLINE_START + "abcd");
@@ -124,35 +124,35 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     @Test
-    public void editDuplicatePersonFailure() {
+    public void editDuplicateTaskFailure() {
         commandBox.runCommand(listFloating);
 
-        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Alice Pauline " + PREFIX_DESCRIPTION
-                + "123, Jurong West Ave 6, #08-111 " + PREFIX_TAG + "friends");
-        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Enquire about Phone Bill "
+                + PREFIX_DESCRIPTION + "Singtel, M1 " + PREFIX_TAG + "Phone");
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
                 + PREFIX_TAG + "school");
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "CS1020 " + PREFIX_DESCRIPTION + "lab "
                 + PREFIX_TAG + "school");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
 
     /**
-     * Checks whether the edited person has the correct updated details.
+     * Checks whether the edited task has the correct updated details.
      *
-     * @param filteredPersonListIndex
-     *            index of person to edit in filtered list
+     * @param filteredTaskListIndex
+     *            index of task to edit in filtered list
      * @param detailsToEdit
      *            details to edit the person with as input to the edit command
-     * @param editedPerson
-     *            the expected person after editing the person's details
+     * @param editedTask
+     *            the expected task after editing the task's details
      */
-    private void assertEditSuccess(Index filteredPersonListIndex, String detailsToEdit, Task editedPerson) {
+    private void assertEditSuccess(Index filteredTaskListIndex, String detailsToEdit, Task editedTask) {
         commandBox.runCommand(
-                EditCommand.COMMAND_WORD + " " + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
+                EditCommand.COMMAND_WORD + " " + filteredTaskListIndex.getOneBased() + " " + detailsToEdit);
 
         // confirm the new card contains the right data
-        assertTrue(personListPanel.getListView().getItems().contains(editedPerson));
+        assertTrue(taskListPanel.getListView().getItems().contains(editedTask));
 
-        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedPerson));
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 }

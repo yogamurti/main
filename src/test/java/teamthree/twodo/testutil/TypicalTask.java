@@ -2,7 +2,7 @@ package teamthree.twodo.testutil;
 
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
@@ -100,7 +100,7 @@ public class TypicalTask {
         }
     }
 
-    public static void loadTaskBookWithSampleData(TaskBook ab) {
+    public static void loadTaskListWithSampleData(TaskList ab) {
         for (Task task : new TypicalTask().getTypicalTasks()) {
             try {
                 if (task instanceof TaskWithDeadline) {
@@ -118,9 +118,9 @@ public class TypicalTask {
         return new Task[] { cs2103, cs1020, cs2010, project, dinner, training, cca, partyCompleted };
     }
 
-    public TaskBook getTypicalTaskBook() {
-        TaskBook ab = new TaskBook();
-        loadTaskBookWithSampleData(ab);
+    public TaskList getTypicalTaskList() {
+        TaskList ab = new TaskList();
+        loadTaskListWithSampleData(ab);
         return ab;
     }
 }

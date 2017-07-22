@@ -84,7 +84,7 @@ We follow https://github.com/oss-generic/process/blob/master/docs/CodingStandard
 image::Architecture.png[width="600"]
 _Figure 2.1.1 : Architecture Diagram_
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of 2Do. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
@@ -125,7 +125,7 @@ image::SDforDeleteTask.png[width="800"]
 _Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 
 [NOTE]
-Note how the `Model` simply raises a `TaskBookChangedEvent` when the Taskbook data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `TaskBookChangedEvent` when the TaskList data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -204,9 +204,9 @@ _Figure 2.5.1 : Structure of the Storage Component_
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Taskbook data in xml format and read it back.
+* can save the TaskList data in xml format and read it back.
 
-2Do allow users to save their data at a new filepath(File Directory must be available). The filepath can be specified via the Save command and will contain a new 2Do.xml document. StorageMananger will set the new filepath and save it into Config. 2Do will load from and save to the new filepath for current and future sessions until a new filepath is specified.
+2Do allow users to save their data at a new filepath(File Directory must be available). The filepath can be specified via the Save command and will contain a new 2Do.xml document. StorageMananger will set the new filepath and save it into Config. 2Do will load from and save to the new filepath for current and future sessions until a new filepath is specified. 2Do also allows users to load a TaskList file from previous sessions vias the Load command.
 
 === Common classes
 

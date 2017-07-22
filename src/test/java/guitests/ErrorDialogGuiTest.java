@@ -9,7 +9,7 @@ import org.junit.Test;
 import guitests.guihandles.AlertDialogHandle;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 
-public class ErrorDialogGuiTest extends TaskBookGuiTest {
+public class ErrorDialogGuiTest extends TaskListGuiTest {
 
     @Test
     public void showErrorDialogs() throws InterruptedException {

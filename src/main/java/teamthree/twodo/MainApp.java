@@ -24,17 +24,17 @@ import teamthree.twodo.logic.Logic;
 import teamthree.twodo.logic.LogicManager;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.util.SampleDataUtil;
 import teamthree.twodo.storage.JsonUserPrefsStorage;
 import teamthree.twodo.storage.Storage;
 import teamthree.twodo.storage.StorageManager;
-import teamthree.twodo.storage.TaskBookStorage;
+import teamthree.twodo.storage.TaskListStorage;
 import teamthree.twodo.storage.UserPrefsStorage;
-import teamthree.twodo.storage.XmlTaskBookStorage;
+import teamthree.twodo.storage.XmlTaskListStorage;
 import teamthree.twodo.ui.Ui;
 import teamthree.twodo.ui.UiManager;
 
@@ -58,15 +58,15 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing TaskBook ]===========================");
+        logger.info("=============================[ Initializing TaskList ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        TaskBookStorage taskBookStorage = new XmlTaskBookStorage(config.getTaskBookFilePath());
-        storage = new StorageManager(taskBookStorage, userPrefsStorage);
+        TaskListStorage taskListStorage = new XmlTaskListStorage(config.getTaskBookFilePath());
+        storage = new StorageManager(taskListStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -92,20 +92,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskBook> addressBookOptional;
-        ReadOnlyTaskBook initialData;
+        Optional<ReadOnlyTaskList> taskListOptional;
+        ReadOnlyTaskList initialData;
         try {
-            addressBookOptional = storage.readTaskBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample TaskBook");
+            taskListOptional = storage.readTaskList();
+            if (!taskListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample TaskList");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TaskBook");
-            initialData = new TaskBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
+            initialData = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty TaskBook");
-            initialData = new TaskBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaskList");
+            initialData = new TaskList();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -159,7 +159,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty TaskBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaskList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -179,7 +179,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting TaskBook " + MainApp.VERSION);
+        logger.info("Starting TaskList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

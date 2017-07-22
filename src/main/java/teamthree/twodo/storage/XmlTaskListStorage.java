@@ -12,39 +12,39 @@ import java.util.logging.Logger;
 import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.FileUtil;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
  * A class to access TaskBook data stored as an xml file on the hard disk.
  */
-public class XmlTaskBookStorage implements TaskBookStorage {
+public class XmlTaskListStorage implements TaskListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlTaskBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlTaskListStorage.class);
 
     protected String filePath;
 
-    public XmlTaskBookStorage(String filePath) {
+    public XmlTaskListStorage(String filePath) {
         this.filePath = filePath;
     }
 
     @Override
-    public String getTaskBookFilePath() {
+    public String getTaskListFilePath() {
         return filePath;
     }
 
     @Override
-    public void setTaskBookFilePath(String filePath) throws IOException {
+    public void setTaskListFilePath(String filePath) throws IOException {
         this.filePath = filePath;
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
-        return readTaskBook(filePath);
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
+        return readTaskList(filePath);
     }
 
     /**
-     * Similar to {@link #readTaskBook()}
+     * Similar to {@link #readTaskList()}
      *
      * @param filePath
      *            location of the data. Cannot be null
@@ -53,41 +53,41 @@ public class XmlTaskBookStorage implements TaskBookStorage {
      */
 
     @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath)
+    public Optional<ReadOnlyTaskList> readTaskList(String filePath)
             throws DataConversionException, FileNotFoundException {
         requireNonNull(filePath);
 
-        File taskBookFile = new File(filePath);
+        File taskListFile = new File(filePath);
 
-        if (!taskBookFile.exists()) {
-            logger.info("TaskBook file " + taskBookFile + " not found");
+        if (!taskListFile.exists()) {
+            logger.info("TaskList file " + taskListFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskBook taskBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskList taskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(taskBookOptional);
+        return Optional.of(taskListOptional);
     }
 
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
-        saveTaskBook(taskBook, filePath);
+    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
+        saveTaskList(taskList, filePath);
     }
 
     /**
-     * Similar to {@link #saveTaskBook(ReadOnlyTaskBook)}
+     * Similar to {@link #saveTaskList(ReadOnlyTaskList)}
      *
      * @param filePath
      *            location of the data. Cannot be null
      */
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
-        requireNonNull(taskBook);
+    public void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {
+        requireNonNull(taskList);
         requireNonNull(filePath);
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskBook(taskBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskList(taskList));
     }
 
     /**
@@ -103,7 +103,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveNotificationToFile(file, XmlSerializableTaskBook.getXmlSerializableTaskList(notified));
+        XmlFileStorage.saveNotificationToFile(file, XmlSerializableTaskList.getXmlSerializableTaskList(notified));
     }
 
 }

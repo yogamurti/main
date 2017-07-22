@@ -53,7 +53,7 @@ public class XmlAdaptedTask {
         if (source.getDeadline().isPresent()) {
             deadline = source.getDeadline().get();
         }
-        // email = source.getEmail().value;
+
         description = source.getDescription().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -62,7 +62,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task
+     * Converts this jaxb-friendly adapted task object into the model's Task
      * object.
      *
      * @throws IllegalValueException
@@ -70,9 +70,9 @@ public class XmlAdaptedTask {
      *             person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
         //final Email email = new Email(this.email);
@@ -80,7 +80,7 @@ public class XmlAdaptedTask {
         if (description != null) {
             desc = new Description(this.description);
         }
-        final Set<Tag> tags = new HashSet<>(personTags);
+        final Set<Tag> tags = new HashSet<>(taskTags);
         if (deadline != null) {
             final Deadline deadline = new Deadline(this.deadline);
             return new TaskWithDeadline(name, deadline, desc, tags);

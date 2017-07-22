@@ -13,29 +13,29 @@ import teamthree.twodo.commons.core.LogsCenter;
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.events.LoadNewModelEvent;
 import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
-import teamthree.twodo.commons.events.model.TaskBookChangedEvent;
+import teamthree.twodo.commons.events.model.TaskListChangedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
-import teamthree.twodo.commons.events.storage.TaskBookFilePathChangedEvent;
-import teamthree.twodo.commons.events.storage.TaskBookStorageChangedEvent;
+import teamthree.twodo.commons.events.storage.TaskListFilePathChangedEvent;
+import teamthree.twodo.commons.events.storage.TaskListStorageChangedEvent;
 import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.commons.util.ConfigUtil;
 import teamthree.twodo.logic.commands.SaveCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
-// Manages storage of TaskBook data in local storage
+// Manages storage of TaskList data in local storage
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private TaskBookStorage taskBookStorage;
+    private TaskListStorage taskListStorage;
     private UserPrefsStorage userPrefsStorage;
     private Config config;
 
-    public StorageManager(TaskBookStorage taskBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskListStorage taskListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.taskBookStorage = taskBookStorage;
+        this.taskListStorage = taskListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.config = new Config();
     }
@@ -57,42 +57,42 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-    // ================ TaskBook methods ==============================
+    // ================ TaskList methods ==============================
 
     @Override
-    public String getTaskBookFilePath() {
-        return taskBookStorage.getTaskBookFilePath();
+    public String getTaskListFilePath() {
+        return taskListStorage.getTaskListFilePath();
     }
 
     @Override
     //@@author A0162253M
-    public void setTaskBookFilePath(String filePath) throws IOException {
-        taskBookStorage.setTaskBookFilePath(filePath);
-        config.setTaskBookFilePath(filePath);
+    public void setTaskListFilePath(String filePath) throws IOException {
+        taskListStorage.setTaskListFilePath(filePath);
+        config.setTaskListFilePath(filePath);
         ConfigUtil.saveConfig(config, Config.getDefaultConfigFile());
-        raise(new TaskBookStorageChangedEvent(filePath));
+        raise(new TaskListStorageChangedEvent(filePath));
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
-        return readTaskBook(taskBookStorage.getTaskBookFilePath());
+    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException {
+        return readTaskList(taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return taskBookStorage.readTaskBook(filePath);
+        return taskListStorage.readTaskList(filePath);
     }
 
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
-        saveTaskBook(taskBook, taskBookStorage.getTaskBookFilePath());
+    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
+        saveTaskList(taskList, taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
+    public void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        taskBookStorage.saveTaskBook(taskBook, filePath);
+        taskListStorage.saveTaskList(taskList, filePath);
     }
 
     public void saveNotifiedTasks(HashSet<ReadOnlyTask> notified, String filePath) throws IOException {
@@ -101,20 +101,20 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
+    public void handleTaskListChangedEvent(TaskListChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveTaskBook(event.data);
+            saveTaskList(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
     }
 
     @Subscribe
-    private void handleTaskBookFilePathChangedEvent(TaskBookFilePathChangedEvent event) throws CommandException {
+    private void handleTaskListFilePathChangedEvent(TaskListFilePathChangedEvent event) throws CommandException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local filePath changed, saving to config"));
         try {
-            setTaskBookFilePath(event.filePath);
+            setTaskListFilePath(event.filePath);
         } catch (IOException e) {
             throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));
         }
@@ -125,10 +125,10 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(
                 LogsCenter.getEventHandlingLogMessage(event, "Load command executed, saving new filepath to config"));
         try {
-            Optional<ReadOnlyTaskBook> loadedTaskBook;
-            if ((loadedTaskBook = readTaskBook(event.filePath)).isPresent()) {
-                setTaskBookFilePath(event.filePath);
-                raise(new LoadNewModelEvent(loadedTaskBook.get()));
+            Optional<ReadOnlyTaskList> loadedTaskList;
+            if ((loadedTaskList = readTaskList(event.filePath)).isPresent()) {
+                setTaskListFilePath(event.filePath);
+                raise(new LoadNewModelEvent(loadedTaskList.get()));
             }
         } catch (IOException e) {
             throw new CommandException(String.format(SaveCommand.MESSAGE_INVALID_PATH, event.filePath));

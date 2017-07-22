@@ -83,7 +83,7 @@ public class EditCommandParserTest {
         assertParseFailure("1" + INVALID_DEADLINE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT); // invalid phone
         assertParseFailure("1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // valid deadline followed by invalid deadline. The test case for invalid deadline followed by valid deadline
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure("1" + DEADLINE_DESC_EVENT + INVALID_DEADLINE_DESC,
                 Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT);

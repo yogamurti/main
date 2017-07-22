@@ -21,11 +21,12 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
-import teamthree.twodo.model.ReadOnlyTaskBook;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
+import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
@@ -50,7 +51,7 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskBook(), new UserPrefs());
+        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         undoCommand = new UndoCommand();
@@ -70,7 +71,7 @@ public class UndoCommandTest {
         this.history.addToAddHistory(taskToAdd);
         this.history.addToUserInputHistory(AddCommand.COMMAND_WORD);
 
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
         expectedModel.deleteTask(taskToAdd);
 
@@ -94,7 +95,7 @@ public class UndoCommandTest {
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
 
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         ReadOnlyTask taskToMark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
         expectedModel.unmarkTask(taskToMark);
@@ -114,7 +115,7 @@ public class UndoCommandTest {
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
 
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         ReadOnlyTask taskToUnmark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
         expectedModel.markTask(taskToUnmark);
@@ -127,15 +128,15 @@ public class UndoCommandTest {
     @Test
     public void executeUndoClearCommandSuccess() throws CommandException, ParseException {
 
-        ReadOnlyTaskBook taskBook = model.getTaskBook();
+        ReadOnlyTaskList taskBook = model.getTaskList();
 
         //Clear Task to prepare model for undo command
-        this.model.resetData(new TaskBook());
+        this.model.resetData(new TaskList());
         this.history.addToClearHistory(taskBook);
         this.history.addToUserInputHistory(ClearCommand.COMMAND_WORD);
 
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat("Restored TaskBook");
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat("Restored TaskList");
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
 
@@ -154,7 +155,7 @@ public class UndoCommandTest {
         this.history.addToUserInputHistory(DeleteCommand.COMMAND_WORD);
 
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         expectedModel.addTask(taskToDelete);
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model,
@@ -162,11 +163,11 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeUndoEditCommandSuccess()
-            throws CommandException, TaskNotFoundException, IllegalValueException {
-
+        public void executeUndoEditCommandSuccess()
+                throws CommandException, TaskNotFoundException, IllegalValueException {
         Index indexFirstTask = Index.fromOneBased(1);
         ReadOnlyTask firstTask = model.getFilteredAndSortedTaskList().get(indexFirstTask.getZeroBased());
+        TaskWithDeadline initialTask = new TaskWithDeadline(firstTask);
 
         //Delete Task to prepare model for undo command
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
@@ -180,8 +181,8 @@ public class UndoCommandTest {
         TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(firstTask);
         Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
                 .withTags(VALID_TAG_SPONGEBOB).build();
-        Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
-        expectedModel.updateTask(editedTask, firstTask);
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
+        expectedModel.updateTask(editedTask, initialTask);
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model,
@@ -190,13 +191,13 @@ public class UndoCommandTest {
 
     @Test
     public void excuteUndoInvalidCommandReturnInvalidMessage() throws ParseException, CommandException {
-        HelpCommand helpCommand = new HelpCommand();
-        helpCommand.setData(model, history, undoHistory);
-        helpCommand.execute();
-        this.history.addToUserInputHistory(HelpCommand.COMMAND_WORD);
+        HistoryCommand historyCommand = new HistoryCommand();
+        historyCommand.setData(model, history, undoHistory);
+        historyCommand.execute();
+        this.history.addToUserInputHistory(HistoryCommand.COMMAND_WORD);
         CommandResult result = undoCommand.execute();
 
-        String expectedMessage = UndoCommand.MESSAGE_INVALID_PREVIOUS_COMMAND.concat(HelpCommand.COMMAND_WORD);
+        String expectedMessage = UndoCommand.MESSAGE_INVALID_PREVIOUS_COMMAND.concat(HistoryCommand.COMMAND_WORD);
 
         assertEquals(result.feedbackToUser, expectedMessage);
     }

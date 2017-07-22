@@ -48,10 +48,14 @@ image::teoshuqi.png[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#redoing-the-undone-action-code-redo-r-code[Redo]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#saving-list-code-save-s-code[Save]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#loading-list-code-load-code[Load]
+** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#deleting-a-task-code-delete-del-d-code[Delete task]
 * Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0162253M.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0162253M.md[[test code]]
 * Other major contributions:
-** Implemented history tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
-
+** Implemented history and undo Tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
+** Implemented delete Tasks https://github.com/CS2103JUN2017-T3/main/pull/74[[#74]]
+** Update Developer's Guide https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]]
+** Update Architecture and Storage Diagrams https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]]
+** Refactor AddressBook to TaskList https://github.com/CS2103JUN2017-T3/main/pull/119 [[#119]]
 '''
 
 === https://github.com/yogamurti[Yogamurti Sutanto]

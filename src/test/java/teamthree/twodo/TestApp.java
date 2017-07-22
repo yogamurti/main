@@ -6,10 +6,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.GuiSettings;
-import teamthree.twodo.model.ReadOnlyTaskBook;
+import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.storage.UserPrefsStorage;
-import teamthree.twodo.storage.XmlSerializableTaskBook;
+import teamthree.twodo.storage.XmlSerializableTaskList;
 import teamthree.twodo.testutil.TestUtil;
 
 /**
@@ -23,14 +23,14 @@ public class TestApp extends MainApp {
 
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected static final String TASK_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyTaskBook> initialDataSupplier = () -> null;
+    protected static final String TASK_LIST_NAME = "Test";
+    protected Supplier<ReadOnlyTaskList> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyTaskBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskList> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -38,7 +38,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableTaskBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskList(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -57,8 +57,8 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setTaskBookFilePath(saveFileLocation);
-        userPrefs.setTaskBookName(TASK_BOOK_NAME);
+        userPrefs.setTaskListFilePath(saveFileLocation);
+        userPrefs.setTaskListName(TASK_LIST_NAME);
         return userPrefs;
     }
 

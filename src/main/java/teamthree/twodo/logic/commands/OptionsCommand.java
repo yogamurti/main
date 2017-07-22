@@ -19,8 +19,8 @@ public class OptionsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits 2Do's default options.\n"
-            + "Parameters: ALARM (minutes or days),"
-            + " MARK COMPLETION AUTOMATICALLY (true or false)\n"
+            + "Parameters: alarm (minutes or days),"
+            + " mark completion automatically (true or false)\n"
             + "Example: " + COMMAND_WORD + " a/1 minute m/true ";
 
     public static final String MESSAGE_UPDATE_OPTIONS_SUCCESS = "Default settings updated:%1$s\n";

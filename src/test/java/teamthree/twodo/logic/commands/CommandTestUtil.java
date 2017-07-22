@@ -8,7 +8,7 @@ import java.util.List;
 
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
-import teamthree.twodo.model.TaskBook;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
@@ -28,37 +28,25 @@ public class CommandTestUtil {
         assertEquals(expectedModel, actualModel);
     }
 
-    //@@author A0139267W
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage}
-     */
-    public static void assertCommandSuccessSkeleton(Command command, String expectedMessage)
-            throws CommandException {
-        CommandResult result = command.execute();
-        assertEquals(expectedMessage, result.feedbackToUser);
-    }
-
-    //@@author
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged
+     * - the task list and the filtered task list in the {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         /**
          *  we are unable to defensively copy the model for comparison later, so we can
          * only do so by copying its components.
          */
-        TaskBook expectedTaskBook = new TaskBook(actualModel.getTaskBook());
+        TaskList expectedTaskList = new TaskList(actualModel.getTaskList());
         List<ReadOnlyTask> expectedFilteredList = new ArrayList<>(actualModel.getFilteredAndSortedTaskList());
         try {
             command.execute();
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedTaskBook, actualModel.getTaskBook());
+            assertEquals(expectedTaskList, actualModel.getTaskList());
             assertEquals(expectedFilteredList, actualModel.getFilteredAndSortedTaskList());
         }
     }
