@@ -1,6 +1,7 @@
 package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -36,19 +37,18 @@ public class OptionsCommandTest {
     private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     @Test
-    public void execute_validAlarmArgument_success() throws Exception {
+    public void executeValidAlarmArgumentSuccess() throws Exception {
         OptionsCommand optionsCommand = prepareCommand(VALID_CHANGE_ALARM);
 
         ConfigStud.changeDefaultNotificationPeriod(VALID_ALARM_INPUT);
         String expectedMessage = String.format(OptionsCommand.MESSAGE_UPDATE_OPTIONS_SUCCESS, VALID_CHANGE_ALARM);
 
-        assertTrue(Config.getDefaultNotificationPeriod().equals(ConfigStud.getDefaultNotificationPeriod()) == false);
-        assertTrue(Config.defaultNotificationPeriodToString().equals(ConfigStud.defaultNotificationPeriodToString())
-                == false);
+        assertFalse(Config.getDefaultNotificationPeriod().equals(ConfigStud.getDefaultNotificationPeriod()));
+        assertFalse(Config.defaultNotificationPeriodToString().equals(ConfigStud.defaultNotificationPeriodToString()));
 
         CommandTestUtil.assertCommandSuccessSkeleton(optionsCommand, expectedMessage);
 
-        assertTrue(AutoMarkManager.getSetToRun() == false);
+        assertFalse(AutoMarkManager.getSetToRun());
         assertEquals(Config.getDefaultNotificationPeriod(), ConfigStud.getDefaultNotificationPeriod());
         assertEquals(Config.defaultNotificationPeriodToString(), ConfigStud.defaultNotificationPeriodToString());
 
@@ -58,7 +58,7 @@ public class OptionsCommandTest {
     }
 
     @Test
-    public void execute_validAutoMarkArgument_success() throws Exception {
+    public void executeValidAutoMarkArgumentSuccess() throws Exception {
         OptionsCommand optionsCommand = prepareCommand(VALID_CHANGE_AUTOMARK);
 
         AutoMarkManagerStud.setToRun(true);
@@ -78,17 +78,16 @@ public class OptionsCommandTest {
     }
 
     @Test
-    public void execute_validArguments_success() throws Exception {
+    public void executeValidArgumentsSuccess() throws Exception {
         OptionsCommand optionsCommand = prepareCommand(VALID_CHANGE_ARGUMENTS);
 
         ConfigStud.changeDefaultNotificationPeriod(VALID_ALARM_INPUT);
         AutoMarkManagerStud.setToRun(true);
         String expectedMessage = String.format(OptionsCommand.MESSAGE_UPDATE_OPTIONS_SUCCESS, VALID_CHANGE_ARGUMENTS);
 
-        assertTrue(Config.getDefaultNotificationPeriod().equals(ConfigStud.getDefaultNotificationPeriod()) == false);
-        assertTrue(Config.defaultNotificationPeriodToString().equals(ConfigStud.defaultNotificationPeriodToString())
-                == false);
-        assertTrue(AutoMarkManager.getSetToRun() != AutoMarkManagerStud.getSetToRun());
+        assertFalse(Config.getDefaultNotificationPeriod().equals(ConfigStud.getDefaultNotificationPeriod()));
+        assertFalse(Config.defaultNotificationPeriodToString().equals(ConfigStud.defaultNotificationPeriodToString()));
+        assertFalse(AutoMarkManager.getSetToRun() == AutoMarkManagerStud.getSetToRun());
 
         CommandTestUtil.assertCommandSuccessSkeleton(optionsCommand, expectedMessage);
 
@@ -103,7 +102,7 @@ public class OptionsCommandTest {
     }
 
     @Test
-    public void execute_sameAsDefaultOptions_failure() throws Exception {
+    public void executeSameAsDefaultOptionsFailure() throws Exception {
         OptionsCommand optionsCommand = prepareCommand(SAME_AS_DEFAULT);
 
         String expectedMessage = String.format(OptionsCommand.MESSAGE_DUPLICATE_OPTIONS, SAME_AS_DEFAULT);

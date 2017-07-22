@@ -24,7 +24,7 @@ public class UnmarkCommandTest {
 
     private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
     @Test
-    public void execute_validIndexUnfilteredList_success() throws Exception {
+    public void executeValidIndexUnfilteredListSuccess() throws Exception {
         //  Marks the indexed first task from the task book
         ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);
@@ -51,7 +51,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
+    public void executeInvalidIndexUnfilteredListFailure() throws Exception {
         model.updateFilteredListToShowAllComplete(null, false);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(outOfBoundIndex);
@@ -60,7 +60,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws Exception {
+    public void executeValidIndexFilteredListSuccess() throws Exception {
         //  Marks the indexed first task from the task book
         showFirstIncompletedTaskOnly(model);
         ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -91,7 +91,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
+    public void executeInvalidIndexFilteredListFailure() throws Exception {
         //  Marks the indexed first task from the task book
         showFirstIncompletedTaskOnly(model);
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);
@@ -111,7 +111,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_validIndexIncompletedTask_throwsCommandException() throws Exception {
+    public void executeValidIndexIncompletedTaskFailure() throws Exception {
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(INDEX_FIRST_TASK);
 
         CommandTestUtil.assertCommandFailureWithoutTaskList(unmarkCommand, model,

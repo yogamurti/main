@@ -54,7 +54,7 @@ public class AutoMarkManager extends ComponentManager {
     // Enables or disables the auto-completion functionality
     public static void setToRun(boolean setting) {
         setToRun = setting;
-        if (setting == true) {
+        if (setting) {
         }
     }
 

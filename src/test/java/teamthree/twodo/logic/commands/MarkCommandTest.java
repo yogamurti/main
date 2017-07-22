@@ -24,7 +24,7 @@ public class MarkCommandTest {
 
     private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
     @Test
-    public void execute_validIndexUnfilteredList_success() throws Exception {
+    public void executeValidIndexUnfilteredListSuccess() throws Exception {
         ReadOnlyTask taskToMark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareCommand(INDEX_FIRST_TASK);
 
@@ -36,7 +36,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
+    public void executeInvalidIndexUnfilteredListFailure() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         MarkCommand markCommand = prepareCommand(outOfBoundIndex);
 
@@ -44,7 +44,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws Exception {
+    public void executeValidIndexFilteredListSuccess() throws Exception {
         showFirstTaskOnly(model);
         ReadOnlyTask taskToMark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareCommand(INDEX_FIRST_TASK);
@@ -60,7 +60,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
+    public void executeInvalidIndexFilteredListFailure() throws Exception {
         showFirstTaskOnly(model);
         Index outOfBoundIndex = INDEX_SECOND_TASK;
         // Ensures that outOfBoundIndex is still in bounds of task list
@@ -72,7 +72,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_alreadyMarkedTask_throwsCommandException() throws Exception {
+    public void executeAlreadyMarkedTaskFailure() throws Exception {
         MarkCommand markCommand = prepareCommand(INDEX_FIRST_TASK);
         markCommand.execute();
 

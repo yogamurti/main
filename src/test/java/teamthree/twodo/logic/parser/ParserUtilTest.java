@@ -34,20 +34,20 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
+    public void parseIndexInvalidInputThrowsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         ParserUtil.parseIndex("10 a");
     }
 
     @Test
-    public void parseIndex_outOfRangeInput_throwsIllegalValueException() throws Exception {
+    public void parseIndexOutOfRangeInputThrowsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
         ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
     }
 
     @Test
-    public void parseIndex_validInput_success() throws Exception {
+    public void parseIndexValidInputSuccess() throws Exception {
         // No whitespaces
         assertEquals(INDEX_FIRST_TASK, ParserUtil.parseIndex("1"));
         // Leading and trailing whitespaces
@@ -55,36 +55,36 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_null_throwsNullPointerException() throws Exception {
+    public void parseNameNullThrowsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseName(null);
     }
 
     @Test
-    public void parseName_optionalEmpty_returnsOptionalEmpty() throws Exception {
+    public void parseNameOptionalEmptyReturnsOptionalEmpty() throws Exception {
         assertFalse(ParserUtil.parseName(Optional.empty()).isPresent());
     }
 
     @Test
-    public void parseDeadlineForAdd_null_throwsNullPointerException() throws Exception {
+    public void parseDeadlineForAddNullThrowsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseDeadlineForAdd(null, null, null);
     }
 
     @Test
-    public void parseDescription_null_throwsNullPointerException() throws Exception {
+    public void parseDescriptionNullThrowsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseDescription(null);
     }
 
     @Test
-    public void parseDescription_optionalEmpty_returnsOptionalEmpty() throws Exception {
+    public void parseDescriptionOptionalEmptyReturnsOptionalEmpty() throws Exception {
         Optional<Description> actualDescription = ParserUtil.parseDescription(Optional.empty());
         assertFalse(actualDescription.isPresent());
     }
 
     @Test
-    public void parseDescription_invalidValue_returnsNoDescription() throws Exception {
+    public void parseDescriptionInvalidValueReturnsNoDescription() throws Exception {
         Description expectedAddress = new Description("No description.");
         Optional<Description> actualAddress = ParserUtil.parseDescription(Optional.of(INVALID_DESCRIPTION));
 
@@ -92,7 +92,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDescription_validValue_returnsDescription() throws Exception {
+    public void parseDescriptionValidValueReturnsDescription() throws Exception {
         Description expectedAddress = new Description(VALID_DESCRIPTION);
         Optional<Description> actualAddress = ParserUtil.parseDescription(Optional.of(VALID_DESCRIPTION));
 
@@ -100,24 +100,24 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
+    public void parseTagsNullThrowsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         ParserUtil.parseTags(null);
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsIllegalValueException() throws Exception {
+    public void parseTagsCollectionWithInvalidTagsThrowsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
+    public void parseTagsEmptyCollectionReturnsEmptySet() throws Exception {
         assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
+    public void parseTagsCollectionWithValidTagsReturnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
