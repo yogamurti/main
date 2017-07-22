@@ -5,8 +5,9 @@ import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// Config values used by the application
-public class Config {
+//@@author A0139267W-reused
+//A copy of Config to bypass static declarations for testing purposes
+public class ConfigStud {
 
     // Default notification period of 1 day. Can be changed by user.
     private static Long notificationPeriod = (long) (1000 * 60 * 60 * 24);
@@ -55,7 +56,7 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public void setTaskListFilePath(String taskBookFilePath) {
+    public void setTaskBookFilePath(String taskBookFilePath) {
         this.taskBookFilePath = taskBookFilePath;
     }
 
@@ -68,7 +69,7 @@ public class Config {
             return false;
         }
 
-        Config o = (Config) other;
+        ConfigStud o = (ConfigStud) other;
 
         return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
@@ -97,7 +98,6 @@ public class Config {
         return taskBookFilePath;
     }
 
-    //@@author A0139267W
     public static void changeDefaultNotificationPeriod(String newNotificationPeriod) {
         notificationPeriodToString = newNotificationPeriod;
         Matcher integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);

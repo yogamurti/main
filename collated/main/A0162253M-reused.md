@@ -6,7 +6,7 @@
         try {
             logger.info("----------------[USER COMMAND][" + commandText + "]");
             Command command = parser.parseCommand(commandText);
-            command.setData(model, history, undoHistory);
+            command.setData(model, history, undoHistory, catMan);
             return command.execute();
         } finally {
             history.addToUserInputHistory(commandText);
@@ -19,10 +19,12 @@
         return model.getFilteredAndSortedTaskList();
     }
 
+    @Override
     public CommandHistory getCommandHistory() {
         return history;
     }
 
+    @Override
     public void setModel(Model model) {
         this.model = model;
     }

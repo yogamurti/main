@@ -157,13 +157,15 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
-            fail("This method should not be called.");
+        public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean showFloating, boolean listIncomplete) {
+            // TODO Auto-generated method stub
+
         }
 
         @Override
-        public void updateFilteredTaskList(Set<String> keywords, boolean listIncompleted) {
-            fail("This method should not be called.");
+        public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncompleted) {
+            // TODO Auto-generated method stub
+
         }
 
         @Override
@@ -177,12 +179,6 @@ public class AlarmManagerTest {
             fail("This method should not be called.");
         }
 
-        @Override
-        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
-            fail("This method should not be called.");
-        }
-
-        @Override
         public void sort() {
             fail("This method should not be called.");
         }

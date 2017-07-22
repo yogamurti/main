@@ -7,7 +7,7 @@ import teamthree.twodo.commons.exceptions.DataConversionException;
 import teamthree.twodo.model.ReadOnlyTaskList;
 
 /**
- * Represents a storage for {@link teamthree.twodo.model.TaskList}.
+ * Represents a storage for {@link teamthree.twodo.model.TaskBook}.
  */
 public interface TaskListStorage {
 
@@ -17,7 +17,7 @@ public interface TaskListStorage {
     String getTaskListFilePath();
 
     /**
-     * Returns TaskList data as a {@link ReadOnlyTaskList}.
+     * Returns TaskBook data as a {@link ReadOnlyTaskBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -25,19 +25,19 @@ public interface TaskListStorage {
     Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
 
     /**
-     * @see #getTaskListFilePath()
+     * @see #getTaskBookFilePath()
      */
     Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyTaskList} to the storage.
-     * @param taskList cannot be null.
+     * Saves the given {@link ReadOnlyTaskBook} to the storage.
+     * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
 
     /**
-     * @see #saveTaskList(ReadOnlyTaskList)
+     * @see #saveTaskList(ReadOnlyTaskBook)
      */
     void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException;
 

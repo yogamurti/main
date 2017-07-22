@@ -93,10 +93,12 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             throw new AssertionError("The target task cannot be missing");
         }
+
         if (editedTask instanceof TaskWithDeadline) {
-            model.updateFilteredListToShowAllIncomplete(null, false);
+            model.updateFilteredTaskListToShowAll(null, false, true);
+
         } else {
-            model.updateFilteredListToShowAllIncomplete(null, true);
+            model.updateFilteredTaskListToShowAll(null, true, true);
         }
         EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedTask));
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
