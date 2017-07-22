@@ -20,7 +20,7 @@ import teamthree.twodo.model.task.Deadline;
 
 //author A0107433N
 /**
- * Tests parser() in ListCommandParser for different inputs;
+ * Tests parser() in ListCommandParser for different inputs
  */
 public class ListCommandParserTest {
 
