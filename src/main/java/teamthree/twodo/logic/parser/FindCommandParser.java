@@ -39,7 +39,7 @@ public class FindCommandParser {
 
     // removes history command from argument String
     private String removeHistoryCommand(String args) {
-        int index = args.indexOf(" " + FindCommand.COMMAND_WORD_HISTORY + " ");
-        return args.substring(0, index + 1) + args.substring(index + 3, args.length());
+        int index = args.indexOf(FindCommand.COMMAND_WORD_HISTORY);
+        return args.substring(0, index) + args.substring(index + 2, args.length());
     }
 }
