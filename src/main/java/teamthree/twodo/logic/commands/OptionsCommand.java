@@ -53,8 +53,9 @@ public class OptionsCommand extends Command {
             // Checks if the alarm updates were properly executed for both components
             assert(AutoMarkManager.getSetToRun() == defaultOption.getAutoMark().getValue());
         }
-        history.addToOptionsHistory(option);
 
+        model.changeOptions();
+        history.addToOptionsHistory(option);
         return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
     }
 

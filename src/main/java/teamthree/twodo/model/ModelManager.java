@@ -107,6 +107,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void changeOptions() {
+        indicateTaskBookChanged();
+    }
+
+    @Override
     public void saveTaskBook() {
         indicateTaskBookChanged();
     }
