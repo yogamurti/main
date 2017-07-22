@@ -28,6 +28,8 @@ public class ListCommandTest {
 
     private Model model;
     private Model expectedModel;
+    private ListCommand listCommand;
+    private ListCommand listCommandWithDeadline;
 
     @Before
     public void setUp() throws IllegalValueException {
@@ -39,7 +41,7 @@ public class ListCommandTest {
     public void executeListUnfiltered() throws Exception {
         //Test incomplete tasks
         boolean listIncomplete = true;
-        ListCommand listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
+        listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
         listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowAll(null, false, listIncomplete);
@@ -58,7 +60,7 @@ public class ListCommandTest {
     public void executeListFilteredByFloating() throws Exception {
         //Test incomplete tasks
         boolean listIncomplete = true;
-        ListCommand listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, true, null);
+        listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, true, null);
         listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowAll(null, true, listIncomplete);
@@ -80,7 +82,7 @@ public class ListCommandTest {
         AttributeInputted start = AttributeInputted.START;
         //Test incomplete tasks
         boolean listIncomplete = true;
-        ListCommand listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
+        listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, start, listIncomplete, null);
@@ -104,7 +106,7 @@ public class ListCommandTest {
         AttributeInputted end = AttributeInputted.END;
         //Test incomplete tasks
         boolean listIncomplete = true;
-        ListCommand listCommandWithDeadline = new ListCommand(testDeadline, end, listIncomplete, false, null);
+        listCommandWithDeadline = new ListCommand(testDeadline, end, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, end, listIncomplete, null);
@@ -128,7 +130,7 @@ public class ListCommandTest {
         AttributeInputted both = AttributeInputted.BOTH;
         //Test incomplete tasks
         boolean listIncomplete = true;
-        ListCommand listCommandWithDeadline = new ListCommand(testDeadline, both, listIncomplete, false, null);
+        listCommandWithDeadline = new ListCommand(testDeadline, both, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, both, listIncomplete, null);
@@ -153,7 +155,7 @@ public class ListCommandTest {
         Set<Tag> testTagList = new TypicalTask().cs2103.getTags();
         //Test incomplete tasks
         boolean listIncomplete = true;
-        ListCommand listCommandWithDeadline = new ListCommand(null, none, listIncomplete, false, testTagList);
+        listCommandWithDeadline = new ListCommand(null, none, listIncomplete, false, testTagList);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowAll(testTagList, false, listIncomplete);
@@ -189,7 +191,7 @@ public class ListCommandTest {
                 Deadline.NULL_VALUE);
         AttributeInputted start = AttributeInputted.START;
         boolean listIncomplete = true;
-        ListCommand listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
+        listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         ListCommand command = new ListCommand(testDeadline, start, listIncomplete, false, null);

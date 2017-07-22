@@ -273,13 +273,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean descriptionQualifies(ReadOnlyTask task) {
-            if (task.getDeadline().isPresent()) {
-                return keyWords.stream()
-                        .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword))
-                        .findAny().isPresent();
-            } else {
-                return false;
-            }
+            return keyWords.stream()
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword));
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {
