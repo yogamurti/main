@@ -25,13 +25,11 @@ public class MarkCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
-
         ReadOnlyTask taskToMark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareCommand(INDEX_FIRST_TASK);
 
         Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
         expectedModel.markTask(taskToMark);
-
         String expectedMessage = getExpectedMessage(expectedModel, taskToMark);
 
         CommandTestUtil.assertCommandSuccess(markCommand, model, expectedMessage, expectedModel);
@@ -54,7 +52,6 @@ public class MarkCommandTest {
         Model expectedModel = new ModelManager(model.getTaskBook(), new UserPrefs());
         showFirstTaskOnly(expectedModel);
         expectedModel.markTask(taskToMark);
-
         String expectedMessage = getExpectedMessage(expectedModel, taskToMark);
         // Properly resets the task list to its prior state
         showFirstTaskOnly(expectedModel);
@@ -65,11 +62,9 @@ public class MarkCommandTest {
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
         showFirstTaskOnly(model);
-
         Index outOfBoundIndex = INDEX_SECOND_TASK;
         // Ensures that outOfBoundIndex is still in bounds of task list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskBook().getTaskList().size());
-
         MarkCommand markCommand = prepareCommand(outOfBoundIndex);
 
         CommandTestUtil.assertCommandFailure(markCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -78,8 +73,12 @@ public class MarkCommandTest {
     @Test
     public void execute_alreadyMarkedTask_throwsCommandException() throws Exception {
         MarkCommand markCommand = prepareCommand(INDEX_FIRST_TASK);
-
         markCommand.execute();
+
+        /**
+         *  Attempts to mark the marked task
+         *  The recently marked task should be the only marked task in the model
+         */
 
         model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);

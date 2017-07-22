@@ -140,7 +140,6 @@ public class UniqueTaskList implements Iterable<Task> {
         } else {
             Task taskToUpdate = internalList.get(index);
             taskToUpdate.markIncompleted();
-            // TODO confirm if the expression below is required
             internalList.set(index, taskToUpdate);
             personFoundAndUnmarked = true;
         }

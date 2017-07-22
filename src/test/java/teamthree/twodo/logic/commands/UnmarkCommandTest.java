@@ -147,17 +147,9 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void execute_validIndexIncompletedTask_success() throws Exception {
-        ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+    public void execute_validIndexIncompletedTask_throwsCommandException() throws Exception {
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(INDEX_FIRST_TASK);
-
-        Model expectedModel = new ModelManager(new TaskBook(model.getTaskBook()), new UserPrefs());
-        expectedModel.unmarkTask(taskToUnmark);
-
-        String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
-        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
-
-        CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
+        assertUndoCommandFailure(unmarkCommand, model, UnmarkCommand.MESSAGE_NOT_MARKED_TASK);
     }
 
     // Returns a {@code MarkCommand} with the parameter {@code index}
