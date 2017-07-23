@@ -26,6 +26,14 @@ public class UnmarkCommandTest {
     @Test
     public void executeValidIndexUnfilteredListSuccess() throws Exception {
         //  Marks the indexed first task from the task book
+        //Unmark all tasks
+        model.getTaskList().getTaskList().forEach((task) -> {
+            try {
+                model.unmarkTask(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);
 
@@ -62,6 +70,13 @@ public class UnmarkCommandTest {
     @Test
     public void executeValidIndexFilteredListSuccess() throws Exception {
         //  Marks the indexed first task from the task book
+        model.getTaskList().getTaskList().forEach((task) -> {
+            try {
+                model.unmarkTask(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         showFirstIncompletedTaskOnly(model);
         ReadOnlyTask taskToUnmark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = prepareMarkCommand(INDEX_FIRST_TASK);

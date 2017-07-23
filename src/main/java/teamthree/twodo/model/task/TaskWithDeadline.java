@@ -12,9 +12,8 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     private Deadline deadline;
 
     public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags, boolean isComplete) {
-        super(name, description, tags);
+        super(name, description, tags, isComplete);
         this.deadline = deadline;
-        this.completed = isComplete;
     }
 
     public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags) {
@@ -43,9 +42,10 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     public String getAsText() {
         assert (deadline != null);
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName() + "\n").append(getDeadline().get()).append("Description: ").append(getDescription())
-                .append("Completed: ").append(isCompleted()).append("Tags: ");
+        builder.append(getName() + "\n").append(getDeadline().get()).append("Description: ")
+                .append(getDescription()).append("Completed: ").append(isCompleted() + "\n").append("Tags: ");
         getTags().forEach(builder::append);
+        builder.append("\n");
         return builder.toString();
     }
 

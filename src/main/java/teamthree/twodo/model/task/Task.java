@@ -27,7 +27,7 @@ public class Task implements ReadOnlyTask {
      * Incomplete when it is created.
      */
     public Task(Name name, Description description, Set<Tag> tags, boolean isComplete) {
-        requireAllNonNull(name, description, tags);
+        requireAllNonNull(name, description, tags, isComplete);
         this.name = name;
         this.description = description;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -105,11 +105,11 @@ public class Task implements ReadOnlyTask {
         this.setDescription(replacement.getDescription());
         this.setTags(replacement.getTags());
         this.completed = replacement.isCompleted();
-        /*if (completed) {
+        if (completed) {
             this.markCompleted();
         } else {
             this.markIncompleted();
-        }*/
+        }
     }
 
     @Override

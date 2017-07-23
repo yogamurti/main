@@ -34,12 +34,13 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName() + "\n")
-                .append("\nDescription: ")
+                .append("Description: ")
                 .append(getDescription())
-                .append("\nCompleted: ")
-                .append(isCompleted())
-                .append("\nTags: ");
+                .append("Completed: ")
+                .append(isCompleted() + "\n")
+                .append("Tags: ");
         getTags().forEach(builder::append);
+        builder.append("\n");
         return builder.toString();
     }
 
