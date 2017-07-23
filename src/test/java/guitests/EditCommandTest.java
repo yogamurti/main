@@ -40,7 +40,7 @@ public class EditCommandTest extends TaskListGuiTest {
      * assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit,
      * editedPerson); }
      */
-    @Test
+/*    @Test
     public void editNotAllFieldsSpecifiedSuccess() throws Exception {
         commandBox.runCommand(listFloating);
         //add task if list is empty
@@ -72,7 +72,7 @@ public class EditCommandTest extends TaskListGuiTest {
         Task editedTask = new FloatingTaskBuilder(taskToEdit).withTags().build();
 
         assertEditSuccess(filteredListIndex, detailsToEdit, editedTask);
-    }
+    }*/
 
     @Test
     public void editMissingPersonIndexFailure() {
