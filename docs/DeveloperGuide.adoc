@@ -441,7 +441,7 @@ ____
 *MSS*
 
 1. User requests to add a floating task with the name field filled and the end and recurrence fields empty
-2. System adds the floating task and shows a success message
+2. System adds the floating task and displays a success message
 
 Use case ends
 
@@ -469,7 +469,7 @@ ____
 *MSS*
 
 1. User requests to add a task, with a deadline, with the name and end fields filled and the start field empty
-2. System adds the task, with a deadline, and shows a success message
+2. System adds the task, with a deadline, and displays a success message
 
 Use case ends
 
@@ -491,7 +491,7 @@ ____
 *MSS*
 
 1. User requests to add an event with the name, start and end fields filled
-2. System adds the event and shows a success message
+2. System adds the event and displays a success message
 
 Use case ends
 
@@ -519,7 +519,7 @@ ____
 *MSS*
 
 1. User requests to delete a task using its name
-2. System deletes the task and shows a success message
+2. System deletes the task and displays a success message
 
 Use case ends
 
@@ -602,7 +602,7 @@ ____
 *MSS*
 
 1. User requests to undo the last action
-2. System undoes the last action and shows a success message
+2. System undoes the last action and displays a success message
 
 Use case ends
 
@@ -624,7 +624,7 @@ ____
 *MSS*
 
 1. User requests to redo the last undo command
-2. System redoes the last undo command and shows a success message
+2. System redoes the last undo command and displays a success message
 
 Use case ends
 
@@ -648,7 +648,7 @@ ____
 1. User searches for a task using *list* or *find*
 2. System displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
-4. System updates the task and shows a success message
+4. System updates the task and displays a success message
 
 Use case ends
 
@@ -688,7 +688,7 @@ ____
 1. User searches for a task using *list* or *find*
 2. System displays all relevant tasks
 3. User requests to mark the task as complete by using its index
-4. System updates the task and shows a success message
+4. System updates the task and displays a success message
 
 Use case ends
 
@@ -736,7 +736,7 @@ ____
 1. User searches for a completed task using *list -h* or *find -h*
 2. System displays all relevant tasks
 3. User requests to mark the task as incomplete by using its index
-4. System updates the task and shows a success message
+4. System updates the task and displays a success message
 
 Use case ends
 
@@ -784,7 +784,7 @@ ____
 1. User requests to view the general options available on system
 2. System displays its general options
 3. User requests to change the general options for the session
-4. System updates its general options for the session and shows a success message
+4. System updates its general options for the session and displays a success message
 
 Use case ends
 
@@ -806,7 +806,7 @@ ____
 *MSS*
 
 1. User requests to save the to-do list
-2. System saves the current to-do list and exports it as an _xml_ file in the directory specified
+2. System saves the current to-do list, exports it as an _xml_ file in the directory specified and displays a success message
 
 Use case ends
 
@@ -851,9 +851,7 @@ ____
 *MSS*
 
 1. User requests to clear the to-do list
-2. System prompts the user to confirm the clear request
-3. User confirms the clear request
-4. System clears the to-do list and shows a success message
+2. System clears the to-do list
 
 Use case ends
 
@@ -864,12 +862,6 @@ Use case ends
 ____
 1a1. System displays an error message
 
-Use case ends
-____
-
-3a. User does not confirm the request
-
-____
 Use case ends
 ____
 
