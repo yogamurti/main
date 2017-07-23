@@ -456,7 +456,7 @@ Use case ends
 ____
 1b. User enters an alarm parameter using the natural language format
 ____
-1b1. System displays an error message highlighting this issue
+1b1. System displays an error message
 
 Use case ends
 ____
@@ -672,7 +672,7 @@ ____
 
 1. User searches for a task using *list* or *find*
 2. System displays all relevant tasks
-3. User requests to mark the task as complete by using its index
+3. User requests to mark the task as complete by link:#index[index]
 4. System updates the task and displays a success message
 
 Use case ends
@@ -710,9 +710,9 @@ ____
 
 *MSS*
 
-1. User searches for a completed task using *list -h* or *find -h*
+1. User searches for a completed task using *list /h* or *find /h*
 2. System displays all relevant tasks
-3. User requests to mark the task as incomplete by using its index
+3. User requests to mark the task as incomplete by link:#index[index]
 4. System updates the task and displays a success message
 
 Use case ends
@@ -758,6 +758,14 @@ ____
 Use case ends
 
 *Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
 
 3a. User input is invalid
 
@@ -821,16 +829,6 @@ ____
 2. System clears the to-do list
 
 Use case ends
-
-*Extensions*
-
-1a. User input is invalid
-
-____
-1a1. System displays an error message
-
-Use case ends
-____
 
 ---
 
