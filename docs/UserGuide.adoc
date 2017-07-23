@@ -223,7 +223,6 @@ Format: `load [directory]` +
 Example: `load C:\Program Files\Common Files\2Do.xml`
 ****
 * Loads the to-do list present in the directory specified
-* To then view the loaded to-do list, relaunch 2Do to update its task list
 ****
 
 === Clearing list : `clear / c`
@@ -245,7 +244,7 @@ Example: `quit`
 
 == FAQ
 *Q*: How do I save my to-do list? +
-*A*: The data is saved in the hard disk automatically, by default as _data/2Do.xml_ in the directory of the application, after any command that changes the data. There is no need to save manually. However, you may save in another location using our add link:#save[save-ommand].
+*A*: The data is saved in the hard disk automatically, by default as _data/2Do.xml_ in the directory of the application, after any command that changes the data. There is no need to save manually. However, you may save it as another file using our add link:#save-command[Save Command].
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous to-do list folder.
@@ -278,9 +277,9 @@ Example: `quit`
 
 |option / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
-|save / s |save [directory] |`save C:\Program Files\Common Files\2Do.txt`
+|save / s |save [directory] |`save C:\Program Files\Common Files\2Do.xml`
 
-|load  |load [directory] |`load C:\Program Files\Common Files\2Do.txt`
+|load  |load [directory] |`load C:\Program Files\Common Files\2Do.xml`
 
 |clear / c |clear |`clear`
 
