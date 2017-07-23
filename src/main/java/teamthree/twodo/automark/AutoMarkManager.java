@@ -137,44 +137,6 @@ public class AutoMarkManager extends ComponentManager {
         }
 
     }
-    private class MarkAsIncomplete extends TimerTask {
-
-        /**
-         * The following command will be run upon reaching the scheduled timing.
-         * It will raise a DeadlineTimeReachedEvent with all the tasks that have
-         * reached the deadline.
-         *
-         * After that it will update internal information.
-         */
-        @Override
-        public void run() {
-            List<ReadOnlyTask> tasksToAutoMark = new ArrayList<ReadOnlyTask>();
-            Date currentDate = new Date();
-            uncompletedList.forEach((t) -> {
-                if (getCompletionTime(t).before(currentDate) || getCompletionTime(t).equals(nextDeadline)) {
-                    tasksToAutoMark.add(t);
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                model.markTask(t);
-                            } catch (TaskNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            });
-            if (tasksToAutoMark.size() > 0) {
-                raise(new DeadlineTimeReachedEvent(tasksToAutoMark));
-            }
-
-            updateInternalData(tasksToAutoMark);
-
-            startTimerTask();
-        }
-
-    }
 
     // =========================HELPER METHODS=================================
 

@@ -76,6 +76,9 @@ public class AddCommand extends Command {
             }
         }
         try {
+            if (isInvalidDeadline(toAdd)) {
+                throw new CommandException(Messages.MESSAGE_INVALID_DEADLINE);
+            }
             model.addTask(toAdd);
             history.addToAddHistory(toAdd);
             EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(toAdd));
@@ -85,6 +88,13 @@ public class AddCommand extends Command {
         }
 
     }
+    private boolean isInvalidDeadline(Task toAdd) {
+        if (toAdd instanceof TaskWithDeadline) {
+            return toAdd.getDeadline().get().getEndDate().before(toAdd.getDeadline().get().getStartDate());
+        }
+        return false;
+    }
+
     //Returns list of tasks from given list of indices
     private ArrayList<Task> getTasksFromIndices() throws CommandException {
         List<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();

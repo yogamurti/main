@@ -100,9 +100,6 @@ public class UiManager extends ComponentManager implements Ui {
             }
         });
     }
-    private void markTasksAsOverdue(List<ReadOnlyTask> tasksOverdue) {
-
-    }
 
     //@@author
     private Image getImage(String imagePath) {
