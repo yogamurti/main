@@ -18,12 +18,15 @@ import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.UndoCommandHistory;
 import teamthree.twodo.logic.commands.EditCommand.EditTaskDescriptor;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
+import teamthree.twodo.logic.parser.ParserUtil;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.ReadOnlyTaskList;
 import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.category.Category;
+import teamthree.twodo.model.category.CategoryManager;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
@@ -48,6 +51,7 @@ public class UndoCommandTest {
     private UndoCommandHistory undoHistory;
     private Model model;
     private List<Task> taskList;
+    private CategoryManager catMan;
 
     @Before
     public void setUp() {
@@ -55,7 +59,8 @@ public class UndoCommandTest {
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         undoCommand = new UndoCommand();
-        undoCommand.setData(model, history, undoHistory);
+        catMan = new CategoryManager(model);
+        undoCommand.setData(model, history, undoHistory, catMan);
         this.taskList = TestUtil.generateSampleTaskData();
     }
 
@@ -160,6 +165,24 @@ public class UndoCommandTest {
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model,
                 String.format(expectedMessage, taskToDelete), expectedModel);
+    }
+
+    @Test
+    public void executeUndoDeleteTagCommandSuccess() throws IllegalValueException, CommandException {
+        Index index = ParserUtil.parseIndex("6");
+        Category catToBeDeleted = catMan.getCategoryList().get(5);
+        String tagName = catToBeDeleted.getName();
+
+        //Delete Tag to prepare model for undo command
+        DeleteCommand deleteCommand = new DeleteCommand(index, true);
+        deleteCommand.setData(model, history, undoHistory, catMan);
+        deleteCommand.execute();
+        this.history.addToUserInputHistory("tag");
+
+        Model expectedModel = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UndoCommand.MESSAGE_ADD_TAG_SUCCESS + tagName);
+
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

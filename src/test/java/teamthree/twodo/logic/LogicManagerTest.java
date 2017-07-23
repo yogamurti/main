@@ -67,12 +67,12 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskList latestSavedTaskBook;
+    private ReadOnlyTaskList latestSavedTaskList;
     private boolean helpShown;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskListChangedEvent abce) {
-        latestSavedTaskBook = new TaskList(abce.data);
+        latestSavedTaskList = new TaskList(abce.data);
     }
 
     @Subscribe
@@ -86,7 +86,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedTaskBook = new TaskList(model.getTaskList()); // last saved assumed to be up to date
+        latestSavedTaskList = new TaskList(model.getTaskList()); // last saved assumed to be up to date
         helpShown = false;
     }
 
@@ -166,7 +166,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskList(), latestSavedTaskBook);
+        assertEquals(expectedModel.getTaskList(), latestSavedTaskList);
     }
 
     @Test
@@ -234,7 +234,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskList(), latestSavedTaskBook);
+        assertEquals(expectedModel.getTaskList(), latestSavedTaskList);
 
     }
 
@@ -261,7 +261,7 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getTaskList(), latestSavedTaskBook);
+        assertEquals(expectedModel.getTaskList(), latestSavedTaskList);
 
     }
 
