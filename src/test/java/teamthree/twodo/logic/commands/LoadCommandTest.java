@@ -9,10 +9,11 @@ import org.junit.Test;
 
 import com.google.common.eventbus.Subscribe;
 
+import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
-
+//@@author A0162253M
 public class LoadCommandTest {
     private static final String VALID_FILEPATH = "data/2Do.xml";
     private static final String INVALID_FILEPATH = "data/2Do.txt";
