@@ -13,8 +13,9 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0139267W
 public class MarkCommandParserTest {
-    private static String validFirstIndex = "1";
-    private static String invalidIndex = "a";
+
+    private static final String validFirstIndex = "1";
+    private static final String invalidIndex = "a";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -22,13 +23,13 @@ public class MarkCommandParserTest {
     private MarkCommandParser parser = new MarkCommandParser();
 
     @Test
-    public void parseValidArgsReturnsMarkCommand() throws ParseException {
+    public void parseValidArgsSuccess() throws ParseException {
         MarkCommand command = parser.parse(validFirstIndex);
         assertEquals(INDEX_FIRST_TASK, command.targetIndex);
     }
 
     @Test
-    public void parseInvalidArgsThrowsParseException() throws ParseException {
+    public void parseInvalidArgsFailure() throws ParseException {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
 

@@ -1,12 +1,15 @@
 package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_END_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_NAME_EVENT;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Before;
@@ -114,21 +117,33 @@ public class RedoCommandTest {
     @Test
     public void executeRedoUnmarkCommandSuccess()
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
-
         //Unmark Task to prepare model for undo command
+        // Marks the indexed first task from the task book
+        ReadOnlyTask taskToRedo = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
+        markCommand.setData(model, history, undoHistory);
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
+        expectedModel.markTask(taskToRedo);
+        markCommand.execute();
+        /**
+         *  Unmarks the marked task
+         *  The recently marked task should be the only marked task in the model
+         */
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
+        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
+        expectedModel.unmarkTask(taskToRedo);
+        String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(getExpectedUnmarkedMessage(
+                expectedModel, taskToRedo));
+        model.updateFilteredTaskListToShowAll(null, false, false);
+        assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
         undoCommand.execute();
 
-        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
-        ReadOnlyTask taskToUnmark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
-        expectedModel.unmarkTask(taskToUnmark);
-
         CommandTestUtil.assertCommandSuccess(redoCommand, model,
-                String.format(expectedMessage, taskToUnmark), expectedModel);
+                String.format(expectedMessage, taskToRedo), expectedModel);
 
     }
 
@@ -243,6 +258,25 @@ public class RedoCommandTest {
      */
     private void assertCommandResult(RedoCommand redoCommand, String expectedMessage) throws CommandException {
         assertEquals(expectedMessage, redoCommand.execute().feedbackToUser);
+    }
+
+    //@@author A0139267W
+    // Obtains the appropriate expected message obtained after a successful UnmarkCommand
+    private String getExpectedUnmarkedMessage(Model expectedModel, ReadOnlyTask taskToUnmark) {
+        // Finds the updated task
+        final String[] splitName = taskToUnmark.getName().fullName.split("\\s+");
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
+        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
+
+        ReadOnlyTask unmarkedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+
+        /**
+         *  Resets task list to its initial state
+         *  Initial state is assumed to be the task list that lists all completed tasks
+         */
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
+
+        return String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, unmarkedTask);
     }
 
 }

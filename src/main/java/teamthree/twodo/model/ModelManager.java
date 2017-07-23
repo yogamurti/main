@@ -59,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskList newData) {
         taskList.resetData(newData);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -73,14 +73,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateTaskBookChanged() {
+    private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -91,24 +91,28 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             updateFilteredTaskListToShowAll(null, true, true);
         }
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.markTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.unmarkTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
+    public void changeOptions() {
+        indicateTaskListChanged();
+    }
+
     public void saveTaskList() {
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -117,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedTask);
 
         taskList.updateTask(target, editedTask);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     //@@author A0107433N

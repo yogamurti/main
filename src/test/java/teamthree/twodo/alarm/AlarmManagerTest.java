@@ -189,6 +189,11 @@ public class AlarmManagerTest {
 
         }
 
+        @Override
+        public void changeOptions() {
+            fail("This method should not be called.");
+        }
+
     }
 
 }

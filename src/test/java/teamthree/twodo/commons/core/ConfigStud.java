@@ -102,6 +102,11 @@ public class ConfigStud {
         notificationPeriodToString = newNotificationPeriod;
         Matcher integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);
         assert (integerParser.find());
+        integerParser.find();
+        if (integerParser.group().trim().equals("")) {
+            integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);
+            assert (integerParser.find());
+        }
         int period = Integer.parseInt(integerParser.group().trim());
         long newDefault = 0;
         if (newNotificationPeriod.toLowerCase().contains("day")) {

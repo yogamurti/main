@@ -9,6 +9,7 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 
 import teamthree.twodo.commons.core.EventsCenter;
+import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.commons.events.logic.NewUserInputEvent;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
@@ -35,6 +36,7 @@ public class CommandHistory {
     private Stack<ReadOnlyTask> markHistory;
     private Stack<ReadOnlyTask> unmarkHistory;
     private Stack<ReadOnlyTaskList> clearHistory;
+    private Stack<Options> optionsHistory;
     private ArrayList<String> fullUserInputHistory;
     private Stack<ReadOnlyTaskList> delTagHistory;
     private Stack<Tag> tagHistory;
@@ -47,6 +49,7 @@ public class CommandHistory {
         markHistory = new Stack<ReadOnlyTask>();
         unmarkHistory = new Stack<ReadOnlyTask>();
         clearHistory = new Stack<ReadOnlyTaskList>();
+        optionsHistory = new Stack<Options>();
         userInputHistory = new Stack<String>();
         fullUserInputHistory = new ArrayList<>();
         delTagHistory = new Stack<ReadOnlyTaskList>();
@@ -158,6 +161,14 @@ public class CommandHistory {
     public void addToClearHistory(ReadOnlyTaskList taskBook) {
         requireNonNull(taskBook);
         clearHistory.push(taskBook);
+    }
+
+    /**
+     * Appends {@code option} to the list of options edits entered.
+     */
+    public void addToOptionsHistory(Options option) {
+        requireNonNull(option);
+        optionsHistory.push(option);
     }
 
     public void addToDelTagHistory(ReadOnlyTaskList taskList) {

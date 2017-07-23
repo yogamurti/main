@@ -54,8 +54,7 @@ public class AutoMarkManager extends ComponentManager {
     // Enables or disables the auto-completion functionality
     public static void setToRun(boolean setting) {
         setToRun = setting;
-        if (setting == true) {
-            // TODO need to do something here to enhance the "only updates whenever there's a new command" issue
+        if (setting) {
         }
     }
 
