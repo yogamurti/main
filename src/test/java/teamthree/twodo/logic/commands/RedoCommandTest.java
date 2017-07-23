@@ -265,7 +265,7 @@ public class RedoCommandTest {
     private String getExpectedUnmarkedMessage(Model expectedModel, ReadOnlyTask taskToUnmark) {
         // Finds the updated task
         final String[] splitName = taskToUnmark.getName().fullName.split("\\s+");
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask unmarkedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
