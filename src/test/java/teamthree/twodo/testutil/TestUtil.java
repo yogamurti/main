@@ -56,24 +56,24 @@ public class TestUtil {
             //CHECKSTYLE.OFF: LineLength
             return new Task[] {
                 new TaskWithDeadline(new Name("Class"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("Homework"), getTagSet()),
+                        new Description("Homework"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Tutorial"), new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE),
-                        new Description("Chapter 4"), getTagSet()),
+                        new Description("Chapter 4"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Lecture"), new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
-                        new Description("Chapter 5"), getTagSet()),
+                        new Description("Chapter 5"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Labs"), new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("Sit-in Lab"), getTagSet()),
+                        new Description("Sit-in Lab"), getTagSet(), false),
                 new TaskWithDeadline(new Name("CCA"),
                         new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE), new Description("Proposal"),
-                        getTagSet()),
+                        getTagSet(), false),
                 new TaskWithDeadline(new Name("Party"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("little tokyo"), getTagSet()),
+                        new Description("little tokyo"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Clothes Shopping"), new Deadline("10am", "10pm", Deadline.NULL_VALUE),
-                        new Description("4th street"), getTagSet()),
+                        new Description("4th street"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Meeting Friends"), new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
-                        new Description("little india"), getTagSet()),
+                        new Description("little india"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Family lunch"), new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
-                        new Description("chicago ave"), getTagSet()) };
+                        new Description("chicago ave"), getTagSet(), false) };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
             assert false;

@@ -117,9 +117,10 @@ public class EditCommand extends Command {
 
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
-            return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags);
+            return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags,
+                    taskToEdit.getCompleted());
         }
-        return new Task(updatedName, updatedDescription, updatedTags);
+        return new Task(updatedName, updatedDescription, updatedTags, taskToEdit.getCompleted());
     }
 
     /**

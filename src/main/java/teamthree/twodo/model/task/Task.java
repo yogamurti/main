@@ -26,18 +26,18 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null. By default, the task is set as
      * Incomplete when it is created.
      */
-    public Task(Name name, Description description, Set<Tag> tags) {
+    public Task(Name name, Description description, Set<Tag> tags, boolean completed) {
         requireAllNonNull(name, description, tags);
         this.name = name;
         this.description = description;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        completed = false;
+        this.completed = completed;
     }
     /**
      * Creates a copy of the given ReadOnlyTask.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription(), source.getTags());
+        this(source.getName(), source.getDescription(), source.getTags(), source.getCompleted());
     }
 
     public void setName(Name name) {
@@ -126,6 +126,10 @@ public class Task implements ReadOnlyTask {
     @Override
     public Optional<Deadline> getDeadline() {
         return Optional.empty();
+    }
+    @Override
+    public boolean getCompleted() {
+        return completed;
     }
 
 }

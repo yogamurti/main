@@ -57,10 +57,10 @@ public class AddCommandParser implements CommandParser {
                 Deadline deadline = ParserUtil.parseDeadlineForAdd(argMultimap.getValue(PREFIX_DEADLINE_START),
                         argMultimap.getValue(PREFIX_DEADLINE_END), argMultimap.getValue(PREFIX_NOTIFICATION_PERIOD))
                         .get();
-                ReadOnlyTask task = new TaskWithDeadline(name, deadline, description, tagList);
+                ReadOnlyTask task = new TaskWithDeadline(name, deadline, description, tagList, false);
                 return new AddCommand(task);
             }
-            ReadOnlyTask task = new Task(name, description, tagList);
+            ReadOnlyTask task = new Task(name, description, tagList, false);
             return new AddCommand(task);
 
         } catch (IllegalValueException ive) {

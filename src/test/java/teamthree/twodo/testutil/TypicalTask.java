@@ -20,13 +20,14 @@ public class TypicalTask {
         FLOATING, DEADLINES
     };
 
-    public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida, partyCompleted;
+    public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida,
+        partyCompleted, psleCompleted;
 
     public TypicalTask() {
         try {
             cs2103 = new TaskWithDeadlineBuilder().withName("CS2013").withDescription("Project V0.5")
                     .withDeadline("17 april 2018 10am").withTags("school", "project").build();
-            cs1020 = new TaskWithDeadlineBuilder().withName("CS1020").withDescription("labs").withTags("school")
+            cs1020 = new FloatingTaskBuilder().withName("CS1020").withDescription("labs").withTags("school")
                     .build();
             cs2010 = new TaskWithDeadlineBuilder().withName("cs2010").withDeadline("fri 10am")
                     .withDescription("tutorial").build();
@@ -38,7 +39,9 @@ public class TypicalTask {
             cca = new TaskWithDeadlineBuilder().withName("cca").withDeadline("july 2018 12am")
                     .withDescription("end of term").build();
             partyCompleted = new TaskWithDeadlineBuilder().withName("party").withDeadline("last week 9am")
-                    .withDescription("bring booze").isCompleted().build();
+                    .withTags("personal").withDescription("bring booze").isCompleted().build();
+            psleCompleted = new FloatingTaskBuilder().withName("PSLE").withDescription("primary school")
+                    .withTags("exam").isCompleted().build();
 
             // Manually added
             supermarket = new TaskWithDeadlineBuilder().withName("buy lotion").withDeadline("12 march 2015 10am")
@@ -62,7 +65,10 @@ public class TypicalTask {
                 dinner = new FloatingTaskBuilder().withName("dinner").withDescription("Thai Food").build();
                 training = new FloatingTaskBuilder().withName("training").withDescription("cca training").build();
                 cca = new FloatingTaskBuilder().withName("cca").withDescription("end of term").build();
-                partyCompleted = new FloatingTaskBuilder().withName("party").withDescription("bring booze").build();
+                partyCompleted = new FloatingTaskBuilder().withName("party").withDescription("bring booze")
+                        .isCompleted().build();
+                psleCompleted = new FloatingTaskBuilder().withName("PSLE").withDescription("primary school")
+                        .isCompleted().build();
 
                 // Manually added
                 supermarket = new FloatingTaskBuilder().withName("buy lotion").withDescription("little india").build();
@@ -88,6 +94,9 @@ public class TypicalTask {
                         .withDescription("end of term").build();
                 partyCompleted = new TaskWithDeadlineBuilder().withName("party").withDeadline("last week 9am")
                         .withDescription("bring booze").isCompleted().build();
+                psleCompleted = new TaskWithDeadlineBuilder().withName("PSLE").withDeadline("last year 10am")
+                        .withDescription("primary school").isCompleted()
+                        .build();
 
                 // Manually added
                 supermarket = new TaskWithDeadlineBuilder().withName("buy lotion").withDeadline("12 march 2015 10am")
@@ -100,13 +109,13 @@ public class TypicalTask {
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList ab) {
+    public static void loadTaskListWithSampleData(TaskList tl) {
         for (Task task : new TypicalTask().getTypicalTasks()) {
             try {
                 if (task instanceof TaskWithDeadline) {
-                    ab.addTask(new TaskWithDeadline(task));
+                    tl.addTask(new TaskWithDeadline(task));
                 } else {
-                    ab.addTask(new Task(task));
+                    tl.addTask(new Task(task));
                 }
             } catch (DuplicateTaskException e) {
                 assert false : "not possible";
@@ -115,12 +124,12 @@ public class TypicalTask {
     }
 
     public Task[] getTypicalTasks() {
-        return new Task[] { cs2103, cs1020, cs2010, project, dinner, training, cca, partyCompleted };
+        return new Task[] { cs2103, cs1020, cs2010, project, dinner, training, cca, partyCompleted, psleCompleted };
     }
 
     public TaskList getTypicalTaskList() {
-        TaskList ab = new TaskList();
-        loadTaskListWithSampleData(ab);
-        return ab;
+        TaskList tl = new TaskList();
+        loadTaskListWithSampleData(tl);
+        return tl;
     }
 }

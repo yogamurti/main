@@ -83,9 +83,9 @@ public class XmlAdaptedTask {
         final Set<Tag> tags = new HashSet<>(taskTags);
         if (deadline != null) {
             final Deadline deadline = new Deadline(this.deadline);
-            return new TaskWithDeadline(name, deadline, desc, tags);
+            return new TaskWithDeadline(name, deadline, desc, tags, false);
         }
 
-        return new Task(name, desc, tags);
+        return new Task(name, desc, tags, false);
     }
 }

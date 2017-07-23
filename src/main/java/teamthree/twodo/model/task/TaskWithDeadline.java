@@ -10,14 +10,14 @@ import teamthree.twodo.model.tag.Tag;
 public class TaskWithDeadline extends Task implements ReadOnlyTask {
 
     private Deadline deadline;
-    public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags) {
-        super(name, description, tags);
+    public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags, boolean completed) {
+        super(name, description, tags, completed);
         this.deadline = deadline;
     }
 
     public TaskWithDeadline(ReadOnlyTask source) {
         this(source.getName(), source.getDeadline().get(),
-             source.getDescription(), source.getTags());
+             source.getDescription(), source.getTags(), source.getCompleted());
     }
 
     public void setDeadline(Deadline deadline) {
