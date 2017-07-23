@@ -147,14 +147,14 @@ _Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/blob/master/src/main/java/teamthree/twodo/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/teamthree/twodo/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses _JavaFx UI_ framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/teamthree/twodo/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 *Model-View-Controller Pattern* +
 _2Do_ *decouples* its data, presentation, and control logic by separating them into three different components: *Model*, *View* and *Controller*.
 
-* Model: The `UI` component binds itself to some data in the link:#model[`Model`] component, which stores and maintains data in _2Do_.
+* Model: The `UI` component's `ResultDisplay` and `TaskListPanel` binds themselves to some data in the link:#model[`Model`] component, which stores and maintains data in _2Do_.
 * View: The `UI` component is responsible for displaying data, interacting with the user through the link:#logic[`Logic`] component, and getting automatic data updates from the link:#model[`Model`] component.
 * Controller: The `UI` component's `CommandBox` is responsible for detecting user command inputs and forwarding them to the link:#logic[`Logic`] component, which executes the commands.
 
