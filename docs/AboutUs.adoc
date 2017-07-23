@@ -75,6 +75,7 @@ image::Yoga.jpg[width="150", align="left"]
 ** Implemented the _automark completion_ functionality https://github.com/CS2103JUN2017-T3/main/pull/149[[#149]]
 ** Implemented _Travis_, _Appveyor_, _Coveralls_ and _Codacy_ support https://github.com/CS2103JUN2017-T3/main/pull/112[[#112]] https://github.com/CS2103JUN2017-T3/main/pull/166[[#170]]
 ** Fixed _Codacy_ issues https://github.com/CS2103JUN2017-T3/main/pull/200[[#200]]
+** Enabled our https://cs2103jun2017-t3.github.io/main[Github Page] to automatically update after any updates to our repository https://github.com/CS2103JUN2017-T3/main/pull/120[[#120]] https://github.com/CS2103JUN2017-T3/main/pull/141[[#141]]
 ** Reviewed and managed pull requests https://github.com/CS2103JUN2017-T3/main/pull/163[[#163]] https://github.com/CS2103JUN2017-T3/main/pull/173[[#173]] https://github.com/CS2103JUN2017-T3/main/pull/195[[#195]]
 ** Managed our issue tracker
 ** Handled our code collation https://github.com/CS2103JUN2017-T3/main/pull/134[[#134]] https://github.com/CS2103JUN2017-T3/main/pull/167[[#167]]
