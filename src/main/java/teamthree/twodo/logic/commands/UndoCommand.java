@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
 
     public static final String DELETE_TAG = "tag";
 
-    private static final String MESSAGE_ADD_TAG_SUCCESS = "Added Tag: ";
+    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added Tag ";
 
     private static String fullMessage;
 
