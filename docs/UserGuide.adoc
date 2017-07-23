@@ -14,7 +14,7 @@ By: `T3`      Since: `Jul 2017`      Licence: `MIT`
 
 == Quick Start
 
-image::Ui.png[width="600"]
+image::docs/images/MockUI.png[width="600"]
 _Figure 2.1.1 : Sample GUI with pre-loaded tasks_
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
@@ -26,14 +26,14 @@ This app will not work with earlier versions of Java 8.
 .  Download the latest `2Do.jar` from the link:../../../releases[releases] tab.
 .  Copy the file to the folder you want to use as the home folder for your to-do list.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
-.  When the application starts up, tasks due within a certain amount of time (the default is 7 days) will be displayed.
+.  When the application starts up, tasks due within a certain amount of time (the default is 1 day) will be displayed.
 .  To interact with the task manager, open the main application.
 .  You will then see a list of your tasks sorted by due date.
 +
 .  Below the list, there is a command box. Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will display all commands available.
 .  Some example commands you can try:
-* *`add projectX`* : adds a task with *projectX* as its name
+* *`add n/projectX`* : adds a task with *projectX* as its name
 * *`list`* : lists all incomplete tasks
 * *`delete 2`* : deletes the 2nd task shown in the current list
 * *`quit`* : quits 2Do
@@ -48,8 +48,10 @@ Arguments
 ****
 * {}: Compulsory argument
 * []: Optional argument
-* [-h]: _[-h]_ could be added behind the command word to operate the command on the to-do list history(completed tasks)  +
-`Example: find [-h] 050517`
+* [/h]: _[/h]_ could be added behind _[/list]_ and _[/find]_ command words to operate the commands on the completed task list(history)  +
+`Example: find [/h] project`
+* [/f]: _[/f]_ could be added behind the _[/list]_ command word to operate the command on the floating task list(tasks without deadlines) +
+`Example: list [/f]`
 ****
 
 Dates
@@ -66,9 +68,9 @@ Time
 
 ****
 * Format 1: 24HR +
-`Example: 1759`
+`Example: 1800`
 * Format 2: natural language +
-`Example: 10am`
+`Example: 6pm`
 ****
 
 ====
@@ -98,7 +100,7 @@ Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/
 ==== Floating tasks
 
 Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]]` +
-Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/false`
+Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200`
 ****
 * You will not be able to set an _alarm_ for floating tasks
 ****
@@ -108,7 +110,7 @@ Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200 u/fals
 Format: `add n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
 Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days r/false u/true`
 ****
-* Tasks with deadlines can be added with the _end_ field filled and the _start_ field empty
+* Tasks with deadlines can be added with only the _end_ field included
 ****
 
 ==== Events
@@ -197,7 +199,7 @@ Example: `option a/1 minute m/true`
 ****
 * Option without parameters will show the general options that the user can edit and their explanations
 * Default reminder alarm timing, before the deadline, can be edited
-** Default setting is 7 days
+** Default setting is 1 days
 ** Range for reminders: 1 minute to 7 days
 * Default automatic mark for completion setting can be edited
 ** Default setting will prompt user checking if the activity was completed
@@ -255,7 +257,7 @@ Example: `quit`
 
 |help  |help [name of command] |`help add`
 
-|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] r/[recurrence] u/[urgent] |`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days `
+|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days `
 
 |delete / del / d / - |delete [-h] {index} |`delete 1`
 

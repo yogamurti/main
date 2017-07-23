@@ -20,7 +20,7 @@ public class FindCommand extends Command {
             + "or tags contain any of the specified keywords and displays them as a list with index numbers.\n"
             + "Add -h to find completed tasks instead of incomplete tasks containing the keywords.\n"
             + "Parameters: [-h] KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " -h cs school";
+            + "Example: " + COMMAND_WORD + " " + COMMAND_WORD_HISTORY + " cs school";
 
     private final Set<String> keyWords;
     private boolean listIncomplete;

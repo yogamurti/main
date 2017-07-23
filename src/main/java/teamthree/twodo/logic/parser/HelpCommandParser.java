@@ -39,6 +39,8 @@ public class HelpCommandParser {
             return new HelpCommand(FindCommand.MESSAGE_USAGE);
         case FindCommand.COMMAND_WORD_HISTORY:
             return new HelpCommand(HelpCommand.MESSAGE_HISTORY_USAGE);
+        case ListCommand.COMMAND_WORD_FLOATING:
+            return new HelpCommand(HelpCommand.MESSAGE_FLOATING_USAGE);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
