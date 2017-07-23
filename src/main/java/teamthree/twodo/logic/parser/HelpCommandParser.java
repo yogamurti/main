@@ -12,7 +12,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0107433N
 // Parses input arguments and creates a new HelpCommand object
-public class HelpCommandParser {
+public class HelpCommandParser implements CommandParser {
 
     public HelpCommandParser() {
     }

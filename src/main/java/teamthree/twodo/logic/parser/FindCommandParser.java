@@ -13,7 +13,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser {
+public class FindCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

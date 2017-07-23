@@ -29,7 +29,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser {
+public class AddCommandParser implements CommandParser {
     public static final int NUM_ARGS_FOR_CATEGORY_OP = 3;
 
     /**

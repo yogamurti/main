@@ -29,6 +29,8 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_COMPLETE_BOTH = "Listed all completed tasks between %1$s and %1$s";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_TAG = "Listed all incompleted tasks with specified tag(s)";
     public static final String MESSAGE_SUCCESS_COMPLETE_TAG = "Listed all completed tasks with specified tag(s)";
+    public static final String MESSAGE_EMPTY_LIST = "No tasks to show\n"
+            + "Try adding new tasks or changing the listing criteria";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all incomplete tasks within specified period.\n"
             + "If only start date specified, list all tasks after start date. "
@@ -70,6 +72,9 @@ public class ListCommand extends Command {
 
     //Chooses appropriate message based on user input
     private CommandResult messageChooser() {
+        if (model.getFilteredAndSortedTaskList().size() == 0) {
+            return new CommandResult(MESSAGE_EMPTY_LIST);
+        }
         if (attInput.equals(AttributeInputted.NONE)) {
             if (listIncomplete) {
                 if (tagListNotEmpty()) {

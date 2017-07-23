@@ -16,7 +16,7 @@ import teamthree.twodo.model.task.Deadline;
 
 //@@author A0107433N
 // Parses input arguments and creates a new ListCommand object
-public class ListCommandParser {
+public class ListCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the
