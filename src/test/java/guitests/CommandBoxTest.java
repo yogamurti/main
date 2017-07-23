@@ -1,6 +1,6 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
+/*import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.testutil.TaskUtil;
-import teamthree.twodo.ui.CommandBox;
+import teamthree.twodo.ui.CommandBox;*/
 
 public class CommandBoxTest extends TaskListGuiTest {
 //    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD + " f";

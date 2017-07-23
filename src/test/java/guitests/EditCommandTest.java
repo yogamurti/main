@@ -1,24 +1,24 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
+/*import static org.junit.Assert.assertTrue;*/
 import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
-import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
+/*import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;*/
 
 import org.junit.Test;
 
 import teamthree.twodo.commons.core.Messages;
-import teamthree.twodo.commons.core.index.Index;
+/*import teamthree.twodo.commons.core.index.Index;*/
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.EditCommand;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
-import teamthree.twodo.model.task.ReadOnlyTask;
-import teamthree.twodo.model.task.Task;
-import teamthree.twodo.testutil.FloatingTaskBuilder;
+/*import teamthree.twodo.model.task.ReadOnlyTask;
+import teamthree.twodo.model.task.Task;*/
+/*import teamthree.twodo.testutil.FloatingTaskBuilder;*/
 import teamthree.twodo.testutil.TaskUtil;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower
@@ -40,7 +40,7 @@ public class EditCommandTest extends TaskListGuiTest {
      * assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit,
      * editedPerson); }
      */
-/*    @Test
+    /*    @Test
     public void editNotAllFieldsSpecifiedSuccess() throws Exception {
         commandBox.runCommand(listFloating);
         //add task if list is empty
@@ -146,7 +146,7 @@ public class EditCommandTest extends TaskListGuiTest {
      * @param editedTask
      *            the expected task after editing the task's details
      */
-    private void assertEditSuccess(Index filteredTaskListIndex, String detailsToEdit, Task editedTask) {
+    /*    private void assertEditSuccess(Index filteredTaskListIndex, String detailsToEdit, Task editedTask) {
         commandBox.runCommand(
                 EditCommand.COMMAND_WORD + " " + filteredTaskListIndex.getOneBased() + " " + detailsToEdit);
 
@@ -156,5 +156,5 @@ public class EditCommandTest extends TaskListGuiTest {
         assertTrue(taskAffectedByEditCommand.getTags().containsAll(editedTask.getTags()));
 
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, taskAffectedByEditCommand));
-    }
+    }*/
 }
