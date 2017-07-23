@@ -199,11 +199,13 @@ Example: `option a/1 minute m/true`
 ****
 * Option without parameters will show the application's options, that the user can edit, and their explanations
 * The default reminder alarm timing, before the deadline, can be edited
-** The default setting is 1 day
+** The default option is 1 day
 ** Range for reminders: 1 minute to 7 days
+** Changes will only take effect for subsequent tasks that are added
 * The default automatic mark as complete setting can be edited
 ** By default, this feature is disabled
 ** This can be enabled to automatically mark tasks as completed once their deadline has passed
+** Once this is enabled, all existing tasks that are past their deadlines will be marked as complete as well
 * The amended options will last for the remainder of the session and will reset to the default options once the application closes
 ****
 
