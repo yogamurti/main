@@ -113,8 +113,8 @@ public class AddCommandParser {
     /**
      *
      * @param argMultimap
-     * @return if end time or notification period are specified without the
-     *         start time being specified
+     * @return if start time or notification period are specified without the
+     *         end time being specified
      */
     private boolean invalidDeadlineDeclaration(ArgumentMultimap argMultimap) {
         return (arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START)

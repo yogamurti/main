@@ -1,5 +1,7 @@
 package teamthree.twodo.ui;
 
+import java.util.Date;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -39,8 +41,17 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
+        // Also add a complete/incomplete tag to indicate its completion status
+        String completionStatus = "Incomplete";
+        if (task.isCompleted()) {
+            completionStatus = "Complete";
+        }
         if (task instanceof TaskWithDeadline) {
             deadline.setText(task.getDeadline().get().toString());
+            if (isOverdue(task) && !task.isCompleted()) {
+                markAsOverdue();
+                completionStatus = "Overdue";
+            }
         } else {
             deadline.setText("No deadline");
         }
@@ -50,12 +61,15 @@ public class TaskCard extends UiPart<Region> {
             description.setText(task.getDescription().toString());
         }
         initTags(task);
-        // Also add a complete/incomplete tag to indicate its completion status
-        String completionStatus = "Incomplete";
-        if (task.isCompleted()) {
-            completionStatus = "Complete";
-        }
         tags.getChildren().add(new Label(completionStatus));
+    }
+
+    private boolean isOverdue(ReadOnlyTask task) {
+        return task.getDeadline().get().getEndDate().before(new Date());
+    }
+
+    public void markAsOverdue() {
+        this.cardPane.setStyle("-fx-background-color: darkred;");
     }
 
     private void initTags(ReadOnlyTask task) {

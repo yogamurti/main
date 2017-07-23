@@ -20,7 +20,6 @@ import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.commons.events.storage.DataSavingExceptionEvent;
 import teamthree.twodo.commons.events.ui.JumpToListRequestEvent;
 import teamthree.twodo.commons.events.ui.ShowHelpRequestEvent;
-import teamthree.twodo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import teamthree.twodo.commons.util.StringUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
@@ -72,7 +71,7 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
+        //mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -100,6 +99,9 @@ public class UiManager extends ComponentManager implements Ui {
                         "The Following tasks are nearing their deadlines\n", content.toString());
             }
         });
+    }
+    private void markTasksAsOverdue(List<ReadOnlyTask> tasksOverdue) {
+
     }
 
     //@@author
@@ -150,12 +152,12 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
-    @Subscribe
+    /*    @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }
-
+*/
     @Subscribe
     private void handleDeadlineNotificationTimeReachedEvent(DeadlineNotificationTimeReachedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
