@@ -68,8 +68,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setTaskList(ReadOnlyTaskList taskBook) {
-        this.taskList = new TaskList(taskBook);
+    public void setTaskList(ReadOnlyTaskList taskList) {
+        this.taskList = new TaskList(taskList);
     }
 
     /** Raises an event to indicate the model has changed */
@@ -295,7 +295,7 @@ public class ModelManager extends ComponentManager implements Model {
             while (!qualifies && tagIterator.hasNext()) {
                 Tag tag = tagIterator.next();
                 qualifies = keyWords.stream()
-                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
             }
             return qualifies;
         }
