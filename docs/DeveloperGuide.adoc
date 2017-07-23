@@ -165,7 +165,7 @@ The `UI` component's constituents that depends on data from the link:#model[`Mod
 
 This is done by the _TaskListChangedEvent_ object.
 
-Whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_. This event will call the `UI` constituents to update their data from the link:#model[`Model`] component and therefore, display the updated data.
+Whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_ object. This event will call the relevant `UI` constituents to update their data from the link:#model[`Model`] component and therefore, display the updated data.
 
 [[logic]]
 === Logic component
