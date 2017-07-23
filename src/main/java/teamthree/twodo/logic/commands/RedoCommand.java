@@ -1,5 +1,10 @@
 package teamthree.twodo.logic.commands;
 
+import teamthree.twodo.automark.AutoMarkManager;
+import teamthree.twodo.commons.core.Config;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 import teamthree.twodo.model.ReadOnlyTaskList;
@@ -51,61 +56,164 @@ public class RedoCommand extends Command {
         case DeleteCommand.COMMAND_WORD_QUICK:
         case DeleteCommand.COMMAND_WORD_FAST:
         case DeleteCommand.COMMAND_WORD_SHORT:
-            ReadOnlyTask taskToDelete = undoHistory.getAddHistory().pop();
-            history.addToDeleteHistory(taskToDelete);
-            model.deleteTask(taskToDelete);
-            fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToDelete));
+            return redoDeleteCommand();
 
         case UndoCommand.DELETE_TAG:
-            ReadOnlyTaskList taskList = undoHistory.getDelTagHistory().pop();
-            Tag tag = undoHistory.getTagHistory().pop();
-            model.resetData(taskList);
-            fullMessage = MESSAGE_SUCCESS.concat(String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tag.tagName));
-            return new CommandResult(fullMessage);
+            return redoDeleteTagCommand();
 
         case EditCommand.COMMAND_WORD:
-            ReadOnlyTask taskToEdit = undoHistory.getBeforeEditHistory().pop();
-            ReadOnlyTask currentTask = undoHistory.getAfterEditHistory().pop();
-            history.addToBeforeEditHistory(currentTask);
-            history.addToAfterEditHistory(taskToEdit);
-            model.updateTask(currentTask, taskToEdit);
-            fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToEdit));
+            return redoEditCommand();
 
         case AddCommand.COMMAND_WORD_QUICK:
         case AddCommand.COMMAND_WORD_FAST:
         case AddCommand.COMMAND_WORD:
-            ReadOnlyTask taskToAdd = undoHistory.getDeleteHistory().pop();
-            history.addToAddHistory(taskToAdd);
-            model.addTask(taskToAdd);
-            fullMessage = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToAdd));
+            return redoAddCommand();
 
         case ClearCommand.COMMAND_WORD:
-            model.resetData(new TaskList());
-            fullMessage = MESSAGE_SUCCESS.concat(ClearCommand.MESSAGE_SUCCESS);
-            return new CommandResult(fullMessage);
+            return redoClearCommand();
 
         case UnmarkCommand.COMMAND_WORD:
         case UnmarkCommand.COMMAND_WORD_FAST:
-            ReadOnlyTask taskToUnmark = undoHistory.getMarkHistory().pop();
-            history.addToUnmarkHistory(taskToUnmark);
-            model.unmarkTask(taskToUnmark);
-            fullMessage = MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToUnmark));
+            return redoUnmarkCommand();
 
         case MarkCommand.COMMAND_WORD:
         case MarkCommand.COMMAND_WORD_FAST:
-            ReadOnlyTask taskToMark = undoHistory.getUnmarkHistory().pop();
-            history.addToMarkHistory(taskToMark);
-            model.markTask(taskToMark);
-            fullMessage = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
-            return new CommandResult(String.format(fullMessage, taskToMark));
+            return redoMarkCommand();
+
+        case OptionsCommand.COMMAND_WORD:
+        case OptionsCommand.COMMAND_WORD_FAST:
+            return redoOptionsCommand();
 
         default:
             String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(previousCommandWord);
             return new CommandResult(message);
         }
+    }
+
+    /**
+     * Restores options settings that was undone previously and stores {@code edittedOptions} for UndoCommand
+     */
+    private CommandResult redoOptionsCommand() {
+        Options edittedOptions = undoHistory.getOptionsHistory().pop();
+        assert edittedOptions != null;
+        history.addToOptionsHistory(edittedOptions);
+        Options currentOptions = updateOptions(edittedOptions);
+        fullMessage = MESSAGE_SUCCESS.concat(OptionsCommand.MESSAGE_UPDATE_OPTIONS_SUCCESS);
+        return new CommandResult(String.format(fullMessage, currentOptions));
+    }
+
+    /**
+     * Mark a task that was previously unmark due to undoCommand and stores {@code taskToMark} for the next UndoCommand
+     */
+    private CommandResult redoMarkCommand() throws TaskNotFoundException {
+        ReadOnlyTask taskToMark = undoHistory.getUnmarkHistory().pop();
+        history.addToMarkHistory(taskToMark);
+        model.markTask(taskToMark);
+        fullMessage = MESSAGE_SUCCESS.concat(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToMark));
+    }
+
+    /**
+     * Unmark a task that was previously mark due to undoCommand
+     * and stores {@code taskToUnmark} for the next UndoCommand
+     */
+    private CommandResult redoUnmarkCommand() throws TaskNotFoundException {
+        ReadOnlyTask taskToUnmark = undoHistory.getMarkHistory().pop();
+        history.addToUnmarkHistory(taskToUnmark);
+        model.unmarkTask(taskToUnmark);
+        fullMessage = MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToUnmark));
+    }
+
+    /**
+     * Clears taskList that was previously restored due to a undoCommand
+     * and stores the current TaskList for the next UndoCommand
+     */
+    private CommandResult redoClearCommand() {
+        history.addToClearHistory(new TaskList(model.getTaskList()));
+        model.resetData(new TaskList());
+        fullMessage = MESSAGE_SUCCESS.concat(ClearCommand.MESSAGE_SUCCESS);
+        return new CommandResult(fullMessage);
+    }
+
+    /**
+     * Add task that was previously deleted due to a undoCommand and stores {@code taskToAdd} for the next UndoCommand
+     */
+    private CommandResult redoAddCommand() throws DuplicateTaskException {
+        ReadOnlyTask taskToAdd = undoHistory.getDeleteHistory().pop();
+        history.addToAddHistory(taskToAdd);
+        model.addTask(taskToAdd);
+        fullMessage = MESSAGE_SUCCESS.concat(AddCommand.MESSAGE_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToAdd));
+    }
+
+    /**
+     * Restores the task that was edited due to a previous undoCommand and
+     * stores {@code taskToEdit} and {@code currentTask} for the next UndoCommand
+     */
+    private CommandResult redoEditCommand() throws DuplicateTaskException, TaskNotFoundException {
+        ReadOnlyTask taskToEdit = undoHistory.getBeforeEditHistory().pop();
+        ReadOnlyTask currentTask = undoHistory.getAfterEditHistory().pop();
+        history.addToBeforeEditHistory(currentTask);
+        history.addToAfterEditHistory(taskToEdit);
+        model.updateTask(currentTask, taskToEdit);
+        fullMessage = MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToEdit));
+    }
+
+    /**
+     * Delete tag that was previously added due to a undoCommand
+     * and stores {@code tag} and {@code taskList} for the next UndoCommand
+     */
+    private CommandResult redoDeleteTagCommand() {
+        ReadOnlyTaskList taskList = undoHistory.getDelTagHistory().pop();
+        Tag tag = undoHistory.getTagHistory().pop();
+        history.addToDelTagHistory(new TaskList(model.getTaskList())); //Store current model b4 tag is deleted
+        history.addToTagHistory(tag); //Store Tag for UndoCommand
+        model.resetData(taskList);
+        fullMessage = MESSAGE_SUCCESS.concat(String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tag.tagName));
+        return new CommandResult(fullMessage);
+    }
+
+    /**
+     * Delete task that was previously added due to a undoCommand
+     * and stores {@code taskToDelete} for the next UndoCommand
+     */
+    private CommandResult redoDeleteCommand() throws TaskNotFoundException {
+        ReadOnlyTask taskToDelete = undoHistory.getAddHistory().pop();
+        history.addToDeleteHistory(taskToDelete);
+        model.deleteTask(taskToDelete);
+        fullMessage = MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
+        return new CommandResult(String.format(fullMessage, taskToDelete));
+    }
+
+    /**
+     * Returns a new Object Options with default alarm and automark settings
+     */
+    private Options getDefaultOption() {
+        Alarm alarm = new Alarm(Config.defaultNotificationPeriodToString());
+        AutoMark autoMark = new AutoMark(AutoMarkManager.getSetToRun());
+        return new Options(alarm, autoMark);
+    }
+
+    /**
+     * Update Current Options settings with {@code editedOptions}
+     * @param editedOptions must not be null
+     */
+    private Options updateOptions(Options editedOptions) {
+        Options currentOption = getDefaultOption();
+        if (!editedOptions.getAlarm().equals(currentOption.getAlarm())) {
+            Config.changeDefaultNotificationPeriod(editedOptions.getAlarm().getValue());
+            currentOption.editAlarm(editedOptions.getAlarm());
+            // Checks if the alarm updates were properly executed for both components
+            assert(Config.defaultNotificationPeriodToString() == currentOption.getAlarm().getValue());
+        }
+        if (!editedOptions.getAutoMark().equals(currentOption.getAutoMark())) {
+            AutoMarkManager.setToRun(editedOptions.getAutoMark().getValue());
+            currentOption.editAutoMark(editedOptions.getAutoMark());
+            // Checks if the alarm updates were properly executed for both components
+            assert(AutoMarkManager.getSetToRun() == currentOption.getAutoMark().getValue());
+        }
+        return currentOption;
     }
 }

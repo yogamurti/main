@@ -15,7 +15,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import teamthree.twodo.automark.AutoMarkManager;
+import teamthree.twodo.automark.AutoMarkManagerStud;
+import teamthree.twodo.commons.core.Config;
+import teamthree.twodo.commons.core.ConfigStud;
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.UndoCommandHistory;
@@ -43,6 +50,13 @@ import teamthree.twodo.testutil.TypicalTask;
 public class RedoCommandTest {
 
     private static final int FIRST_INDEX = 1;
+
+    private static final Long DEFAULT_NOTIFICATION_PERIOD = (long) 1000 * 60 * 60 * 24;
+    private static final String DEFAULT_NOTIFICATION_PERIOD_STRING = "1 day";
+    private static final String VALID_ALARM_INPUT = "2 days";
+    private static final boolean VALID_AUTOMARK_INPUT = true;
+    private static final Options SAME_AS_DEFAULT = new Options(
+            new Alarm(Config.defaultNotificationPeriodToString()), new AutoMark(AutoMarkManager.getSetToRun()));
 
     private UndoCommand undoCommand;
     private RedoCommand redoCommand;
@@ -234,6 +248,34 @@ public class RedoCommandTest {
 
         CommandTestUtil.assertCommandSuccess(redoCommand, model,
                 String.format(expectedMessage, editedTask), expectedModel);
+    }
+
+    @Test
+    public void executeUndoOptionsCommandSuccess() throws CommandException, ParseException {
+        Config.changeDefaultNotificationPeriod(DEFAULT_NOTIFICATION_PERIOD_STRING);
+        ConfigStud.changeDefaultNotificationPeriod(VALID_ALARM_INPUT);
+        AutoMarkManager.setToRun(false);
+        AutoMarkManagerStud.setToRun(VALID_AUTOMARK_INPUT);
+
+        Options changedOptions = new Options(new Alarm(VALID_ALARM_INPUT), new AutoMark(VALID_AUTOMARK_INPUT));
+        OptionsCommand optionsCommand = new OptionsCommand(changedOptions);
+        optionsCommand.setData(model, history, undoHistory);
+        optionsCommand.execute();
+        history.addToUserInputHistory(OptionsCommand.COMMAND_WORD);
+        undoCommand.execute();
+        CommandResult result = redoCommand.execute();
+
+        String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(
+                String.format(OptionsCommand.MESSAGE_UPDATE_OPTIONS_SUCCESS, changedOptions));
+
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(Config.getDefaultNotificationPeriod(), ConfigStud.getDefaultNotificationPeriod());
+        assertEquals(Config.defaultNotificationPeriodToString(), ConfigStud.defaultNotificationPeriodToString());
+        assertEquals(AutoMarkManager.getSetToRun(), AutoMarkManagerStud.getSetToRun());
+
+        //ensure that Options is set to default stage
+        Config.changeDefaultNotificationPeriod(DEFAULT_NOTIFICATION_PERIOD_STRING);
+        AutoMarkManager.setToRun(false);
     }
 
 
