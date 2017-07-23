@@ -358,7 +358,7 @@ public class LogicManagerTest {
         Model expectedModel = new ModelManager(helper.generateTaskList(fourPersons), new UserPrefs());
         Set<String> keywordSet = new HashSet<>();
         keywordSet.add("KEY");
-        expectedModel.updateFilteredTaskList(keywordSet, true);
+        expectedModel.updateFilteredTaskListByKeywords(keywordSet, true);
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",

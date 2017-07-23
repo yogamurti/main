@@ -129,14 +129,14 @@ public class RedoCommandTest {
          *  Unmarks the marked task
          *  The recently marked task should be the only marked task in the model
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
         expectedModel.unmarkTask(taskToRedo);
         String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(getExpectedUnmarkedMessage(
                 expectedModel, taskToRedo));
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
@@ -212,24 +212,24 @@ public class RedoCommandTest {
     public void executeUndoEditCommandSuccess()
             throws CommandException, TaskNotFoundException, IllegalValueException {
 
-        Index indexLastTask = Index.fromOneBased(model.getFilteredAndSortedTaskList().size());
-        ReadOnlyTask lastTask = model.getFilteredAndSortedTaskList().get(indexLastTask.getZeroBased());
+        Index indexFirstTask = Index.fromOneBased(1);
+        ReadOnlyTask firstTask = model.getFilteredAndSortedTaskList().get(indexFirstTask.getZeroBased());
 
         //Delete Task to prepare model for undo command
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_EVENT)
                 .withStartAndEndDeadline(VALID_START_DATE, VALID_END_DATE).withTags(VALID_TAG_SPONGEBOB).build();
-        EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
+        EditCommand editCommand = new EditCommand(indexFirstTask, descriptor);
         editCommand.setData(model, history, undoHistory);
         editCommand.execute();
         this.history.addToUserInputHistory(EditCommand.COMMAND_WORD);
         undoCommand.execute();
 
         //Building expected model and message
-        TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(lastTask);
+        TaskWithDeadlineBuilder taskInList = new TaskWithDeadlineBuilder(firstTask);
         Task editedTask = taskInList.withName(VALID_NAME_EVENT).withEventDeadline(VALID_START_DATE, VALID_END_DATE)
                 .withTags(VALID_TAG_SPONGEBOB).build();
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
-        expectedModel.updateTask(lastTask, editedTask);
+        expectedModel.updateTask(firstTask, editedTask);
         String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
 
         CommandTestUtil.assertCommandSuccess(redoCommand, model,
@@ -265,7 +265,7 @@ public class RedoCommandTest {
     private String getExpectedUnmarkedMessage(Model expectedModel, ReadOnlyTask taskToUnmark) {
         // Finds the updated task
         final String[] splitName = taskToUnmark.getName().fullName.split("\\s+");
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask unmarkedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -274,7 +274,7 @@ public class RedoCommandTest {
          *  Resets task list to its initial state
          *  Initial state is assumed to be the task list that lists all completed tasks
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
 
         return String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, unmarkedTask);
     }

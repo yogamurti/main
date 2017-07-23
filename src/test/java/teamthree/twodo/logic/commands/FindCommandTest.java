@@ -32,14 +32,42 @@ public class FindCommandTest {
     }
 
     @Test
-    public void executeFindCorrectIncompleteTask() throws Exception {
+    public void executeFindCorrectIncompleteTaskByName() throws Exception {
         boolean listIncomplete = true;
         FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
                 new TypicalTask().cs2103.getName().fullName.split("\\s+"))), listIncomplete);
         findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
         Set<String> keyWords = new HashSet<>(Arrays.asList(new TypicalTask().cs2103.getName().fullName.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
+        assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
+                expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
+    }
+
+    @Test
+    public void executeFindCorrectIncompleteTaskByTag() throws Exception {
+        boolean listIncomplete = true;
+        FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
+                new TypicalTask().cs2103.getTags().toArray()[0].toString().split("\\s+"))), listIncomplete);
+        findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
+        Set<String> keyWords = new HashSet<>(Arrays.asList(
+                new TypicalTask().cs2103.getTags().toArray()[0].toString().split("\\s+")));
+
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
+        assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
+                expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
+    }
+
+    @Test
+    public void executeFindCorrectIncompleteTaskByDescription() throws Exception {
+        boolean listIncomplete = true;
+        FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
+                new TypicalTask().cs2103.getDescription().value.split("\\s+"))), listIncomplete);
+        findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
+        Set<String> keyWords = new HashSet<>(Arrays.asList(
+                new TypicalTask().cs2103.getDescription().value.split("\\s+")));
+
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -53,7 +81,7 @@ public class FindCommandTest {
         Set<String> keyWords = new HashSet<>(Arrays.asList(
                 new TypicalTask().partyCompleted.getName().fullName.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_COMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -67,7 +95,7 @@ public class FindCommandTest {
         Set<String> keyWords = new HashSet<>(Arrays.asList(
                 new TypicalTask().supermarket.getName().fullName.split("\\s+")));
 
-        expectedModel.updateFilteredTaskList(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -75,7 +103,7 @@ public class FindCommandTest {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the taskList and the filtered task list in the {@code model} matches that of {@code expectedModel}
+     * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
      */
 
     public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)

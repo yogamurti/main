@@ -80,7 +80,7 @@ public class MarkCommandTest {
          *  Attempts to mark the marked task
          *  The recently marked task should be the only marked task in the model
          */
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
 
         CommandTestUtil.assertCommandFailureWithoutTaskList(markCommand, model,
@@ -98,7 +98,7 @@ public class MarkCommandTest {
     private String getExpectedMessage(Model expectedModel, ReadOnlyTask taskToMark) {
         // Finds the updated task
         final String[] splitName = taskToMark.getName().fullName.split("\\s+");
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), false);
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask markedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -107,7 +107,7 @@ public class MarkCommandTest {
          *  Resets task list to its initial state
          *  Initial state is assumed to be the task list that lists all incomplete tasks
          */
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 
         return String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, markedTask);
     }
@@ -119,6 +119,6 @@ public class MarkCommandTest {
     private void showFirstTaskOnly(Model model) {
         ReadOnlyTask task = model.getTaskList().getTaskList().get(0);
         final String[] splitName = task.getName().fullName.split("\\s+");
-        model.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), true);
+        model.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), true);
     }
 }
