@@ -9,7 +9,7 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 
 //@@author A0107433N
-// Lists all tasks in the task book to the user
+// Lists all tasks in the tasklist to the user
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
