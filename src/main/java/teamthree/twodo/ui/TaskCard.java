@@ -49,7 +49,7 @@ public class TaskCard extends UiPart<Region> {
         if (task instanceof TaskWithDeadline) {
             deadline.setText(task.getDeadline().get().toString());
             if (isOverdue(task) && !task.isCompleted()) {
-                markAsOverdue();
+                markAsOverdue(displayedIndex);
                 completionStatus = "Overdue";
             }
         } else {
@@ -68,8 +68,16 @@ public class TaskCard extends UiPart<Region> {
         return task.getDeadline().get().getEndDate().before(new Date());
     }
 
-    public void markAsOverdue() {
-        this.cardPane.setStyle("-fx-background-color: darkred;");
+    public void markAsOverdue(int displayedIndex) {
+        if (isEven(displayedIndex)) {
+            this.cardPane.setStyle("-fx-background-color: #8B0000;");
+        } else {
+            this.cardPane.setStyle("-fx-background-color: #700000;");
+        }
+    }
+
+    private boolean isEven(int displayedIndex) {
+        return displayedIndex % 2 == 0;
     }
 
     private void initTags(ReadOnlyTask task) {
