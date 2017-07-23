@@ -15,7 +15,13 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     public static final String MESSAGE_HISTORY_USAGE = "Only find and list commands use this function.\n"
-            + "Add /h when using either commands to access the completed task list.";
+            + "Add " + ListCommand.COMMAND_WORD_HISTORY
+            + " when using either commands to access the completed task list instead of the incomplete task list.\n"
+            + "Example: find /h project";
+    public static final String MESSAGE_FLOATING_USAGE = "Only list commands use this function.\n"
+            + "Add " + ListCommand.COMMAND_WORD_FLOATING
+            + " to access the floating task list instead of the entire task list."
+            + "Example: list /f";
 
     private String message;
 
