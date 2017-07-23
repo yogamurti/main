@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import teamthree.twodo.TestApp;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.BaseEvent;
+import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TestUtil;
@@ -62,7 +63,7 @@ public abstract class TaskListGuiTest {
     protected StatusBarFooterHandle statusBarFooter;
 
     protected Stage stage;
-    protected final String listFloating = "list -f";
+    protected final String listFloating = ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_WORD_FLOATING;
 
     @BeforeClass
     public static void setupSpec() {
