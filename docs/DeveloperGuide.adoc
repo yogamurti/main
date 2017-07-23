@@ -534,13 +534,6 @@ ____
 
 Use case ends
 ____
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
-
-Use case ends
-____
 
 3a. User input is invalid
 
@@ -564,10 +557,10 @@ Use case ends
 
 *Extensions*
 
-2a. No tasks to display
+1a. User input is invalid
 
 ____
-2a1. System displays a no task to display message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -590,14 +583,6 @@ Use case ends
 
 ____
 1a1. System displays an error message
-
-Use case ends
-____
-
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -670,14 +655,6 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
-
-Use case ends
-____
-
 3a. User input is invalid
 
 ____
@@ -706,14 +683,6 @@ Use case ends
 
 ____
 1a1. System displays an error message
-
-Use case ends
-____
-
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -754,14 +723,6 @@ Use case ends
 
 ____
 1a1. System displays an error message
-
-Use case ends
-____
-
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
 
 Use case ends
 ____
