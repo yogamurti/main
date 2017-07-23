@@ -279,7 +279,7 @@ public class ModelManager extends ComponentManager implements Model {
         private boolean descriptionQualifies(ReadOnlyTask task) {
             if (task.getDeadline().isPresent()) {
                 return keyWords.stream()
-                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword));
             } else {
                 return false;
             }
@@ -295,7 +295,7 @@ public class ModelManager extends ComponentManager implements Model {
             while (!qualifies && tagIterator.hasNext()) {
                 Tag tag = tagIterator.next();
                 qualifies = keyWords.stream()
-                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
+                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
             }
             return qualifies;
         }
@@ -362,8 +362,7 @@ public class ModelManager extends ComponentManager implements Model {
             while (!qualifies && tagIterator.hasNext()) {
                 Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .filter(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName))
-                        .findAny().isPresent();
+                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
             }
             return qualifies;
         }

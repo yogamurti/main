@@ -39,7 +39,7 @@ public interface Model {
     void changeOptions();
 
     /**
-     * Replaces the given task {@code target} with {@code editedPerson}.
+     * Replaces the given task {@code target} with {@code editedTask}.
      *
      * @throws DuplicateTaskException if updating the task's details causes the task to be equivalent to
      *      another existing task in the list.
