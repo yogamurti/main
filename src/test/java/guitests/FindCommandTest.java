@@ -13,7 +13,7 @@ import teamthree.twodo.testutil.TaskUtil;
 public class FindCommandTest extends TaskListGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void findNonEmptyList() {
         commandBox.runCommand(listFloating);
         //add all tasks if not all present
         if (taskListPanel.getNumberOfTasks() < td.getTypicalTasks().length) {
@@ -26,13 +26,13 @@ public class FindCommandTest extends TaskListGuiTest {
     }
 
     @Test
-    public void find_emptyList() {
+    public void findEmptyList() {
         commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertFindResult(FindCommand.COMMAND_WORD + " Jean"); // no results
     }
 
     @Test
-    public void find_invalidCommand_fail() {
+    public void findInvalidCommandFail() {
         commandBox.runCommand(FindCommand.COMMAND_WORD + "cca");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }

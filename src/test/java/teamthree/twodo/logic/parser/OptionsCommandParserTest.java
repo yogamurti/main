@@ -30,6 +30,7 @@ public class OptionsCommandParserTest {
     private static final String VALID_AUTOMARK_WITHOUT_PREFIX = "true";
     private static final String VALID_AUTOMARK_WITH_PREFIX = PREFIX_AUTOMARK
             + VALID_AUTOMARK_WITHOUT_PREFIX;
+    private static final String INVALID_AUTOMARK_WITH_PREFIX = PREFIX_AUTOMARK + "potato";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -40,6 +41,11 @@ public class OptionsCommandParserTest {
     public void parseMissingPrefixFailure() throws ParseException {
         assertParseFailure(VALID_ALARM_WITHOUT_PREFIX, MESSAGE_INVALID_FORMAT);
         assertParseFailure(VALID_AUTOMARK_WITHOUT_PREFIX, MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parseInvalidAutoMarkArgumentFailure() throws ParseException {
+        assertParseFailure(INVALID_AUTOMARK_WITH_PREFIX, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -76,7 +82,7 @@ public class OptionsCommandParserTest {
      */
     private void assertParseFailure(String userInput, String expectedMessage) throws ParseException {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OptionsCommand.MESSAGE_USAGE));
+        thrown.expectMessage(expectedMessage);
 
         parser.parse(userInput);
     }
