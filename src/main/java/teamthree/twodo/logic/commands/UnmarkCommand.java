@@ -21,6 +21,7 @@ public class UnmarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 4 ";
 
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Marked task as incomplete: %1$s";
+    public static final String MESSAGE_NOT_MARKED_TASK = "Task not marked as complete!";
 
     public final Index targetIndex;
 
@@ -30,7 +31,6 @@ public class UnmarkCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -38,6 +38,10 @@ public class UnmarkCommand extends Command {
         }
 
         ReadOnlyTask taskToUnmark = lastShownList.get(targetIndex.getZeroBased());
+
+        if (!taskToUnmark.isCompleted()) {
+            throw new CommandException(MESSAGE_NOT_MARKED_TASK);
+        }
 
         try {
             model.unmarkTask(taskToUnmark);

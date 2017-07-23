@@ -37,7 +37,7 @@ public class OptionsCommandParserTest {
     private OptionsCommandParser parser = new OptionsCommandParser();
 
     @Test
-    public void parse_missingPrefix_failure() throws ParseException {
+    public void parseMissingPrefixFailure() throws ParseException {
         assertParseFailure(VALID_ALARM_WITHOUT_PREFIX, MESSAGE_INVALID_FORMAT);
         assertParseFailure(VALID_AUTOMARK_WITHOUT_PREFIX, MESSAGE_INVALID_FORMAT);
     }

@@ -7,9 +7,6 @@ import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.options.Alarm;
 import teamthree.twodo.commons.core.options.AutoMark;
 import teamthree.twodo.commons.core.options.Options;
-// import teamthree.twodo.commons.core.EventsCenter;
-// import teamthree.twodo.commons.core.Messages;
-// import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 
 //@@author A0139267W
@@ -22,8 +19,8 @@ public class OptionsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits 2Do's default options.\n"
-            + "Parameters: ALARM (minutes or days),"
-            + " MARK COMPLETION AUTOMATICALLY (true or false)\n"
+            + "Parameters: alarm (minutes or days),"
+            + " mark completion automatically (true or false)\n"
             + "Example: " + COMMAND_WORD + " a/1 minute m/true ";
 
     public static final String MESSAGE_UPDATE_OPTIONS_SUCCESS = "Default settings updated:%1$s\n";
@@ -56,9 +53,9 @@ public class OptionsCommand extends Command {
             // Checks if the alarm updates were properly executed for both components
             assert(AutoMarkManager.getSetToRun() == defaultOption.getAutoMark().getValue());
         }
-        // history.addToAddHistory(toAdd);
-        // EventsCenter.getInstance().post(new asEvent(AddOrEditCommandExecutedEvent.ADD_EVENT));
 
+        model.changeOptions();
+        history.addToOptionsHistory(option);
         return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
     }
 

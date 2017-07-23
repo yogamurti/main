@@ -188,6 +188,11 @@ public class AddCommandTest {
         public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void changeOptions() {
+            fail("This method should not be called.");
+        }
     }
 
     /**
