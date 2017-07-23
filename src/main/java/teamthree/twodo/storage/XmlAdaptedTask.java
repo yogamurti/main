@@ -96,7 +96,7 @@ public class XmlAdaptedTask {
     }
 
     private void markIfComplete(Task task) {
-        if (isComplete != null && isComplete.equals(new Boolean(true).toString())) {
+        if (isComplete != null && isComplete.equals(Boolean.TRUE.toString())) {
             task.markCompleted();
         }
     }
