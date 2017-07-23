@@ -48,17 +48,6 @@ public class XmlTaskListStorageTest {
         assertFalse(readTaskList("NonExistentFile.xml").isPresent());
     }
 
-    /* @Test
-    public void readNotXmlFormatExceptionThrown() throws Exception {
-
-        thrown.expect(DataConversionException.class);
-        readTaskBook("NotXmlFormatTaskBook.xml");
-
-         IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-
-    }*/
-
     @Test
     public void readAndSaveTaskListAllInOrderSuccess() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
