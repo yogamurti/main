@@ -14,7 +14,7 @@ public interface ReadOnlyTask {
     Name getName();
     Description getDescription();
     Set<Tag> getTags();
-    boolean isCompleted();
+    Boolean isCompleted();
     Optional<Deadline> getDeadline();
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
