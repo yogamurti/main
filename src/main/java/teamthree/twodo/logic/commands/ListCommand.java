@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_WORD_FAST = "l";
     public static final String COMMAND_WORD_HISTORY = "/h";
-    public static final String COMMAND_WORD_FLOATING = "f";
+    public static final String COMMAND_WORD_FLOATING = "/f";
 
     public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks with deadline";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_FLOATING = "Listed all incomplete floating tasks";

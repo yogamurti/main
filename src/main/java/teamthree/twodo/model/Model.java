@@ -35,6 +35,9 @@ public interface Model {
     /** Marks the given task as incomplete. */
     void unmarkTask(ReadOnlyTask task) throws TaskNotFoundException;
 
+    /** Indicates a change in the default options of 2Do. */
+    void changeOptions();
+
     /**
      * Replaces the given task {@code target} with {@code editedTask}.
      *

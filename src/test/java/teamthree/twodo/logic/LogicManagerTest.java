@@ -235,7 +235,6 @@ public class LogicManagerTest {
 
         assertEquals(expectedModel, model);
         assertEquals(expectedModel.getTaskList(), latestSavedTaskList);
-
     }
 
     @Test

@@ -193,6 +193,11 @@ public class AddCommandTest {
         public void updateFilteredTaskListToEmpty() {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void changeOptions() {
+            fail("This method should not be called.");
+        }
     }
 
     /**
