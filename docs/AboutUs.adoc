@@ -55,7 +55,8 @@ image::teoshuqi.png[width="150", align="left"]
 ** Implemented delete Tasks https://github.com/CS2103JUN2017-T3/main/pull/74[[#74]]
 ** Update Developer's Guide https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]]
 ** Update Architecture and Storage Diagrams https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]]
-** Refactor AddressBook to TaskList https://github.com/CS2103JUN2017-T3/main/pull/119 [[#119]]
+** Refactor AddressBook to TaskList https://github.com/CS2103JUN2017-T3/main/pull/119[[#119]]
+
 '''
 
 === https://github.com/yogamurti[Yogamurti Sutanto]
@@ -69,7 +70,9 @@ image::Yoga.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-the-default-options-code-option-o-code[Adjust default options]
 * Code written: Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0139267W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0139267W.md[[test code]]
 * Other major contributions:
-** Set up Travis, Appveyor, Coveralls and Codacy
-** In charge of reviewing and merging pull requests
+** Set up Travis, Appveyor, Coveralls and Codacy https://github.com/CS2103JUN2017-T3/main/pull/112[[#112]] https://github.com/CS2103JUN2017-T3/main/pull/167[[#167]]
+** In charge of reviewing and merging pull requests https://github.com/CS2103JUN2017-T3/main/pull/163[[#163]] https://github.com/CS2103JUN2017-T3/main/pull/173[[#173]] https://github.com/CS2103JUN2017-T3/main/pull/195[[#195]]
 ** In charge of managing issue tracker
+** In charge of collating code before releases https://github.com/CS2103JUN2017-T3/main/pull/134[[#134]]
+** In charge of releases
 ** Add auto-mark completion functionality https://github.com/CS2103JUN2017-T3/main/pull/149[[#149]]
