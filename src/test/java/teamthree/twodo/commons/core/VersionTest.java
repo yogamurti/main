@@ -51,7 +51,8 @@ public class VersionTest {
 
     @Test
     public void versionComparableValidVersionCompareToIsCorrect() {
-        Version one, another;
+        Version one;
+        Version another;
 
         // Tests equality
         one = new Version(0, 0, 0, true);
