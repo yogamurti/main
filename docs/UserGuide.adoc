@@ -244,7 +244,7 @@ Example: `quit`
 
 == FAQ
 *Q*: How do I save my to-do list? +
-*A*: The data is saved in the hard disk automatically, by default as _data/2Do.xml_ in the directory of the application, after any command that changes the data. There is no need to save manually. However, you may save it as another file using our add link:#save-command[Save Command].
+*A*: The data is saved in the hard drive automatically, by default as _data/2Do.xml_ in the directory of the application, after any command that changes the data. There is no need to save manually. However, you may save it as another file using our link:#save-command[Save Command].
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous to-do list folder.
