@@ -159,13 +159,13 @@ _2Do_ *decouples* its data, presentation, and control logic by separating them i
 * Controller: The `UI` component's `CommandBox` is responsible for detecting user command inputs and forwarding them to the link:#logic[`Logic`] component, which executes the commands.
 
 *Observer Pattern* +
-_2Do_ utilizes the _observer pattern_ to *avoid a direct coupling* between the `UI` component and other components.
+_2Do_ utilizes the _observer pattern_ to *avoid direct coupling* between the `UI` component and other components.
 
 The `UI` component's constituents that depends on data from the link:#model[`Model`] component, such as its `TaskListPanel` constituent, requires notification whenever the link:#model[`Model`] component updates.
 
-This is done by the _TaskListChangedEvent_ object.
+This is done by the _TaskListChangedEvent_.
 
-Whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_ object. This event will call the relevant `UI` constituents to update their data from the link:#model[`Model`] component and display the updated data.
+Whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_. This event will call the relevant `UI` constituents to update their data from the link:#model[`Model`] component and display the updated data.
 
 [[logic]]
 === Logic component
@@ -505,28 +505,6 @@ ____
 1b. User enters an end time that is earlier than the start time
 ____
 1b1. System automatically adjusts the end time to the following day and displays a message highlighting this automatic adjustment
-
-Use case ends
-____
-
----
-
-[discrete]
-=== Use case: Add a recurring task
-
-*MSS*
-
-1. User requests to add a recurring task with the name, end and recurrence fields filled
-2. System adds the recurring task and shows a success message
-
-Use case ends
-
-*Extensions*
-
-1a. User input is invalid
-
-____
-1a1. System displays an error message
 
 Use case ends
 ____
