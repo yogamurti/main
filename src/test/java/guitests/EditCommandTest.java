@@ -151,8 +151,10 @@ public class EditCommandTest extends TaskListGuiTest {
                 EditCommand.COMMAND_WORD + " " + filteredTaskListIndex.getOneBased() + " " + detailsToEdit);
 
         // confirm the new card contains the right data
-        assertTrue(taskListPanel.getListView().getItems().contains(editedTask));
+        ReadOnlyTask taskAffectedByEditCommand = taskListPanel.getListView().getItems().get(
+                INDEX_FIRST_TASK.getZeroBased());
+        assertTrue(taskAffectedByEditCommand.getTags().containsAll(editedTask.getTags()));
 
-        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, taskAffectedByEditCommand));
     }
 }
