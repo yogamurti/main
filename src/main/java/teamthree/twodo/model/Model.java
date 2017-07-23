@@ -17,10 +17,10 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskList newData);
 
-    /** Returns the TaskBook */
+    /** Returns the TaskList */
     ReadOnlyTaskList getTaskList();
 
-    /** Changes the TaskBook */
+    /** Changes the TaskList */
     void setTaskList(ReadOnlyTaskList taskList);
 
     /** Deletes the given task. */
@@ -39,7 +39,7 @@ public interface Model {
     void changeOptions();
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given task {@code target} with {@code editedTask}.
      *
      * @throws DuplicateTaskException if updating the task's details causes the task to be equivalent to
      *      another existing task in the list.

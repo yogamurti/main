@@ -27,7 +27,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data. All changes to any
+ * Represents the in-memory model of the task list data. All changes to any
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(taskList, userPrefs);
 
-        logger.fine("Initializing with task book: " + taskList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task list: " + taskList + " and user prefs " + userPrefs);
 
         this.taskList = new TaskList(taskList);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
@@ -206,8 +206,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     /* ==================EVENT HANDLERS======================== */
     /**
-     * Responds to taskbook storage change after load event.
-     * @param event contains the taskbook to update to
+     * Responds to taskList storage change after load event.
+     * @param event contains the taskList to update to
      */
     @Subscribe
     public void handleLoadNewModelEvent(LoadNewModelEvent event) {
@@ -277,8 +277,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean descriptionQualifies(ReadOnlyTask task) {
-            return keyWords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword));
+            if (task.getDeadline().isPresent()) {
+                return keyWords.stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword));
+            } else {
+                return false;
+            }
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {
@@ -392,9 +396,9 @@ public class ModelManager extends ComponentManager implements Model {
             Set<Tag> tags = task.getTags();
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
-                Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
+                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
+                        .findAny().isPresent();
             }
             return qualifies;
         }

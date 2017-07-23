@@ -13,8 +13,9 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0139267W
 public class UnmarkCommandParserTest {
-    private static final String validFirstIndex = "1";
-    private static final String invalidIndex = "a";
+
+    private static final String VALID_FIRST_INDEX = "1";
+    private static final String INVALID_INDEX = "a";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -23,7 +24,7 @@ public class UnmarkCommandParserTest {
 
     @Test
     public void parseValidArgsSuccess() throws ParseException {
-        UnmarkCommand command = parser.parse(validFirstIndex);
+        UnmarkCommand command = parser.parse(VALID_FIRST_INDEX);
         assertEquals(INDEX_FIRST_TASK, command.targetIndex);
     }
 
@@ -32,6 +33,6 @@ public class UnmarkCommandParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
 
-        parser.parse(invalidIndex);
+        parser.parse(INVALID_INDEX);
     }
 }

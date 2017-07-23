@@ -4,7 +4,7 @@ import java.util.Set;
 
 //@@author A0107433N
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all tasks in task book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {
