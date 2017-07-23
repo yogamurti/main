@@ -129,11 +129,11 @@ public class UndoCommandTest {
          *  Unmarks the marked task
          *  The recently marked task should be the only marked task in the model
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
@@ -251,7 +251,7 @@ public class UndoCommandTest {
     private String getExpectedMessage(Model expectedModel, ReadOnlyTask taskToMark) {
         // Finds the updated task
         final String[] splitName = taskToMark.getName().fullName.split("\\s+");
-        expectedModel.updateFilteredTaskList(new HashSet<>(Arrays.asList(splitName)), false);
+        expectedModel.updateFilteredTaskListByKeywords(new HashSet<>(Arrays.asList(splitName)), false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
 
         ReadOnlyTask markedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -260,7 +260,7 @@ public class UndoCommandTest {
          *  Resets task list to its initial state
          *  Initial state is assumed to be the task list that lists all incomplete tasks
          */
-        expectedModel.updateFilteredListToShowAllIncomplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 
         return String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, markedTask);
     }

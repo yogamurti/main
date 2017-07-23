@@ -129,14 +129,14 @@ public class RedoCommandTest {
          *  Unmarks the marked task
          *  The recently marked task should be the only marked task in the model
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
         expectedModel.unmarkTask(taskToRedo);
         String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(getExpectedUnmarkedMessage(
                 expectedModel, taskToRedo));
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
@@ -274,7 +274,7 @@ public class RedoCommandTest {
          *  Resets task list to its initial state
          *  Initial state is assumed to be the task list that lists all completed tasks
          */
-        expectedModel.updateFilteredListToShowAllComplete(null, false);
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
 
         return String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, unmarkedTask);
     }

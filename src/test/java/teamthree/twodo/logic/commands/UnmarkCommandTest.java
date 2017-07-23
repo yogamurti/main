@@ -45,14 +45,14 @@ public class UnmarkCommandTest {
         expectedModel.unmarkTask(taskToUnmark);
         String expectedUnmarkedMessage = getExpectedUnmarkedMessage(expectedModel, taskToUnmark);
 
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         CommandTestUtil.assertCommandSuccess(unmarkCommand, model, expectedUnmarkedMessage, expectedModel);
     }
 
     @Test
     public void executeInvalidIndexUnfilteredListFailure() throws Exception {
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         UnmarkCommand unmarkCommand = prepareUnmarkCommand(outOfBoundIndex);
 

@@ -80,7 +80,7 @@ public class MarkCommandTest {
          *  Attempts to mark the marked task
          *  The recently marked task should be the only marked task in the model
          */
-        model.updateFilteredListToShowAllComplete(null, false);
+        model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
 
         CommandTestUtil.assertCommandFailureWithoutTaskList(markCommand, model,
