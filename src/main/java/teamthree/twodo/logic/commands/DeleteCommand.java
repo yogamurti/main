@@ -19,12 +19,11 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD_QUICK = "-";
     public static final String COMMAND_WORD_FAST = "d";
     public static final String COMMAND_WORD_SHORT = "del";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task or tag identified by the index number used in the last task listing.\n"
             + "Parameters: [tag] INDEX (must be a positive integer)\n"
             + "Example for Deleting Task: " + COMMAND_WORD + " 1\n"
-            + "Example for Deleting Task: " + COMMAND_WORD + "tag 1\n";
+            + "Example for Deleting Tag: " + COMMAND_WORD + " tag 8\n";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
