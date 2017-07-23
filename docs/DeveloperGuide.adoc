@@ -158,10 +158,10 @@ _2Do_ *decouples* its data, presentation, and control logic by separating them i
 * View: The `UI` component is responsible for displaying data, interacting with the user through the link:#logic[`Logic`] component, and getting automatic data updates from the link:#model[`Model`] component.
 * Controller: The `UI` component's `CommandBox` is responsible for detecting user command inputs and forwarding them to the link:#logic[`Logic`] component, which executes the commands.
 
-*Observer Pattern*
-_2Do_ utilizes the _observer pattern_ to *avoid a direct coupling* between the `UI` component and other components
+*Observer Pattern* +
+_2Do_ utilizes the _observer pattern_ to *avoid a direct coupling* between the `UI` component and other components.
 
-The UI component's constituents which depends on data from the link:#model[`Model`] component, such as its `TaskListPanel` constituent, requires notification when the link:#model[`Model`] component updates. This is done by the _TaskListChangedEvent_ object. Hence, whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_. This event will call the `UI` constituents to update its data from the link:#model[`Model`] component and display the updated data.
+The UI component's constituents that depends on data from the link:#model[`Model`] component, such as its `TaskListPanel` constituent, requires notification when the link:#model[`Model`] component updates. This is done by the _TaskListChangedEvent_ object. Hence, whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_. This event will call the `UI` constituents to update its data from the link:#model[`Model`] component and display the updated data.
 
 [[logic]]
 === Logic component
