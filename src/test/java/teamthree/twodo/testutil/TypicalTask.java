@@ -17,13 +17,15 @@ public class TypicalTask {
     public static final Index INDEX_THIRD_TASK = Index.fromOneBased(3);
 
     public static enum TaskType {
-        FLOATING, DEADLINES
+        FLOATING, DEADLINES, INCOMPLETE
     };
+    private static TaskType taskType;
 
     public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida,
         partyCompleted, psleCompleted;
 
     public TypicalTask() {
+        taskType = null;
         try {
             cs2103 = new TaskWithDeadlineBuilder().withName("CS2013").withDescription("Project V0.5")
                     .withDeadline("17 april 2018 10am").withTags("school", "project").build();
@@ -54,6 +56,7 @@ public class TypicalTask {
     }
 
     public TypicalTask(TaskType type) {
+        taskType = type;
         if (type == TaskType.FLOATING) {
             try {
                 cs2103 = new FloatingTaskBuilder().withName("CS2013").withDescription("Project V0.5")
@@ -76,7 +79,7 @@ public class TypicalTask {
             } catch (IllegalValueException e) {
                 throw new AssertionError("Sample data cannot be invalid", e);
             }
-        } else {
+        } else if (type == TaskType.DEADLINES) {
             try {
                 cs2103 = new TaskWithDeadlineBuilder().withName("CS2013").withDescription("Project V0.5")
                         .withDeadline("17 april 2018 10am").withTags("school", "project").build();
@@ -106,11 +109,40 @@ public class TypicalTask {
             } catch (IllegalValueException e) {
                 throw new AssertionError("Sample data cannot be invalid", e);
             }
+        } else {
+            try {
+                cs2103 = new TaskWithDeadlineBuilder().withName("CS2013").withDescription("Project V0.5")
+                        .withDeadline("17 april 2018 10am").withTags("school", "project").build();
+                cs1020 = new FloatingTaskBuilder().withName("CS1020").withDescription("labs").withTags("school")
+                        .build();
+                cs2010 = new TaskWithDeadlineBuilder().withName("cs2010").withDeadline("fri 10am")
+                        .withDescription("tutorial").build();
+                project = new TaskWithDeadlineBuilder().withName("project").withDeadline("sat 10pm")
+                        .withDescription("project").build();
+                dinner = new FloatingTaskBuilder().withName("dinner").withDescription("Thai Food")
+                        .withTags("fun").build();
+                training = new FloatingTaskBuilder().withName("training").withTags("hobby").withDescription("training")
+                        .build();
+                cca = new TaskWithDeadlineBuilder().withName("cca").withDeadline("july 2018 12am")
+                        .withDescription("end of term").build();
+                partyCompleted = new TaskWithDeadlineBuilder().withName("party").withDeadline("last week 9am")
+                        .withTags("personal").withDescription("bring booze").build();
+                psleCompleted = new FloatingTaskBuilder().withName("PSLE").withDescription("primary school")
+                        .withTags("exam").build();
+
+                // Manually added
+                supermarket = new TaskWithDeadlineBuilder().withName("buy lotion").withDeadline("12 march 2015 10am")
+                        .withDescription("little india").build();
+                ida = new TaskWithDeadlineBuilder().withName("Ida Mueller").withDeadline("tomorrow 5pm")
+                        .withDescription("meet at chicago ave").build();
+            } catch (IllegalValueException e) {
+                throw new AssertionError("Sample data cannot be invalid", e);
+            }
         }
     }
 
     public static void loadTaskListWithSampleData(TaskList tl) {
-        for (Task task : new TypicalTask().getTypicalTasks()) {
+        for (Task task : new TypicalTask(taskType).getTypicalTasks()) {
             try {
                 if (task instanceof TaskWithDeadline) {
                     tl.addTask(new TaskWithDeadline(task));

@@ -39,6 +39,7 @@ import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 //@@author A0162253M
 /**
@@ -58,7 +59,7 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         undoCommand = new UndoCommand();
@@ -103,8 +104,13 @@ public class UndoCommandTest {
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
 
-        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
+        //The recently marked task should be the only marked task in the model
+        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
+
         ReadOnlyTask taskToMark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
         expectedModel.unmarkTask(taskToMark);
 
