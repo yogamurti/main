@@ -348,7 +348,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
-|`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list and be able to view it across multiple devices
+|`* * *` |user |save my to-do list as a readable file |have a back-up copy of my to-do list and be able to view it across multiple devices
 
 |`* * *` |user |undo the last action |correct a mistake
 
@@ -797,8 +797,8 @@ ____
 
 1. User requests to view the general options available on system
 2. System displays its general options
-3. User requests to change the general options
-4. System updates its general options
+3. User requests to change the general options for the session
+4. System updates its general options for the session
 
 Use case ends
 
@@ -820,7 +820,7 @@ ____
 *MSS*
 
 1. User requests to save the to-do list
-2. System saves the current to-do list and exports it as a text file in the directory specified
+2. System saves the current to-do list and exports it as an _xml_ file in the directory specified
 
 Use case ends
 
@@ -842,10 +842,8 @@ ____
 
 *MSS*
 
-1. User requests to load a to-do list text file into the system
-2. System loads the to-do list and prompts the user to relaunch the application to update its task list
-3. User relaunches the application
-4. System displays the loaded to-do list
+1. User requests to load a to-do list xml file into the system
+2. System loads the to-do list and displays the loaded to-do list
 
 Use case ends
 
