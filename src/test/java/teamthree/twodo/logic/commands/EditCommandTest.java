@@ -30,6 +30,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -37,7 +38,7 @@ import teamthree.twodo.testutil.TypicalTask;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
 
     @Test
     public void executeAllFieldsSpecifiedUnfilteredListSuccess() throws Exception {

@@ -115,6 +115,9 @@ public class EditCommand extends Command {
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
+        if (editTaskDescriptor.getDeadline() == null) {
+            return new Task(updatedName, updatedDescription, updatedTags, taskToEdit.getCompleted());
+        }
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
             return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags,

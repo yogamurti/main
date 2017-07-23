@@ -197,7 +197,8 @@ public class UndoCommandTest {
         deleteCommand.execute();
         this.history.addToUserInputHistory("tag");
 
-        Model expectedModel = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new TypicalTask(TaskType.INCOMPLETE)
+                .getTypicalTaskList(), new UserPrefs());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UndoCommand.MESSAGE_ADD_TAG_SUCCESS + tagName);
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);

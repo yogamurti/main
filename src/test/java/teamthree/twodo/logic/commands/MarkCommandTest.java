@@ -18,11 +18,12 @@ import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 //@@author A0139267W
 public class MarkCommandTest {
 
-    private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+    private Model model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
     @Test
     public void executeValidIndexUnfilteredListSuccess() throws Exception {
         ReadOnlyTask taskToMark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
