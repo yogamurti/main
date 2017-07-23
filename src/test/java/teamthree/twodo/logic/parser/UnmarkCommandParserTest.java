@@ -32,6 +32,6 @@ public class UnmarkCommandParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
 
-        parser.parse(invalidIndex);
+        parser.parse(INVALID_INDEX);
     }
 }

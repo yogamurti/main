@@ -32,6 +32,6 @@ public class MarkCommandParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
 
-        parser.parse(invalidIndex);
+        parser.parse(INVALID_INDEX);
     }
 }

@@ -27,7 +27,7 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data. All changes to any
+ * Represents the in-memory model of the task list data. All changes to any
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(taskList, userPrefs);
 
-        logger.fine("Initializing with task book: " + taskList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task list: " + taskList + " and user prefs " + userPrefs);
 
         this.taskList = new TaskList(taskList);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
@@ -59,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskList newData) {
         taskList.resetData(newData);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -68,19 +68,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setTaskList(ReadOnlyTaskList taskList) {
-        this.taskList = new TaskList(taskList);
+    public void setTaskList(ReadOnlyTaskList taskBook) {
+        this.taskList = new TaskList(taskBook);
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateTaskBookChanged() {
+    private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -91,19 +91,19 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             updateFilteredTaskListToShowAll(null, true, true);
         }
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.markTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.unmarkTask(target);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void saveTaskList() {
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -121,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedTask);
 
         taskList.updateTask(target, editedTask);
-        indicateTaskBookChanged();
+        indicateTaskListChanged();
     }
 
     //@@author A0107433N
@@ -206,8 +206,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     /* ==================EVENT HANDLERS======================== */
     /**
-     * Responds to taskbook storage change after load event.
-     * @param event contains the taskbook to update to
+     * Responds to taskList storage change after load event.
+     * @param event contains the taskList to update to
      */
     @Subscribe
     public void handleLoadNewModelEvent(LoadNewModelEvent event) {
@@ -277,8 +277,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean descriptionQualifies(ReadOnlyTask task) {
-            return keyWords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword));
+            if (task.getDeadline().isPresent()) {
+                return keyWords.stream()
+                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
+            } else {
+                return false;
+            }
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {
@@ -358,7 +362,8 @@ public class ModelManager extends ComponentManager implements Model {
             while (!qualifies && tagIterator.hasNext()) {
                 Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
+                        .filter(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName))
+                        .findAny().isPresent();
             }
             return qualifies;
         }
@@ -392,9 +397,9 @@ public class ModelManager extends ComponentManager implements Model {
             Set<Tag> tags = task.getTags();
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
-                Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
+                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
+                        .findAny().isPresent();
             }
             return qualifies;
         }
