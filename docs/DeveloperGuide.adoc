@@ -440,7 +440,7 @@ ____
 
 *MSS*
 
-1. User requests to add a floating task with the name field filled and the end and recurrence fields empty
+1. User requests to add a floating task with the name field filled and the end field empty
 2. System adds the floating task and displays a success message
 
 Use case ends
@@ -506,7 +506,7 @@ Use case ends
 ____
 1b. User enters an end time that is earlier than the start time
 ____
-1b1. System automatically adjusts the end time to the following day and displays a message highlighting this automatic adjustment
+1b1. System displays an error message
 
 Use case ends
 ____
@@ -518,8 +518,10 @@ ____
 
 *MSS*
 
-1. User requests to delete a task using its name
-2. System deletes the task and displays a success message
+1. User searches for a task using *list* or *find*
+2. System displays all relevant tasks
+3. User requests to delete the task by using its link:#index[index]
+4. System deletes the task and displays a success message
 
 Use case ends
 
@@ -532,12 +534,18 @@ ____
 
 Use case ends
 ____
-
-1b. Multiple tasks with same name has been detected
+2b. No tasks to display
 
 ____
-1b1. System displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete +
-1b2. User chooses the task link:#index[index]
+2b1. System displays a no task to display message
+
+Use case ends
+____
+
+3a. User input is invalid
+
+____
+3a1. System displays an error message
 
 Use case resumes at step 2
 ____
@@ -766,7 +774,7 @@ ____
 Use case resumes at step 2
 ____
 
-3b. Task is already marked as complete
+3b. Task is already marked as incomplete
 
 ____
 3b1. System displays an error message
@@ -820,8 +828,6 @@ ____
 Use case ends
 
 ____
-
----
 
 [discrete]
 === Use case: Load to-do list
