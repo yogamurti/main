@@ -52,7 +52,7 @@ public class EditCommandParserTest {
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
+    public void parseMissingPartsFailure() {
         // no index specified
         assertParseFailure(VALID_NAME_CSMOD, MESSAGE_INVALID_FORMAT);
 
@@ -64,7 +64,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
+    public void parseInvalidPreambleFailure() {
         // negative index
         assertParseFailure("-5" + NAME_DESC_MOD, MESSAGE_INVALID_FORMAT);
 
@@ -79,7 +79,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parseInvalidValueFailure() {
         assertParseFailure("1" + INVALID_DEADLINE_DESC, Deadline.MESSAGE_DEADLINE_CONSTRAINTS_STRICT); // invalid phone
         assertParseFailure("1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
@@ -97,7 +97,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() throws Exception {
+    public void parseAllFieldsSpecifiedSuccess() throws Exception {
         Index targetIndex = INDEX_SECOND_TASK;
         String userInput = targetIndex.getOneBased() + DEADLINE_DESC_EVENT + TAG_DESC_WORK + DESC_MOD + NAME_DESC_MOD
                 + TAG_DESC_SPONGE;
@@ -111,7 +111,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() throws Exception {
+    public void parseSomeFieldsSpecifiedSuccess() throws Exception {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + DEADLINE_DESC_EVENT;
 
@@ -123,7 +123,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() throws Exception {
+    public void parseOneFieldSpecifiedSuccess() throws Exception {
         // name
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = targetIndex.getOneBased() + NAME_DESC_MOD;
@@ -151,7 +151,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() throws Exception {
+    public void parseMultipleRepeatedFieldsAcceptsLast() throws Exception {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = targetIndex.getOneBased() + DEADLINE_DESC_MOD + DESC_MOD + TAG_DESC_SPONGE
                 + DEADLINE_DESC_MOD + DESC_MOD + TAG_DESC_SPONGE + DEADLINE_DESC_EVENT + DESC_EVENT + TAG_DESC_WORK;
@@ -182,7 +182,7 @@ public class EditCommandParserTest {
      * assertParseSuccess(userInput, expectedCommand); }
      */
     @Test
-    public void parse_resetTags_success() throws Exception {
+    public void parseResetTagsSuccess() throws Exception {
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 

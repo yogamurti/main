@@ -37,12 +37,12 @@ public class StatusBarFooterTest extends TaskListGuiTest {
     }
 
     @Test
-    public void syncStatus_initialValue() {
+    public void syncStatusInitialValue() {
         assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }
 
     @Test
-    public void syncStatus_mutatingCommandSucceeds_syncStatusUpdated() {
+    public void syncStatusMutatingCommandSucceedSyncStatusUpdated() {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertTrue(commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket))); // mutating command succeeds
@@ -50,7 +50,7 @@ public class StatusBarFooterTest extends TaskListGuiTest {
     }
 
     @Test
-    public void syncStatus_nonMutatingCommandSucceeds_syncStatusRemainsUnchanged() {
+    public void syncStatusNonMutatingCommandSucceedsSyncStatusRemainsUnchanged() {
         assertTrue(commandBox.runCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
         assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }

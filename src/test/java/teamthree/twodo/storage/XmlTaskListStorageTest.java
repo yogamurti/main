@@ -29,7 +29,7 @@ public class XmlTaskListStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readTaskList_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readTaskListNullFilePathThrowsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         readTaskList(null);
     }
@@ -45,12 +45,12 @@ public class XmlTaskListStorageTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws Exception {
+    public void readMissingFileEmptyResult() throws Exception {
         assertFalse(readTaskList("NonExistentFile.xml").isPresent());
     }
 
     /* @Test
-    public void read_notXmlFormat_exceptionThrown() throws Exception {
+    public void readNotXmlFormatExceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
         readTaskBook("NotXmlFormatTaskBook.xml");
@@ -61,7 +61,7 @@ public class XmlTaskListStorageTest {
     }*/
 
     @Test
-    public void readAndSaveTaskList_allInOrder_success() throws Exception {
+    public void readAndSaveTaskListAllInOrderSuccess() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTask td = new TypicalTask(TaskType.INCOMPLETE);
         TaskList original = td.getTypicalTaskList();
@@ -88,7 +88,7 @@ public class XmlTaskListStorageTest {
     }
 
     @Test
-    public void saveTaskList_nullTaskList_throwsNullPointerException() throws IOException {
+    public void saveTaskListNullTaskListThrowsNullPointerException() throws IOException {
         thrown.expect(NullPointerException.class);
         saveTaskList(null, "SomeFile.xml");
     }
@@ -98,7 +98,7 @@ public class XmlTaskListStorageTest {
     }
 
     @Test
-    public void saveTaskList_nullFilePath_throwsNullPointerException() throws IOException {
+    public void saveTaskListNullFilePathThrowsNullPointerException() throws IOException {
         thrown.expect(NullPointerException.class);
         saveTaskList(new TaskList(), null);
     }

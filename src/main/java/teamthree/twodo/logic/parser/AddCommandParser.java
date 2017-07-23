@@ -25,7 +25,7 @@ import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
-
+//@@author A0124399W
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -113,8 +113,8 @@ public class AddCommandParser implements CommandParser {
     /**
      *
      * @param argMultimap
-     * @return if end time or notification period are specified without the
-     *         start time being specified
+     * @return if start time or notification period are specified without the
+     *         end time being specified
      */
     private boolean invalidDeadlineDeclaration(ArgumentMultimap argMultimap) {
         return (arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START)

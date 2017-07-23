@@ -24,7 +24,7 @@ public class AutoMarkManagerStud extends ComponentManager {
 
     public AutoMarkManagerStud(Model model) {
         this.model = model;
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
+        syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
 
     public static boolean getSetToRun() {
@@ -34,7 +34,7 @@ public class AutoMarkManagerStud extends ComponentManager {
     // Enables or disables the auto-completion functionality
     public static void setToRun(boolean setting) {
         setToRun = setting;
-        if (setting == true) {
+        if (setting) {
             // TODO need to do something here to enhance the "only updates whenever there's a new command" issue
         }
     }
@@ -178,8 +178,8 @@ public class AutoMarkManagerStud extends ComponentManager {
 
     // Synchronizes the uncompleted list with the master list when there is a change
     @Subscribe
-    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        syncWithMasterTaskList(model.getTaskBook().getTaskList());
+    public void handleTaskBookChangedEvent(TaskListChangedEvent event) {
+        syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
 
 }
@@ -282,6 +282,11 @@ public class ConfigStud {
         notificationPeriodToString = newNotificationPeriod;
         Matcher integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);
         assert (integerParser.find());
+        integerParser.find();
+        if (integerParser.group().trim().equals("")) {
+            integerParser = Pattern.compile("\\d*").matcher(newNotificationPeriod);
+            assert (integerParser.find());
+        }
         int period = Integer.parseInt(integerParser.group().trim());
         long newDefault = 0;
         if (newNotificationPeriod.toLowerCase().contains("day")) {

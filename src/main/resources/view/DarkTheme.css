@@ -131,7 +131,6 @@
     -fx-text-fill: #010504;
 }
 .cell_big_label_red {
-
     -fx-font-size: 16px;
     -fx-text-fill: red;
 }
@@ -313,6 +312,12 @@
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+    -fx-border-color: darkred;
+}
+#cardPane:overdue {
+    -fx-background-color: transparent;
+    -fx-border-width: 10;
+    -fx-border-color: darkred;
 }
 
 #commandTypeLabel {

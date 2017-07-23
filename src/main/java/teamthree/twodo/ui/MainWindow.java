@@ -17,7 +17,6 @@ import teamthree.twodo.commons.util.FxViewUtil;
 import teamthree.twodo.logic.Logic;
 import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.category.CategoryManager;
-import teamthree.twodo.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -28,7 +27,7 @@ public class MainWindow extends UiPart<Region> {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
-    private static final int MIN_WIDTH = 450;
+    private static final int MIN_WIDTH = 750;
 
     private Stage primaryStage;
     private Logic logic;
@@ -36,12 +35,12 @@ public class MainWindow extends UiPart<Region> {
     private Config config;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    //private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private CommandBox commandBox;
 
-    @FXML
-    private StackPane browserPlaceholder;
+    /*@FXML
+    private StackPane browserPlaceholder;*/
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -122,8 +121,8 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        /*browserPanel = new BrowserPanel();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());*/
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
@@ -210,12 +209,12 @@ public class MainWindow extends UiPart<Region> {
         return this.commandBox;
     }
 
-    void loadPersonPage(ReadOnlyTask person) {
+    /*void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
     }
 
     void releaseResources() {
         browserPanel.freeResources();
     }
-
+*/
 }

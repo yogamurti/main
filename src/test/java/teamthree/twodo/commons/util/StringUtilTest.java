@@ -61,7 +61,7 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
+    public void containsWordIgnoreCaseNullWordThrowsNullPointerException() {
         assertExceptionThrown(NullPointerException.class, "typical sentence", null, Optional.empty());
     }
 
@@ -73,28 +73,28 @@ public class StringUtilTest {
     }
 
     @Test
-    public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+    public void containsWordIgnoreCaseEmptyWordThrowsIllegalArgumentException() {
         assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "  ",
                 Optional.of("Word parameter cannot be empty"));
     }
 
     @Test
-    public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+    public void containsWordIgnoreCaseMultipleWordsThrowsIllegalArgumentException() {
         assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "aaa BBB",
                 Optional.of("Word parameter should be a single word"));
     }
 
     @Test
-    public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
+    public void containsWordIgnoreCaseNullSentenceThrowsNullPointerException() {
         assertExceptionThrown(NullPointerException.class, null, "abc", Optional.empty());
     }
     @Test
-    public void getAutoCorrectedDay_returnsEmptyOptional_ifInputStringTooShort() {
+    public void getAutoCorrectedDayReturnsEmptyOptionalIfInputStringTooShort() {
         Optional<String> output = StringUtil.getAutoCorrectedDay("th");
         assertFalse(output.isPresent());
     }
     @Test
-    public void getAutoCorrectedDay_returnsEmptyOptional_ifNoMatch() {
+    public void getAutoCorrectedDayReturnsEmptyOptionalIfNoMatch() {
         Optional<String> output = StringUtil.getAutoCorrectedDay("fap");
         assertFalse(output.isPresent());
     }
@@ -118,7 +118,7 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_validInputs_correctResult() {
+    public void containsWordIgnoreCaseValidInputsCorrectResult() {
 
         // Empty sentence
         assertFalse(StringUtil.containsWordIgnoreCase("", "abc")); // Boundary case
@@ -145,7 +145,7 @@ public class StringUtilTest {
      */
 
     @Test
-    public void getDetails_exceptionGiven() {
+    public void getDetailsExceptionGiven() {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
                 containsString("java.io.FileNotFoundException: file not found"));
     }

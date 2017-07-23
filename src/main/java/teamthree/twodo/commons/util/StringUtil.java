@@ -87,6 +87,7 @@ public class StringUtil {
         }
     }
 
+    //@@author A0124399W
     /**
      * Measures the minimum edit distance between two strings. The larger the
      * int returned, the greater the difference between the strings. Can be used
@@ -149,7 +150,7 @@ public class StringUtil {
      * Handles the requisite preparation step to carry out autocorrection.
      *
      * @param String
-     *            day user input string for day if the week
+     *            day user input string for day of the week
      * @return String day shortened to just first three letters
      */
     public static String prepareDayString(String dateTime) {
@@ -192,6 +193,15 @@ public class StringUtil {
 
     }
 */
+    /*public static Optional<String> getAutoCorrectedWord(String userInputForDeadline) {
+        if (userInputForDeadline.trim().matches(".*\\d+.*")) {
+            final Matcher matcher = Pattern.compile("[^\\d]").matcher(userInputForDeadline);
+        }
+        //dictionary of most common words for deadline input
+        String[] dictionary = { "monday", "tuesday", "wednesday"
+        , "thursday", "friday", "saturday", "sunday", "next", "week", "year", "month" };
+
+    }*/
     /**
      * Finds the string most similar to the argument inside an array of strings
      * and returns its index and minimum edit distance.
