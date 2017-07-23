@@ -15,6 +15,8 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_INCOMPLETE = "%1$s incomplete tasks found";
     public static final String MESSAGE_SUCCESS_COMPLETE = "%1$s complete tasks found";
+    public static final String MESSAGE_EMPTY_LIST = "No tasks found\n"
+            + "Try finding for a different keyword";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all incomplete tasks whose names, descriptions, "
             + "or tags contain any of the specified keywords and displays them as a list with index numbers.\n"
@@ -37,6 +39,9 @@ public class FindCommand extends Command {
     }
 
     private String printSuccessMessage() {
+        if (model.getFilteredAndSortedTaskList().size() == 0) {
+            return MESSAGE_EMPTY_LIST;
+        }
         if (listIncomplete) {
             return String.format(MESSAGE_SUCCESS_INCOMPLETE, model.getFilteredAndSortedTaskList().size());
         } else {
