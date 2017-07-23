@@ -142,15 +142,29 @@ public class TypicalTask {
     }
 
     public static void loadTaskListWithSampleData(TaskList tl) {
-        for (Task task : new TypicalTask(taskType).getTypicalTasks()) {
-            try {
-                if (task instanceof TaskWithDeadline) {
-                    tl.addTask(new TaskWithDeadline(task));
-                } else {
-                    tl.addTask(new Task(task));
+        if (taskType == null) {
+            for (Task task : new TypicalTask().getTypicalTasks()) {
+                try {
+                    if (task instanceof TaskWithDeadline) {
+                        tl.addTask(new TaskWithDeadline(task));
+                    } else {
+                        tl.addTask(new Task(task));
+                    }
+                } catch (DuplicateTaskException e) {
+                    assert false : "not possible";
                 }
-            } catch (DuplicateTaskException e) {
-                assert false : "not possible";
+            }
+        } else {
+            for (Task task : new TypicalTask(taskType).getTypicalTasks()) {
+                try {
+                    if (task instanceof TaskWithDeadline) {
+                        tl.addTask(new TaskWithDeadline(task));
+                    } else {
+                        tl.addTask(new Task(task));
+                    }
+                } catch (DuplicateTaskException e) {
+                    assert false : "not possible";
+                }
             }
         }
     }
