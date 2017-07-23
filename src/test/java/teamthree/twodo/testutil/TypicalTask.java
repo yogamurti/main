@@ -19,10 +19,11 @@ public class TypicalTask {
     public static enum TaskType {
         FLOATING, DEADLINES, INCOMPLETE
     };
-    private static TaskType taskType;
 
     public final Task cs2103, cs1020, cs2010, project, dinner, training, cca, supermarket, ida,
         partyCompleted, psleCompleted;
+
+    private TaskType taskType;
 
     public TypicalTask() {
         taskType = null;
@@ -141,7 +142,7 @@ public class TypicalTask {
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList tl) {
+    public void loadTaskListWithSampleData(TaskList tl) {
         if (taskType == null) {
             for (Task task : new TypicalTask().getTypicalTasks()) {
                 try {
