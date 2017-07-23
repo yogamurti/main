@@ -775,6 +775,14 @@ ____
 Use case ends
 ____
 
+3b. Options inputted are the same as the current general options
+
+____
+3b1. System displays an error message
+
+Use case ends
+____
+
 ---
 
 [discrete]
@@ -797,6 +805,8 @@ ____
 Use case ends
 
 ____
+
+---
 
 [discrete]
 === Use case: Load to-do list
@@ -830,6 +840,16 @@ ____
 
 Use case ends
 
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
 ---
 
 [discrete]
@@ -841,6 +861,16 @@ Use case ends
 2. System shuts down
 
 Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
 
 [appendix]
 == Non Functional Requirements
