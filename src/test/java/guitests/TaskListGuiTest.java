@@ -101,9 +101,10 @@ public abstract class TaskListGuiTest {
      */
 
     protected TaskList getInitialData() {
-        TaskList ab = new TaskList();
-        TypicalTask.loadTaskListWithSampleData(ab);
-        return ab;
+        TaskList tl = new TaskList();
+        TypicalTask typicalTask = new TypicalTask();
+        typicalTask.loadTaskListWithSampleData(tl);
+        return tl;
     }
 
     /**
