@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.core.options.Alarm;
 import teamthree.twodo.commons.core.options.AutoMark;
@@ -230,7 +231,7 @@ public class ParserUtil {
      */
     public static Optional<Alarm> parseAlarm(Optional<String> alarm) throws IllegalValueException {
         requireNonNull(alarm);
-        return alarm.isPresent() ? Optional.of(new Alarm(alarm.get())) : Optional.empty();
+        return alarm.isPresent() ? Optional.of(new Alarm(alarm.get().toLowerCase())) : Optional.empty();
     }
 
     /**
@@ -239,6 +240,12 @@ public class ParserUtil {
      */
     public static Optional<AutoMark> parseAutoMark(Optional<String> autoMark) throws IllegalValueException {
         requireNonNull(autoMark);
+        if (autoMark.isPresent()) {
+            String inputToLowerCase = autoMark.get().toLowerCase();
+            if (!inputToLowerCase.equals("false") && !inputToLowerCase.equals("true")) {
+                throw new IllegalValueException(Messages.MESSAGE_INVALID_AUTOMARK_ARGUMENT);
+            }
+        }
         return autoMark.isPresent() ? Optional.of(new AutoMark(Boolean.parseBoolean(autoMark.get())))
                 : Optional.empty();
     }
