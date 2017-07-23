@@ -154,7 +154,7 @@ The `UI` component uses _JavaFx UI_ framework. The layout of these UI parts are 
 *Model-View-Controller Pattern* +
 _2Do_ *decouples* its data, presentation, and control logic by separating them into three different components: *Model*, *View* and *Controller*.
 
-* Model: The `UI` component's `ResultDisplay` and `TaskListPanel` binds themselves to some data in the link:#model[`Model`] component, which stores and maintains data in _2Do_.
+* Model: The `UI` component's `ResultDisplay`, `CategoryListPanel` and `TaskListPanel` binds themselves to some data in the link:#model[`Model`] component, which stores and maintains data in _2Do_.
 * View: The `UI` component is responsible for displaying data, interacting with the user through the link:#logic[`Logic`] component, and getting automatic data updates from the link:#model[`Model`] component.
 * Controller: The `UI` component's `CommandBox` is responsible for detecting user command inputs and forwarding them to the link:#logic[`Logic`] component, which executes the commands.
 
