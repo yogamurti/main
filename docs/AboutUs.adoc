@@ -73,6 +73,7 @@ image::Yoga.jpg[width="150", align="left"]
 * Code written: Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0139267W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0139267W.md[[test code]]
 * Other major contributions:
 ** Implemented the _automark completion_ functionality https://github.com/CS2103JUN2017-T3/main/pull/149[[#149]]
+** Enabled _complete_ and _incomplete_ GUI markings for tasks https://github.com/CS2103JUN2017-T3/main/pull/82[[#82]]
 ** Implemented _Travis_, _Appveyor_, _Coveralls_ and _Codacy_ support https://github.com/CS2103JUN2017-T3/main/pull/112[[#112]] https://github.com/CS2103JUN2017-T3/main/pull/166[[#170]]
 ** Fixed _Codacy_ issues https://github.com/CS2103JUN2017-T3/main/pull/200[[#200]] https://github.com/CS2103JUN2017-T3/main/pull/202[[#202]]
 ** Enabled our https://cs2103jun2017-t3.github.io/main[Github Page] to automatically update after any updates to our repository https://github.com/CS2103JUN2017-T3/main/pull/120[[#120]] https://github.com/CS2103JUN2017-T3/main/pull/141[[#141]]
