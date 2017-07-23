@@ -18,7 +18,7 @@ image::NarenV.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-a-task-code-edit-e-code[Edit task]
 * Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0124399W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0124399W.md[[test code]]
 * Other major contributions:
-** Implemented the alarm functionality https://github.com/CS2103JUN2017-T3/main/pull/67[[#67]]
+** Implemented the _alarm_ functionality https://github.com/CS2103JUN2017-T3/main/pull/67[[#67]]
 ** Enabled natural language handling https://github.com/CS2103JUN2017-T3/main/pull/4[[#4]]
 ** Enabled autocorrect for misspelt days https://github.com/CS2103JUN2017-T3/main/pull/121[[#121]]
 ** Done the initial refactoring from _AddressBook_ to _2Do_ https://github.com/CS2103JUN2017-T3/main/pull/8[[#8]]
@@ -53,7 +53,7 @@ image::teoshuqi.png[width="150", align="left"]
 * Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0162253M.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0162253M.md[[test code]]
 * Other major contributions:
 ** Implemented our history tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
-** Enhanced the delete task functionality https://github.com/CS2103JUN2017-T3/main/pull/74[[#74]]
+** Enhanced the _delete task_ functionality https://github.com/CS2103JUN2017-T3/main/pull/74[[#74]]
 ** Done the final refactoring from _AddressBook_ to _2Do_ https://github.com/CS2103JUN2017-T3/main/pull/119[[#119]]
 ** Documentation https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]] https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]]
 
@@ -70,11 +70,11 @@ image::Yoga.jpg[width="150", align="left"]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-the-default-options-code-option-o-code[Adjust default options]
 * Code written: Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0139267W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0139267W.md[[test code]]
 * Other major contributions:
-** Implemented the auto-mark completion functionality https://github.com/CS2103JUN2017-T3/main/pull/149[[#149]]
-** Initiated Travis, Appveyor, Coveralls and Codacy support https://github.com/CS2103JUN2017-T3/main/pull/112[[#112]]
-** Fixed Codacy issues https://github.com/CS2103JUN2017-T3/main/pull/200[[#200]
-** Reviewed and merged pull requests https://github.com/CS2103JUN2017-T3/main/pull/163[[#163]] https://github.com/CS2103JUN2017-T3/main/pull/173[[#173]] https://github.com/CS2103JUN2017-T3/main/pull/195[[#195]]
-** Managed issue tracker
-** Handled code collation https://github.com/CS2103JUN2017-T3/main/pull/134[[#134]] https://github.com/CS2103JUN2017-T3/main/pull/167[[#167]]
-** Handled releases
+** Implemented the _automark completion_ functionality https://github.com/CS2103JUN2017-T3/main/pull/149[[#149]]
+** Implemented _Travis_, _Appveyor_, _Coveralls_ and _Codacy_ support https://github.com/CS2103JUN2017-T3/main/pull/112[[#112]]
+** Fixed _Codacy_ issues https://github.com/CS2103JUN2017-T3/main/pull/200[[#200]]
+** Reviewed and managed pull requests https://github.com/CS2103JUN2017-T3/main/pull/163[[#163]] https://github.com/CS2103JUN2017-T3/main/pull/173[[#173]] https://github.com/CS2103JUN2017-T3/main/pull/195[[#195]]
+** Managed our issue tracker
+** Handled our code collation https://github.com/CS2103JUN2017-T3/main/pull/134[[#134]] https://github.com/CS2103JUN2017-T3/main/pull/167[[#167]]
+** Handled our version releases
 ** Documentation
