@@ -4,7 +4,7 @@ import java.util.Set;
 
 //@@author A0107433N
 /**
- * Finds and lists all task in task book whose name contains any of the argument keywords.
+ * Finds and lists all tasks in task book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {
@@ -20,7 +20,7 @@ public class FindCommand extends Command {
             + "or tags contain any of the specified keywords and displays them as a list with index numbers.\n"
             + "Add -h to find completed tasks instead of incomplete tasks containing the keywords.\n"
             + "Parameters: [-h] KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " -h cs school";
+            + "Example: " + COMMAND_WORD + " " + COMMAND_WORD_HISTORY + " cs school";
 
     private final Set<String> keyWords;
     private boolean listIncomplete;
@@ -32,7 +32,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keyWords, listIncomplete);
+        model.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         return new CommandResult(printSuccessMessage());
     }
 

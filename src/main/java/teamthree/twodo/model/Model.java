@@ -51,18 +51,14 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList();
 
-    /** Updates the filter of the filtered task list to show all complete tasks
-     * @param tagList TODO
-     * @param listFloating TODO*/
-    void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating);
-
     /** Updates the filter of the filtered task list to show all incomplete tasks
      * @param tagList TODO
+     * @param listIncomplete TODO
      * @param taskType TODO*/
-    void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating);
+    void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean listFloating, boolean listIncomplete);
 
     /** Updates an extensive filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete);
+    void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete);
 
     /** Updates the filter of the filtered task list to show all tasks within the period
      * @param tagList TODO*/

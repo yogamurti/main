@@ -48,8 +48,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskList = new TaskList(taskList);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
-        updateFilteredListToShowAllIncomplete(null, false);
         sortedTasks = new SortedList<>(filteredTasks);
+        updateFilteredTaskListToShowAll(null, false, true);
     }
 
     public ModelManager() {
@@ -68,8 +68,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void setTaskList(ReadOnlyTaskList taskBook) {
-        this.taskList = new TaskList(taskBook);
+    public void setTaskList(ReadOnlyTaskList taskList) {
+        this.taskList = new TaskList(taskList);
     }
 
     /** Raises an event to indicate the model has changed */
@@ -87,9 +87,9 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(ReadOnlyTask toAdd) throws DuplicateTaskException {
         taskList.addTask(toAdd);
         if (toAdd instanceof TaskWithDeadline) {
-            updateFilteredListToShowAllIncomplete(null, false);
+            updateFilteredTaskListToShowAll(null, false, true);
         } else {
-            updateFilteredListToShowAllIncomplete(null, true);
+            updateFilteredTaskListToShowAll(null, true, true);
         }
         indicateTaskListChanged();
     }
@@ -139,13 +139,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean listFloating) {
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, true, listFloating)));
-    }
-
-    @Override
-    public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, false, listFloating)));
+    public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean listFloating, boolean listIncomplete) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagList, listIncomplete, listFloating)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -153,7 +148,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords, boolean listIncomplete) {
+    public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete) {
         updateFilteredTaskList(new PredicateExpression(new TotalQualifier(keywords, listIncomplete)));
     }
 
@@ -284,8 +279,7 @@ public class ModelManager extends ComponentManager implements Model {
         private boolean descriptionQualifies(ReadOnlyTask task) {
             if (task.getDeadline().isPresent()) {
                 return keyWords.stream()
-                        .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword))
-                        .findAny().isPresent();
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().value, keyword));
             } else {
                 return false;
             }
@@ -368,8 +362,7 @@ public class ModelManager extends ComponentManager implements Model {
             while (!qualifies && tagIterator.hasNext()) {
                 Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .filter(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName))
-                        .findAny().isPresent();
+                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
             }
             return qualifies;
         }
@@ -403,9 +396,9 @@ public class ModelManager extends ComponentManager implements Model {
             Set<Tag> tags = task.getTags();
             Iterator<Tag> tagIterator = tags.iterator();
             while (!qualifies && tagIterator.hasNext()) {
+                Tag tag = tagIterator.next();
                 qualifies = tagList.stream()
-                        .filter(tag -> StringUtil.containsWordIgnoreCase(tagIterator.next().tagName, tag.tagName))
-                        .findAny().isPresent();
+                        .anyMatch(taskTag -> StringUtil.containsWordIgnoreCase(tag.tagName, taskTag.tagName));
             }
             return qualifies;
         }
@@ -415,7 +408,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         private boolean floatingQualifies(ReadOnlyTask task) {
-            return task.getDeadline().isPresent() != showFloating;
+            if (!showFloating) {
+                return true;
+            } else {
+                return task.getDeadline().isPresent() != showFloating;
+            }
         }
 
         @Override

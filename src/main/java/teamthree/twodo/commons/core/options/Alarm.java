@@ -30,10 +30,4 @@ public class Alarm {
                 && this.alarm.equals(((Alarm) other).getValue())); // state check
     }
 
-    @Override
-    public int hashCode() {
-        requireAllNonNull(alarm);
-        return alarm.hashCode();
-    }
-
 }

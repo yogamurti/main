@@ -17,8 +17,10 @@ public class OptionsCommand extends Command {
     public static final String COMMAND_WORD = "option";
     public static final String COMMAND_WORD_FAST = "o";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits 2Do's default options.\n"
+    public static final String MESSAGE_USAGE = "Current options: "
+            + "Alarm = " + Config.defaultNotificationPeriodToString()
+            + " Automark = " + Boolean.toString(AutoMarkManager.getSetToRun()) + "\n"
+            + COMMAND_WORD + ": Edits 2Do's default options.\n"
             + "Parameters: alarm (minutes or days),"
             + " mark completion automatically (true or false)\n"
             + "Example: " + COMMAND_WORD + " a/1 minute m/true ";

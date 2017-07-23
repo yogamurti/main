@@ -157,16 +157,6 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllIncomplete(Set<Tag> tagList, boolean showFloating) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredTaskList(Set<String> keywords, boolean listIncompleted) {
-            fail("This method should not be called.");
-        }
-
-        @Override
         public void updateFilteredTaskListToShowPeriod(Deadline deadline, AttributeInputted attInput,
                 boolean listIncompleted, Set<Tag> tagList) {
             fail("This method should not be called.");
@@ -178,11 +168,6 @@ public class AlarmManagerTest {
         }
 
         @Override
-        public void updateFilteredListToShowAllComplete(Set<Tag> tagList, boolean listFloating) {
-            fail("This method should not be called.");
-        }
-
-        @Override
         public void sort() {
             fail("This method should not be called.");
         }
@@ -190,6 +175,18 @@ public class AlarmManagerTest {
         @Override
         public void updateFilteredTaskListToEmpty() {
             fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTaskListToShowAll(Set<Tag> tagList, boolean listFloating, boolean listIncomplete) {
+            fail("This method should not be called.");
+
+        }
+
+        @Override
+        public void updateFilteredTaskListByKeywords(Set<String> keywords, boolean listIncomplete) {
+            fail("This method should not be called.");
+
         }
 
         @Override

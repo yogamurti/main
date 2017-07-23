@@ -9,7 +9,7 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.Deadline;
 
 //@@author A0107433N
-// Lists all task in the Tasklist to the user
+// Lists all tasks in the Tasklist to the user
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
@@ -17,16 +17,18 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD_HISTORY = "/h";
     public static final String COMMAND_WORD_FLOATING = "/f";
 
-    public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks with deadline";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE = "Listed all incomplete tasks";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_FLOATING = "Listed all incomplete floating tasks";
-    public static final String MESSAGE_SUCCESS_COMPLETE = "Listed all completed tasks with deadline";
+    public static final String MESSAGE_SUCCESS_COMPLETE = "Listed all completed tasks";
     public static final String MESSAGE_SUCCESS_COMPLETE_FLOATING = "Listed all complete floating tasks";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_START = "Listed all incomplete tasks after %1$s";
     public static final String MESSAGE_SUCCESS_COMPLETE_START = "Listed all completed tasks after %1$s";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_END = "Listed all incomplete tasks before %1$s";
     public static final String MESSAGE_SUCCESS_COMPLETE_END = "Listed all completed tasks before %1$s";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_BOTH = "Listed all incomplete tasks between %1$s and %1$s";
-    public static final String MESSAGE_SUCCESS_COMPLETE_BOTH = "Listed all completed tasks between %1$s";
+    public static final String MESSAGE_SUCCESS_COMPLETE_BOTH = "Listed all completed tasks between %1$s and %1$s";
+    public static final String MESSAGE_SUCCESS_INCOMPLETE_TAG = "Listed all incompleted tasks with specified tag(s)";
+    public static final String MESSAGE_SUCCESS_COMPLETE_TAG = "Listed all completed tasks with specified tag(s)";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all incomplete tasks within specified period.\n"
             + "If only start date specified, list all tasks after start date. "
@@ -59,23 +61,34 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         if (attInput.equals(AttributeInputted.NONE)) {
+            model.updateFilteredTaskListToShowAll(tagList, listFloating, listIncomplete);
+        } else {
+            model.updateFilteredTaskListToShowPeriod(deadline, attInput, listIncomplete, tagList);
+        }
+        return messageChooser();
+    }
+
+    //Chooses appropriate message based on user input
+    private CommandResult messageChooser() {
+        if (attInput.equals(AttributeInputted.NONE)) {
             if (listIncomplete) {
-                model.updateFilteredListToShowAllIncomplete(tagList, listFloating);
-                if (listFloating) {
+                if (tagListNotEmpty()) {
+                    return new CommandResult(MESSAGE_SUCCESS_INCOMPLETE_TAG);
+                } else if (listFloating) {
                     return new CommandResult(MESSAGE_SUCCESS_INCOMPLETE_FLOATING);
                 } else {
                     return new CommandResult(MESSAGE_SUCCESS_INCOMPLETE);
                 }
             } else {
-                model.updateFilteredListToShowAllComplete(null, listFloating);
-                if (listFloating) {
+                if (tagListNotEmpty()) {
+                    return new CommandResult(MESSAGE_SUCCESS_COMPLETE_TAG);
+                } else if (listFloating) {
                     return new CommandResult(MESSAGE_SUCCESS_COMPLETE_FLOATING);
                 } else {
                     return new CommandResult(MESSAGE_SUCCESS_COMPLETE);
                 }
             }
         } else {
-            model.updateFilteredTaskListToShowPeriod(deadline, attInput, listIncomplete, tagList);
             String message;
             switch (attInput) {
             case START:
@@ -112,7 +125,6 @@ public class ListCommand extends Command {
             return new CommandResult(message);
         }
     }
-
     @Override
     public String toString() {
         Boolean incomplete = listIncomplete;
@@ -134,5 +146,9 @@ public class ListCommand extends Command {
 
         // state check
         return this.toString().equals(other.toString());
+    }
+
+    private boolean tagListNotEmpty() {
+        return tagList != null && !tagList.isEmpty();
     }
 }
