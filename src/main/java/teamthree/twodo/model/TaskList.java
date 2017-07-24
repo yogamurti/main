@@ -191,7 +191,6 @@ public class TaskList implements ReadOnlyTaskList {
     @Override
     public String toString() {
         return tasks.asObservableList().size() + " tasks, " + tags.asObservableList().size() + " tags";
-        // TODO: refine later
     }
 
     @Override

@@ -42,28 +42,28 @@ public class OptionsCommand extends Command {
         defaultOption = getDefaultOption();
     }
 
-    @Override
-    public CommandResult execute() throws CommandException {
-        requireNonNull(defaultOption);
-        history.addToOptionsHistory(getDefaultOption());
+    private void checkIfSameAsDefault() throws CommandException {
         if (option.equals(defaultOption)) {
             throw new CommandException(MESSAGE_DUPLICATE_OPTIONS);
         }
+    }
+
+    private void updateAlarm() {
         if (!option.getAlarm().equals(defaultOption.getAlarm())) {
             Config.changeDefaultNotificationPeriod(option.getAlarm().getValue());
             defaultOption.editAlarm(option.getAlarm());
             // Checks if the alarm updates were properly executed for both components
             assert(Config.defaultNotificationPeriodToString() == defaultOption.getAlarm().getValue());
         }
+    }
+
+    private void updateAutoMark() {
         if (!option.getAutoMark().equals(defaultOption.getAutoMark())) {
             AutoMarkManager.setToRun(option.getAutoMark().getValue());
             defaultOption.editAutoMark(option.getAutoMark());
             // Checks if the alarm updates were properly executed for both components
             assert(AutoMarkManager.getSetToRun() == defaultOption.getAutoMark().getValue());
         }
-
-        model.changeOptions();
-        return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
     }
 
     private Options getDefaultOption() {
@@ -81,4 +81,19 @@ public class OptionsCommand extends Command {
                 || (other instanceof OptionsCommand // instanceof handles nulls
                 && this.option.equals(((OptionsCommand) other).getOption())); // state check
     }
+
+    @Override
+    public CommandResult execute() throws CommandException {
+        requireNonNull(defaultOption);
+        checkIfSameAsDefault();
+
+        history.addToOptionsHistory(getDefaultOption());
+
+        updateAlarm();
+        updateAutoMark();
+
+        model.changeOptions();
+        return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
+    }
+
 }
