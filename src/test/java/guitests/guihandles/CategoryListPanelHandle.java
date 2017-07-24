@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import teamthree.twodo.TestApp;
 import teamthree.twodo.model.category.Category;
 import teamthree.twodo.model.category.CategoryManager;
-
+//@@author A0124399W
 public class CategoryListPanelHandle extends GuiHandle {
     public static final String CARD_PANE_ID = "#cardPane";
     private static final String CATEGORY_LIST_VIEW_ID = "#categoryListView";
@@ -25,4 +25,5 @@ public class CategoryListPanelHandle extends GuiHandle {
     public boolean isListMatching(CategoryManager catMan) {
         return catMan.getCategoryList().equals(getListView().getItems());
     }
+
 }

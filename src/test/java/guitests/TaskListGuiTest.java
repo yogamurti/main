@@ -14,6 +14,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CategoryListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -35,7 +36,6 @@ import teamthree.twodo.testutil.TypicalTask;
 /**
  * A GUI Test class for TaskList.
  */
-
 public abstract class TaskListGuiTest {
 
     /**
@@ -57,12 +57,14 @@ public abstract class TaskListGuiTest {
     protected MainWindowHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
+    protected CategoryListPanelHandle categoryListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
     protected StatusBarFooterHandle statusBarFooter;
 
     protected Stage stage;
+    protected final String clear = "clear";
     protected final String listFloating = ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_WORD_FLOATING;
 
     @BeforeClass
@@ -81,9 +83,9 @@ public abstract class TaskListGuiTest {
             mainGui = new MainWindowHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
+            categoryListPanel = mainGui.getCategoryListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
-            browserPanel = mainGui.getBrowserPanel();
             statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
