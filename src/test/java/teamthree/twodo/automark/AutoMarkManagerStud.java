@@ -59,8 +59,7 @@ public class AutoMarkManagerStud extends ComponentManager {
     /**
      * Synchronizes internal uncompleted list with the main task list
      *
-     * @param masterList
-     *            Full list of tasks from the task list
+     * @param masterList Full list of tasks from the task list
      */
     private synchronized void syncWithMasterTaskList(List<ReadOnlyTask> masterList) {
         if (masterList == null || masterList.isEmpty()) {
@@ -144,8 +143,7 @@ public class AutoMarkManagerStud extends ComponentManager {
      * next activity on the uncompleted list. Called only after a
      * DeadlineTimeReachedEvent.
      *
-     * @param completedTasks
-     *            the tasks which were sent with the DeadlineTimeReachedEvent
+     * @param completedTasks The tasks which were sent with the DeadlineTimeReachedEvent
      */
 
     private synchronized void updateInternalData(List<ReadOnlyTask> completedTasks) {

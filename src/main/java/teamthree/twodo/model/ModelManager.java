@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     /* ==================EVENT HANDLERS======================== */
     /**
      * Responds to taskList storage change after load event.
-     * @param event contains the taskList to update to
+     * @param event Contains the taskList to update to
      */
     @Subscribe
     public void handleLoadNewModelEvent(LoadNewModelEvent event) {
@@ -332,24 +332,22 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean deadlineQualifies(ReadOnlyTask task) {
             if (!task.getDeadline().isPresent()) {
                 return false;
-            } else {
-                if (task.isCompleted() == !listIncomplete) {
-                    switch (attInput) {
-                    case START:
-                        return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
-                    case END:
-                        return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
-                    case BOTH:
-                        return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
+            }
+            if (task.isCompleted() == !listIncomplete) {
+                switch (attInput) {
+                case START:
+                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate());
+                case END:
+                    return task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
+                case BOTH:
+                    return task.getDeadline().get().getStartDate().after(deadlineToCheck.getStartDate())
                                 && task.getDeadline().get().getStartDate().before(deadlineToCheck.getEndDate());
-                    default:
-                        return false;
-                    }
-                } else {
+                default:
                     return false;
                 }
+            } else {
+                return false;
             }
-
         }
 
         private boolean tagsQualifies(ReadOnlyTask task) {

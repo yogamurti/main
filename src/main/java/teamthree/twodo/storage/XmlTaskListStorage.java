@@ -46,10 +46,8 @@ public class XmlTaskListStorage implements TaskListStorage {
     /**
      * Similar to {@link #readTaskList()}
      *
-     * @param filePath
-     *            location of the data. Cannot be null
-     * @throws DataConversionException
-     *             if the file is not in the correct format.
+     * @param filePath location of the data. Cannot be null
+     * @throws DataConversionException if the file is not in the correct format.
      */
 
     @Override
@@ -77,8 +75,7 @@ public class XmlTaskListStorage implements TaskListStorage {
     /**
      * Similar to {@link #saveTaskList(ReadOnlyTaskList)}
      *
-     * @param filePath
-     *            location of the data. Cannot be null
+     * @param filePath location of the data. Cannot be null
      */
     @Override
     public void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {

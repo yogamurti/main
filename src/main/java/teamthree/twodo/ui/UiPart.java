@@ -68,8 +68,7 @@ public abstract class UiPart<T> {
     /**
      * Registers the object as an event handler at the {@link EventsCenter}
      *
-     * @param handler
-     *            usually {@code this}
+     * @param handler Usually {@code this}
      */
     protected void registerAsAnEventHandler(Object handler) {
         EventsCenter.getInstance().registerHandler(handler);
@@ -78,12 +77,9 @@ public abstract class UiPart<T> {
     /**
      * Creates a modal dialog.
      *
-     * @param title
-     *            Title of the dialog.
-     * @param parentStage
-     *            The owner stage of the dialog.
-     * @param scene
-     *            The scene that will contain the dialog.
+     * @param title Title of the dialog.
+     * @param parentStage The owner stage of the dialog.
+     * @param scene The scene that will contain the dialog.
      * @return the created dialog, not yet made visible.
      */
     protected Stage createDialogStage(String title, Stage parentStage, Scene scene) {

@@ -30,7 +30,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     /**
      * Creates an empty XmlSerializableTaskList. This empty constructor is
-     * required for marshalling.
+     * required for marshalling
      */
     public XmlSerializableTaskList() {
         task = new ArrayList<>();
@@ -38,7 +38,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     }
 
     /**
-     * Conversion
+     * Converts the current read only task list in the application to a XmlSerializableTaskList for storage
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
         this();
@@ -46,10 +46,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
     /**
-     * The following method returns an Xml list for storage from a read only task list.
-     * Intended to be used for storing notified task data.
-     * @param taskSet Notified task set
-     * @return XmlAdaptedList of notified task
+     * Intended to be used for storing notified tasks data
+     * @param taskSet Notified tasks set
+     * @return Xml list for storage
      */
     public static List<XmlAdaptedTask> getXmlSerializableTaskList(HashSet<ReadOnlyTask> taskSet) {
         return new ArrayList<XmlAdaptedTask>(taskSet.stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));

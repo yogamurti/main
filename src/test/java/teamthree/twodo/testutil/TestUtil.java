@@ -131,10 +131,8 @@ public class TestUtil {
     /**
      * Removes a subset from the list of tasks.
      *
-     * @param tasks
-     *            The list of tasks
-     * @param tasksToRemove
-     *            The subset of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static Task[] removeTasksFromList(final Task[] tasks, Task... tasksToRemove) {
@@ -146,8 +144,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the task at specified index removed.
      *
-     * @param list
-     *            original list to copy from
+     * @param list Original list to copy from
      */
     public static Task[] removeTaskFromList(final Task[] list, Index index) {
         return removeTasksFromList(list, list[index.getZeroBased()]);
@@ -155,8 +152,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the person at specified index removed.
      *
-     * @param list
-     *            original list to copy from
+     * @param list Original list to copy from
      */
     public static List<ReadOnlyTask> removeTaskFromList(final List<ReadOnlyTask> list, Index index) {
         list.remove(index.getZeroBased());
@@ -166,10 +162,8 @@ public class TestUtil {
     /**
      * Appends tasks to the array of tasks.
      *
-     * @param tasks
-     *            A array of tasks.
-     * @param tasksToAdd
-     *            The tasks that are to be appended behind the original array.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static Task[] addTasksToList(final Task[] tasks, Task... tasksToAdd) {

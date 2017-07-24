@@ -40,8 +40,7 @@ public class DeleteCommandTest extends TaskListGuiTest {
      * Runs the delete command to delete the task at {@code index} and
      * confirms the result is correct.
      *
-     * @param currentList
-     *            A copy of the current list of tasks (before deletion).
+     * @param currentList A copy of the current list of tasks (before deletion).
      */
     private void assertDeleteSuccess(Index index, final List<ReadOnlyTask> currentList) {
         ReadOnlyTask taskToDelete = currentList.get(index.getZeroBased());
