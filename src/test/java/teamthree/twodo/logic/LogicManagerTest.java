@@ -432,14 +432,14 @@ public class LogicManagerTest {
         public Task module() throws Exception {
             Name name = new Name("CS2103 V0.3");
             Description privateDescription = new Description("MVP");
-            return new Task(name, privateDescription, getTagSet("tag1", "longertag2"));
+            return new Task(name, privateDescription, getTagSet("tag1", "longertag2"), false);
         }
 
         public TaskWithDeadline event() throws Exception {
             Name name = new Name("Gay Parade");
             Deadline deadline = new Deadline("next fri 10am", "next sat 10am", Deadline.NULL_VALUE);
             Description privateDescription = new Description("111, alpha street");
-            return new TaskWithDeadline(name, deadline, privateDescription, getTagSet("tag1", "longertag2"));
+            return new TaskWithDeadline(name, deadline, privateDescription, getTagSet("tag1", "longertag2"), false);
         }
 
         /**
@@ -453,7 +453,8 @@ public class LogicManagerTest {
         private Task generateTask(int seed) throws Exception {
             return new TaskWithDeadline(new Name("Task " + seed),
                     new Deadline("today " + seed + "am", "tomorrow " + seed + "pm", Deadline.NULL_VALUE),
-                    new Description("Task ID " + seed), getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
+                    new Description("Task ID " + seed),
+                    getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)), false);
         }
 
         /** Generates the correct add command based on the task given */

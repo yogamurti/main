@@ -85,7 +85,6 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskList.class);
         assertEquals((new TaskList(dataToWrite)).toString(), (new TaskList(dataFromFile)).toString());
-        //TODO: use equality instead of string comparisons
 
         AddressBookBuilder builder = new AddressBookBuilder(new TaskList());
         dataToWrite = new XmlSerializableTaskList(

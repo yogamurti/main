@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Before;
@@ -17,6 +18,8 @@ import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.model.Model;
 import teamthree.twodo.model.ModelManager;
 import teamthree.twodo.model.UserPrefs;
+import teamthree.twodo.model.tag.Tag;
+import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TypicalTask;
 
 //@@author A0107433N
@@ -47,13 +50,17 @@ public class FindCommandTest {
     @Test
     public void executeFindCorrectIncompleteTaskByTag() throws Exception {
         boolean listIncomplete = true;
-        FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
-                new TypicalTask().cs2103.getTags().toArray()[0].toString().split("\\s+"))), listIncomplete);
+        Set<Tag> testTagSet = new TypicalTask().cs2103.getTags();
+        Set<String> testKeywordSet = new HashSet<>();
+        Iterator<Tag> tagIterator = testTagSet.iterator();
+        while (tagIterator.hasNext()) {
+            Tag tag = tagIterator.next();
+            testKeywordSet.add(tag.tagName);
+        }
+        FindCommand findCommand = new FindCommand(testKeywordSet, listIncomplete);
         findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
-        Set<String> keyWords = new HashSet<>(Arrays.asList(
-                new TypicalTask().cs2103.getTags().toArray()[0].toString().split("\\s+")));
 
-        expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
+        expectedModel.updateFilteredTaskListByKeywords(testKeywordSet, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
                 expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
     }
@@ -75,11 +82,12 @@ public class FindCommandTest {
     @Test
     public void executeFindCorrectCompleteTask() throws Exception {
         boolean listIncomplete = false;
+        Task typicalCompletedTask = new TypicalTask().partyCompleted;
         FindCommand findCommand = new FindCommand(new HashSet<>(Arrays.asList(
-                new TypicalTask().partyCompleted.getName().fullName.split("\\s+"))), listIncomplete);
+                typicalCompletedTask.getName().fullName.split("\\s+"))), listIncomplete);
         findCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
         Set<String> keyWords = new HashSet<>(Arrays.asList(
-                new TypicalTask().partyCompleted.getName().fullName.split("\\s+")));
+                typicalCompletedTask.getName().fullName.split("\\s+")));
 
         expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
         assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_COMPLETE,
@@ -96,8 +104,7 @@ public class FindCommandTest {
                 new TypicalTask().supermarket.getName().fullName.split("\\s+")));
 
         expectedModel.updateFilteredTaskListByKeywords(keyWords, listIncomplete);
-        assertCommandSuccess(findCommand, model, String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE,
-                expectedModel.getFilteredAndSortedTaskList().size()) , expectedModel);
+        assertCommandSuccess(findCommand, model, FindCommand.MESSAGE_EMPTY_LIST , expectedModel);
     }
 
     /**

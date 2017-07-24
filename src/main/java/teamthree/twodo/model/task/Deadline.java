@@ -28,7 +28,9 @@ public class Deadline {
     public static final String DAY_PARSE_REGEX = "[^\\d]+";
     // This value is only to be used by edit command to indicate a change of date
     public static final String NULL_VALUE = "0000";
+    //Used for checking valid word length for autocorrect
     public static final int MIN_WORD_LENGTH_FOR_DAY = 2;
+    //Used for date validation. Default dates are invalid.
     public static final Date DEFAULT_DATE = new Date(0);
 
     private static final long DAY_TO_MILLIS = 1000 * 60 * 60 * 24;

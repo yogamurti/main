@@ -20,11 +20,11 @@ import teamthree.twodo.model.task.Task;
 /**
  * An Immutable TaskList that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "twodo")
 public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> task;
     @XmlElement
     private List<XmlAdaptedTag> tags;
 
@@ -33,7 +33,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      * required for marshalling
      */
     public XmlSerializableTaskList() {
-        tasks = new ArrayList<>();
+        task = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -42,7 +42,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
         this();
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        task.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
     /**
@@ -56,7 +56,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @Override
     public ObservableList<ReadOnlyTask> getTaskList() {
-        final ObservableList<Task> tasks = this.tasks.stream().map(p -> {
+        final ObservableList<Task> tasks = this.task.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

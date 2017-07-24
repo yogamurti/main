@@ -3,6 +3,7 @@ package teamthree.twodo.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.Rule;
@@ -17,6 +18,7 @@ import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.Task;
 //import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 public class XmlTaskListStorageTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskListStorageTest/");
@@ -51,7 +53,11 @@ public class XmlTaskListStorageTest {
     @Test
     public void readAndSaveTaskListAllInOrderSuccess() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTask td = new TypicalTask();
+        File tempFile =  new File(filePath);
+        if (tempFile.exists()) {
+            tempFile.delete();
+        }
+        TypicalTask td = new TypicalTask(TaskType.INCOMPLETE);
         TaskList original = td.getTypicalTaskList();
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 

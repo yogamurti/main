@@ -26,6 +26,7 @@ import teamthree.twodo.logic.commands.UnmarkCommand;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
 
+//@@author A0107433N
 /**
  * Parses user input.
  */
@@ -53,42 +54,11 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        CommandParser parser;
 
         switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_WORD_QUICK:
-        case AddCommand.COMMAND_WORD_FAST:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_WORD_FAST:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD_QUICK:
-        case DeleteCommand.COMMAND_WORD_FAST:
-        case DeleteCommand.COMMAND_WORD_SHORT:
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case MarkCommand.COMMAND_WORD:
-        case MarkCommand.COMMAND_WORD_FAST:
-            return new MarkCommandParser().parse(arguments);
-
-        case UnmarkCommand.COMMAND_WORD:
-        case UnmarkCommand.COMMAND_WORD_FAST:
-            return new UnmarkCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_WORD_FAST:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_WORD_FAST:
-            return new ListCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.COMMAND_WORD_FAST:
@@ -104,28 +74,71 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:
         case ExitCommand.COMMAND_WORD_FAST:
+        case ExitCommand.COMMAND_WORD_FAST_SECOND:
             return new ExitCommand();
-
-        case SaveCommand.COMMAND_WORD:
-        case SaveCommand.COMMAND_WORD_FAST:
-            return new SaveCommandParser().parse(arguments);
-
-        case LoadCommand.COMMAND_WORD:
-            return new LoadCommandParser().parse(arguments);
-
-        case OptionsCommand.COMMAND_WORD:
-        case OptionsCommand.COMMAND_WORD_FAST:
-            return new OptionsCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {
                 return new HelpCommand();
             }
-            return new HelpCommandParser().parse(arguments);
+            parser = new HelpCommandParser();
+            break;
+
+        case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD_QUICK:
+        case AddCommand.COMMAND_WORD_FAST:
+            parser = new AddCommandParser();
+            break;
+
+        case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD_FAST:
+            parser = new EditCommandParser();
+            break;
+
+        case DeleteCommand.COMMAND_WORD_QUICK:
+        case DeleteCommand.COMMAND_WORD_FAST:
+        case DeleteCommand.COMMAND_WORD_SHORT:
+        case DeleteCommand.COMMAND_WORD:
+            parser = new DeleteCommandParser();
+            break;
+
+        case MarkCommand.COMMAND_WORD:
+        case MarkCommand.COMMAND_WORD_FAST:
+            parser = new MarkCommandParser();
+            break;
+
+        case UnmarkCommand.COMMAND_WORD:
+        case UnmarkCommand.COMMAND_WORD_FAST:
+            parser = new UnmarkCommandParser();
+            break;
+
+        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD_FAST:
+            parser = new FindCommandParser();
+            break;
+
+        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD_FAST:
+            parser = new ListCommandParser();
+            break;
+
+        case SaveCommand.COMMAND_WORD:
+        case SaveCommand.COMMAND_WORD_FAST:
+            parser = new SaveCommandParser();
+            break;
+
+        case LoadCommand.COMMAND_WORD:
+            parser = new LoadCommandParser();
+            break;
+
+        case OptionsCommand.COMMAND_WORD:
+        case OptionsCommand.COMMAND_WORD_FAST:
+            parser = new OptionsCommandParser();
+            break;
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-
+        return parser.parse(arguments);
     }
 }

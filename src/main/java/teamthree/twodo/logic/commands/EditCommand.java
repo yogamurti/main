@@ -28,7 +28,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-//@@author A0124399W
+// @@author A0124399W
 // Edits the details of an existing task in the Tasklist.
 public class EditCommand extends Command {
 
@@ -36,12 +36,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD_FAST = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
-            + "by the index number used in the last task listing. "
+            + "by the index number used in the last task listing.\n"
+            + "The index must be a positive integer.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "["
-            + PREFIX_DEADLINE_START + "START DATE&TIME] " + "[" + PREFIX_DEADLINE_END + "END DATE&TIME] " + "["
-            + PREFIX_DESCRIPTION + "NOTES] " + "[" + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DEADLINE_START + "fri 3pm";
+            + "Parameters: {INDEX} " + "[" + PREFIX_NAME + "NAME] "
+            + PREFIX_DEADLINE_START + "[START DATE] {TIME} " + "" + PREFIX_DEADLINE_END + "[END DATE] {TIME} "
+            + PREFIX_DESCRIPTION + "[DESCRIPTION] " + PREFIX_TAG + "[TAG1, TAG2,...]\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_START + "fri 3pm";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -106,18 +107,25 @@ public class EditCommand extends Command {
      *
      * If edit adds a deadline to floating task, a TaskWithDeadline object is
      * returned.
+     *
+     * @throws CommandException
      */
-    private static Task createEditedTask(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Task createEditedTask(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor)
+            throws CommandException {
         assert taskToEdit != null;
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
+        if (editTaskDescriptor.getDeadline() == null) {
+            return new Task(updatedName, updatedDescription, updatedTags, taskToEdit.getCompleted());
+        }
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
-            return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags);
+            return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags,
+                    taskToEdit.getCompleted());
         }
-        return new Task(updatedName, updatedDescription, updatedTags);
+        return new Task(updatedName, updatedDescription, updatedTags, taskToEdit.getCompleted());
     }
 
     /**
@@ -126,8 +134,10 @@ public class EditCommand extends Command {
      * @param taskToEdit The original task
      * @param editTaskDescriptor The taskdescriptor with updates
      * @return final deadline with all updates
+     * @throws CommandException
      */
-    private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor)
+            throws CommandException {
         boolean isDeadlineUnchanged = !editTaskDescriptor.getDeadline().isPresent()
                 && taskToEdit instanceof TaskWithDeadline;
         if (isDeadlineUnchanged) {
@@ -135,6 +145,10 @@ public class EditCommand extends Command {
         }
         Deadline updates = editTaskDescriptor.getDeadline().get();
         if (!(taskToEdit instanceof TaskWithDeadline)) {
+            if (updates.getEndDate().equals(Deadline.DEFAULT_DATE)
+                    && updates.getStartDate().equals(Deadline.DEFAULT_DATE)) {
+                throw new CommandException(Messages.MESSAGE_INVALID_NOTIFICATION_EDIT);
+            }
             //if original task had no deadline, the new deadline will be fully from task descriptor
             return correctStartEndDiscrepancy(updates, updates);
         }

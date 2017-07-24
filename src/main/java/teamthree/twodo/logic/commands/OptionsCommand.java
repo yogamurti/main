@@ -21,8 +21,9 @@ public class OptionsCommand extends Command {
             + "Alarm = " + Config.defaultNotificationPeriodToString()
             + " Automark = " + Boolean.toString(AutoMarkManager.getSetToRun()) + "\n"
             + COMMAND_WORD + ": Edits 2Do's default options.\n"
-            + "Parameters: alarm (minutes or days),"
-            + " mark completion automatically (true or false)\n"
+            + "Alarm accepts only minutes or days. Automark accepts only true or false\n"
+            + "Parameters: [alarm]"
+            + " [mark completion automatically]\n"
             + "Example: " + COMMAND_WORD + " a/1 minute m/true ";
 
     public static final String MESSAGE_UPDATE_OPTIONS_SUCCESS = "Default settings updated:%1$s\n";

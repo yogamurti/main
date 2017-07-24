@@ -17,7 +17,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0139267W
 // Parses input arguments and creates a new OptionsCommand object
-public class OptionsCommandParser {
+public class OptionsCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the OptionsCommand

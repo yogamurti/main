@@ -30,7 +30,7 @@ public class TaskWithDeadlineBuilder {
         Deadline defaultDeadline = new Deadline(DEFAULT_DEADLINE, DEFAULT_DEADLINE, Deadline.NULL_VALUE);
         Description defaultDescription = new Description(DEFAULT_DESCRIPTION);
         Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-        this.task = new TaskWithDeadline(defaultName, defaultDeadline, defaultDescription, defaultTags);
+        this.task = new TaskWithDeadline(defaultName, defaultDeadline, defaultDescription, defaultTags, false);
     }
 
     /**

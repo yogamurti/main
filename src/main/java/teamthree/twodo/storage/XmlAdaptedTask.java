@@ -84,11 +84,9 @@ public class XmlAdaptedTask {
         Task task;
         if (deadline != null) {
             final Deadline deadline = new Deadline(this.deadline);
-            task = new TaskWithDeadline(name, deadline, desc, tags);
-            markIfComplete(task);
-            return task;
+            return new TaskWithDeadline(name, deadline, desc, tags, false);
         }
-        task = new Task(name, desc, tags);
+        task = new Task(name, desc, tags, false);
         markIfComplete(task);
         return task;
     }

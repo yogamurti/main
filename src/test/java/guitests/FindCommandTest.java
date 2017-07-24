@@ -39,8 +39,14 @@ public class FindCommandTest extends TaskListGuiTest {
 
     private void assertFindResult(String command, Task... expectedHits) {
         commandBox.runCommand(command);
+        String expectedMessage;
+        if (expectedHits.length == 0) {
+            expectedMessage = FindCommand.MESSAGE_EMPTY_LIST;
+        } else {
+            expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedHits.length);
+        }
         assertListSize(expectedHits.length);
-        assertResultMessage(String.format(FindCommand.MESSAGE_SUCCESS_INCOMPLETE, expectedHits.length));
+        assertResultMessage(expectedMessage);
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

@@ -45,7 +45,7 @@ public class StatusBarFooterTest extends TaskListGuiTest {
     public void syncStatusMutatingCommandSucceedSyncStatusUpdated() {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertTrue(commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket))); // mutating command succeeds
+        assertTrue(commandBox.runCommand(TaskUtil.getAddCommand(td.ida))); // mutating command succeeds
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
