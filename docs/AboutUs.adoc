@@ -60,7 +60,7 @@ image::teoshuqi.png[width="150", align="left"]
 ** Implemented our history tracker https://github.com/CS2103JUN2017-T3/main/pull/113[[#113]]
 ** Enhanced the _delete task_ functionality https://github.com/CS2103JUN2017-T3/main/pull/74[[#74]]
 ** Done the final refactoring from _AddressBook_ to _2Do_ https://github.com/CS2103JUN2017-T3/main/pull/119[[#119]]
-** Documentation https://github.com/CS2103JUN2017-T3/main/pull/5[[#5]] https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]] https://github.com/CS2103JUN2017-T3/main/pull/182[[#182]] https://github.com/CS2103JUN2017-T3/main/pull/207[[#207]] https://github.com/CS2103JUN2017-T3/main/pull/211[[#211]]
+** Documentation https://github.com/CS2103JUN2017-T3/main/pull/5[[#5]] https://github.com/CS2103JUN2017-T3/main/pull/83[[#83]] https://github.com/CS2103JUN2017-T3/main/pull/182[[#182]] https://github.com/CS2103JUN2017-T3/main/pull/207[[#207]] https://github.com/CS2103JUN2017-T3/main/pull/211[[#211]] https://github.com/CS2103JUN2017-T3/main/pull/213[[#213]]
 
 '''
 
