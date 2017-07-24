@@ -66,6 +66,7 @@ public class HelpCommandParser implements CommandParser {
         case MarkCommand.COMMAND_WORD_FAST:
             return new HelpCommand(MarkCommand.MESSAGE_USAGE);
         case OptionsCommand.COMMAND_WORD:
+        case OptionsCommand.COMMAND_WORD_SECOND:
         case OptionsCommand.COMMAND_WORD_FAST:
             return new HelpCommand(OptionsCommand.MESSAGE_USAGE);
         case RedoCommand.COMMAND_WORD:

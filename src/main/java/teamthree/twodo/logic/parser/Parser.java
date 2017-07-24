@@ -133,6 +133,7 @@ public class Parser {
             break;
 
         case OptionsCommand.COMMAND_WORD:
+        case OptionsCommand.COMMAND_WORD_SECOND:
         case OptionsCommand.COMMAND_WORD_FAST:
             parser = new OptionsCommandParser();
             break;
