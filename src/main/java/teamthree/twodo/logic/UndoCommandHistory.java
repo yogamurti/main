@@ -6,6 +6,7 @@ import static teamthree.twodo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import java.util.Stack;
 import java.util.regex.Matcher;
 
+import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.parser.Parser;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
@@ -26,6 +27,7 @@ public class UndoCommandHistory {
     private Stack<ReadOnlyTask> undoHistory;
     private Stack<ReadOnlyTaskList> delTagHistory;
     private Stack<Tag> tagHistory;
+    private Stack<Options> optionsHistory;
 
     public UndoCommandHistory() {
         beforeEditHistory = new Stack<ReadOnlyTask>();
@@ -38,6 +40,7 @@ public class UndoCommandHistory {
         undoHistory = new Stack<ReadOnlyTask>();
         delTagHistory = new Stack<ReadOnlyTaskList>();
         tagHistory = new Stack<Tag>();
+        optionsHistory = new Stack<Options>();
     }
 
     /**
@@ -98,21 +101,29 @@ public class UndoCommandHistory {
         unmarkHistory.push(task);
     }
 
-    public void addToUndoHistory(ReadOnlyTask task) {
-        requireNonNull(task);
-        undoHistory.push(task);
-    }
-
+    /**
+     * Appends {@code taskList} to the list of taskList changed due to deleting tags.
+     */
     public void addToDelTagHistory(ReadOnlyTaskList taskList) {
         requireNonNull(taskList);
         delTagHistory.push(taskList);
     }
 
+    /**
+     * Appends {@code tag} to the list of tags deleted.
+     */
     public void addToTagHistory(Tag tag) {
         requireNonNull(tag);
         tagHistory.push(tag);
     }
 
+    /**
+     * Appends {@code option} to the list of options edits entered.
+     */
+    public void addToOptionsHistory(Options option) {
+        requireNonNull(option);
+        optionsHistory.push(option);
+    }
 
     public Stack<String> getUserInputHistory() {
         requireNonNull(userInputHistory);
@@ -162,6 +173,11 @@ public class UndoCommandHistory {
     public Stack<Tag> getTagHistory() {
         requireNonNull(tagHistory);
         return tagHistory;
+    }
+
+    public Stack<Options> getOptionsHistory() {
+        requireNonNull(optionsHistory);
+        return optionsHistory;
     }
 
     private String getCommandWordFromInput(String userInput) throws ParseException {

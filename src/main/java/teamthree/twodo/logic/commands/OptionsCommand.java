@@ -40,6 +40,7 @@ public class OptionsCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         requireNonNull(defaultOption);
+        history.addToOptionsHistory(getDefaultOption());
         if (option.equals(defaultOption)) {
             throw new CommandException(MESSAGE_DUPLICATE_OPTIONS);
         }
@@ -57,7 +58,6 @@ public class OptionsCommand extends Command {
         }
 
         model.changeOptions();
-        history.addToOptionsHistory(option);
         return new CommandResult(String.format(MESSAGE_UPDATE_OPTIONS_SUCCESS, defaultOption));
     }
 

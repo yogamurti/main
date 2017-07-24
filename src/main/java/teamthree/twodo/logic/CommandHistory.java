@@ -170,12 +170,17 @@ public class CommandHistory {
         requireNonNull(option);
         optionsHistory.push(option);
     }
-
+    /**
+     * Appends {@code taskList} to the list of taskList changed due to deleting tags.
+     */
     public void addToDelTagHistory(ReadOnlyTaskList taskList) {
         requireNonNull(taskList);
         delTagHistory.push(taskList);
     }
 
+    /**
+     * Appends {@code tag} to the list of tags deleted.
+     */
     public void addToTagHistory(Tag tag) {
         requireNonNull(tag);
         tagHistory.push(tag);
@@ -219,6 +224,11 @@ public class CommandHistory {
     public Stack<ReadOnlyTaskList> getClearHistory() {
         requireNonNull(clearHistory);
         return clearHistory;
+    }
+
+    public Stack<Options> getOptionsHistory() {
+        requireNonNull(optionsHistory);
+        return optionsHistory;
     }
 
     public Stack<ReadOnlyTaskList> getDelTagHistory() {
