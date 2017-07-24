@@ -15,8 +15,8 @@ public class SaveCommand extends Command {
     public static final String COMMAND_WORD_FAST = "-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Save the TaskList created with 2Do into"
-            + "FILE_PATH/FILENAME.xml\n" + "Example: (WINDOWS) C:/Users/Desktop/2Do.xml\n"
-            + " Example: (MAC) /User/Username/Desktop/2Do.xml\n";
+            + "FILE_PATH/FILENAME.xml\n" + "Example for Windows: C:/Users/Desktop/2Do.xml\n"
+            + " Example for Mac: /User/Username/Desktop/2Do.xml\n";
 
     public static final String MESSAGE_SUCCESS = "File is successfully saved to: %1$s\n";
     public static final String MESSAGE_INVALID_PATH = "File Path %1$s is invalid\n";

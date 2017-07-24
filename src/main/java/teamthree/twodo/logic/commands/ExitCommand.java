@@ -14,6 +14,8 @@ public class ExitCommand extends Command {
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting TaskList as requested ...";
 
+    public static final String MESSAGE_USAGE = ": Exits 2Do.";
+
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());

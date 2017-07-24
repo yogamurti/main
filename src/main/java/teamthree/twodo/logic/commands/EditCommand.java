@@ -36,12 +36,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD_FAST = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
-            + "by the index number used in the last task listing. "
+            + "by the index number used in the last task listing.\n"
+            + "The index must be a positive integer.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "["
-            + PREFIX_DEADLINE_START + "START DATE&TIME] " + "[" + PREFIX_DEADLINE_END + "END DATE&TIME] " + "["
-            + PREFIX_DESCRIPTION + "NOTES] " + "[" + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DEADLINE_START + "fri 3pm";
+            + "Parameters: {INDEX} " + "[" + PREFIX_NAME + "NAME] "
+            + PREFIX_DEADLINE_START + "[START DATE] {TIME} " + "" + PREFIX_DEADLINE_END + "[END DATE] {TIME} "
+            + PREFIX_DESCRIPTION + "[DESCRIPTION] " + PREFIX_TAG + "[TAG1, TAG2,...]\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_START + "fri 3pm";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
