@@ -13,6 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
+import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.UnmodifiableObservableList;
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
@@ -31,8 +33,8 @@ import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 import teamthree.twodo.testutil.FloatingTaskBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
+// @@author A0124399W - reused
 public class AddCommandTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -98,11 +100,38 @@ public class AddCommandTest {
         getAddCommandForTask(validTask, modelStub).execute();
     }
 
+    @Test
+    public void executeAddInvalidDeadlineFailure() throws Exception {
+        ModelStub modelStub = new ModelStub();
+        Task invalidTask = new TaskWithDeadlineBuilder().withEventDeadline("tomorrow 10am", "yesterday 10am").build();
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_DEADLINE);
+        getAddCommandForTask(invalidTask, modelStub).execute();
+    }
+
+    @Test
+    public void executeAddTagInvalidIndexFailure() throws Exception {
+        ModelStub modelStub = new ModelStubEmptyTaskList();
+        String tagName = "NEWTAG";
+        ArrayList<Index> indices = new ArrayList<Index>();
+        indices.add(Index.fromOneBased(340));
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        getAddCommandForTag(tagName, indices, modelStub).execute();
+    }
+
     /**
      * Generates a new AddCommand with the details of the given person.
      */
     private AddCommand getAddCommandForTask(Task task, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(task);
+        command.setData(model, new CommandHistory(), null);
+        return command;
+    }
+
+    private AddCommand getAddCommandForTag(String tagName, ArrayList<Index> indices, Model model)
+            throws IllegalValueException {
+        AddCommand command = new AddCommand(tagName, indices);
         command.setData(model, new CommandHistory(), null);
         return command;
     }
@@ -219,6 +248,15 @@ public class AddCommandTest {
             } else {
                 tasksAdded.add(new Task(task));
             }
+        }
+    }
+    /**
+     * A Model Stub that returns an empty taskList.
+     */
+    private class ModelStubEmptyTaskList extends ModelStub {
+        @Override
+        public UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList() {
+            return new UnmodifiableObservableList<ReadOnlyTask>(FXCollections.observableArrayList());
         }
     }
 

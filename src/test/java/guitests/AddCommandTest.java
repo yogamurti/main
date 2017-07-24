@@ -9,6 +9,7 @@ import org.junit.Test;
 import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.ClearCommand;
+import teamthree.twodo.model.category.Category;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.testutil.TaskUtil;
@@ -42,12 +43,17 @@ public class AddCommandTest extends TaskListGuiTest {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+
     @Test
     public void addTagSuccess() {
-        commandBox.runCommand(listFloating);
-        String command = "add tag NEWTAG 1,2";
-        //assertAddTagSuccess(command, )
+        clearList();
+        String catName = "NEWTAG";
+        int numCat = 2;
+        String command = "add tag " + catName + " 1,2";
+        Category newCategory = new Category(catName, numCat);
+        assertAddTagSuccess(command, newCategory);
     }
+
 
     private void assertAddSuccess(Task taskToAdd, Task... currentList) {
         commandBox.runCommand(TaskUtil.getAddCommand(taskToAdd));
@@ -61,6 +67,26 @@ public class AddCommandTest extends TaskListGuiTest {
         }
         assertTrue(tasklist.contains(taskToAdd));
 
+    }
+
+    private void assertAddTagSuccess(String command, Category newCategory) {
+        commandBox.runCommand(command);
+
+        mainGui.pressEnter();
+
+        //confirm the new card has been created
+        List<Category> catlist = categoryListPanel.getListView().getItems();
+        assertTrue(catlist.contains(newCategory));
+
+    }
+
+    /*
+     * Clears the list and adds two new tasks for testing.
+     */
+    private void clearList() {
+        commandBox.runCommand(clear);
+        commandBox.runCommand(TaskUtil.getAddCommand(td.supermarket));
+        commandBox.runCommand(TaskUtil.getAddCommand(td.ida));
     }
 
 }

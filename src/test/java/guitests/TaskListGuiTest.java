@@ -35,7 +35,7 @@ import teamthree.twodo.testutil.TypicalTask;
 /**
  * A GUI Test class for TaskList.
  */
-
+//@@author A0124399W - reused
 public abstract class TaskListGuiTest {
 
     /**
@@ -64,7 +64,8 @@ public abstract class TaskListGuiTest {
     protected StatusBarFooterHandle statusBarFooter;
 
     protected Stage stage;
-    protected final String listFloating = "list f/";
+    protected final String listFloating = "list /f";
+    protected final String clear = "clear";
 
     @BeforeClass
     public static void setupSpec() {
@@ -85,7 +86,6 @@ public abstract class TaskListGuiTest {
             categoryListPanel = mainGui.getCategoryListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
-            //browserPanel = mainGui.getBrowserPanel();
             statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
