@@ -66,39 +66,53 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         List<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+        checkForInvalidIndex(lastShownList);
 
         ReadOnlyTask taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
-        if (taskToEdit.getDeadline().isPresent()) {
-            history.addToBeforeEditHistory(new TaskWithDeadline(taskToEdit));
-        } else {
-            history.addToBeforeEditHistory(new Task(taskToEdit));
-        }
-        if (editedTask.getDeadline().isPresent()) {
-            history.addToAfterEditHistory(new TaskWithDeadline(editedTask));
-        } else {
-            history.addToAfterEditHistory(new Task(editedTask));
-        }
+        updateBeforeEditHistory(taskToEdit);
+        updateAfterEditHistory(editedTask);
 
         try {
             model.updateTask(taskToEdit, editedTask);
-
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             throw new AssertionError("The target task cannot be missing");
         }
+        updateTaskListDisplay(editedTask);
+        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+    }
+
+    public void checkForInvalidIndex(List<ReadOnlyTask> lastShownList) throws CommandException {
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+    }
+
+    public void updateTaskListDisplay(Task editedTask) {
         if (editedTask instanceof TaskWithDeadline) {
             model.updateFilteredTaskListToShowAll(null, false, true);
         } else {
             model.updateFilteredTaskListToShowAll(null, true, true);
         }
-        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedTask));
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+    }
+
+    public void updateAfterEditHistory(Task editedTask) {
+        if (editedTask.getDeadline().isPresent()) {
+            history.addToAfterEditHistory(new TaskWithDeadline(editedTask));
+        } else {
+            history.addToAfterEditHistory(new Task(editedTask));
+        }
+    }
+
+    public void updateBeforeEditHistory(ReadOnlyTask taskToEdit) {
+        if (taskToEdit.getDeadline().isPresent()) {
+            history.addToBeforeEditHistory(new TaskWithDeadline(taskToEdit));
+        } else {
+            history.addToBeforeEditHistory(new Task(taskToEdit));
+        }
     }
 
     /**
