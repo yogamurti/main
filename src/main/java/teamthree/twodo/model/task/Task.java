@@ -20,13 +20,20 @@ public class Task implements ReadOnlyTask {
     protected Name name;
     protected Description description;
     protected UniqueTagList tags;
-    protected boolean completed;
+    protected Boolean completed;
 
     /**
      * Every field must be present and not null. By default, the task is set as
      * Incomplete when it is created.
      */
-    public Task(Name name, Description description, Set<Tag> tags, boolean completed) {
+    public Task(Name name, Description description, Set<Tag> tags, boolean isComplete) {
+        requireAllNonNull(name, description, tags, isComplete);
+        this.name = name;
+        this.description = description;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.completed = isComplete;
+    }
+    public Task(Name name, Description description, Set<Tag> tags) {
         requireAllNonNull(name, description, tags);
         this.name = name;
         this.description = description;
@@ -37,7 +44,7 @@ public class Task implements ReadOnlyTask {
      * Creates a copy of the given ReadOnlyTask.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription(), source.getTags(), source.getCompleted());
+        this(source.getName(), source.getDescription(), source.getTags(), source.isCompleted());
     }
 
     public void setName(Name name) {
@@ -75,7 +82,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public boolean isCompleted() {
+    public Boolean isCompleted() {
         return completed;
     }
 
@@ -97,7 +104,7 @@ public class Task implements ReadOnlyTask {
         this.setName(replacement.getName());
         this.setDescription(replacement.getDescription());
         this.setTags(replacement.getTags());
-        completed = replacement.isCompleted();
+        this.completed = replacement.isCompleted();
         if (completed) {
             this.markCompleted();
         } else {
