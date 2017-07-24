@@ -18,6 +18,7 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
@@ -82,7 +83,9 @@ public class AddCommand extends Command {
         if (toAdd == null && !taskIndices.isEmpty()) {
             ArrayList<Task> tasksForCategory = getTasksFromIndices();
             try {
+                history.addToAddTagHistory(new TaskList(model.getTaskList()));
                 Tag added = catMan.addCategory(tagName, tasksForCategory);
+                history.addToTagAddedHistory(added);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_TAG, added.tagName));
             } catch (IllegalValueException e) {
                 throw new CommandException(Tag.MESSAGE_TAG_CONSTRAINTS);
