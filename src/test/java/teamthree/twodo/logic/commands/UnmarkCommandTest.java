@@ -26,8 +26,8 @@ public class UnmarkCommandTest {
     private Model model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
     @Test
     public void executeValidIndexUnfilteredListSuccess() throws Exception {
-        //  Marks the indexed first task from the task book
-        //Unmark all tasks
+        // Marks the indexed first task from the task book
+        // Unmark all tasks
         model.getTaskList().getTaskList().forEach((task) -> {
             try {
                 model.unmarkTask(task);

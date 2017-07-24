@@ -40,15 +40,15 @@ This app will not work with earlier versions of Java 8.
 [NOTE]
 ====
 * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-* Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish (This is because Gradle downloads library files from servers during the project set up process).
+* Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish (This is because _Gradle_ downloads library files from servers during the project set up process).
 * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 ====
 
-=== Configuring Checkstyle
+=== Configuring checkstyle
 
 .  Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
 .  Choose `External Configuration File` under `Type`
-.  Enter an arbitrary configuration name e.g. 2Do
+.  Enter an arbitrary configuration name e.g. _2Do_
 .  Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
 .  Click OK once, go to the `Main` tab, use the newly imported check configuration.
 .  Tick and select `files from packages`, click `Change...`, and select the `resources` package
@@ -84,7 +84,7 @@ We follow https://github.com/oss-generic/process/blob/master/docs/CodingStandard
 image::Architecture.png[width="600"]
 _Figure 2.1.1 : Architecture Diagram_
 
-The *_Architecture Diagram_* given above explains the high-level design of 2Do. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of _2Do_. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
@@ -97,13 +97,13 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 link:#common-classes[*`Commons`*] represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to 2Do's log file.
+* `LogsCenter` : Used by many classes to write log messages to _2Do_'s log file.
 
 The rest of the App consists of four components.
 
-* link:#ui-component[*`UI`*] : The UI of the 2Do.
+* link:#ui-component[*`UI`*] : The user interface of _2Do_.
 * link:#logic-component[*`Logic`*] : The command executor.
-* link:#model-component[*`Model`*] : Holds the data of 2Do in-memory.
+* link:#model-component[*`Model`*] : Holds the data of _2Do_ in-memory.
 * link:#storage-component[*`Storage`*] : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -231,7 +231,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the TaskList data in xml format and read it back.
 
-2Do allow users to save their data at a new filepath(File Directory must be available). The filepath can be specified via the Save command and will contain a new 2Do.xml document. StorageMananger will set the new filepath and save it into Config. 2Do will load from and save to the new filepath for current and future sessions until a new filepath is specified. 2Do also allows users to load a TaskList file from previous sessions vias the Load command.
+_2Do_ allows users to save their data at a new filepath(File Directory must be available). The filepath can be specified via the Save command and will contain a new _2Do.xml document_. StorageMananger will set the new filepath and save it into Config. _2Do_ will load from and save to the new filepath for current and future sessions until a new filepath is specified. _2Do_ also allows users to load a TaskList file from previous sessions vias the Load command.
 
 === Common classes
 
@@ -269,7 +269,7 @@ Tests can be found in the `./src/test/java` folder.
 
 *Using Gradle*:
 
-* See <<UsingGradle#, UsingGradle.adoc>> for how to run tests using Gradle.
+* See <<UsingGradle#, UsingGradle.adoc>> for how to run tests using _Gradle_.
 
 We have two types of tests:
 
@@ -297,7 +297,7 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use _Gradle_ for build automation.
 
 === Continuous Integration
 
@@ -331,8 +331,8 @@ _Figure 5.4.1 : Saving documentation as PDF files in Chrome_
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, 2Do depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
+A project often depends on third-party libraries. For example, _2Do_ depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing and the http://www.ocpsoft.org/prettytime[PrettyTime library] for natural language handling. Managing these dependencies can be automated using _Gradle_. _Gradle_ can download the dependencies automatically, which is better than these alternatives: +
+a. Including those libraries in the repository (this bloats the repository size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
@@ -343,7 +343,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%", cols="^,^,^,^", options="header"]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use 2Do
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use _2Do_
 
 |`* * *` |user |add link:#floating-task[floating tasks] |manage my link:#floating-task[floating tasks]
 
@@ -525,6 +525,28 @@ ____
 ---
 
 [discrete]
+=== Use case: Add a tag
+
+*MSS*
+
+1. User requests to add a tag
+2. System adds the tag and displays a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
+---
+
+[discrete]
 === Use case: Delete task
 
 *MSS*
@@ -552,6 +574,29 @@ ____
 3a1. System displays an error message
 
 Use case resumes at step 2
+____
+
+---
+
+
+[discrete]
+=== Use case: Delete a tag
+
+*MSS*
+
+1. User requests to delete a tag
+2. System deletes the tag and displays a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
 ____
 
 ---
@@ -612,6 +657,14 @@ Use case ends
 
 *Extensions*
 
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
 2a. No actions were done previously
 
 ____
@@ -633,6 +686,14 @@ ____
 Use case ends
 
 *Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
 
 2a. The last action was not an undo command
 

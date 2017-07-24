@@ -20,7 +20,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-// @@author A0139267W
+//@@author A0139267W
 // Manages the auto-completion marking of tasks whose deadline has elapsed
 public class AutoMarkManager extends ComponentManager {
     /**

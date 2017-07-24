@@ -20,7 +20,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TypicalTask;
 import teamthree.twodo.testutil.TypicalTask.TaskType;
 
-// @@author A0139267W
+//@@author A0139267W
 public class MarkCommandTest {
 
     private Model model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
@@ -79,8 +79,8 @@ public class MarkCommandTest {
         markCommand.execute();
 
         /**
-         * Attempts to mark the marked task The recently marked task should be
-         * the only marked task in the model
+         * Attempts to mark the marked task
+         * The recently marked task should be the only marked task in the model
          */
         model.updateFilteredTaskListToShowAll(null, false, false);
         assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
@@ -105,8 +105,8 @@ public class MarkCommandTest {
         ReadOnlyTask markedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
 
         /**
-         * Resets task list to its initial state Initial state is assumed to be
-         * the task list that lists all incomplete tasks
+         * Resets task list to its initial state
+         * Initial state is assumed to be the task list that lists all incomplete tasks
          */
         expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 

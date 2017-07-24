@@ -14,7 +14,9 @@ image::NarenV.jpg[width="150", align="left"]
 * Features implemented:
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#viewing-help-code-help-h-code[View help]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#adding-a-task-code-add-a-code[Add task]
+** https://github.com/yogamurti/main/blob/doc/docs/UserGuide.adoc#adding-a-tag-code-add-tag-a-tag-tag-code[Add tag]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#deleting-a-task-code-delete-del-d-code[Delete task]
+** https://github.com/yogamurti/main/blob/doc/docs/UserGuide.adoc#deleting-a-tag-code-delete-tag-del-tag-d-tag-tag-code[Delete tag]
 ** https://github.com/CS2103JUN2017-T3/main/blob/master/docs/UserGuide.adoc#editing-a-task-code-edit-e-code[Edit task]
 * Code written: https://github.com/CS2103JUN2017-T3/main/blob/master/collated/main/A0124399W.md[[functional code]] https://github.com/CS2103JUN2017-T3/main/blob/master/collated/test/A0124399W.md[[test code]]
 * Other major contributions:
