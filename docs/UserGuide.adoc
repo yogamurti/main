@@ -89,7 +89,7 @@ Example: `help add`
 
 ==== General
 
-Format 1: `add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] ` +
+Format 1: `add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]` +
 Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/Reunion a/2 days`
 ****
 * Creates a task with provided attributes and adds it to your list
@@ -107,27 +107,44 @@ Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200`
 
 ==== Tasks with deadlines
 
-Format: `add n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
-Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days r/false u/true`
+Format: `add n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm]` +
+Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days`
 ****
 * Tasks with deadlines can be added with only the _end_ field included
 ****
 
 ==== Events
 
-Format: `add n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
-Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days `
+Format: `add n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm]` +
+Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days`
 ****
 * Events can be added with the _start_ and _end_ fields filled
 ****
 
+==== Tags
+
+Format: `add tag {tag name} {indices of the tasks to include under the tag}` +
+Example: `add tag NUS 1,2,3,8`
+****
+* The _indices_ must be comma-separated
+****
 
 === Deleting a task : `delete / del / d / -`
+
+==== General
 
 Format: `delete {index}` +
 Example: `delete 1`
 ****
 * Deletes task at that index (positive number) in the most recent call of list
+****
+
+==== Tags
+
+Format: `del tag {index of tag in tag list}` +
+Example: `del tag 7`
+****
+* Deleting of default tags is not allowed
 ****
 
 === Listing all tasks : `list / l`
@@ -260,9 +277,13 @@ Example: `quit`
 
 |help  |help [name of command] |`help add`
 
-|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days `
+|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days`
+
+|add tag / a tag /+ tag |add tag {tag name} {indices of the tasks to include under the tag} |`add tag NUS 1,2,3,8`
 
 |delete / del / d / - |delete [-h] {index} |`delete 1`
+
+|delete tag / del tag / d tag /- tag |del tag {index of tag in tag list} |`del tag 7`
 
 |list / l |list [/h] [/f] s/[start] e/[end] t/[tag1, tag2,...]|`list s/today 10am`
 
