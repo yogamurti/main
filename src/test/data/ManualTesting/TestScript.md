@@ -211,7 +211,7 @@ Expected behavior: Next command, history, is shown in the command box.
 **19. Load 2Do data from a specified filepath (OS-dependent, filepath may differ under different environment)**
 <pre>
 load C://Users/Desktop/data/2Do.xml    // Windows
-s /Users/<Username>/Desktop/data/2Do.xml    // Mac
+load /Users/<Username>/Desktop/data/2Do.xml    // Mac
 </pre>
 Expected behavior: Load the specified 2Do.xml file.
 
