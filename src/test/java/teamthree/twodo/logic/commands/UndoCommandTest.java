@@ -8,6 +8,7 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -213,10 +214,33 @@ public class UndoCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(index, true);
         deleteCommand.setData(model, history, undoHistory, catMan);
         deleteCommand.execute();
-        this.history.addToUserInputHistory("tag");
+        this.history.addToUserInputHistory("tagDeleted");
 
         Model expectedModel = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UndoCommand.MESSAGE_ADD_TAG_SUCCESS + tagName);
+        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(
+                        String.format(AddCommand.MESSAGE_SUCCESS_TAG, tagName));
+
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeUndoAddTagCommandSuccess() throws IllegalValueException, CommandException {
+        String tagName = "important";
+        ArrayList<Index> indexList = new ArrayList<Index>();
+        Index secondIndex = ParserUtil.parseIndex("2");
+        Index firstIndex = ParserUtil.parseIndex("1");
+        indexList.add(secondIndex);
+        indexList.add(firstIndex);
+
+        //Delete Tag to prepare model for undo command
+        AddCommand addCommand = new AddCommand(tagName, indexList);
+        addCommand.setData(model, history, undoHistory, catMan);
+        addCommand.execute();
+        this.history.addToUserInputHistory("tagAdded");
+
+        Model expectedModel = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(
+                        String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tagName));
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
     }
