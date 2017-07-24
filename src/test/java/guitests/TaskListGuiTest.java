@@ -14,6 +14,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CategoryListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -56,6 +57,7 @@ public abstract class TaskListGuiTest {
     protected MainWindowHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
+    protected CategoryListPanelHandle categoryListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
@@ -80,9 +82,10 @@ public abstract class TaskListGuiTest {
             mainGui = new MainWindowHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
+            categoryListPanel = mainGui.getCategoryListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
-            browserPanel = mainGui.getBrowserPanel();
+            //browserPanel = mainGui.getBrowserPanel();
             statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });

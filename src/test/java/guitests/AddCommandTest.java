@@ -45,6 +45,8 @@ public class AddCommandTest extends TaskListGuiTest {
     @Test
     public void addTagSuccess() {
         commandBox.runCommand(listFloating);
+        String command = "add tag NEWTAG 1,2";
+        //assertAddTagSuccess(command, )
     }
 
     private void assertAddSuccess(Task taskToAdd, Task... currentList) {
