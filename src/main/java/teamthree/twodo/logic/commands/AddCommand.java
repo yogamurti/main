@@ -34,8 +34,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_FAST = "a";
     public static final String COMMAND_WORD_TAG = "tag";
     public static final String MESSAGE_USAGE_TAG = COMMAND_WORD + " " + PREFIX_CATEGORY
-            + ": Adds a tag to multiple tasks.\n" + "Parameters: TAGNAME INDICES OF TASKS TO ADD TAG TO\n" + "Example: "
-            + COMMAND_WORD + " " + PREFIX_CATEGORY + "NUS 1,2,4,7";
+            + ": Adds a tag to multiple tasks.\n" + "Parameters: {TAGNAME} {INDICES OF TASKS TO ADD TAG TO}\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + " NUS 1,2,4,7";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task that you need 2Do.\n" + "Parameters: "
             + PREFIX_NAME + "TASK " + PREFIX_DEADLINE_START + "START DATETIME" + PREFIX_DEADLINE_END + "END DATETIME"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " Buy some lotion " + PREFIX_DESCRIPTION + "DESCRIPTION"

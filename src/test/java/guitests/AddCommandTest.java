@@ -42,6 +42,10 @@ public class AddCommandTest extends TaskListGuiTest {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    @Test
+    public void addTagSuccess() {
+        commandBox.runCommand(listFloating);
+    }
 
     private void assertAddSuccess(Task taskToAdd, Task... currentList) {
         commandBox.runCommand(TaskUtil.getAddCommand(taskToAdd));

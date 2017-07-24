@@ -62,7 +62,7 @@ public abstract class TaskListGuiTest {
     protected StatusBarFooterHandle statusBarFooter;
 
     protected Stage stage;
-    protected final String listFloating = "list -f";
+    protected final String listFloating = "list f/";
 
     @BeforeClass
     public static void setupSpec() {

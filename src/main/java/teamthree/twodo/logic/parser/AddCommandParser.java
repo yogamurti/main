@@ -11,8 +11,11 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import teamthree.twodo.commons.core.Messages;
 import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.AddCommand;
@@ -25,12 +28,13 @@ import teamthree.twodo.model.task.Name;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
-//@@author A0124399W
+
+// @@author A0124399W
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser {
-    public static final int NUM_ARGS_FOR_CATEGORY_OP = 3;
+    //public static final int NUM_ARGS_FOR_CATEGORY_OP = 3;
 
     /**
      * Parses the given {@code String} of arguments in the context of the
@@ -44,7 +48,10 @@ public class AddCommandParser {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DEADLINE_START,
                 PREFIX_DEADLINE_END, PREFIX_NOTIFICATION_PERIOD, PREFIX_DESCRIPTION, PREFIX_TAG);
-        if (isCategoryOperation(args)) {
+        if (isCategoryOperation(args.trim())) {
+            if (!checkTagCommandValidity(args.trim())) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_TAG));
+            }
             return prepareCategoryAddCommand(args);
         }
         checkForValidityOfCommand(argMultimap);
@@ -67,41 +74,53 @@ public class AddCommandParser {
             throw new ParseException(ive.getMessage(), ive);
         }
     }
+
     //Catch invalid command arguments
     private void checkForValidityOfCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        } else if (invalidDeadlineDeclaration(argMultimap)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        } else if (invalidNotificationDeclaration(argMultimap)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_NOTIFICATION_ADD);
+        } else if (invalidStartDeclaration(argMultimap)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_START_ADD);
         }
     }
+
     /**
      * Returns AddCommand for adding category.
+     * @throws Parse exception if index is invalid
      */
     private AddCommand prepareCategoryAddCommand(String args) throws ParseException {
-        String[] splitArgs = args.trim().split(" ");
+        //Split tag prefix, name and indices
+        String[] splitArgs = args.trim().split(" ", 3);
         String tagName = splitArgs[1].trim();
         String[] indicesAsString = splitArgs[2].trim().split(",");
         ArrayList<Index> indices = new ArrayList<>();
         for (String idx : indicesAsString) {
             try {
-                indices.add(ParserUtil.parseIndex(idx));
+                indices.add(ParserUtil.parseIndex(idx.trim()));
             } catch (IllegalValueException ive) {
                 throw new ParseException(ive.getMessage(), ive);
             }
         }
         return new AddCommand(tagName, indices);
     }
+
+    //Returns true if command matches expected pattern
+    private boolean checkTagCommandValidity(String args) {
+        Pattern checkCommandValidity = Pattern.compile("tag (?<tagname>\\p{Alnum}+) (?<indices>.*)");
+        Matcher matcher = checkCommandValidity.matcher(args);
+        if (matcher.matches()) {
+            return true;
+        }
+        return false;
+    }
+
     //Returns true if arguments category operation prefix
     private boolean isCategoryOperation(String args) {
-        String[] splitArgs = args.trim().split(" ");
-        if (splitArgs.length != NUM_ARGS_FOR_CATEGORY_OP) {
-            return false;
-        }
-        for (int i = 0; i < splitArgs.length; i++) {
-            if (splitArgs[i].trim().equals(PREFIX_CATEGORY.toString())) {
-                return true;
-            }
+        String[] splitArgs = args.trim().split(" ", 2);
+        if (splitArgs[0].trim().equals(PREFIX_CATEGORY.toString())) {
+            return true;
         }
         return false;
     }
@@ -116,11 +135,15 @@ public class AddCommandParser {
      * @return if start time or notification period are specified without the
      *         end time being specified
      */
-    private boolean invalidDeadlineDeclaration(ArgumentMultimap argMultimap) {
+    private boolean invalidStartDeclaration(ArgumentMultimap argMultimap) {
         return (arePrefixesPresent(argMultimap, PREFIX_DEADLINE_START)
-                || arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_PERIOD))
-                && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END);
+                && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END));
     }
+    private boolean invalidNotificationDeclaration(ArgumentMultimap argMultimap) {
+        return (arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_PERIOD)
+                && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE_END));
+    }
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional}
