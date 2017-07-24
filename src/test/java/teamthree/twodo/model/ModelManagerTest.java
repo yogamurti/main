@@ -1,6 +1,7 @@
 package teamthree.twodo.model;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -34,7 +35,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertNotNull(modelManager);
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));

@@ -114,7 +114,7 @@ Each of the four components
 For example, the `Logic` component (see the *simplified* class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 image::SimplifiedLogicClassDiagram.png[width="800"]
-_Figure 2.1.2 : Class Diagram of the Logic Component_
+_Figure 2.1.2 : Simplified class Diagram of the Logic Component_
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -137,6 +137,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+[[ui]]
 === UI component
 
 Author: Yogamurti Sutanto
@@ -146,16 +147,27 @@ _Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/blob/master/src/main/java/teamthree/twodo/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CategoryListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/teamthree/twodo/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the _JavaFx UI_ framework. The layout of these `UI` parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/teamthree/twodo/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+*Model-View-Controller Pattern* +
+_2Do_ *decouples* its data, presentation, and control logic by separating them into three different components: *Model*, *View* and *Controller*.
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Model: The `UI` component's `ResultDisplay`, `CategoryListPanel`, `TaskListPanel`, `StatusBarFooter` and `HelpWindow` binds themselves to some data in the link:#model[`Model`] component, which stores and maintains data in _2Do_.
+* View: The `UI` component is responsible for displaying data, interacting with the user through the link:#logic[`Logic`] component, and getting automatic data updates from the link:#model[`Model`] component.
+* Controller: The `UI` component's `CommandBox` is responsible for detecting user command inputs and forwarding them to the link:#logic[`Logic`] component, which executes the commands.
 
+*Observer Pattern* +
+_2Do_ utilizes the _observer pattern_ to *avoid direct coupling* between the `UI` component and other components.
+
+The `UI` component's constituents that depends on data from the link:#model[`Model`] component, such as its `TaskListPanel` constituent, requires notification whenever the link:#model[`Model`] component updates.
+
+This is done by the _TaskListChangedEvent_.
+
+Whenever the data in the link:#model[`Model`] component updates, _2Do_ notifies its relevant `UI` constituents by calling a _indicateTaskListChanged()_ operation, which raises a new _TaskListChangedEvent_. This event will call the relevant `UI` constituents to update their data from the link:#model[`Model`] component and display the updated data.
+
+[[logic]]
 === Logic component
 
 Author: Ang Lang Yi
@@ -169,14 +181,15 @@ link:{repoURL}/blob/master/src/main/java/teamthree/twodo/logic/Logic.java[`Logic
 .  `Logic` uses the `Parser` class to parse the user command.
 .  The command parsing of each specific command is encapsulated as a `CommandParser` object for the their respective parser objects (e.g. DeleteCommandParser).
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. deleting a task) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  The command execution can affect the link:#model[`Model`] (e.g. deleting a task) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the link:#ui[`UI`].
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 image::DeleteTaskSdForLogic.png[width="800"]
 _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
+[[model]]
 === Model component
 
 Author: V Narendar Nag
@@ -193,6 +206,7 @@ The `Model`,
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+[[storage]]
 === Storage component
 
 Author: Teo Shu Qi
@@ -349,7 +363,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find tasks by deadline |know which tasks are most urgent
 
-|`* * *` |user |save my to-do list as a text file |have a back-up copy of my to-do list and be able to view it across multiple devices
+|`* * *` |user |save my to-do list as a readable file |have a back-up copy of my to-do list and be able to view it across multiple devices
 
 |`* * *` |user |undo the last action |correct a mistake
 
@@ -398,13 +412,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 For all use cases below, the *System* is `2Do` and the *Actor* is the `user`, unless specified otherwise.
 
+---
+
 [discrete]
 === Use case: Display help guide
 
 *MSS*
 
-1. User requests for help guide
-2. System displays help guide
+1. User requests for the help guide
+2. System displays the help guide
 
 Use case ends
 
@@ -425,8 +441,8 @@ ____
 
 *MSS*
 
-1. User requests to add a floating task with the name field filled and the end and recurrence fields empty
-2. System adds the floating task and shows a success message
+1. User requests to add a floating task with the name field filled and the end field empty
+2. System adds the floating task and displays a success message
 
 Use case ends
 
@@ -441,7 +457,7 @@ Use case ends
 ____
 1b. User enters an alarm parameter using the natural language format
 ____
-1b1. System displays an error message highlighting this issue
+1b1. System displays an error message
 
 Use case ends
 ____
@@ -454,7 +470,7 @@ ____
 *MSS*
 
 1. User requests to add a task, with a deadline, with the name and end fields filled and the start field empty
-2. System adds the task, with a deadline, and shows a success message
+2. System adds the task, with a deadline, and displays a success message
 
 Use case ends
 
@@ -476,7 +492,7 @@ ____
 *MSS*
 
 1. User requests to add an event with the name, start and end fields filled
-2. System adds the event and shows a success message
+2. System adds the event and displays a success message
 
 Use case ends
 
@@ -491,29 +507,7 @@ Use case ends
 ____
 1b. User enters an end time that is earlier than the start time
 ____
-1b1. System automatically adjusts the end time to the following day and displays a message highlighting this automatic adjustment
-
-Use case ends
-____
-
----
-
-[discrete]
-=== Use case: Add a recurring task
-
-*MSS*
-
-1. User requests to add a recurring task with the name, end and recurrence fields filled
-2. System adds the recurring task and shows a success message
-
-Use case ends
-
-*Extensions*
-
-1a. User input is invalid
-
-____
-1a1. System displays an error message
+1b1. System displays an error message
 
 Use case ends
 ____
@@ -525,10 +519,10 @@ ____
 
 *MSS*
 
-1. User requests to delete a task using its name
-2. System prompts the user to confirm deletion
-3. User confirms deletion
-4. System deletes the task and shows a success message
+1. User searches for a task using *list* or *find*
+2. System displays all relevant tasks
+3. User requests to delete the task by using its link:#index[index]
+4. System deletes the task and displays a success message
 
 Use case ends
 
@@ -542,19 +536,12 @@ ____
 Use case ends
 ____
 
-1b. Multiple tasks with same name has been detected
+3a. User input is invalid
 
 ____
-1b1. System displays all relevant tasks, and their link:#index[indices], and prompts the user to choose the intended task to delete +
-1b2. User chooses the task link:#index[index]
+3a1. System displays an error message
 
 Use case resumes at step 2
-____
-
-3a. User does not confirm the request
-
-____
-Use case ends
 ____
 
 ---
@@ -571,10 +558,10 @@ Use case ends
 
 *Extensions*
 
-2a. No tasks to display
+1a. User input is invalid
 
 ____
-2a1. System displays a no task to display message
+1a1. System displays an error message
 
 Use case ends
 ____
@@ -601,14 +588,6 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
-
-Use case ends
-____
-
 ---
 
 [discrete]
@@ -617,7 +596,7 @@ ____
 *MSS*
 
 1. User requests to undo the last action
-2. System undoes the last action and shows a success message
+2. System undoes the last action and displays a success message
 
 Use case ends
 
@@ -639,7 +618,7 @@ ____
 *MSS*
 
 1. User requests to redo the last undo command
-2. System redoes the last undo command and shows a success message
+2. System redoes the last undo command and displays a success message
 
 Use case ends
 
@@ -663,7 +642,7 @@ ____
 1. User searches for a task using *list* or *find*
 2. System displays all relevant tasks
 3. User requests to edit the task by using its link:#index[index]
-4. System updates the task and shows a success message
+4. System updates the task and displays a success message
 
 Use case ends
 
@@ -673,14 +652,6 @@ Use case ends
 
 ____
 1a1. System displays an error message
-
-Use case ends
-____
-
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -702,8 +673,8 @@ ____
 
 1. User searches for a task using *list* or *find*
 2. System displays all relevant tasks
-3. User requests to mark the task as complete by using its index
-4. System updates the task and shows a success message
+3. User requests to mark the task as complete by link:#index[index]
+4. System updates the task and displays a success message
 
 Use case ends
 
@@ -713,14 +684,6 @@ Use case ends
 
 ____
 1a1. System displays an error message
-
-Use case ends
-____
-
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
 
 Use case ends
 ____
@@ -748,10 +711,10 @@ ____
 
 *MSS*
 
-1. User searches for a completed task using *list -h* or *find -h*
+1. User searches for a completed task using *list /h* or *find /h*
 2. System displays all relevant tasks
-3. User requests to mark the task as incomplete by using its index
-4. System updates the task and shows a success message
+3. User requests to mark the task as incomplete by link:#index[index]
+4. System updates the task and displays a success message
 
 Use case ends
 
@@ -765,14 +728,6 @@ ____
 Use case ends
 ____
 
-2b. No tasks to display
-
-____
-2b1. System displays a no task to display message
-
-Use case ends
-____
-
 3a. User input is invalid
 
 ____
@@ -781,7 +736,7 @@ ____
 Use case resumes at step 2
 ____
 
-3b. Task is already marked as complete
+3b. Task is already marked as incomplete
 
 ____
 3b1. System displays an error message
@@ -798,17 +753,33 @@ ____
 
 1. User requests to view the general options available on system
 2. System displays its general options
-3. User requests to change the general options
-4. System updates its general options
+3. User requests to change the general options for the session
+4. System updates its general options for the session and displays a success message
 
 Use case ends
 
 *Extensions*
 
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
 3a. User input is invalid
 
 ____
 3a1. System displays an error message
+
+Use case ends
+____
+
+3b. Options inputted are the same as the current general options
+
+____
+3b1. System displays an error message
 
 Use case ends
 ____
@@ -821,7 +792,7 @@ ____
 *MSS*
 
 1. User requests to save the to-do list
-2. System saves the current to-do list and exports it as a text file in the directory specified
+2. System saves the current to-do list, exports it as an _xml_ file in the directory specified and displays a success message
 
 Use case ends
 
@@ -843,10 +814,8 @@ ____
 
 *MSS*
 
-1. User requests to load a to-do list text file into the system
-2. System loads the to-do list and prompts the user to relaunch the application to update its task list
-3. User relaunches the application
-4. System displays the loaded to-do list
+1. User requests to load a to-do list xml file into the system
+2. System loads the to-do list and displays the loaded to-do list
 
 Use case ends
 
@@ -868,9 +837,7 @@ ____
 *MSS*
 
 1. User requests to clear the to-do list
-2. System prompts the user to confirm the clear request
-3. User confirms the clear request
-4. System clears the to-do list and shows a success message
+2. System clears the to-do list
 
 Use case ends
 
@@ -881,12 +848,6 @@ Use case ends
 ____
 1a1. System displays an error message
 
-Use case ends
-____
-
-3a. User does not confirm the request
-
-____
 Use case ends
 ____
 
@@ -901,6 +862,16 @@ ____
 2. System shuts down
 
 Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
 
 [appendix]
 == Non Functional Requirements
