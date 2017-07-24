@@ -26,7 +26,9 @@ public class UndoCommandHistory {
     private Stack<ReadOnlyTask> unmarkHistory;
     private Stack<ReadOnlyTask> undoHistory;
     private Stack<ReadOnlyTaskList> delTagHistory;
-    private Stack<Tag> tagHistory;
+    private Stack<Tag> tagDeletedHistory;
+    private Stack<ReadOnlyTaskList> addTagHistory;
+    private Stack<Tag> tagAddedHistory;
     private Stack<Options> optionsHistory;
 
     public UndoCommandHistory() {
@@ -39,7 +41,9 @@ public class UndoCommandHistory {
         userInputHistory = new Stack<String>();
         undoHistory = new Stack<ReadOnlyTask>();
         delTagHistory = new Stack<ReadOnlyTaskList>();
-        tagHistory = new Stack<Tag>();
+        tagDeletedHistory = new Stack<Tag>();
+        addTagHistory = new Stack<ReadOnlyTaskList>();
+        tagAddedHistory = new Stack<Tag>();
         optionsHistory = new Stack<Options>();
     }
 
@@ -112,9 +116,25 @@ public class UndoCommandHistory {
     /**
      * Appends {@code tag} to the list of tags deleted.
      */
-    public void addToTagHistory(Tag tag) {
+    public void addToTagDeletedHistory(Tag tag) {
         requireNonNull(tag);
-        tagHistory.push(tag);
+        tagDeletedHistory.push(tag);
+    }
+
+    /**
+     * Appends {@code taskList} to the list of taskList changed due to added tags.
+     */
+    public void addToAddTagHistory(ReadOnlyTaskList taskList) {
+        requireNonNull(taskList);
+        addTagHistory.push(taskList);
+    }
+
+    /**
+     * Appends {@code tag} to the list of tags added.
+     */
+    public void addToTagAddedHistory(Tag tag) {
+        requireNonNull(tag);
+        tagAddedHistory.push(tag);
     }
 
     /**
@@ -170,9 +190,19 @@ public class UndoCommandHistory {
         return delTagHistory;
     }
 
-    public Stack<Tag> getTagHistory() {
-        requireNonNull(tagHistory);
-        return tagHistory;
+    public Stack<Tag> getTagDeletedHistory() {
+        requireNonNull(tagDeletedHistory);
+        return tagDeletedHistory;
+    }
+
+    public Stack<ReadOnlyTaskList> getAddTagHistory() {
+        requireNonNull(addTagHistory);
+        return addTagHistory;
+    }
+
+    public Stack<Tag> getTagAddedHistory() {
+        requireNonNull(tagAddedHistory);
+        return tagAddedHistory;
     }
 
     public Stack<Options> getOptionsHistory() {

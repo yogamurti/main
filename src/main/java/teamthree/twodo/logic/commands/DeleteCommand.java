@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
             try {
                 history.addToDelTagHistory(new TaskList(model.getTaskList()));
                 Tag toDel = catMan.deleteCategory(targetIndex);
-                history.addToTagHistory(toDel);
+                history.addToTagDeletedHistory(toDel);
                 return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, toDel.tagName));
             } catch (IllegalValueException e) {
                 //impossible to get this exception

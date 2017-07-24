@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.commons.events.logic.NewUserInputEvent;
+import teamthree.twodo.logic.commands.AddCommand;
 import teamthree.twodo.logic.commands.DeleteCommand;
 import teamthree.twodo.logic.commands.HelpCommand;
 import teamthree.twodo.logic.commands.RedoCommand;
@@ -39,7 +40,9 @@ public class CommandHistory {
     private Stack<Options> optionsHistory;
     private ArrayList<String> fullUserInputHistory;
     private Stack<ReadOnlyTaskList> delTagHistory;
-    private Stack<Tag> tagHistory;
+    private Stack<Tag> tagDeletedHistory;
+    private Stack<ReadOnlyTaskList> addTagHistory;
+    private Stack<Tag> tagAddedHistory;
 
     public CommandHistory() {
         beforeEditHistory = new Stack<ReadOnlyTask>();
@@ -53,7 +56,9 @@ public class CommandHistory {
         userInputHistory = new Stack<String>();
         fullUserInputHistory = new ArrayList<>();
         delTagHistory = new Stack<ReadOnlyTaskList>();
-        tagHistory = new Stack<Tag>();
+        addTagHistory = new Stack<ReadOnlyTaskList>();
+        tagAddedHistory = new Stack<Tag>();
+        tagDeletedHistory = new Stack<Tag>();
     }
 
     /**
@@ -74,8 +79,6 @@ public class CommandHistory {
 
     /**
      * Appends {@code userInput} to the list of user input entered.
-     *
-     * @throws ParseException
      */
     public void addToUserInputHistory(String userInput) throws ParseException {
         requireNonNull(userInput);
@@ -91,19 +94,41 @@ public class CommandHistory {
                     || arguments[0].equals(DeleteCommand.COMMAND_WORD_SHORT)
                     || arguments[0].equals(DeleteCommand.COMMAND_WORD_FAST);
 
-            if (isDeleteCommandWord) {
-                String[] splitArgs = arguments[1].trim().split(" ");
-                boolean isDeleteTag = splitArgs.length > 1
-                    && splitArgs[0].trim().equals(PREFIX_CATEGORY.toString());
+            boolean isAddCommandWord = arguments[0].equals(AddCommand.COMMAND_WORD)
+                    || arguments[0].equals(AddCommand.COMMAND_WORD_QUICK)
+                    || arguments[0].equals(AddCommand.COMMAND_WORD_FAST);
 
-                if (isDeleteTag) {
-                    getUserInputHistory().push(PREFIX_CATEGORY.toString());
-                } else {
-                    getUserInputHistory().push(arguments[0]);
-                }
+            if (isDeleteCommandWord) {
+                organiseDeleteCommandInput(arguments);
+            } else if (isAddCommandWord) {
+                organiseAddCommandInput(arguments);
             } else {
                 getUserInputHistory().push(arguments[0]);
             }
+        }
+    }
+
+    private void organiseAddCommandInput(String[] arguments) {
+        String[] splitArgs = arguments[1].trim().split(" ");
+        boolean isAddTag = splitArgs.length > 1
+            && splitArgs[0].trim().equals(PREFIX_CATEGORY.toString());
+
+        if (isAddTag) {
+            getUserInputHistory().push(UndoCommand.ADD_TAG);
+        } else {
+            getUserInputHistory().push(arguments[0]);
+        }
+    }
+
+    private void organiseDeleteCommandInput(String[] arguments) {
+        String[] splitArgs = arguments[1].trim().split(" ");
+        boolean isDeleteTag = splitArgs.length > 1
+            && splitArgs[0].trim().equals(PREFIX_CATEGORY.toString());
+
+        if (isDeleteTag) {
+            getUserInputHistory().push(UndoCommand.DELETE_TAG);
+        } else {
+            getUserInputHistory().push(arguments[0]);
         }
     }
 
@@ -181,9 +206,25 @@ public class CommandHistory {
     /**
      * Appends {@code tag} to the list of tags deleted.
      */
-    public void addToTagHistory(Tag tag) {
+    public void addToTagDeletedHistory(Tag tag) {
         requireNonNull(tag);
-        tagHistory.push(tag);
+        tagDeletedHistory.push(tag);
+    }
+
+    /**
+     * Appends {@code taskList} to the list of taskList changed due to added tags.
+     */
+    public void addToAddTagHistory(ReadOnlyTaskList taskList) {
+        requireNonNull(taskList);
+        addTagHistory.push(taskList);
+    }
+
+    /**
+     * Appends {@code tag} to the list of tags added.
+     */
+    public void addToTagAddedHistory(Tag tag) {
+        requireNonNull(tag);
+        tagAddedHistory.push(tag);
     }
 
     public Stack<String> getUserInputHistory() {
@@ -236,10 +277,21 @@ public class CommandHistory {
         return delTagHistory;
     }
 
-    public Stack<Tag> getTagHistory() {
-        requireNonNull(tagHistory);
-        return tagHistory;
+    public Stack<Tag> getTagDeletedHistory() {
+        requireNonNull(tagDeletedHistory);
+        return tagDeletedHistory;
     }
+
+    public Stack<ReadOnlyTaskList> getAddTagHistory() {
+        requireNonNull(addTagHistory);
+        return addTagHistory;
+    }
+
+    public Stack<Tag> getTagAddedHistory() {
+        requireNonNull(tagAddedHistory);
+        return tagAddedHistory;
+    }
+
 
     private String[] seperateInput(String userInput) throws ParseException {
         final Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
