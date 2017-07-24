@@ -29,7 +29,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added Tag ";
 
-    public static final String MESSAGE_USAGE = ": Undoes the previous command if undoable.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the previous command if undoable.";
 
     public static final String DELETE_TAG = "tagDeleted";
     public static final String ADD_TAG = "tagAdded";
