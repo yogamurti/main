@@ -33,8 +33,8 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser {
-    //public static final int NUM_ARGS_FOR_CATEGORY_OP = 3;
+public class AddCommandParser implements CommandParser {
+    public static final int NUM_ARGS_FOR_CATEGORY_OP = 3;
 
     /**
      * Parses the given {@code String} of arguments in the context of the
@@ -64,10 +64,10 @@ public class AddCommandParser {
                 Deadline deadline = ParserUtil.parseDeadlineForAdd(argMultimap.getValue(PREFIX_DEADLINE_START),
                         argMultimap.getValue(PREFIX_DEADLINE_END), argMultimap.getValue(PREFIX_NOTIFICATION_PERIOD))
                         .get();
-                ReadOnlyTask task = new TaskWithDeadline(name, deadline, description, tagList);
+                ReadOnlyTask task = new TaskWithDeadline(name, deadline, description, tagList, false);
                 return new AddCommand(task);
             }
-            ReadOnlyTask task = new Task(name, description, tagList);
+            ReadOnlyTask task = new Task(name, description, tagList, false);
             return new AddCommand(task);
 
         } catch (IllegalValueException ive) {

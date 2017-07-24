@@ -9,7 +9,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0139267W
 // Parses input arguments and creates a new UnmarkCommand object
-public class UnmarkCommandParser {
+public class UnmarkCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the UnmarkCommand
