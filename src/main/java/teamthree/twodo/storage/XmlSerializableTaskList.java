@@ -38,7 +38,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     }
 
     /**
-     * Conversion
+     * Converts the current read only task list in the application to a XmlSerializableTaskList for storage
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
         this();
