@@ -56,7 +56,6 @@ public class UndoCommandTest {
 
     private static final int FIRST_INDEX = 1;
 
-    private static final Long DEFAULT_NOTIFICATION_PERIOD = (long) 1000 * 60 * 60 * 24;
     private static final String DEFAULT_NOTIFICATION_PERIOD_STRING = "1 day";
     private static final String VALID_ALARM_INPUT = "2 days";
     private static final boolean VALID_AUTOMARK_INPUT = true;

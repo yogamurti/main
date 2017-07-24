@@ -51,12 +51,10 @@ public class RedoCommandTest {
 
     private static final int FIRST_INDEX = 1;
 
-    private static final Long DEFAULT_NOTIFICATION_PERIOD = (long) 1000 * 60 * 60 * 24;
     private static final String DEFAULT_NOTIFICATION_PERIOD_STRING = "1 day";
     private static final String VALID_ALARM_INPUT = "2 days";
     private static final boolean VALID_AUTOMARK_INPUT = true;
-    private static final Options SAME_AS_DEFAULT = new Options(
-            new Alarm(Config.defaultNotificationPeriodToString()), new AutoMark(AutoMarkManager.getSetToRun()));
+
 
     private UndoCommand undoCommand;
     private RedoCommand redoCommand;
@@ -103,7 +101,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void executeNoUndoPreviousCommandSuccess() throws CommandException {
+    public void executeNoPreviousUndoCommandSuccess() throws CommandException {
         assertCommandResult(redoCommand, RedoCommand.MESSAGE_NO_HISTORY);
     }
 
@@ -181,7 +179,7 @@ public class RedoCommandTest {
 
 
     @Test
-    public void executeUndoDeleteCommandSuccess()
+    public void executeRedoDeleteCommandSuccess()
             throws DuplicateTaskException, CommandException, ParseException, TaskNotFoundException {
 
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
@@ -202,7 +200,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void executeUndoDeleteTagCommandSuccess() throws IllegalValueException, CommandException {
+    public void executeRedoDeleteTagCommandSuccess() throws IllegalValueException, CommandException {
         Index index = ParserUtil.parseIndex("6");
         Category catToBeDeleted = catMan.getCategoryList().get(5);
         String tagName = catToBeDeleted.getName();
@@ -223,7 +221,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void executeUndoEditCommandSuccess()
+    public void executeRedoEditCommandSuccess()
             throws CommandException, TaskNotFoundException, IllegalValueException {
 
         Index indexFirstTask = Index.fromOneBased(1);
@@ -251,7 +249,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void executeUndoOptionsCommandSuccess() throws CommandException, ParseException {
+    public void executeRedoOptionsCommandSuccess() throws CommandException, ParseException {
         Config.changeDefaultNotificationPeriod(DEFAULT_NOTIFICATION_PERIOD_STRING);
         ConfigStud.changeDefaultNotificationPeriod(VALID_ALARM_INPUT);
         AutoMarkManager.setToRun(false);

@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import com.google.common.eventbus.Subscribe;
 
-import teamthree.twodo.commons.core.Config;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
