@@ -131,6 +131,13 @@ public class RedoCommandTest {
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
         //Unmark Task to prepare model for undo command
         // Marks the indexed first task from the task book
+        model.getTaskList().getTaskList().forEach((task) -> {
+            try {
+                model.unmarkTask(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         ReadOnlyTask taskToRedo = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
         markCommand.setData(model, history, undoHistory);

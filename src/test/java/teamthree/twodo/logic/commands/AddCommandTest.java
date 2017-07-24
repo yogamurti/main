@@ -37,7 +37,7 @@ public class AddCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullTask_throwsNullPointerException() throws Exception {
+    public void constructorNullTaskFailure() throws Exception {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
@@ -69,7 +69,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
+    public void executeTaskAcceptedByModelAddSuccessful() throws Exception {
         ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
         Task validTask = new TaskWithDeadlineBuilder().build();
 
@@ -88,7 +88,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicateTask_throwsCommandException() throws Exception {
+    public void executeDuplicateTaskFailure() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicateTaskException();
         Task validTask = new TaskWithDeadlineBuilder().build();
 
@@ -210,7 +210,7 @@ public class AddCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
+        private final ArrayList<Task> tasksAdded = new ArrayList<>();
 
         @Override
         public void addTask(ReadOnlyTask task) throws DuplicateTaskException {

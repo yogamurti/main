@@ -30,14 +30,14 @@ public class LoadCommandTest {
     }
 
     @Test
-    public void execute_load_success() throws CommandException {
+    public void executeLoadSuccess() throws CommandException {
         CommandResult result = new LoadCommand(VALID_FILEPATH).execute();
         assertEquals(String.format(LoadCommand.MESSAGE_SUCCESS , VALID_FILEPATH), result.feedbackToUser);
         assertTrue(isEventCaught);
     }
 
     @Test
-    public void excecute_load_throwCommandException() throws CommandException {
+    public void excecuteLoadFailure() throws CommandException {
         try {
             LoadCommand loadCommand = new LoadCommand(INVALID_FILEPATH);
             loadCommand.execute();

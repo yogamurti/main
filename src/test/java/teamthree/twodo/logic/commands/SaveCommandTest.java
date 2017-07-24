@@ -38,7 +38,7 @@ public class SaveCommandTest {
     }
 
     @Test
-    public void excecute_save_success() throws CommandException {
+    public void excecuteSaveSuccess() throws CommandException {
         SaveCommand saveCommand = new SaveCommand(VALID_FILEPATH);
         saveCommand.setData(model, null, null);
         CommandResult result = saveCommand.execute();
@@ -47,7 +47,7 @@ public class SaveCommandTest {
     }
 
     @Test
-    public void excecute_save_throwCommandException() throws CommandException {
+    public void excecuteSaveFailure() throws CommandException {
         try {
             SaveCommand saveCommand = new SaveCommand(INVALID_FILEPATH);
             saveCommand.setData(model, null, null);

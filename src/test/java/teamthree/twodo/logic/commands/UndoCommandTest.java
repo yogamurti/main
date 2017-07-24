@@ -47,7 +47,7 @@ import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
 
-//@@author A0162253M
+// @@author A0162253M
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
  * UndoCommand
@@ -80,7 +80,6 @@ public class UndoCommandTest {
         this.taskList = TestUtil.generateSampleTaskData();
     }
 
-
     @Test
     public void executeUndoAddCommandSuccess()
             throws DuplicateTaskException, CommandException, ParseException, TaskNotFoundException {
@@ -96,8 +95,8 @@ public class UndoCommandTest {
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
         expectedModel.deleteTask(taskToAdd);
 
-        CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, taskToAdd), expectedModel);
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, taskToAdd),
+                expectedModel);
 
     }
 
@@ -109,20 +108,25 @@ public class UndoCommandTest {
     @Test
     public void executeUndoMarkCommandSuccess()
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
-
         //Mark Task to prepare model for undo command
         MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
+        model.updateFilteredTaskListToShowAll(null, false, true);
+        Task taskToMark = model.getFilteredAndSortedTaskList()
+                .get(INDEX_FIRST_TASK.getZeroBased()) instanceof TaskWithDeadline
+                        ? new TaskWithDeadline(
+                                model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased()))
+                        : new Task(model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased()));
+        ReadOnlyTask task2Mark = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         markCommand.setData(model, history, undoHistory);
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
 
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
-        ReadOnlyTask taskToMark = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
-        expectedModel.unmarkTask(taskToMark);
-
-        CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, taskToMark), expectedModel);
+        expectedModel.unmarkTask(task2Mark);
+        taskToMark.markIncompleted();
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, taskToMark),
+                expectedModel);
 
     }
 
@@ -131,6 +135,13 @@ public class UndoCommandTest {
             throws CommandException, DuplicateTaskException, TaskNotFoundException, ParseException {
         //Unmark Task to prepare model for undo command
         // Marks the indexed first task from the task book
+        model.getTaskList().getTaskList().forEach((task) -> {
+            try {
+                model.unmarkTask(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         ReadOnlyTask taskToUndo = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         MarkCommand markCommand = new MarkCommand(INDEX_FIRST_TASK);
         markCommand.setData(model, history, undoHistory);
@@ -139,20 +150,20 @@ public class UndoCommandTest {
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(getExpectedMessage(expectedModel, taskToUndo));
         markCommand.execute();
         /**
-         *  Unmarks the marked task
-         *  The recently marked task should be the only marked task in the model
+         * Unmarks the marked task The recently marked task should be the only
+         * marked task in the model
          */
         expectedModel.updateFilteredTaskListToShowAll(null, false, false);
-        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
+
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
         model.updateFilteredTaskListToShowAll(null, false, false);
-        assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
+
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
 
-        CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, taskToUndo), expectedModel);
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, taskToUndo),
+                expectedModel);
     }
 
     @Test
@@ -188,8 +199,8 @@ public class UndoCommandTest {
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         expectedModel.addTask(taskToDelete);
 
-        CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, taskToDelete), expectedModel);
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, taskToDelete),
+                expectedModel);
     }
 
     @Test
@@ -211,8 +222,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void executeUndoEditCommandSuccess()
-                throws CommandException, TaskNotFoundException, IllegalValueException {
+    public void executeUndoEditCommandSuccess() throws CommandException, TaskNotFoundException, IllegalValueException {
         Index indexFirstTask = Index.fromOneBased(1);
         ReadOnlyTask firstTask = model.getFilteredAndSortedTaskList().get(indexFirstTask.getZeroBased());
         TaskWithDeadline initialTask = new TaskWithDeadline(firstTask);
@@ -233,8 +243,8 @@ public class UndoCommandTest {
         expectedModel.updateTask(editedTask, initialTask);
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(EditCommand.MESSAGE_EDIT_TASK_SUCCESS);
 
-        CommandTestUtil.assertCommandSuccess(undoCommand, model,
-                String.format(expectedMessage, editedTask), expectedModel);
+        CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, editedTask),
+                expectedModel);
     }
 
     @Test
@@ -277,9 +287,10 @@ public class UndoCommandTest {
         assertEquals(result.feedbackToUser, expectedMessage);
     }
 
-
     /**
-     * Asserts that the result message from the execution of {@code historyCommand} equals to {@code expectedMessage}
+     * Asserts that the result message from the execution of
+     * {@code historyCommand} equals to {@code expectedMessage}
+     *
      * @throws CommandException
      */
     private void assertCommandResult(UndoCommand undoCommand, String expectedMessage) throws CommandException {
@@ -297,8 +308,8 @@ public class UndoCommandTest {
         ReadOnlyTask markedTask = expectedModel.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
 
         /**
-         *  Resets task list to its initial state
-         *  Initial state is assumed to be the task list that lists all incomplete tasks
+         * Resets task list to its initial state Initial state is assumed to be
+         * the task list that lists all incomplete tasks
          */
         expectedModel.updateFilteredTaskListToShowAll(null, false, true);
 
@@ -306,4 +317,3 @@ public class UndoCommandTest {
     }
 
 }
-
