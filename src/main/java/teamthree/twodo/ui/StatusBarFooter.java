@@ -23,10 +23,6 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Used to generate time stamps.
      *
-     * TODO: change clock to an instance variable. We leave it as a static
-     * variable because manual dependency injection will require passing down
-     * the clock reference all the way from MainApp, but it should be easier
-     * once we have factories/DI frameworks.
      */
     private static Clock clock = Clock.systemDefaultZone();
 

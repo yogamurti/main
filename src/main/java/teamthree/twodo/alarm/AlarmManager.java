@@ -39,8 +39,7 @@ public class AlarmManager extends ComponentManager {
     /**
      * Synchronizes internal notification list with the main TaskList
      *
-     * @param masterList
-     *            Full List of tasks from the taskList
+     * @param masterList Full list of tasks from the taskList
      */
     private synchronized void syncWithMasterTaskList(List<ReadOnlyTask> masterList) {
         if (masterList == null || masterList.isEmpty()) {
@@ -111,9 +110,7 @@ public class AlarmManager extends ComponentManager {
      * of the next activity on the notification list. Called only after a
      * DeadlineNotificationTimeReachedEvent.
      *
-     * @param notifiedTasks
-     *            the tasks which were sent with the
-     *            DeadlineNotificationTimeReachedEvent
+     * @param notifiedTasks The tasks which were sent with the DeadlineNotificationTimeReachedEvent
      */
 
     private synchronized void updateInternalData(List<ReadOnlyTask> notifiedTasks) {

@@ -28,10 +28,8 @@ public class StringUtil {
      *       containsWordIgnoreCase("ABc def", "AB") == true //not a full word match
      * </pre>
      *
-     * @param sentence
-     *            cannot be null
-     * @param word
-     *            cannot be null, cannot be empty, must be a single word
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
      */
     public static boolean containsWordIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
@@ -95,9 +93,8 @@ public class StringUtil {
      *
      * @param word
      * @param otherWord
-     * @param alphabetLength
-     *            is the size of the alphabet of the language used currently
-     *            hard-coded for english
+     * @param alphabetLength is the size of the alphabet of the language used currently
+     * hard-coded for english
      * @return int Minimum edit distance between word and otherWord
      */
     public static int damerauLevenshteinDistance(String word, String otherWord, int alphabetLength) {
@@ -149,9 +146,8 @@ public class StringUtil {
     /**
      * Handles the requisite preparation step to carry out autocorrection.
      *
-     * @param String
-     *            day user input string for day of the week
-     * @return String day shortened to just first three letters
+     * @param String Day user input string for day of the week
+     * @return String Day shortened to just first three letters
      */
     public static String prepareDayString(String dateTime) {
         return dateTime.substring(0, Deadline.MIN_WORD_LENGTH_FOR_DAY + 1).toLowerCase();

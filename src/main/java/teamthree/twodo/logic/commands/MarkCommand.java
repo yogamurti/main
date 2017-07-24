@@ -30,19 +30,33 @@ public class MarkCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
-    @Override
-    public CommandResult execute() throws CommandException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
+    private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
+        return model.getFilteredAndSortedTaskList();
+    }
 
+    private void checkForInvalidIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) throws CommandException {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+    }
 
-        ReadOnlyTask taskToMark = lastShownList.get(targetIndex.getZeroBased());
+    private ReadOnlyTask getTaskToMark(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+        return lastShownList.get(targetIndex.getZeroBased());
+    }
 
+    private void checkForCompletedTask(ReadOnlyTask taskToMark) throws CommandException {
         if (taskToMark.isCompleted()) {
             throw new CommandException(MESSAGE_ALREADY_MARKED_TASK);
         }
+    }
+
+    @Override
+    public CommandResult execute() throws CommandException {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();
+        checkForInvalidIndex(lastShownList);
+
+        ReadOnlyTask taskToMark = getTaskToMark(lastShownList);
+        checkForCompletedTask(taskToMark);
 
         try {
             model.markTask(taskToMark);
@@ -53,4 +67,5 @@ public class MarkCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
+
 }

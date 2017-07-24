@@ -30,19 +30,33 @@ public class UnmarkCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
-    @Override
-    public CommandResult execute() throws CommandException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
+    private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
+        return model.getFilteredAndSortedTaskList();
+    }
 
+    private void checkForInvalidIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) throws CommandException {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+    }
 
-        ReadOnlyTask taskToUnmark = lastShownList.get(targetIndex.getZeroBased());
+    private ReadOnlyTask getTaskToUnmark(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+        return lastShownList.get(targetIndex.getZeroBased());
+    }
 
+    private void checkForIncompletedTask(ReadOnlyTask taskToUnmark) throws CommandException {
         if (!taskToUnmark.isCompleted()) {
             throw new CommandException(MESSAGE_NOT_MARKED_TASK);
         }
+    }
+
+    @Override
+    public CommandResult execute() throws CommandException {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();
+        checkForInvalidIndex(lastShownList);
+
+        ReadOnlyTask taskToUnmark = getTaskToUnmark(lastShownList);
+        checkForIncompletedTask(taskToUnmark);
 
         try {
             model.unmarkTask(taskToUnmark);
@@ -53,4 +67,5 @@ public class UnmarkCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
     }
+
 }
