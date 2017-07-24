@@ -209,7 +209,7 @@ Example: `unmark 4`
 * Marks a (completed) task as incomplete
 ****
 
-=== Editing the default options : `option / o`
+=== Editing the default options : `option / options / o`
 
 Format: `option a/[alarm] m/[mark completion automatically]` +
 Example: `option a/1 minute m/true`
@@ -299,7 +299,7 @@ Example: `quit`
 
 |unmark / un |unmark {index} |`unmark 4`
 
-|option / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
+|option / options / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
 |save / s |save [directory] |`save C:\Program Files\Common Files\2Do.xml`
 
