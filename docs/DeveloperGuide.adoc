@@ -514,6 +514,28 @@ ____
 ---
 
 [discrete]
+=== Use case: Add a tag
+
+*MSS*
+
+1. User requests to add a tag
+2. System adds the tag and displays a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
+---
+
+[discrete]
 === Use case: Delete task
 
 *MSS*
@@ -541,6 +563,29 @@ ____
 3a1. System displays an error message
 
 Use case resumes at step 2
+____
+
+---
+
+
+[discrete]
+=== Use case: Delete a tag
+
+*MSS*
+
+1. User requests to delete a tag
+2. System deletes the tag and displays a success message
+
+Use case ends
+
+*Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
 ____
 
 ---
@@ -601,6 +646,14 @@ Use case ends
 
 *Extensions*
 
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
+
 2a. No actions were done previously
 
 ____
@@ -622,6 +675,14 @@ ____
 Use case ends
 
 *Extensions*
+
+1a. User input is invalid
+
+____
+1a1. System displays an error message
+
+Use case ends
+____
 
 2a. The last action was not an undo command
 

@@ -141,8 +141,8 @@ Example: `delete 1`
 
 === Deleting a tag : `delete tag / del tag / d tag / - tag`
 
-Format: `del tag {index of tag in tag list}` +
-Example: `del tag 7`
+Format: `delete tag {index of tag in tag list}` +
+Example: `delete tag 7`
 ****
 * Deletion of default tags is not allowed
 ****
@@ -275,11 +275,11 @@ Example: `quit`
 |=======================================================================
 |Command|Main Format|Example
 
-|help  |help [name of command] |`help add`
+|help |help [name of command] |`help add`
 
-|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days`
+|add / a / + |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days`
 
-|add tag / a tag /+ tag |add tag {tag name} {indices of the tasks to include under the tag} |`add tag NUS 1,2,3,8`
+|add tag / a tag / + tag |add tag {tag name} {indices of the tasks to include under the tag} |`add tag NUS 1,2,3,8`
 
 |delete / del / d / - |delete [-h] {index} |`delete 1`
 
