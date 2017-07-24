@@ -85,7 +85,7 @@ public class AddCommandParser {
         ArrayList<Index> indices = new ArrayList<>();
         for (String idx : indicesAsString) {
             try {
-                indices.add(ParserUtil.parseIndex(idx));
+                indices.add(ParserUtil.parseIndex(idx.trim()));
             } catch (IllegalValueException ive) {
                 throw new ParseException(ive.getMessage(), ive);
             }
