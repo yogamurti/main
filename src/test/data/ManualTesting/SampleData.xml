@@ -7,7 +7,7 @@
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-07-24T20:17:00+08:00</startDate>
         </deadline>
-        <isComplete>true</isComplete>
+        <isComplete>false</isComplete>
         <description>phone bills</description>
         <tagged>Personal</tagged>
     </task>
@@ -18,7 +18,7 @@
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-07-24T20:17:00+08:00</startDate>
         </deadline>
-        <isComplete>true</isComplete>
+        <isComplete>false</isComplete>
         <description>bring hardcopy to UTown</description>
         <tagged>NUS</tagged>
     </task>
@@ -50,18 +50,6 @@
         <isComplete>true</isComplete>
         <description>No Description.</description>
         <tagged>Personal</tagged>
-    </task>
-    <task>
-        <name>Software final version</name>
-        <deadline>
-            <endDate>2017-07-24T20:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-24T20:00:00+08:00</startDate>
-        </deadline>
-        <isComplete>true</isComplete>
-        <description>No bugs</description>
-        <tagged>Project</tagged>
-        <tagged>NUS</tagged>
     </task>
     <task>
         <name>Buy Milk</name>
@@ -131,28 +119,6 @@
             <endDate>2017-08-04T17:00:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-08-03T09:00:00+08:00</startDate>
-        </deadline>
-        <isComplete>false</isComplete>
-        <description>st2132, ma2311</description>
-        <tagged>NUS</tagged>
-    </task>
-    <task>
-        <name>nus cors 2a</name>
-        <deadline>
-            <endDate>2017-08-10T17:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-07T09:00:00+08:00</startDate>
-        </deadline>
-        <isComplete>false</isComplete>
-        <description>st2132, ma2311</description>
-        <tagged>NUS</tagged>
-    </task>
-    <task>
-        <name>nus cors 2b</name>
-        <deadline>
-            <endDate>2017-08-11T17:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-11T09:00:00+08:00</startDate>
         </deadline>
         <isComplete>false</isComplete>
         <description>st2132, ma2311</description>
@@ -360,7 +326,7 @@
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-07-31T00:00:00+08:00</startDate>
         </deadline>
-        <isComplete>true</isComplete>
+        <isComplete>false</isComplete>
         <description>add extra data</description>
         <tagged>Personal</tagged>
     </task>
@@ -383,7 +349,7 @@
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-07-18T17:00:00+08:00</startDate>
         </deadline>
-        <isComplete>false</isComplete>
+        <isComplete>true</isComplete>
         <description>Sentosa resort</description>
         <tagged>Friends</tagged>
     </task>
@@ -442,7 +408,7 @@
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-07-15T11:00:00+08:00</startDate>
         </deadline>
-        <isComplete>false</isComplete>
+        <isComplete>true</isComplete>
         <description>Smart Casual, Restaurant</description>
         <tagged>Personal</tagged>
         <tagged>Family</tagged>
@@ -468,6 +434,40 @@
         <isComplete>false</isComplete>
         <description>ask seniors</description>
         <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Software final version</name>
+        <deadline>
+            <endDate>2017-07-24T20:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-24T20:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>No bugs</description>
+        <tagged>Project</tagged>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>nus cors 2a</name>
+        <deadline>
+            <endDate>2017-08-10T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-07T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>nus cors 2b</name>
+        <deadline>
+            <endDate>2017-08-11T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-11T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
     </task>
     <tags>Project</tags>
     <tags>NUS</tags>
