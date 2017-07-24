@@ -2,6 +2,7 @@ package teamthree.twodo.logic.commands;
 
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_END;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
@@ -29,17 +30,20 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_COMPLETE_BOTH = "Listed all completed tasks between %1$s and %1$s";
     public static final String MESSAGE_SUCCESS_INCOMPLETE_TAG = "Listed all incompleted tasks with specified tag(s)";
     public static final String MESSAGE_SUCCESS_COMPLETE_TAG = "Listed all completed tasks with specified tag(s)";
+    public static final String MESSAGE_EMPTY_LIST = "No tasks to show\n"
+            + "Try adding new tasks or changing the listing criteria";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all incomplete tasks within specified period.\n"
             + "If only start date specified, list all tasks after start date. "
-            + "If only end date specified, list all tasks before end date\n"
+            + "If only end date specified, list all tasks before end date.\n"
+            + "If tags are included, only tasks with corresponding tags will be listed\n"
             + "Add " + COMMAND_WORD_HISTORY
             + " to list completed tasks instead of incomplete tasks within specified period.\n"
-            + "Add " + COMMAND_WORD_FLOATING + " to list floating tasks instead of tasks with deadlines\n"
+            + "Add " + COMMAND_WORD_FLOATING + " to list floating tasks instead of tasks with deadlines.\n"
             + "Parameters: [" + COMMAND_WORD_HISTORY + "] " + PREFIX_DEADLINE_START + "[START] "
-            + PREFIX_DEADLINE_END + "[END]\n"
+            + PREFIX_DEADLINE_END + "[END] " + PREFIX_TAG + "[TAG1, TAG2,...]\n"
             + "Example: " + COMMAND_WORD + " " + COMMAND_WORD_HISTORY + " " + PREFIX_DEADLINE_START + "today "
-            + PREFIX_DEADLINE_END + "next week";
+            + PREFIX_DEADLINE_END + "next week" + PREFIX_TAG + "personal";
 
     private Deadline deadline;
     public enum AttributeInputted { NONE, START, END, BOTH };
@@ -70,6 +74,9 @@ public class ListCommand extends Command {
 
     //Chooses appropriate message based on user input
     private CommandResult messageChooser() {
+        if (model.getFilteredAndSortedTaskList().size() == 0) {
+            return new CommandResult(MESSAGE_EMPTY_LIST);
+        }
         if (attInput.equals(AttributeInputted.NONE)) {
             if (listIncomplete) {
                 if (tagListNotEmpty()) {

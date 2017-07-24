@@ -36,12 +36,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD_FAST = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
-            + "by the index number used in the last task listing. "
+            + "by the index number used in the last task listing.\n"
+            + "The index must be a positive integer.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "["
-            + PREFIX_DEADLINE_START + "START DATE&TIME] " + "[" + PREFIX_DEADLINE_END + "END DATE&TIME] " + "["
-            + PREFIX_DESCRIPTION + "NOTES] " + "[" + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DEADLINE_START + "fri 3pm";
+            + "Parameters: {INDEX} " + "[" + PREFIX_NAME + "NAME] "
+            + PREFIX_DEADLINE_START + "[START DATE] {TIME} " + "" + PREFIX_DEADLINE_END + "[END DATE] {TIME} "
+            + PREFIX_DESCRIPTION + "[DESCRIPTION] " + PREFIX_TAG + "[TAG1, TAG2,...]\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_START + "fri 3pm";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -51,10 +52,8 @@ public class EditCommand extends Command {
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
-     * @param index
-     *            of the person in the filtered person list to edit
-     * @param editTaskDescriptor
-     *            details to edit the person with
+     * @param index of the person in the filtered person list to edit
+     * @param editTaskDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
         requireNonNull(index);
@@ -67,39 +66,53 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         List<ReadOnlyTask> lastShownList = model.getFilteredAndSortedTaskList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+        checkForInvalidIndex(lastShownList);
 
         ReadOnlyTask taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
-        if (taskToEdit.getDeadline().isPresent()) {
-            history.addToBeforeEditHistory(new TaskWithDeadline(taskToEdit));
-        } else {
-            history.addToBeforeEditHistory(new Task(taskToEdit));
-        }
-        if (editedTask.getDeadline().isPresent()) {
-            history.addToAfterEditHistory(new TaskWithDeadline(editedTask));
-        } else {
-            history.addToAfterEditHistory(new Task(editedTask));
-        }
+        updateBeforeEditHistory(taskToEdit);
+        updateAfterEditHistory(editedTask);
 
         try {
             model.updateTask(taskToEdit, editedTask);
-
         } catch (DuplicateTaskException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             throw new AssertionError("The target task cannot be missing");
         }
+        updateTaskListDisplay(editedTask);
+        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+    }
+
+    public void checkForInvalidIndex(List<ReadOnlyTask> lastShownList) throws CommandException {
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+    }
+
+    public void updateTaskListDisplay(Task editedTask) {
         if (editedTask instanceof TaskWithDeadline) {
             model.updateFilteredTaskListToShowAll(null, false, true);
         } else {
             model.updateFilteredTaskListToShowAll(null, true, true);
         }
-        EventsCenter.getInstance().post(new AddOrEditCommandExecutedEvent(editedTask));
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+    }
+
+    public void updateAfterEditHistory(Task editedTask) {
+        if (editedTask.getDeadline().isPresent()) {
+            history.addToAfterEditHistory(new TaskWithDeadline(editedTask));
+        } else {
+            history.addToAfterEditHistory(new Task(editedTask));
+        }
+    }
+
+    public void updateBeforeEditHistory(ReadOnlyTask taskToEdit) {
+        if (taskToEdit.getDeadline().isPresent()) {
+            history.addToBeforeEditHistory(new TaskWithDeadline(taskToEdit));
+        } else {
+            history.addToBeforeEditHistory(new Task(taskToEdit));
+        }
     }
 
     /**
@@ -118,20 +131,22 @@ public class EditCommand extends Command {
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
+        if (editTaskDescriptor.getDeadline() == null) {
+            return new Task(updatedName, updatedDescription, updatedTags, taskToEdit.getCompleted());
+        }
         if (editTaskDescriptor.getDeadline().isPresent() || taskToEdit instanceof TaskWithDeadline) {
             Deadline updatedDeadline = getUpdatedDeadline(taskToEdit, editTaskDescriptor);
-            return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags);
+            return new TaskWithDeadline(updatedName, updatedDeadline, updatedDescription, updatedTags,
+                    taskToEdit.getCompleted());
         }
-        return new Task(updatedName, updatedDescription, updatedTags);
+        return new Task(updatedName, updatedDescription, updatedTags, taskToEdit.getCompleted());
     }
 
     /**
      * Returns the final deadline with all the updates integrated.
      *
-     * @param taskToEdit
-     *            the original task
-     * @param editTaskDescriptor
-     *            the taskdescriptor with updates
+     * @param taskToEdit The original task
+     * @param editTaskDescriptor The taskdescriptor with updates
      * @return final deadline with all updates
      * @throws CommandException
      */
@@ -176,10 +191,8 @@ public class EditCommand extends Command {
      * after end date). If a date is default, it means that it is not being
      * updated
      *
-     * @param updatedDate
-     *            the final deadline with all updates integrated
-     * @param updates
-     *            the updates in this edit
+     * @param updatedDate The final deadline with all updates integrated
+     * @param updates The updates in this edit
      * @return final deadline with all start and end date discrepancies cleared
      */
 

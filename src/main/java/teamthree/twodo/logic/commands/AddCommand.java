@@ -6,6 +6,7 @@ import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_END;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DEADLINE_START;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NAME;
+import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_NOTIFICATION_PERIOD;
 import static teamthree.twodo.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -17,13 +18,14 @@ import teamthree.twodo.commons.core.index.Index;
 import teamthree.twodo.commons.events.model.AddOrEditCommandExecutedEvent;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
+import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.Task;
 import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 
-// @@author A0124399W
+//@@author A0124399W
 // Adds a task to the TaskList.
 public class AddCommand extends Command {
 
@@ -33,16 +35,21 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_FAST = "a";
     public static final String COMMAND_WORD_TAG = "tag";
     public static final String MESSAGE_USAGE_TAG = COMMAND_WORD + " " + PREFIX_CATEGORY
-            + ": Adds a tag to multiple tasks.\n" + "Parameters: {TAGNAME} {INDICES OF TASKS TO ADD TAG TO}\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + " NUS 1,2,4,7";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task that you need 2Do.\n" + "Parameters: "
-            + PREFIX_NAME + "TASK " + PREFIX_DEADLINE_START + "START DATETIME" + PREFIX_DEADLINE_END + "END DATETIME"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " Buy some lotion " + PREFIX_DESCRIPTION + "DESCRIPTION"
-            + PREFIX_TAG + "TAG\n" + PREFIX_DESCRIPTION + " Must be water-based\n" + "Example for deadline: "
-            + PREFIX_NAME + "Buy some lotion" + PREFIX_DEADLINE_END + " friday 10am\n" + "Example for events: "
+            + ": Adds a tag to multiple tasks.\n" + "Parameters: TAGNAME INDICES OF TASKS TO ADD TAG TO\n" + "Example: "
+            + COMMAND_WORD + " " + PREFIX_CATEGORY + "NUS 1,2,4,7";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task that you need 2Do.\n"
+            + "Please refer to the UserGuide for the correct input format of the parameters.\n"
+            + "To find out how to add tags to multiple tasks type '"
+            + HelpCommand.COMMAND_WORD + PREFIX_CATEGORY + "'.\n"
+            + "Parameters: " + PREFIX_NAME + "{TASK} " + PREFIX_DEADLINE_START + "[START DATE] {TIME} "
+            + PREFIX_DEADLINE_END + "[END DATE] {TIME} " + PREFIX_DESCRIPTION + "[DESCRIPTION] "
+            + PREFIX_TAG + "[TAG1, TAG2,...] " + PREFIX_NOTIFICATION_PERIOD + "[ALARM]\n"
+            + "Example for floating: " + COMMAND_WORD + " " + PREFIX_NAME + "Buy some lotion "
+            + PREFIX_DESCRIPTION + "Must be water-based "
+            + PREFIX_TAG + "personal\n" + "Example for deadline: "
+            + PREFIX_NAME + "V0.5 " + PREFIX_DEADLINE_END + "next monday 8pm\n" + "Example for events: "
             + PREFIX_NAME + "Attend ComicCon " + PREFIX_DEADLINE_START + " friday 10am " + PREFIX_DEADLINE_END
-            + "friday 10pm\n" + PREFIX_TAG + "Otaku\n" + "To find out how to add tags to multiple tasks type 'help"
-            + PREFIX_CATEGORY + "'";
+            + "friday 10pm " + PREFIX_TAG + "Otaku";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s\n";
     public static final String MESSAGE_SUCCESS_TAG = "New tag added: %1$s\n";
@@ -76,7 +83,9 @@ public class AddCommand extends Command {
         if (toAdd == null && !taskIndices.isEmpty()) {
             ArrayList<Task> tasksForCategory = getTasksFromIndices();
             try {
+                history.addToAddTagHistory(new TaskList(model.getTaskList()));
                 Tag added = catMan.addCategory(tagName, tasksForCategory);
+                history.addToTagAddedHistory(added);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_TAG, added.tagName));
             } catch (IllegalValueException e) {
                 throw new CommandException(Tag.MESSAGE_TAG_CONSTRAINTS);

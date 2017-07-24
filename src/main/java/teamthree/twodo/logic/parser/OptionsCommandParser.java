@@ -17,7 +17,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 
 //@@author A0139267W
 // Parses input arguments and creates a new OptionsCommand object
-public class OptionsCommandParser {
+public class OptionsCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the OptionsCommand
@@ -27,12 +27,26 @@ public class OptionsCommandParser {
      *             if the user input does not conform the expected format
      */
 
-    public OptionsCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NOTIFICATION_PERIOD, PREFIX_AUTOMARK);
+
+    private void checkForNoPrefix(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_NOTIFICATION_PERIOD)
                 && !arePrefixesPresent(argMultimap, PREFIX_AUTOMARK)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OptionsCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional}
+     * values in the given {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    public OptionsCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NOTIFICATION_PERIOD, PREFIX_AUTOMARK);
+        checkForNoPrefix(argMultimap);
+
         try {
             Alarm alarm = ParserUtil.parseAlarm(argMultimap.getValue(PREFIX_NOTIFICATION_PERIOD))
                     .orElse(new Alarm(Config.defaultNotificationPeriodToString()));
@@ -43,14 +57,6 @@ public class OptionsCommandParser {
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional}
-     * values in the given {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

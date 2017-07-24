@@ -24,7 +24,7 @@ import teamthree.twodo.model.tag.Tag;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditCommandParser {
+public class EditCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the

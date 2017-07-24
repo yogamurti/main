@@ -8,6 +8,7 @@ import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_START_DATE;
 import static teamthree.twodo.testutil.EditCommandTestUtil.VALID_TAG_SPONGEBOB;
 import static teamthree.twodo.testutil.TypicalTask.INDEX_FIRST_TASK;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -45,6 +46,7 @@ import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 //@@author A0162253M
 public class RedoCommandTest {
@@ -66,7 +68,7 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         redoCommand = new RedoCommand();
@@ -76,7 +78,6 @@ public class RedoCommandTest {
         undoCommand.setData(model, history, undoHistory, catMan);
         this.taskList = TestUtil.generateSampleTaskData();
     }
-
 
     @Test
     public void executeRedoAddCommandSuccess()
@@ -216,13 +217,35 @@ public class RedoCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(index, true);
         deleteCommand.setData(model, history, undoHistory, catMan);
         deleteCommand.execute();
-        this.history.addToUserInputHistory("tag");
+        this.history.addToUserInputHistory(UndoCommand.DELETE_TAG);
         undoCommand.execute();
 
         String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(
                 String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tagName));
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         catMan.deleteCategory(index);
+
+        CommandTestUtil.assertCommandSuccess(redoCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeRedoAddTagCommandSuccess() throws IllegalValueException, CommandException {
+        String tagName = "important";
+        ArrayList<Index> indexList = new ArrayList<Index>();
+        Index firstIndex = ParserUtil.parseIndex("1");
+        indexList.add(firstIndex);
+
+        //Add Tag to prepare model for undo command
+        AddCommand addCommand = new AddCommand(tagName, indexList);
+        addCommand.setData(model, history, undoHistory, catMan);
+        addCommand.execute();
+        this.history.addToUserInputHistory(UndoCommand.ADD_TAG);
+        TaskList taskListAfterAddedTags = new TaskList(model.getTaskList());
+        undoCommand.execute();
+
+        Model expectedModel = new ModelManager(taskListAfterAddedTags, new UserPrefs());
+        String expectedMessage = RedoCommand.MESSAGE_SUCCESS.concat(
+                        String.format(AddCommand.MESSAGE_SUCCESS_TAG, tagName));
 
         CommandTestUtil.assertCommandSuccess(redoCommand, model, expectedMessage, expectedModel);
     }

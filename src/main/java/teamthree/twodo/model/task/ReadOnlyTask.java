@@ -44,4 +44,6 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
 
+    public boolean getCompleted();
+
 }

@@ -14,7 +14,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
  * @throws ParseException
  *             if the user input does not conform to the expected format
  */
-public class SaveCommandParser {
+public class SaveCommandParser implements CommandParser {
     public SaveCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         File file = new File(trimmedArgs);

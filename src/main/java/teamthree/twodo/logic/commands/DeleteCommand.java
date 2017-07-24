@@ -11,7 +11,7 @@ import teamthree.twodo.model.tag.Tag;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-// @@author A0162253M - reused
+//@@author A0162253M - reused
 // Deletes a task identified using its last displayed index from the TaskList.
 public class DeleteCommand extends Command {
 
@@ -21,7 +21,10 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD_SHORT = "del";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task or tag identified by the index number used in the last task listing.\n"
-            + "Parameters: [tag] INDEX (must be a positive integer)\n"
+            + "The index must be a positive integer.\n"
+            + "Index of tags can be obtained from the tag list below."
+            + "Deleting tags will remove the tag from relevant tasks.\n"
+            + "Parameters: [tag] {INDEX}\n"
             + "Example for Deleting Task: " + COMMAND_WORD + " 1\n"
             + "Example for Deleting Tag: " + COMMAND_WORD + " tag 8\n";
 
@@ -47,7 +50,7 @@ public class DeleteCommand extends Command {
             try {
                 history.addToDelTagHistory(new TaskList(model.getTaskList()));
                 Tag toDel = catMan.deleteCategory(targetIndex);
-                history.addToTagHistory(toDel);
+                history.addToTagDeletedHistory(toDel);
                 return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, toDel.tagName));
             } catch (IllegalValueException e) {
                 //impossible to get this exception

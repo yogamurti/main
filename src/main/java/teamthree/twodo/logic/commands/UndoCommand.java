@@ -18,19 +18,21 @@ import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
 
-// @@author A0162253M
+//@@author A0162253M
 // Undoes the previous command by the user
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String COMMAND_WORD_FAST = "u";
-    public static final String MESSAGE_SUCCESS = "Successfully undid command!!!\n";
+    public static final String MESSAGE_SUCCESS = "Successfully undid command.\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to undo: You have not yet entered any commands. ";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to undo: Invalid previous command ";
-
-    public static final String DELETE_TAG = "tag";
-
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added Tag ";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the previous command if undoable.";
+
+    public static final String DELETE_TAG = "tagDeleted";
+    public static final String ADD_TAG = "tagAdded";
 
     private static String fullMessage;
 
@@ -68,6 +70,7 @@ public class UndoCommand extends Command {
             return undoAddCommand();
 
         case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD_FAST:
             return undoEditCommand();
 
         case DeleteCommand.COMMAND_WORD_QUICK:
@@ -78,6 +81,9 @@ public class UndoCommand extends Command {
 
         case DELETE_TAG:
             return undoDeleteTagCommand();
+
+        case ADD_TAG:
+            return undoAddTagCommand();
 
         case ClearCommand.COMMAND_WORD:
             return undoClearCommand();
@@ -173,11 +179,24 @@ public class UndoCommand extends Command {
      */
     private CommandResult undoDeleteTagCommand() {
         ReadOnlyTaskList taskList = history.getDelTagHistory().pop();
-        Tag tag = history.getTagHistory().pop();
+        Tag tag = history.getTagDeletedHistory().pop();
         undoHistory.addToDelTagHistory(new TaskList(model.getTaskList())); //Store current model b4 tag is added
-        undoHistory.addToTagHistory(tag); //Store Tag for RedoCommand
+        undoHistory.addToTagDeletedHistory(tag); //Store Tag for RedoCommand
         model.resetData(taskList);
-        fullMessage = MESSAGE_SUCCESS.concat(MESSAGE_ADD_TAG_SUCCESS + tag.tagName);
+        fullMessage = MESSAGE_SUCCESS.concat(String.format(AddCommand.MESSAGE_SUCCESS_TAG, tag.tagName));
+        return new CommandResult(fullMessage);
+    }
+
+    /**
+     * Delete back Added Tag and Stores {@code tag} and {@code taskList} for RedoCommand
+     */
+    private CommandResult undoAddTagCommand() {
+        ReadOnlyTaskList taskList = history.getAddTagHistory().pop();
+        Tag tag = history.getTagAddedHistory().pop();
+        undoHistory.addToAddTagHistory(new TaskList(model.getTaskList())); //Store current model b4 tag is added
+        undoHistory.addToTagAddedHistory(tag); //Store Tag for RedoCommand
+        model.resetData(taskList);
+        fullMessage = MESSAGE_SUCCESS.concat(String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tag.tagName));
         return new CommandResult(fullMessage);
     }
 

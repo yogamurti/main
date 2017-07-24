@@ -280,9 +280,8 @@ public class LogicManagerTest {
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
      *
-     * @param commandWord
-     *            to test assuming it targets a single task in the last shown
-     *            list based on visible index.
+     * @param commandWord To test assuming it targets a single task in the last shown
+     * list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
             throws Exception {
@@ -297,9 +296,8 @@ public class LogicManagerTest {
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
      *
-     * @param commandWord
-     *            to test assuming it targets a single task in the last shown
-     *            list based on visible index.
+     * @param commandWord To test assuming it targets a single task in the last shown
+     * list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -434,14 +432,14 @@ public class LogicManagerTest {
         public Task module() throws Exception {
             Name name = new Name("CS2103 V0.3");
             Description privateDescription = new Description("MVP");
-            return new Task(name, privateDescription, getTagSet("tag1", "longertag2"));
+            return new Task(name, privateDescription, getTagSet("tag1", "longertag2"), false);
         }
 
         public TaskWithDeadline event() throws Exception {
             Name name = new Name("Gay Parade");
             Deadline deadline = new Deadline("next fri 10am", "next sat 10am", Deadline.NULL_VALUE);
             Description privateDescription = new Description("111, alpha street");
-            return new TaskWithDeadline(name, deadline, privateDescription, getTagSet("tag1", "longertag2"));
+            return new TaskWithDeadline(name, deadline, privateDescription, getTagSet("tag1", "longertag2"), false);
         }
 
         /**
@@ -450,13 +448,13 @@ public class LogicManagerTest {
          * have the same state. Each unique seed will generate a unique Task
          * object.
          *
-         * @param seed
-         *            used to generate the task data field values
+         * @param seed Used to generate the task data field values
          */
         private Task generateTask(int seed) throws Exception {
             return new TaskWithDeadline(new Name("Task " + seed),
                     new Deadline("today " + seed + "am", "tomorrow " + seed + "pm", Deadline.NULL_VALUE),
-                    new Description("Task ID " + seed), getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
+                    new Description("Task ID " + seed),
+                    getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)), false);
         }
 
         /** Generates the correct add command based on the task given */
@@ -502,8 +500,7 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given TaskList
          *
-         * @param filePath
-         *            The TaskList to which the Tasks will be added
+         * @param filePath The TaskList to which the Tasks will be added
          */
         private void addToTaskList(TaskList taskList, int numGenerated) throws Exception {
             addToTaskList(taskList, createTaskList(numGenerated));
@@ -521,8 +518,7 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given model
          *
-         * @param model
-         *            The model to which the Tasks will be added
+         * @param model The model to which the Tasks will be added
          */
         private void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, createTaskList(numGenerated));

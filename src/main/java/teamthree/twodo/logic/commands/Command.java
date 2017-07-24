@@ -21,8 +21,7 @@ public abstract class Command {
      * Constructs a feedback message to summarize an operation that displayed a
      * listing of tasks.
      *
-     * @param displaySize
-     *            used to generate summary
+     * @param displaySize used to generate summary
      * @return summary message for persons displayed
      */
     public static String getMessageForPersonListShownSummary(int displaySize) {
@@ -39,9 +38,7 @@ public abstract class Command {
     public abstract CommandResult execute() throws CommandException;
 
     /**
-     * Provides any needed dependencies to the command. Commands making use of
-     * any of these should override this method to gain access to the
-     * dependencies.
+     * Provides dependencies that the command requires.
      * @param undoHistory, history, model
      */
     public void setData(Model model, CommandHistory history,

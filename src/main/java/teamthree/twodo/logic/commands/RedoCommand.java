@@ -20,9 +20,11 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String COMMAND_WORD_FAST = "r";
-    public static final String MESSAGE_SUCCESS = "Successfully redid command!!!\n";
+    public static final String MESSAGE_SUCCESS = "Successfully redid command.\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to redo: You have not yet entered any undo commands.";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to redo: Invalid previous command ";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous undone command.";
 
     private static String fullMessage;
 
@@ -61,7 +63,11 @@ public class RedoCommand extends Command {
         case UndoCommand.DELETE_TAG:
             return redoDeleteTagCommand();
 
+        case UndoCommand.ADD_TAG:
+            return redoAddTagCommand();
+
         case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD_FAST:
             return redoEditCommand();
 
         case AddCommand.COMMAND_WORD_QUICK:
@@ -167,11 +173,25 @@ public class RedoCommand extends Command {
      */
     private CommandResult redoDeleteTagCommand() {
         ReadOnlyTaskList taskList = undoHistory.getDelTagHistory().pop();
-        Tag tag = undoHistory.getTagHistory().pop();
+        Tag tag = undoHistory.getTagDeletedHistory().pop();
         history.addToDelTagHistory(new TaskList(model.getTaskList())); //Store current model b4 tag is deleted
-        history.addToTagHistory(tag); //Store Tag for UndoCommand
+        history.addToTagDeletedHistory(tag); //Store Tag for UndoCommand
         model.resetData(taskList);
         fullMessage = MESSAGE_SUCCESS.concat(String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tag.tagName));
+        return new CommandResult(fullMessage);
+    }
+
+    /**
+     * Add tag that was previously deleted due to a undoCommand
+     * and stores {@code tag} and {@code taskList} for the next UndoCommand
+     */
+    private CommandResult redoAddTagCommand() {
+        ReadOnlyTaskList taskList = undoHistory.getAddTagHistory().pop();
+        Tag tag = undoHistory.getTagAddedHistory().pop();
+        history.addToAddTagHistory(new TaskList(model.getTaskList())); //Store current model b4 tag is added
+        history.addToTagAddedHistory(tag); //Store Tag for UndoCommand
+        model.resetData(taskList);
+        fullMessage = MESSAGE_SUCCESS.concat(String.format(AddCommand.MESSAGE_SUCCESS_TAG, tag.tagName));
         return new CommandResult(fullMessage);
     }
 

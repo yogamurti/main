@@ -18,6 +18,7 @@ import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.Task;
 //import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 public class XmlTaskListStorageTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskListStorageTest/");
@@ -56,7 +57,7 @@ public class XmlTaskListStorageTest {
         if (tempFile.exists()) {
             tempFile.delete();
         }
-        TypicalTask td = new TypicalTask();
+        TypicalTask td = new TypicalTask(TaskType.INCOMPLETE);
         TaskList original = td.getTypicalTaskList();
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 

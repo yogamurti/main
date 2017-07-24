@@ -14,8 +14,8 @@ By: `T3`      Since: `Jul 2017`      Licence: `MIT`
 
 == Quick Start
 
-image::docs/images/MockUI.png[width="600"]
-_Figure 2.1.1 : Sample GUI with pre-loaded tasks_
+image::MainScreen.png[width="600"]
+_Figure 2.1.1 : GUI with pre-loaded tasks_
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 +
@@ -99,7 +99,7 @@ Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/
 
 ==== Floating tasks
 
-Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]]` +
+Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]` +
 Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200`
 ****
 * You will not be able to set an _alarm_ for floating tasks
@@ -121,7 +121,7 @@ Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t
 * Events can be added with the _start_ and _end_ fields filled
 ****
 
-==== Tags
+=== Adding a tag : `add tag / a tag / + tag`
 
 Format: `add tag {tag name} {indices of the tasks to include under the tag}` +
 Example: `add tag NUS 1,2,3,8`
@@ -139,12 +139,12 @@ Example: `delete 1`
 * Deletes task at that index (positive number) in the most recent call of list
 ****
 
-==== Tags
+=== Deleting a tag : `delete tag / del tag / d tag / - tag`
 
-Format: `del tag {index of tag in tag list}` +
-Example: `del tag 7`
+Format: `delete tag {index of tag in tag list}` +
+Example: `delete tag 7`
 ****
-* Deleting of default tags is not allowed
+* Deletion of default tags is not allowed
 ****
 
 === Listing all tasks : `list / l`
@@ -209,7 +209,7 @@ Example: `unmark 4`
 * Marks a (completed) task as incomplete
 ****
 
-=== Editing the default options : `option / o`
+=== Editing the default options : `option / options / o`
 
 Format: `option a/[alarm] m/[mark completion automatically]` +
 Example: `option a/1 minute m/true`
@@ -254,7 +254,7 @@ Example: `clear`
 * Local file containing the current to-do list will be wiped clean as well
 ****
 
-=== Quitting 2Do : `exit / quit / q`
+=== Quitting 2Do : `exit / quit / q / x`
 
 Format: `quit` +
 Example: `quit`
@@ -275,15 +275,15 @@ Example: `quit`
 |=======================================================================
 |Command|Main Format|Example
 
-|help  |help [name of command] |`help add`
+|help |help [name of command] |`help add`
 
-|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days`
+|add / a / + |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days`
 
-|add tag / a tag /+ tag |add tag {tag name} {indices of the tasks to include under the tag} |`add tag NUS 1,2,3,8`
+|add tag / a tag / + tag |add tag {tag name} {indices of the tasks to include under the tag} |`add tag NUS 1,2,3,8`
 
 |delete / del / d / - |delete [-h] {index} |`delete 1`
 
-|delete tag / del tag / d tag /- tag |del tag {index of tag in tag list} |`del tag 7`
+|delete tag / del tag / d tag / - tag |delete tag {index of tag in tag list} |`delete tag 7`
 
 |list / l |list [/h] [/f] s/[start] e/[end] t/[tag1, tag2,...]|`list s/today 10am`
 
@@ -299,7 +299,7 @@ Example: `quit`
 
 |unmark / un |unmark {index} |`unmark 4`
 
-|option / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
+|option / options / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
 |save / s |save [directory] |`save C:\Program Files\Common Files\2Do.xml`
 
@@ -307,5 +307,5 @@ Example: `quit`
 
 |clear / c |clear |`clear`
 
-|exit / quit / q |quit |`quit`
+|exit / quit / q / x |quit |`quit`
 |=======================================================================

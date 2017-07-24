@@ -24,7 +24,9 @@ import teamthree.twodo.testutil.FloatingTaskBuilder;
 import teamthree.twodo.testutil.TaskUtil;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 
+
 //@@author A0124399W - reused
+
 public class EditCommandTest extends TaskListGuiTest {
 
     @Test
@@ -139,12 +141,9 @@ public class EditCommandTest extends TaskListGuiTest {
     /**
      * Checks whether the edited task has the correct updated details.
      *
-     * @param filteredTaskListIndex
-     *            index of task to edit in filtered list
-     * @param detailsToEdit
-     *            details to edit the person with as input to the edit command
-     * @param editedTask
-     *            the expected task after editing the task's details
+     * @param filteredTaskListIndex Index of task to edit in filtered list
+     * @param detailsToEdit Details to edit the person with as input to the edit command
+     * @param editedTask The expected task after editing the task's details
      */
 
     private void assertEditSuccess(Index filteredTaskListIndex, String detailsToEdit, Task editedTask) {

@@ -11,7 +11,7 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser {
+public class DeleteCommandParser implements CommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the

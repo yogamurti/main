@@ -1,206 +1,479 @@
-<?xml version="1.0" encoding="UTF-8" standalone="true"?>
-<2Do>
-    <tasks>
-        <name>Buy Lotion</name>
-        <description>SPF50</description>
-        <tagged>Vacation</tagged>
-    </tasks>
-    <tasks>
-        <name>Research on project</name>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<twodo>
+    <task>
+        <name>pay bills</name>
         <deadline>
-            <endDate>2017-07-19T12:00:00+08:00</endDate>
+            <endDate>2017-07-24T20:17:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-19T12:00:00+08:00</startDate>
+            <startDate>2017-07-24T20:17:00+08:00</startDate>
         </deadline>
-        <description>MsWord,Arial</description>
-        <tagged>Projects</tagged>
+        <isComplete>true</isComplete>
+        <description>phone bills</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Financial aid Application</name>
+        <deadline>
+            <endDate>2017-07-24T20:17:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-24T20:17:00+08:00</startDate>
+        </deadline>
+        <isComplete>true</isComplete>
+        <description>bring hardcopy to UTown</description>
         <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
+    </task>
+    <task>
+        <name>Call dad</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Call Mum</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>CS2103 finals</name>
+        <deadline>
+            <endDate>2017-07-28T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-28T13:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>Open book</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>Update LinkedIn</name>
+        <isComplete>true</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Software final version</name>
+        <deadline>
+            <endDate>2017-07-24T20:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-24T20:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>true</isComplete>
+        <description>No bugs</description>
+        <tagged>Project</tagged>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>Buy Milk</name>
+        <isComplete>false</isComplete>
+        <description>Low Fat, Marigold</description>
+        <tagged>Groceries</tagged>
+    </task>
+    <task>
+        <name>Visit Grandma</name>
+        <deadline>
+            <endDate>2017-07-29T21:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-29T10:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>Meet grandma @ hougang</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Clothes Shopping</name>
+        <deadline>
+            <endDate>2017-07-24T20:17:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-24T20:17:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>With Mary</description>
+        <tagged>Personal</tagged>
+        <tagged>Friends</tagged>
+    </task>
+    <task>
+        <name>Mom Bday</name>
+        <deadline>
+            <endDate>2017-08-04T21:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-04T17:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>buy choc cake</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>nus cors 1a</name>
+        <deadline>
+            <endDate>2017-08-01T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-31T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>nus cors 1b</name>
+        <deadline>
+            <endDate>2017-08-02T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-02T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>nus cors 1c</name>
+        <deadline>
+            <endDate>2017-08-04T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-03T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>nus cors 2a</name>
+        <deadline>
+            <endDate>2017-08-10T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-07T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>nus cors 2b</name>
+        <deadline>
+            <endDate>2017-08-11T17:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-11T09:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>st2132, ma2311</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>prepare cs2103 notes</name>
+        <deadline>
+            <endDate>2017-07-27T23:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-27T10:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>cs2103 notes,forum</description>
+    </task>
+    <task>
         <name>Software 0.3 version</name>
         <deadline>
-            <endDate>2017-08-01T20:00:00+08:00</endDate>
+            <endDate>2017-07-14T17:00:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-01T20:00:00+08:00</startDate>
+            <startDate>2017-07-12T17:28:24.777+08:00</startDate>
         </deadline>
-        <description>No Description.</description>
-        <tagged>Projects</tagged>
+        <isComplete>true</isComplete>
+        <description>GitHub Team</description>
+        <tagged>Project</tagged>
         <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
+    </task>
+    <task>
         <name>Software 0.4 version</name>
         <deadline>
-            <endDate>2017-08-08T20:00:00+08:00</endDate>
+            <endDate>2017-07-17T17:00:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-01T20:00:00+08:00</startDate>
+            <startDate>2017-07-12T10:00:00+08:00</startDate>
         </deadline>
-        <description>No Description.</description>
-        <tagged>Projects</tagged>
+        <isComplete>true</isComplete>
+        <description>GitHub Team</description>
+        <tagged>Project</tagged>
         <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Software 0.5 version</name>
+    </task>
+    <task>
+        <name>Review project milestones</name>
         <deadline>
-            <endDate>2017-08-16T20:00:00+08:00</endDate>
+            <endDate>2017-07-19T00:00:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-16T20:00:00+08:00</startDate>
+            <startDate>2017-07-19T00:00:00+08:00</startDate>
         </deadline>
-        <description>No Description.</description>
-        <tagged>Projects</tagged>
+        <isComplete>true</isComplete>
+        <description>GitHub</description>
+        <tagged>Project</tagged>
         <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Software FINAL Product</name>
+    </task>
+    <task>
+        <name>Weekend party</name>
         <deadline>
-            <endDate>2017-08-20T17:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-20T17:00:00+08:00</startDate>
-        </deadline>
-        <description>No more bugs, colllated</description>
-        <tagged>Projects</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Demo for Software Product</name>
-        <deadline>
-            <endDate>2017-08-25T15:30:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-25T15:00:00+08:00</startDate>
-        </deadline>
-        <description>Smart Casual</description>
-        <tagged>Presentation</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Team preparation</name>
-        <deadline>
-            <endDate>2017-08-21T15:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-21T10:00:00+08:00</startDate>
-        </deadline>
-        <description>Discuss about presentation</description>
-        <tagged>Presentation</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Pay Phone Bills</name>
-        <deadline>
-            <endDate>2017-07-25T00:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-25T00:00:00+08:00</startDate>
-        </deadline>
-        <description>No Description.</description>
-        <tagged>Personal</tagged>
-        <tagged>Finance</tagged>
-    </tasks>
-    <tasks>
-        <name>Financial aid application</name>
-        <deadline>
-            <endDate>2017-08-14T17:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-14T17:00:00+08:00</startDate>
-        </deadline>
-        <description>Prepare Hardcopy Documents</description>
-        <tagged>Finance</tagged>
-    </tasks>
-    <tasks>
-        <name>Update LinkedIn profile</name>
-        <description>No Description.</description>
-        <tagged>Personal</tagged>
-    </tasks>
-    <tasks>
-        <name>Memorise Presentaion script</name>
-        <deadline>
-            <endDate>2017-08-24T00:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-08-24T00:00:00+08:00</startDate>
-        </deadline>
-        <description>No Description.</description>
-        <tagged>Presentation</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Organise Whatsapp conversation</name>
-        <description>archive and delete</description>
-    </tasks>
-    <tasks>
-        <name>Software 0.2 version</name>
-        <deadline>
-            <endDate>2017-07-23T17:00:00+08:00</endDate>
+            <endDate>2017-07-23T23:00:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
             <startDate>2017-07-23T17:00:00+08:00</startDate>
         </deadline>
-        <description>basic design</description>
-        <tagged>Projects</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Software Product Architecture</name>
-        <deadline>
-            <endDate>2017-07-16T12:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-16T12:00:00+08:00</startDate>
-        </deadline>
-        <description>basic structure</description>
-        <tagged>Projects</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Software Product Theme</name>
-        <deadline>
-            <endDate>2017-07-09T15:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-09T15:00:00+08:00</startDate>
-        </deadline>
+        <isComplete>true</isComplete>
         <description>No Description.</description>
-        <tagged>Projects</tagged>
-        <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Weekend Party</name>
+        <tagged>Friends</tagged>
+    </task>
+    <task>
+        <name>prepare demo</name>
         <deadline>
-            <endDate>2017-07-08T11:59:00+08:00</endDate>
+            <endDate>2017-07-25T14:00:00+08:00</endDate>
             <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-08T17:00:00+08:00</startDate>
+            <startDate>2017-07-25T12:00:00+08:00</startDate>
         </deadline>
-        <description>Holland Village</description>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Project</tagged>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>CS2103 Demo</name>
+        <deadline>
+            <endDate>2017-07-26T16:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-26T15:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>Smart casual</description>
+        <tagged>Project</tagged>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>Buy anniversary present</name>
+        <deadline>
+            <endDate>2017-07-22T22:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-22T22:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>true</isComplete>
+        <description>parents' wedding anniversary</description>
         <tagged>Personal</tagged>
-    </tasks>
-    <tasks>
-        <name>Submit Product Design</name>
-        <deadline>
-            <endDate>2017-07-12T20:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-12T20:00:00+08:00</startDate>
-        </deadline>
-        <description>MsWord,IVLE</description>
-        <tagged>Projects</tagged>
+    </task>
+    <task>
+        <name>Change to StarHub plan</name>
+        <isComplete>false</isComplete>
+        <description>personal cable tv plan</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Check NUS email</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
         <tagged>NUS</tagged>
-    </tasks>
-    <tasks>
-        <name>Day trip Batam</name>
-        <deadline>
-            <endDate>2017-07-04T21:00:00+08:00</endDate>
-            <notificationPeriod>86400000</notificationPeriod>
-            <startDate>2017-07-04T08:00:00+08:00</startDate>
-        </deadline>
-        <description>bring extra clothes</description>
-        <tagged>Vacation</tagged>
-    </tasks>
-    <tasks>
-        <name>Call Mom</name>
+    </task>
+    <task>
+        <name>Check Personal email</name>
+        <isComplete>false</isComplete>
         <description>No Description.</description>
         <tagged>Personal</tagged>
-    </tasks>
-    <tasks>
-        <name>Call Dad</name>
+    </task>
+    <task>
+        <name>clean house</name>
+        <isComplete>false</isComplete>
+        <description>clear clutter in living room</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>National Day Parade</name>
+        <deadline>
+            <endDate>2017-08-09T23:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-09T17:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+    </task>
+    <task>
+        <name>Movie with Uni friends</name>
+        <deadline>
+            <endDate>2017-08-03T19:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-03T11:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>James, Mary, Thomas, Jane</description>
+        <tagged>Personal</tagged>
+        <tagged>Friends</tagged>
+    </task>
+    <task>
+        <name>Family Batam Trip</name>
+        <deadline>
+            <endDate>2017-08-06T23:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-05T08:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>rmb to bring enough clothes</description>
+        <tagged>Family</tagged>
+    </task>
+    <task>
+        <name>teach sister maths</name>
+        <isComplete>false</isComplete>
+        <description>differentiation</description>
+        <tagged>Personal</tagged>
+        <tagged>Family</tagged>
+    </task>
+    <task>
+        <name>Charity Run</name>
+        <deadline>
+            <endDate>2017-08-07T09:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-07T05:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>$10 for children with cancer</description>
+    </task>
+    <task>
+        <name>Call Singtel</name>
+        <isComplete>true</isComplete>
+        <description>ask about error in phone bill</description>
+    </task>
+    <task>
+        <name>watch musical with family</name>
+        <deadline>
+            <endDate>2017-07-12T22:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-12T19:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>true</isComplete>
+        <description>esplanade</description>
+        <tagged>Personal</tagged>
+        <tagged>Family</tagged>
+    </task>
+    <task>
+        <name>Plan for sem1 modules</name>
+        <isComplete>true</isComplete>
+        <description>3 more modules</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>Haircut</name>
+        <isComplete>true</isComplete>
         <description>No Description.</description>
         <tagged>Personal</tagged>
-    </tasks>
-    <tags>Vacation</tags>
-    <tags>Projects</tags>
+    </task>
+    <task>
+        <name>renew Singtel plan</name>
+        <deadline>
+            <endDate>2017-07-31T00:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-31T00:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>true</isComplete>
+        <description>add extra data</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>buy fruits</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Groceries</tagged>
+    </task>
+    <task>
+        <name>Buy tissue paper</name>
+        <isComplete>true</isComplete>
+        <description>No Description.</description>
+        <tagged>Groceries</tagged>
+    </task>
+    <task>
+        <name>Jane Bday Party</name>
+        <deadline>
+            <endDate>2017-07-18T21:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-18T17:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>Sentosa resort</description>
+        <tagged>Friends</tagged>
+    </task>
+    <task>
+        <name>email course coordinator</name>
+        <isComplete>false</isComplete>
+        <description>ask about internships</description>
+        <tagged>NUS</tagged>
+    </task>
+    <task>
+        <name>buy new bag</name>
+        <isComplete>false</isComplete>
+        <description>ezbuy</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>water plants</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Dinner with friends</name>
+        <deadline>
+            <endDate>2017-07-25T22:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-25T22:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>Dinner with Joe before his exchange</description>
+        <tagged>Personal</tagged>
+        <tagged>Friends</tagged>
+    </task>
+    <task>
+        <name>Send Joe off for exchange</name>
+        <deadline>
+            <endDate>2017-07-26T18:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-26T18:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+        <tagged>Friends</tagged>
+    </task>
+    <task>
+        <name>Exercise</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Extended Family lunch</name>
+        <deadline>
+            <endDate>2017-07-15T15:00:00+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-07-15T11:00:00+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>Smart Casual, Restaurant</description>
+        <tagged>Personal</tagged>
+        <tagged>Family</tagged>
+    </task>
+    <task>
+        <name>buy chicken meat</name>
+        <isComplete>false</isComplete>
+        <description>No Description.</description>
+        <tagged>Personal</tagged>
+    </task>
+    <task>
+        <name>Buy new hangers</name>
+        <isComplete>true</isComplete>
+        <description>No Description.</description>
+    </task>
+    <task>
+        <name>Ask about CS2010</name>
+        <deadline>
+            <endDate>2017-08-05T18:29:11.416+08:00</endDate>
+            <notificationPeriod>86400000</notificationPeriod>
+            <startDate>2017-08-05T18:29:11.415+08:00</startDate>
+        </deadline>
+        <isComplete>false</isComplete>
+        <description>ask seniors</description>
+        <tagged>Personal</tagged>
+    </task>
+    <tags>Project</tags>
     <tags>NUS</tags>
-    <tags>Presentation</tags>
     <tags>Personal</tags>
-    <tags>Finance</tags>
-</2Dok>
+    <tags>Groceries</tags>
+    <tags>Friends</tags>
+    <tags>Family</tags>
+    <tags>Friend</tags>
+</twodo>

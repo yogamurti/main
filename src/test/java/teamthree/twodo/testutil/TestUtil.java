@@ -56,24 +56,24 @@ public class TestUtil {
             //CHECKSTYLE.OFF: LineLength
             return new Task[] {
                 new TaskWithDeadline(new Name("Class"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("Homework"), getTagSet()),
+                        new Description("Homework"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Tutorial"), new Deadline("thu 11am", "sat 11pm", Deadline.NULL_VALUE),
-                        new Description("Chapter 4"), getTagSet()),
+                        new Description("Chapter 4"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Lecture"), new Deadline("next fri 10am", "next sat 10pm", Deadline.NULL_VALUE),
-                        new Description("Chapter 5"), getTagSet()),
+                        new Description("Chapter 5"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Labs"), new Deadline("wed 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("Sit-in Lab"), getTagSet()),
+                        new Description("Sit-in Lab"), getTagSet(), false),
                 new TaskWithDeadline(new Name("CCA"),
                         new Deadline("next wed 10am", "next wed 10pm", Deadline.NULL_VALUE), new Description("Proposal"),
-                        getTagSet()),
+                        getTagSet(), false),
                 new TaskWithDeadline(new Name("Party"), new Deadline("fri 10am", "sat 10pm", Deadline.NULL_VALUE),
-                        new Description("little tokyo"), getTagSet()),
+                        new Description("little tokyo"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Clothes Shopping"), new Deadline("10am", "10pm", Deadline.NULL_VALUE),
-                        new Description("4th street"), getTagSet()),
+                        new Description("4th street"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Meeting Friends"), new Deadline("23/12/17 10pm", "25/12/17 3am", Deadline.NULL_VALUE),
-                        new Description("little india"), getTagSet()),
+                        new Description("little india"), getTagSet(), false),
                 new TaskWithDeadline(new Name("Family lunch"), new Deadline("12/12/17 2pm", "12/12/17 4pm", Deadline.NULL_VALUE),
-                        new Description("chicago ave"), getTagSet()) };
+                        new Description("chicago ave"), getTagSet(), false) };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
             assert false;
@@ -131,10 +131,8 @@ public class TestUtil {
     /**
      * Removes a subset from the list of tasks.
      *
-     * @param tasks
-     *            The list of tasks
-     * @param tasksToRemove
-     *            The subset of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static Task[] removeTasksFromList(final Task[] tasks, Task... tasksToRemove) {
@@ -146,8 +144,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the task at specified index removed.
      *
-     * @param list
-     *            original list to copy from
+     * @param list Original list to copy from
      */
     public static Task[] removeTaskFromList(final Task[] list, Index index) {
         return removeTasksFromList(list, list[index.getZeroBased()]);
@@ -155,8 +152,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the person at specified index removed.
      *
-     * @param list
-     *            original list to copy from
+     * @param list Original list to copy from
      */
     public static List<ReadOnlyTask> removeTaskFromList(final List<ReadOnlyTask> list, Index index) {
         list.remove(index.getZeroBased());
@@ -166,10 +162,8 @@ public class TestUtil {
     /**
      * Appends tasks to the array of tasks.
      *
-     * @param tasks
-     *            A array of tasks.
-     * @param tasksToAdd
-     *            The tasks that are to be appended behind the original array.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static Task[] addTasksToList(final Task[] tasks, Task... tasksToAdd) {

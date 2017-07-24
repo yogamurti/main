@@ -33,18 +33,12 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.completed = isComplete;
     }
-    public Task(Name name, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, description, tags);
-        this.name = name;
-        this.description = description;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        completed = false;
-    }
+
     /**
      * Creates a copy of the given ReadOnlyTask.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription(), source.getTags(), source.isCompleted());
+        this(source.getName(), source.getDescription(), source.getTags(), source.getCompleted());
     }
 
     public void setName(Name name) {
@@ -133,6 +127,10 @@ public class Task implements ReadOnlyTask {
     @Override
     public Optional<Deadline> getDeadline() {
         return Optional.empty();
+    }
+    @Override
+    public boolean getCompleted() {
+        return completed;
     }
 
 }

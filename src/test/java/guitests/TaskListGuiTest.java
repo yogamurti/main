@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import teamthree.twodo.TestApp;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.BaseEvent;
+import teamthree.twodo.logic.commands.ListCommand;
 import teamthree.twodo.model.TaskList;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.TestUtil;
@@ -35,7 +36,6 @@ import teamthree.twodo.testutil.TypicalTask;
 /**
  * A GUI Test class for TaskList.
  */
-//@@author A0124399W - reused
 public abstract class TaskListGuiTest {
 
     /**
@@ -64,8 +64,8 @@ public abstract class TaskListGuiTest {
     protected StatusBarFooterHandle statusBarFooter;
 
     protected Stage stage;
-    protected final String listFloating = "list /f";
     protected final String clear = "clear";
+    protected final String listFloating = ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_WORD_FLOATING;
 
     @BeforeClass
     public static void setupSpec() {
@@ -104,9 +104,10 @@ public abstract class TaskListGuiTest {
      */
 
     protected TaskList getInitialData() {
-        TaskList ab = new TaskList();
-        TypicalTask.loadTaskListWithSampleData(ab);
-        return ab;
+        TaskList tl = new TaskList();
+        TypicalTask typicalTask = new TypicalTask();
+        typicalTask.loadTaskListWithSampleData(tl);
+        return tl;
     }
 
     /**
