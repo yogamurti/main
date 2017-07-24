@@ -50,7 +50,7 @@ public class AlarmManager extends ComponentManager {
         notificationList.clear();
         // Adds tasks which are not in the notified set
         masterList.forEach((t) -> {
-            if (t instanceof TaskWithDeadline && !notified.contains(t)) {
+            if (t instanceof TaskWithDeadline && !t.isCompleted() && !notified.contains(t)) {
                 notificationList.add(t);
             }
         });

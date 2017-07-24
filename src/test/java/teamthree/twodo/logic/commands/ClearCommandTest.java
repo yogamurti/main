@@ -13,13 +13,13 @@ import teamthree.twodo.testutil.TypicalTask;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyTaskBook_success() {
+    public void executeEmptyTaskBookSuccess() {
         Model model = new ModelManager();
         assertCommandSuccess(model);
     }
 
     @Test
-    public void execute_nonEmptyTaskBook_success() {
+    public void executeNonEmptyTaskBookSuccess() {
         Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
         assertCommandSuccess(model);
     }

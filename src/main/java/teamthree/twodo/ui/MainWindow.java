@@ -24,7 +24,7 @@ import teamthree.twodo.model.category.CategoryManager;
  */
 public class MainWindow extends UiPart<Region> {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/2Do_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 750;
@@ -35,12 +35,8 @@ public class MainWindow extends UiPart<Region> {
     private Config config;
 
     // Independent Ui parts residing in this Ui container
-    //private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private CommandBox commandBox;
-
-    /*@FXML
-    private StackPane browserPlaceholder;*/
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,7 +45,7 @@ public class MainWindow extends UiPart<Region> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane taskListPanelPlaceholder;
 
     @FXML
     private StackPane catListPanelPlaceholder;
@@ -125,7 +121,7 @@ public class MainWindow extends UiPart<Region> {
         browserPlaceholder.getChildren().add(browserPanel.getRoot());*/
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         CategoryListPanel catListPanel = new CategoryListPanel(catMan.getCategoryList());
         catListPanelPlaceholder.getChildren().add(catListPanel.getRoot());
@@ -178,7 +174,7 @@ public class MainWindow extends UiPart<Region> {
     /**
      * Returns the current size and the position of the main Window.
      */
-    GuiSettings getCurrentGuiSetting() {
+    public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
                 (int) primaryStage.getY());
     }
@@ -189,7 +185,7 @@ public class MainWindow extends UiPart<Region> {
         helpWindow.show();
     }
 
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
@@ -208,13 +204,4 @@ public class MainWindow extends UiPart<Region> {
     public CommandBox getCommandBox() {
         return this.commandBox;
     }
-
-    /*void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-*/
 }

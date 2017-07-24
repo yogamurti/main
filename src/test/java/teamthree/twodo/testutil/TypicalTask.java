@@ -32,7 +32,7 @@ public class TypicalTask {
                     .withDeadline("17 april 2018 10am").withTags("school", "project").build();
             cs1020 = new FloatingTaskBuilder().withName("CS1020").withDescription("labs").withTags("school")
                     .build();
-            cs2010 = new TaskWithDeadlineBuilder().withName("cs2010").withDeadline("fri 10am")
+            cs2010 = new TaskWithDeadlineBuilder().withName("CS2010").withDeadline("fri 10am")
                     .withDescription("tutorial").build();
             project = new TaskWithDeadlineBuilder().withName("project").withDeadline("sat 10pm")
                     .withDescription("project").build();
@@ -64,7 +64,7 @@ public class TypicalTask {
                         .withTags("school", "project").build();
                 cs1020 = new FloatingTaskBuilder().withName("CS1020").withDescription("labs").withTags("school")
                         .build();
-                cs2010 = new FloatingTaskBuilder().withName("cs2010").withDescription("tutorial").build();
+                cs2010 = new FloatingTaskBuilder().withName("CS2010").withDescription("tutorial").build();
                 project = new FloatingTaskBuilder().withName("project").withDescription("project").build();
                 dinner = new FloatingTaskBuilder().withName("dinner").withDescription("Thai Food").build();
                 training = new FloatingTaskBuilder().withName("training").withDescription("cca training").build();
@@ -86,7 +86,7 @@ public class TypicalTask {
                         .withDeadline("17 april 2018 10am").withTags("school", "project").build();
                 cs1020 = new TaskWithDeadlineBuilder().withName("CS1020").withDescription("labs").withTags("school")
                         .build();
-                cs2010 = new TaskWithDeadlineBuilder().withName("cs2010").withDeadline("fri 10am")
+                cs2010 = new TaskWithDeadlineBuilder().withName("CS2010").withDeadline("fri 10am")
                         .withDescription("tutorial").build();
                 project = new TaskWithDeadlineBuilder().withName("project").withDeadline("sat 10pm")
                         .withDescription("project").build();

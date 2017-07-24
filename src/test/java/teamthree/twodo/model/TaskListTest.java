@@ -33,7 +33,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void resetDataNullThrowsNullPointerException() {
+    public void resetDataNullFilure() {
         thrown.expect(NullPointerException.class);
         taskList.resetData(null);
     }
@@ -46,7 +46,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void resetData_withDuplicateTasks_throwsAssertionError() {
+    public void resetDataWithDuplicateTasksFailure() {
         TypicalTask td = new TypicalTask();
         // Repeat td.alice twice
         List<Task> newTasks = Arrays.asList(new Task(td.cs2103), new Task(td.cs2103));
@@ -58,7 +58,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void resetData_withDuplicateTags_throwsAssertionError() {
+    public void resetDataWithDuplicateTagsFailure() {
         TaskList typicalTaskList = new TypicalTask().getTypicalTaskList();
         List<ReadOnlyTask> newTasks = typicalTaskList.getTaskList();
         List<Tag> newTags = new ArrayList<>(typicalTaskList.getTagList());

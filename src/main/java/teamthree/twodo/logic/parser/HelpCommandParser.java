@@ -14,9 +14,6 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 // Parses input arguments and creates a new HelpCommand object
 public class HelpCommandParser implements CommandParser {
 
-    public HelpCommandParser() {
-    }
-
     public HelpCommand parse(String args) throws ParseException {
         switch (args.trim()) {
         case AddCommand.COMMAND_WORD:

@@ -9,7 +9,7 @@ import teamthree.twodo.TestApp;
  */
 public class MainWindowHandle extends GuiHandle {
 
-    private final TaskListPanelHandle personListPanel;
+    private final TaskListPanelHandle taskListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -19,7 +19,7 @@ public class MainWindowHandle extends GuiHandle {
     public MainWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
 
-        personListPanel = new TaskListPanelHandle(guiRobot, primaryStage);
+        taskListPanel = new TaskListPanelHandle(guiRobot, primaryStage);
         resultDisplay = new ResultDisplayHandle(guiRobot, primaryStage);
         commandBox = new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
         statusBarFooter = new StatusBarFooterHandle(guiRobot, primaryStage);
@@ -28,7 +28,7 @@ public class MainWindowHandle extends GuiHandle {
     }
 
     public TaskListPanelHandle getTaskListPanel() {
-        return personListPanel;
+        return taskListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {

@@ -89,7 +89,7 @@ Example: `help add`
 
 ==== General
 
-Format 1: `add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm] ` +
+Format 1: `add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]` +
 Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/Reunion a/2 days`
 ****
 * Creates a task with provided attributes and adds it to your list
@@ -107,27 +107,44 @@ Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200`
 
 ==== Tasks with deadlines
 
-Format: `add n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
-Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days r/false u/true`
+Format: `add n/{name} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm]` +
+Example: `add n/Complete CS2103 V0.2 e/10/07/17 1000 d/Ensure project is at least a minimum viable product t/NUS a/2 days`
 ****
 * Tasks with deadlines can be added with only the _end_ field included
 ****
 
 ==== Events
 
-Format: `add n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm] ` +
-Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days `
+Format: `add n/{name} s/{start} e/{end} d/[description] t/[tag1, tag2,...] a/[alarm]` +
+Example: `add n/CS2103 final exams s/28/07/17 1430 e/28/07/17 1630 d/Pray hard t/NUS a/2 days`
 ****
 * Events can be added with the _start_ and _end_ fields filled
 ****
 
+==== Tags
+
+Format: `add tag {tag name} {indices of the tasks to include under the tag}` +
+Example: `add tag NUS 1,2,3,8`
+****
+* The _indices_ must be comma-separated
+****
 
 === Deleting a task : `delete / del / d / -`
+
+==== General
 
 Format: `delete {index}` +
 Example: `delete 1`
 ****
 * Deletes task at that index (positive number) in the most recent call of list
+****
+
+==== Tags
+
+Format: `del tag {index of tag in tag list}` +
+Example: `del tag 7`
+****
+* Deleting of default tags is not allowed
 ****
 
 === Listing all tasks : `list / l`
@@ -197,32 +214,35 @@ Example: `unmark 4`
 Format: `option a/[alarm] m/[mark completion automatically]` +
 Example: `option a/1 minute m/true`
 ****
-* Option without parameters will show the general options that the user can edit and their explanations
-* Default reminder alarm timing, before the deadline, can be edited
-** Default setting is 1 days
+* Option without parameters will show the application's options, that the user can edit, and their explanations
+* The default reminder alarm timing, before the deadline, can be edited
+** The default option is 1 day
 ** Range for reminders: 1 minute to 7 days
-* Default automatic mark for completion setting can be edited
-** Default setting will prompt user checking if the activity was completed
-** This can be changed to automatically marking the activity as completed without prompting
+** Changes will only take effect for subsequent tasks that are added
+* The default automatic mark as complete setting can be edited
+** By default, this feature is disabled
+** This can be enabled to automatically mark tasks as completed once their deadline has passed
+** Once this is enabled, all existing tasks that are past their deadlines will be marked as complete as well
+* The amended options will last for the remainder of the session and will reset to the default options once the application closes
 ****
 
+[[save-command]]
 === Saving list : `save / s`
 
 Format: `save [directory]` +
-Example: `save C:\Program Files\Common Files\2Do.txt`
+Example: `save C:\Program Files\Common Files\2Do.xml`
 ****
-* Saves the current to-do list and exports it as a text file in the directory specified
-* By default, the file will be saved as to-do.txt on  _C:\Program Files_
-** 2Do creates the file if it does not exist
+* Saves the current to-do list and exports it as an _xml_ file in the directory specified
+* By default, the file will be saved as _data/2Do.xml_ in the directory of the application
+* 2Do creates the file if it does not exist
 * 2Do uses the to-do list in the last specified file path when it launches
 ****
 
 === Loading list : `load`
 Format: `load [directory]` +
-Example: `load C:\Program Files\Common Files\2Do.txt`
+Example: `load C:\Program Files\Common Files\2Do.xml`
 ****
 * Loads the to-do list present in the directory specified
-* To then view the loaded to-do list, relaunch 2Do to update its task list
 ****
 
 === Clearing list : `clear / c`
@@ -244,7 +264,7 @@ Example: `quit`
 
 == FAQ
 *Q*: How do I save my to-do list? +
-*A*: The data is saved in the hard disk automatically, by default as *C:\Program Files\2Do.txt*, after any command that changes the data. There is no need to save manually.
+*A*: The data is saved in the hard drive automatically, by default as _data/2Do.xml_ in the directory of the application, after any command that changes the data. There is no need to save manually. However, you may save it as another file using our link:#save-command[Save Command].
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous to-do list folder.
@@ -257,9 +277,13 @@ Example: `quit`
 
 |help  |help [name of command] |`help add`
 
-|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days `
+|add / a /+ |add n/{name} s/[start] e/[end] d/[description] t/[tag1, tag2,...] a/[alarm]|`add n/CS2103 Project V0.1 s/03/05/17 2359 e/04/05/17 1159 d/Special Term t/NUS a/2 days`
+
+|add tag / a tag /+ tag |add tag {tag name} {indices of the tasks to include under the tag} |`add tag NUS 1,2,3,8`
 
 |delete / del / d / - |delete [-h] {index} |`delete 1`
+
+|delete tag / del tag / d tag /- tag |del tag {index of tag in tag list} |`del tag 7`
 
 |list / l |list [/h] [/f] s/[start] e/[end] t/[tag1, tag2,...]|`list s/today 10am`
 
@@ -277,9 +301,9 @@ Example: `quit`
 
 |option / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
-|save / s |save [directory] |`save C:\Program Files\Common Files\2Do.txt`
+|save / s |save [directory] |`save C:\Program Files\Common Files\2Do.xml`
 
-|load  |load [directory] |`load C:\Program Files\Common Files\2Do.txt`
+|load  |load [directory] |`load C:\Program Files\Common Files\2Do.xml`
 
 |clear / c |clear |`clear`
 

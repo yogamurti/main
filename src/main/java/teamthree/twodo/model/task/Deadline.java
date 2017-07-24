@@ -43,9 +43,9 @@ public class Deadline {
     }
 
     public Deadline(String startDate, String endDate, String notificationPeriod) throws IllegalValueException {
-        requireNonNull(startDate.toString());
-        requireNonNull(endDate.toString());
-        requireNonNull(notificationPeriod.toString());
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(notificationPeriod);
         PrettyTimeParser dateParser = new PrettyTimeParser();
         if (!isValidDeadline(startDate, endDate, dateParser)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS_STRICT);
@@ -118,8 +118,8 @@ public class Deadline {
         this.notificationPeriod = notificationPeriod;
     }
 
+    // Empty command
     public void setNotificationPeriod(String notificationPeriod) {
-
     }
 
     /**

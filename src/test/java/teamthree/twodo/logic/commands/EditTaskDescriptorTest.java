@@ -1,6 +1,7 @@
 package teamthree.twodo.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_CSMOD;
 import static teamthree.twodo.testutil.EditCommandTestUtil.DESC_EVENT;
@@ -26,7 +27,7 @@ public class EditTaskDescriptorTest {
         assertTrue(DESC_CSMOD.equals(DESC_CSMOD));
 
         // null -> returns false
-        assertFalse(DESC_CSMOD.equals(null));
+        assertNotNull(DESC_CSMOD);
 
         // different types -> returns false
         assertFalse(DESC_CSMOD.equals(5));

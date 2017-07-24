@@ -14,7 +14,7 @@ import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.model.task.TaskWithDeadline;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
@@ -62,16 +62,16 @@ public class TaskCardHandle extends GuiHandle {
         return guiRobot.from(node).lookup(TAGS_FIELD_ID).query();
     }
 
-    public boolean isSamePerson(ReadOnlyTask person) {
-        if (person instanceof TaskWithDeadline) {
-            return getFullName().equals(person.getName().fullName)
-                    && getDeadline().equals(person.getDeadline().get().toString())
-                    && getDescription().equals(person.getDescription().value)
-                    && getTags().equals(getTags(person.getTags()));
+    public boolean isSameTask(ReadOnlyTask task) {
+        if (task instanceof TaskWithDeadline) {
+            return getFullName().equals(task.getName().fullName)
+                    && getDeadline().equals(task.getDeadline().get().toString())
+                    && getDescription().equals(task.getDescription().value)
+                    && getTags().equals(getTags(task.getTags()));
         } else {
-            return getFullName().equals(person.getName().fullName)
-                    && getDescription().equals(person.getDescription().value)
-                    && getTags().equals(getTags(person.getTags()));
+            return getFullName().equals(task.getName().fullName)
+                    && getDescription().equals(task.getDescription().value)
+                    && getTags().equals(getTags(task.getTags()));
         }
     }
 

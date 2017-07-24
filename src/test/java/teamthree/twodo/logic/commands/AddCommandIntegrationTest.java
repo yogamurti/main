@@ -31,7 +31,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newTask_success() throws Exception {
+    public void executeNewTaskSuccess() throws Exception {
         Task validTask = new TaskWithDeadlineBuilder().build();
 
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
@@ -44,7 +44,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicateTask_throwsCommandException() throws Exception {
+    public void executeDuplicateTaskFailure() throws Exception {
         Task taskInList = new TaskWithDeadline(model.getTaskList().getTaskList().get(0));
 
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());

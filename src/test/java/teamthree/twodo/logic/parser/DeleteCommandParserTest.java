@@ -26,13 +26,13 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() throws Exception {
+    public void parseValidArgsReturnsDeleteCommand() throws Exception {
         DeleteCommand command = parser.parse("1");
         assertEquals(INDEX_FIRST_TASK, command.targetIndex);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() throws Exception {
+    public void parseInvalidArgsFailure() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
