@@ -54,9 +54,6 @@ public class AutoMarkManagerStud extends ComponentManager {
     // Enables or disables the auto-completion functionality
     public static void setToRun(boolean setting) {
         setToRun = setting;
-        if (setting) {
-            // TODO need to do something here to enhance the "only updates whenever there's a new command" issue
-        }
     }
 
     /**
@@ -198,7 +195,7 @@ public class AutoMarkManagerStud extends ComponentManager {
 
     // Synchronizes the uncompleted list with the master list when there is a change
     @Subscribe
-    public void handleTaskBookChangedEvent(TaskListChangedEvent event) {
+    public void handleTaskListChangedEvent(TaskListChangedEvent event) {
         syncWithMasterTaskList(model.getTaskList().getTaskList());
     }
 

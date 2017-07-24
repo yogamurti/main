@@ -151,7 +151,7 @@ public class StringUtilTest {
     }
 
     @Test
-    public void getDetails_nullGiven_throwsNullPointerException() {
+    public void getDetailsNullGivenFailure() {
         thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }

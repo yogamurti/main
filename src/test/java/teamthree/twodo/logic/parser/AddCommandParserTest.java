@@ -42,7 +42,7 @@ public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
+    public void parseMissingPartsFailure() {
         // no prefix
         assertParseFailure(VALID_NAME_CSMOD, MESSAGE_INVALID_FORMAT);
 
