@@ -10,11 +10,12 @@ import teamthree.twodo.TestApp;
 public class MainWindowHandle extends GuiHandle {
 
     private final TaskListPanelHandle taskListPanel;
+    private final CategoryListPanelHandle categoryListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
+    //private final BrowserPanelHandle browserPanel;
 
     public MainWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -24,7 +25,8 @@ public class MainWindowHandle extends GuiHandle {
         commandBox = new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
         statusBarFooter = new StatusBarFooterHandle(guiRobot, primaryStage);
         mainMenu = new MainMenuHandle(guiRobot, primaryStage);
-        browserPanel = new BrowserPanelHandle(guiRobot, primaryStage);
+        //browserPanel = new BrowserPanelHandle(guiRobot, primaryStage);
+        categoryListPanel = new CategoryListPanelHandle(guiRobot, primaryStage);
     }
 
     public TaskListPanelHandle getTaskListPanel() {
@@ -47,7 +49,11 @@ public class MainWindowHandle extends GuiHandle {
         return mainMenu;
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
+    /*public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
+    }*/
+
+    public CategoryListPanelHandle getCategoryListPanel() {
+        return categoryListPanel;
     }
 }
