@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     /* ==================EVENT HANDLERS======================== */
     /**
      * Responds to taskList storage change after load event.
-     * @param event contains the taskList to update to
+     * @param event Contains the taskList to update to
      */
     @Subscribe
     public void handleLoadNewModelEvent(LoadNewModelEvent event) {

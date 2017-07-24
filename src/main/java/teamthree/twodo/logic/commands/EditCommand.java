@@ -51,10 +51,8 @@ public class EditCommand extends Command {
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
-     * @param index
-     *            of the person in the filtered person list to edit
-     * @param editTaskDescriptor
-     *            details to edit the person with
+     * @param index of the person in the filtered person list to edit
+     * @param editTaskDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
         requireNonNull(index);
@@ -125,10 +123,8 @@ public class EditCommand extends Command {
     /**
      * Returns the final deadline with all the updates integrated.
      *
-     * @param taskToEdit
-     *            the original task
-     * @param editTaskDescriptor
-     *            the taskdescriptor with updates
+     * @param taskToEdit The original task
+     * @param editTaskDescriptor The taskdescriptor with updates
      * @return final deadline with all updates
      */
     private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
@@ -167,10 +163,8 @@ public class EditCommand extends Command {
      * after end date). If a date is default, it means that it is not being
      * updated
      *
-     * @param updatedDate
-     *            the final deadline with all updates integrated
-     * @param updates
-     *            the updates in this edit
+     * @param updatedDate The final deadline with all updates integrated
+     * @param updates The updates in this edit
      * @return final deadline with all start and end date discrepancies cleared
      */
 

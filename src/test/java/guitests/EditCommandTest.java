@@ -21,8 +21,6 @@ import teamthree.twodo.model.task.Task;*/
 /*import teamthree.twodo.testutil.FloatingTaskBuilder;*/
 import teamthree.twodo.testutil.TaskUtil;
 
-// TODO: reduce GUI tests by transferring some tests to be covered by lower
-// level tests.
 public class EditCommandTest extends TaskListGuiTest {
 
 
@@ -139,12 +137,9 @@ public class EditCommandTest extends TaskListGuiTest {
     /**
      * Checks whether the edited task has the correct updated details.
      *
-     * @param filteredTaskListIndex
-     *            index of task to edit in filtered list
-     * @param detailsToEdit
-     *            details to edit the person with as input to the edit command
-     * @param editedTask
-     *            the expected task after editing the task's details
+     * @param filteredTaskListIndex Index of task to edit in filtered list
+     * @param detailsToEdit Details to edit the person with as input to the edit command
+     * @param editedTask The expected task after editing the task's details
      */
     /*    private void assertEditSuccess(Index filteredTaskListIndex, String detailsToEdit, Task editedTask) {
         commandBox.runCommand(

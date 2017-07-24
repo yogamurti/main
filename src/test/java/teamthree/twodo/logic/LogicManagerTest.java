@@ -280,9 +280,8 @@ public class LogicManagerTest {
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
      *
-     * @param commandWord
-     *            to test assuming it targets a single task in the last shown
-     *            list based on visible index.
+     * @param commandWord To test assuming it targets a single task in the last shown
+     * list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
             throws Exception {
@@ -297,9 +296,8 @@ public class LogicManagerTest {
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
      *
-     * @param commandWord
-     *            to test assuming it targets a single task in the last shown
-     *            list based on visible index.
+     * @param commandWord To test assuming it targets a single task in the last shown
+     * list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -450,8 +448,7 @@ public class LogicManagerTest {
          * have the same state. Each unique seed will generate a unique Task
          * object.
          *
-         * @param seed
-         *            used to generate the task data field values
+         * @param seed Used to generate the task data field values
          */
         private Task generateTask(int seed) throws Exception {
             return new TaskWithDeadline(new Name("Task " + seed),
@@ -502,8 +499,7 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given TaskList
          *
-         * @param filePath
-         *            The TaskList to which the Tasks will be added
+         * @param filePath The TaskList to which the Tasks will be added
          */
         private void addToTaskList(TaskList taskList, int numGenerated) throws Exception {
             addToTaskList(taskList, createTaskList(numGenerated));
@@ -521,8 +517,7 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given model
          *
-         * @param model
-         *            The model to which the Tasks will be added
+         * @param model The model to which the Tasks will be added
          */
         private void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, createTaskList(numGenerated));
