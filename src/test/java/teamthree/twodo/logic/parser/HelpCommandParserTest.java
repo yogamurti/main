@@ -29,11 +29,12 @@ import teamthree.twodo.logic.parser.exceptions.ParseException;
 public class HelpCommandParserTest {
 
     private HelpCommandParser parser = new HelpCommandParser();
-    private HelpCommand actual;
-    private HelpCommand expected;
 
     @Test
     public void parseCommandSuccess() throws ParseException {
+        HelpCommand actual;
+        HelpCommand expected;
+
         actual = parser.parse(AddCommand.COMMAND_WORD);
         expected = new HelpCommand(AddCommand.MESSAGE_USAGE);
         assertTrue(actual.equals(expected));

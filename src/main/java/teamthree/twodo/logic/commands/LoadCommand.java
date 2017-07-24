@@ -15,7 +15,7 @@ public class LoadCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Load the TaskList from a particular file into 2Do."
             + "To view the changes, after typing load command, enter exit command and reopen 2Do."
             + "FILE_PATH/FILENAME.xml\n" + "Example for Windows: C:/Users/Desktop/2Do.xml\n"
-            + " Example for Mac: /User/Username/Desktop/2Do.xml\n";
+            + "Example for Mac: /User/Username/Desktop/2Do.xml\n";
 
     public static final String MESSAGE_SUCCESS = "File %1$s successfully loaded\n ";
     public static final String MESSAGE_INVALID_PATH = "File Path %1$s is invalid\n";

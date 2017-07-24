@@ -37,6 +37,9 @@ public class AddCommand extends Command {
             + ": Adds a tag to multiple tasks.\n" + "Parameters: TAGNAME INDICES OF TASKS TO ADD TAG TO\n" + "Example: "
             + COMMAND_WORD + " " + PREFIX_CATEGORY + "NUS 1,2,4,7";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task that you need 2Do.\n"
+            + "Please refer to the UserGuide for the correct input format of the parameters.\n"
+            + "To find out how to add tags to multiple tasks type '"
+            + HelpCommand.COMMAND_WORD + PREFIX_CATEGORY + "'.\n"
             + "Parameters: " + PREFIX_NAME + "{TASK} " + PREFIX_DEADLINE_START + "[START DATE] {TIME} "
             + PREFIX_DEADLINE_END + "[END DATE] {TIME} " + PREFIX_DESCRIPTION + "[DESCRIPTION] "
             + PREFIX_TAG + "[TAG1, TAG2,...] " + PREFIX_NOTIFICATION_PERIOD + "[ALARM]\n"
@@ -45,8 +48,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "personal\n" + "Example for deadline: "
             + PREFIX_NAME + "V0.5 " + PREFIX_DEADLINE_END + "next monday 8pm\n" + "Example for events: "
             + PREFIX_NAME + "Attend ComicCon " + PREFIX_DEADLINE_START + " friday 10am " + PREFIX_DEADLINE_END
-            + "friday 10pm " + PREFIX_TAG + "Otaku\n" + "To find out how to add tags to multiple tasks type 'help"
-            + PREFIX_CATEGORY + "'.";
+            + "friday 10pm " + PREFIX_TAG + "Otaku";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s\n";
     public static final String MESSAGE_SUCCESS_TAG = "New tag added: %1$s\n";
