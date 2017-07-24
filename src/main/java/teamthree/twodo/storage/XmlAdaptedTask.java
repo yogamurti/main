@@ -25,9 +25,10 @@ public class XmlAdaptedTask {
     private String name;
     @XmlElement(required = false)
     private Deadline deadline;
-    /*
-     * @XmlElement(required = true) private String email;
-     */
+
+    @XmlElement(required = false)
+    private String isComplete;
+
     @XmlElement(required = false)
     private String description;
 
@@ -53,7 +54,7 @@ public class XmlAdaptedTask {
         if (source.getDeadline().isPresent()) {
             deadline = source.getDeadline().get();
         }
-
+        isComplete = source.isCompleted().toString();
         description = source.getDescription().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -80,12 +81,23 @@ public class XmlAdaptedTask {
         if (description != null) {
             desc = new Description(this.description);
         }
+
         final Set<Tag> tags = new HashSet<>(taskTags);
+        Task task;
         if (deadline != null) {
             final Deadline deadline = new Deadline(this.deadline);
-            return new TaskWithDeadline(name, deadline, desc, tags);
+            task = new TaskWithDeadline(name, deadline, desc, tags);
+            markIfComplete(task);
+            return task;
         }
+        task = new Task(name, desc, tags);
+        markIfComplete(task);
+        return task;
+    }
 
-        return new Task(name, desc, tags);
+    private void markIfComplete(Task task) {
+        if (isComplete != null && isComplete.equals(Boolean.TRUE.toString())) {
+            task.markCompleted();
+        }
     }
 }

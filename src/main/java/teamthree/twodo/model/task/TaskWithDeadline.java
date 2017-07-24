@@ -10,14 +10,20 @@ import teamthree.twodo.model.tag.Tag;
 public class TaskWithDeadline extends Task implements ReadOnlyTask {
 
     private Deadline deadline;
+
+    public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags, boolean isComplete) {
+        super(name, description, tags, isComplete);
+        this.deadline = deadline;
+    }
+
     public TaskWithDeadline(Name name, Deadline deadline, Description description, Set<Tag> tags) {
         super(name, description, tags);
         this.deadline = deadline;
     }
 
     public TaskWithDeadline(ReadOnlyTask source) {
-        this(source.getName(), source.getDeadline().get(),
-             source.getDescription(), source.getTags());
+        this(source.getName(), source.getDeadline().get(), source.getDescription(), source.getTags(),
+                source.isCompleted());
     }
 
     public void setDeadline(Deadline deadline) {
@@ -28,23 +34,21 @@ public class TaskWithDeadline extends Task implements ReadOnlyTask {
     public Optional<Deadline> getDeadline() {
         return Optional.of(deadline);
     }
+
     /**
      * Formats the TaskWithDeadline as text
      */
     @Override
     public String getAsText() {
-        assert(deadline != null);
+        assert (deadline != null);
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName() + "\n")
-                .append(getDeadline().get())
-                .append("Description: ")
-                .append(getDescription())
-                .append("Completed: ")
-                .append(isCompleted())
-                .append("Tags: ");
+        builder.append(getName() + "\n").append(getDeadline().get()).append("Description: ")
+                .append(getDescription()).append("Completed: ").append(isCompleted() + "\n").append("Tags: ");
         getTags().forEach(builder::append);
+        builder.append("\n");
         return builder.toString();
     }
+
     /**
      * Updates this task with the details of {@code replacement}.
      */
