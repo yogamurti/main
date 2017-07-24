@@ -30,6 +30,7 @@ public class ListCommandTest {
     private Model expectedModel;
     private ListCommand listCommand;
     private ListCommand listCommandWithDeadline;
+    private boolean listIncomplete;
 
     @Before
     public void setUp() throws IllegalValueException {
@@ -40,7 +41,7 @@ public class ListCommandTest {
     @Test
     public void executeListUnfiltered() throws Exception {
         //Test incomplete tasks
-        boolean listIncomplete = true;
+        listIncomplete = true;
         listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, false, null);
         listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
 
@@ -59,7 +60,7 @@ public class ListCommandTest {
     @Test
     public void executeListFilteredByFloating() throws Exception {
         //Test incomplete tasks
-        boolean listIncomplete = true;
+        listIncomplete = true;
         listCommand = new ListCommand(null, AttributeInputted.NONE, listIncomplete, true, null);
         listCommand.setData(model, new CommandHistory(), new UndoCommandHistory());
 
@@ -77,11 +78,11 @@ public class ListCommandTest {
 
     @Test
     public void executeListFilteredByDeadlineStart() throws Exception {
-        Deadline testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
+        Deadline testDeadline = new Deadline("last week 5am", "yesterday 10am",
                 Deadline.NULL_VALUE);
         AttributeInputted start = AttributeInputted.START;
         //Test incomplete tasks
-        boolean listIncomplete = true;
+        listIncomplete = true;
         listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
@@ -101,17 +102,17 @@ public class ListCommandTest {
 
     @Test
     public void executeListFilteredByDeadlineEnd() throws Exception {
-        Deadline testDeadline = new Deadline("tomorrow 10am", "tomorrow 10am",
+        Deadline testDeadline = new Deadline("last year 1am", "next year 11pm",
                 Deadline.NULL_VALUE);
         AttributeInputted end = AttributeInputted.END;
         //Test incomplete tasks
-        boolean listIncomplete = true;
+        listIncomplete = true;
         listCommandWithDeadline = new ListCommand(testDeadline, end, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, end, listIncomplete, null);
         assertCommandSuccess(listCommandWithDeadline, model, String.format(
-                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_END, testDeadline.getStartDate()), expectedModel);
+                ListCommand.MESSAGE_SUCCESS_INCOMPLETE_END, testDeadline.getEndDate()), expectedModel);
 
         //Test completed tasks
         listIncomplete = false;
@@ -120,16 +121,16 @@ public class ListCommandTest {
 
         expectedModel.updateFilteredTaskListToShowPeriod(testDeadline, end, listIncomplete, null);
         assertCommandSuccess(listCommandWithDeadline, model, String.format(
-                ListCommand.MESSAGE_SUCCESS_COMPLETE_END, testDeadline.getStartDate()), expectedModel);
+                ListCommand.MESSAGE_SUCCESS_COMPLETE_END, testDeadline.getEndDate()), expectedModel);
     }
 
     @Test
     public void executeListFilteredByDeadlineBoth() throws Exception {
-        Deadline testDeadline = new Deadline("last week 10am", "next week 10am",
+        Deadline testDeadline = new Deadline("last week 5am", "next week 10am",
                 Deadline.NULL_VALUE);
         AttributeInputted both = AttributeInputted.BOTH;
         //Test incomplete tasks
-        boolean listIncomplete = true;
+        listIncomplete = true;
         listCommandWithDeadline = new ListCommand(testDeadline, both, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
@@ -152,9 +153,9 @@ public class ListCommandTest {
     @Test
     public void executeListFilteredByTag() throws Exception {
         AttributeInputted none = AttributeInputted.NONE;
-        Set<Tag> testTagList = new TypicalTask().cs2103.getTags();
         //Test incomplete tasks
-        boolean listIncomplete = true;
+        listIncomplete = true;
+        Set<Tag> testTagList = new TypicalTask().cs2103.getTags();
         listCommandWithDeadline = new ListCommand(null, none, listIncomplete, false, testTagList);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
@@ -164,6 +165,7 @@ public class ListCommandTest {
 
         //Test complete tasks
         listIncomplete = false;
+        testTagList = new TypicalTask().partyCompleted.getTags();
         listCommandWithDeadline = new ListCommand(null, none, listIncomplete, false, testTagList);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 
@@ -190,7 +192,7 @@ public class ListCommandTest {
         Deadline testDeadline = new Deadline("yesterday 10am", "yesterday 10am",
                 Deadline.NULL_VALUE);
         AttributeInputted start = AttributeInputted.START;
-        boolean listIncomplete = true;
+        listIncomplete = true;
         listCommandWithDeadline = new ListCommand(testDeadline, start, listIncomplete, false, null);
         listCommandWithDeadline.setData(model, new CommandHistory(), new UndoCommandHistory());
 

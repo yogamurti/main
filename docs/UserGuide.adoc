@@ -99,7 +99,7 @@ Example: `add n/CS2103 Meetup s/03/05/17 1200 e/03/05/17 1400 d/Reunion lunch t/
 
 ==== Floating tasks
 
-Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]]` +
+Format: `add n/{name} d/[description] t/[tag1, tag2,...] a/[alarm]` +
 Example: `add n/Complain about CS2103 d/To destress t/NUS a/15/07/17 1200`
 ****
 * You will not be able to set an _alarm_ for floating tasks
@@ -209,7 +209,7 @@ Example: `unmark 4`
 * Marks a (completed) task as incomplete
 ****
 
-=== Editing the default options : `option / o`
+=== Editing the default options : `option / options / o`
 
 Format: `option a/[alarm] m/[mark completion automatically]` +
 Example: `option a/1 minute m/true`
@@ -254,7 +254,7 @@ Example: `clear`
 * Local file containing the current to-do list will be wiped clean as well
 ****
 
-=== Quitting 2Do : `exit / quit / q`
+=== Quitting 2Do : `exit / quit / q / x`
 
 Format: `quit` +
 Example: `quit`
@@ -299,7 +299,7 @@ Example: `quit`
 
 |unmark / un |unmark {index} |`unmark 4`
 
-|option / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
+|option / options / o |option a/[alarm] m/ [mark completion automatically] |`option a/1 minute m/true`
 
 |save / s |save [directory] |`save C:\Program Files\Common Files\2Do.xml`
 
@@ -307,5 +307,5 @@ Example: `quit`
 
 |clear / c |clear |`clear`
 
-|exit / quit / q |quit |`quit`
+|exit / quit / q / x |quit |`quit`
 |=======================================================================

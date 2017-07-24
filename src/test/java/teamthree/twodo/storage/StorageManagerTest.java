@@ -24,6 +24,7 @@ import teamthree.twodo.model.UserPrefs;
 import teamthree.twodo.model.task.ReadOnlyTask;
 import teamthree.twodo.testutil.EventsCollector;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 public class StorageManagerTest {
 
@@ -66,7 +67,7 @@ public class StorageManagerTest {
          * {@link XmlTaskListStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlTaskListStorageTest} class.
          */
-        TaskList original = new TypicalTask().getTypicalTaskList();
+        TaskList original = new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList();
         storageManager.saveTaskList(original);
         ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
         assertEquals(original, new TaskList(retrieved));

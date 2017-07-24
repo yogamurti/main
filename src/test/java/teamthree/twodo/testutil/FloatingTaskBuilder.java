@@ -22,7 +22,7 @@ public class FloatingTaskBuilder {
         Name defaultName = new Name(DEFAULT_NAME);
         Description defaultDescription = new Description(DEFAULT_DESCRIPTION);
         Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-        this.task = new Task(defaultName, defaultDescription, defaultTags);
+        this.task = new Task(defaultName, defaultDescription, defaultTags, false);
     }
 
     /**
@@ -50,6 +50,11 @@ public class FloatingTaskBuilder {
 
     public Task build() {
         return this.task;
+    }
+
+    public FloatingTaskBuilder isCompleted() {
+        this.task.markCompleted();
+        return this;
     }
 
 }

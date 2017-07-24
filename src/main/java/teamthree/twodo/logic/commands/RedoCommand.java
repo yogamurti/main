@@ -20,9 +20,11 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String COMMAND_WORD_FAST = "r";
-    public static final String MESSAGE_SUCCESS = "Successfully redid command!!!\n";
+    public static final String MESSAGE_SUCCESS = "Successfully redid command.\n";
     public static final String MESSAGE_NO_HISTORY = "Failed to redo: You have not yet entered any undo commands.";
     public static final String MESSAGE_INVALID_PREVIOUS_COMMAND = "Failed to redo: Invalid previous command ";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous undone command.";
 
     private static String fullMessage;
 

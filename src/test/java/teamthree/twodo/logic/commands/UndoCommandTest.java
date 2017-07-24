@@ -47,6 +47,7 @@ import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 //@@author A0162253M
 /**
@@ -72,7 +73,7 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         undoCommand = new UndoCommand();
@@ -123,6 +124,11 @@ public class UndoCommandTest {
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
 
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
+        expectedModel.updateFilteredTaskListToShowAll(null, false, false);
+        //The recently marked task should be the only marked task in the model
+        assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
+
+        expectedModel.updateFilteredTaskListToShowAll(null, false, true);
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
         expectedModel.unmarkTask(task2Mark);
         taskToMark.markIncompleted();
@@ -216,7 +222,8 @@ public class UndoCommandTest {
         deleteCommand.execute();
         this.history.addToUserInputHistory("tagDeleted");
 
-        Model expectedModel = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new TypicalTask(TaskType.INCOMPLETE)
+                .getTypicalTaskList(), new UserPrefs());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(
                         String.format(AddCommand.MESSAGE_SUCCESS_TAG, tagName));
 
@@ -238,7 +245,8 @@ public class UndoCommandTest {
         addCommand.execute();
         this.history.addToUserInputHistory("tagAdded");
 
-        Model expectedModel = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new TypicalTask(TaskType.INCOMPLETE)
+                .getTypicalTaskList(), new UserPrefs());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(
                         String.format(DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS, tagName));
 

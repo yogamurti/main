@@ -35,6 +35,8 @@ public class EditTaskDescriptorBuilder {
         descriptor.setTags(task.getTags());
         if (task instanceof TaskWithDeadline) {
             descriptor.setDeadline(task.getDeadline().get());
+        } else {
+            descriptor.setDeadline(null);
         }
     }
 

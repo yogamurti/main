@@ -46,6 +46,7 @@ import teamthree.twodo.testutil.EditTaskDescriptorBuilder;
 import teamthree.twodo.testutil.TaskWithDeadlineBuilder;
 import teamthree.twodo.testutil.TestUtil;
 import teamthree.twodo.testutil.TypicalTask;
+import teamthree.twodo.testutil.TypicalTask.TaskType;
 
 //@@author A0162253M
 public class RedoCommandTest {
@@ -67,7 +68,7 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
+        model = new ModelManager(new TypicalTask(TaskType.INCOMPLETE).getTypicalTaskList(), new UserPrefs());
         history = new CommandHistory();
         undoHistory = new UndoCommandHistory();
         redoCommand = new RedoCommand();
@@ -77,7 +78,6 @@ public class RedoCommandTest {
         undoCommand.setData(model, history, undoHistory, catMan);
         this.taskList = TestUtil.generateSampleTaskData();
     }
-
 
     @Test
     public void executeRedoAddCommandSuccess()

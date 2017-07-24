@@ -10,8 +10,10 @@ import teamthree.twodo.model.TaskList;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD_FAST = "c";
     public static final String MESSAGE_SUCCESS = "Task List has been cleared!";
 
+    public static final String MESSAGE_USAGE = ": Deletes all tasks from the list";
 
     @Override
     public CommandResult execute() {
