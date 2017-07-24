@@ -28,7 +28,7 @@ import teamthree.twodo.model.task.TaskWithDeadline;
 import teamthree.twodo.model.task.exceptions.DuplicateTaskException;
 import teamthree.twodo.model.task.exceptions.TaskNotFoundException;
 
-//@@author A0124399W
+// @@author A0124399W
 // Edits the details of an existing task in the Tasklist.
 public class EditCommand extends Command {
 
@@ -109,8 +109,11 @@ public class EditCommand extends Command {
      *
      * If edit adds a deadline to floating task, a TaskWithDeadline object is
      * returned.
+     *
+     * @throws CommandException
      */
-    private static Task createEditedTask(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Task createEditedTask(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor)
+            throws CommandException {
         assert taskToEdit != null;
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
@@ -135,8 +138,10 @@ public class EditCommand extends Command {
      * @param editTaskDescriptor
      *            the taskdescriptor with updates
      * @return final deadline with all updates
+     * @throws CommandException
      */
-    private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Deadline getUpdatedDeadline(ReadOnlyTask taskToEdit, EditTaskDescriptor editTaskDescriptor)
+            throws CommandException {
         boolean isDeadlineUnchanged = !editTaskDescriptor.getDeadline().isPresent()
                 && taskToEdit instanceof TaskWithDeadline;
         if (isDeadlineUnchanged) {
@@ -144,6 +149,10 @@ public class EditCommand extends Command {
         }
         Deadline updates = editTaskDescriptor.getDeadline().get();
         if (!(taskToEdit instanceof TaskWithDeadline)) {
+            if (updates.getEndDate().equals(Deadline.DEFAULT_DATE)
+                    && updates.getStartDate().equals(Deadline.DEFAULT_DATE)) {
+                throw new CommandException(Messages.MESSAGE_INVALID_NOTIFICATION_EDIT);
+            }
             //if original task had no deadline, the new deadline will be fully from task descriptor
             return correctStartEndDiscrepancy(updates, updates);
         }
