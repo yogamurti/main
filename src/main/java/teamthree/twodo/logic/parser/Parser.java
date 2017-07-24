@@ -75,6 +75,7 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_SECOND:
         case ExitCommand.COMMAND_WORD_FAST:
+        case ExitCommand.COMMAND_WORD_FAST_SECOND:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:

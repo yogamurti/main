@@ -46,6 +46,7 @@ public class HelpCommandParser implements CommandParser {
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD_FAST:
         case ExitCommand.COMMAND_WORD_SECOND:
+        case ExitCommand.COMMAND_WORD_FAST_SECOND:
             return new HelpCommand(ExitCommand.MESSAGE_USAGE);
         case HistoryCommand.COMMAND_WORD:
             return new HelpCommand(HistoryCommand.MESSAGE_USAGE);
