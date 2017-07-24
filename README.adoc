@@ -8,13 +8,8 @@ https://coveralls.io/github/CS2103JUN2017-T3/main?branch=master[image:https://co
 https://www.codacy.com/app/yogamurti/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103JUN2017-T3/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/293bb6c5af064a5f851765c0f9d2d3b4[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/MockUI.png[width="600"]
+image::docs/images/MainScreen.png[width="600"]
 endif::[]
-
-ifndef::env-github[]
-image::images/MockUI.png[width="600"]
-endif::[]
-
 
 * 2Do is a *To Do List* desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is designed to allow users to efficiently manage their tasks.

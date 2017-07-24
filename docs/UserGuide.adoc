@@ -14,7 +14,7 @@ By: `T3`      Since: `Jul 2017`      Licence: `MIT`
 
 == Quick Start
 
-image::docs/images/MainScreen.png[width="600"]
+image::MainScreen.png[width="600"]
 _Figure 2.1.1 : Sample GUI with pre-loaded tasks_
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
