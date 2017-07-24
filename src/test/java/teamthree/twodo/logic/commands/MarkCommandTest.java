@@ -83,7 +83,7 @@ public class MarkCommandTest {
          * the only marked task in the model
          */
         model.updateFilteredTaskListToShowAll(null, false, false);
-        assertTrue(model.getFilteredAndSortedTaskList().size() == 2);
+        assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
         CommandTestUtil.assertCommandFailureWithoutTaskList(markCommand, model,
                 MarkCommand.MESSAGE_ALREADY_MARKED_TASK);
     }

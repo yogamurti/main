@@ -122,7 +122,7 @@ public class UndoCommandTest {
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
 
-        Model expectedModel = new ModelManager(new TaskList(model.getTaskList()), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         expectedModel.updateFilteredTaskListToShowAll(null, false, false);
         //The recently marked task should be the only marked task in the model
         assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);

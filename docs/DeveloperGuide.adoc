@@ -182,12 +182,17 @@ link:{repoURL}/blob/master/src/main/java/teamthree/twodo/logic/Logic.java[`Logic
 .  The command parsing of each specific command is encapsulated as a `CommandParser` object for the their respective parser objects (e.g. DeleteCommandParser).
 .  This results in a `Command` object which is executed by the `LogicManager`.
 <<<<<<< HEAD
+<<<<<<< HEAD
 .  The command execution can affect the `Model` (e.g. deleting a task) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 =======
 .  The command execution can affect the link:#model[`Model`] (e.g. adding a task) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the link:#ui[`UI`].
 >>>>>>> e2316be8bb13260459565087a7d96bb8606b2dc9
+=======
+.  The command execution can affect the link:#model[`Model`] (e.g. deleting a task) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the link:#ui[`UI`].
+>>>>>>> 3c0b763810c18937d0cf92df331c1ae1e2ed24bd
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
