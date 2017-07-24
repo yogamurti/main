@@ -87,7 +87,7 @@ public class EditCommandTest extends TaskListGuiTest {
     }
 
     @Test
-    public void edit_invalidPersonIndex_failure() {
+    public void editInvalidPersonIndexFailure() {
         commandBox.runCommand(listFloating);
         //add task if list is empty
         if (taskListPanel.getNumberOfTasks() == 0) {

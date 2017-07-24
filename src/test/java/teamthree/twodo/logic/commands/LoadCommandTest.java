@@ -12,7 +12,7 @@ import com.google.common.eventbus.Subscribe;
 import teamthree.twodo.commons.core.EventsCenter;
 import teamthree.twodo.commons.events.logic.LoadCommandExecutedEvent;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
-
+//@@author A0162253M
 public class LoadCommandTest {
     private static final String VALID_FILEPATH = "data/2Do.xml";
     private static final String INVALID_FILEPATH = "data/2Do.txt";
@@ -30,14 +30,14 @@ public class LoadCommandTest {
     }
 
     @Test
-    public void execute_load_success() throws CommandException {
+    public void executeLoadSuccess() throws CommandException {
         CommandResult result = new LoadCommand(VALID_FILEPATH).execute();
         assertEquals(String.format(LoadCommand.MESSAGE_SUCCESS , VALID_FILEPATH), result.feedbackToUser);
         assertTrue(isEventCaught);
     }
 
     @Test
-    public void excecute_load_throwCommandException() throws CommandException {
+    public void excecuteLoadFailure() throws CommandException {
         try {
             LoadCommand loadCommand = new LoadCommand(INVALID_FILEPATH);
             loadCommand.execute();

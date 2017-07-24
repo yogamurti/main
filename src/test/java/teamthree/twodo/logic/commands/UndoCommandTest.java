@@ -15,7 +15,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import teamthree.twodo.automark.AutoMarkManager;
+import teamthree.twodo.automark.AutoMarkManagerStud;
+import teamthree.twodo.commons.core.Config;
+import teamthree.twodo.commons.core.ConfigStud;
 import teamthree.twodo.commons.core.index.Index;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.CommandHistory;
 import teamthree.twodo.logic.UndoCommandHistory;
@@ -48,6 +55,12 @@ import teamthree.twodo.testutil.TypicalTask;
 public class UndoCommandTest {
 
     private static final int FIRST_INDEX = 1;
+
+    private static final String DEFAULT_NOTIFICATION_PERIOD_STRING = "1 day";
+    private static final String VALID_ALARM_INPUT = "2 days";
+    private static final boolean VALID_AUTOMARK_INPUT = true;
+    private static final Options SAME_AS_DEFAULT = new Options(
+            new Alarm(Config.defaultNotificationPeriodToString()), new AutoMark(AutoMarkManager.getSetToRun()));
 
     private UndoCommand undoCommand;
     private CommandHistory history;
@@ -107,6 +120,7 @@ public class UndoCommandTest {
         markCommand.setData(model, history, undoHistory);
         markCommand.execute();
         this.history.addToUserInputHistory(MarkCommand.COMMAND_WORD);
+
         Model expectedModel = new ModelManager(model.getTaskList(), new UserPrefs());
         String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
         expectedModel.unmarkTask(task2Mark);
@@ -140,11 +154,11 @@ public class UndoCommandTest {
          * marked task in the model
          */
         expectedModel.updateFilteredTaskListToShowAll(null, false, false);
-        //assertTrue(expectedModel.getFilteredAndSortedTaskList().size() == 1);
+
         UnmarkCommand unmarkCommand = new UnmarkCommand(INDEX_FIRST_TASK);
         unmarkCommand.setData(model, history, undoHistory);
         model.updateFilteredTaskListToShowAll(null, false, false);
-        // assertTrue(model.getFilteredAndSortedTaskList().size() == 1);
+
         unmarkCommand.execute();
         this.history.addToUserInputHistory(UnmarkCommand.COMMAND_WORD);
 
@@ -231,6 +245,33 @@ public class UndoCommandTest {
 
         CommandTestUtil.assertCommandSuccess(undoCommand, model, String.format(expectedMessage, editedTask),
                 expectedModel);
+    }
+
+    @Test
+    public void executeUndoOptionsCommandSuccess() throws CommandException, ParseException {
+        Config.changeDefaultNotificationPeriod(DEFAULT_NOTIFICATION_PERIOD_STRING);
+        ConfigStud.changeDefaultNotificationPeriod(DEFAULT_NOTIFICATION_PERIOD_STRING);
+        AutoMarkManager.setToRun(false);
+        AutoMarkManagerStud.setToRun(false);
+
+        Options changedOptions = new Options(new Alarm(VALID_ALARM_INPUT), new AutoMark(VALID_AUTOMARK_INPUT));
+        OptionsCommand optionsCommand = new OptionsCommand(changedOptions);
+        optionsCommand.setData(model, history, undoHistory);
+        optionsCommand.execute();
+        history.addToUserInputHistory(OptionsCommand.COMMAND_WORD);
+        CommandResult result = undoCommand.execute();
+
+        String expectedMessage = UndoCommand.MESSAGE_SUCCESS.concat(
+                String.format(OptionsCommand.MESSAGE_UPDATE_OPTIONS_SUCCESS, SAME_AS_DEFAULT));
+
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(Config.getDefaultNotificationPeriod(), ConfigStud.getDefaultNotificationPeriod());
+        assertEquals(Config.defaultNotificationPeriodToString(), ConfigStud.defaultNotificationPeriodToString());
+        assertEquals(AutoMarkManager.getSetToRun(), AutoMarkManagerStud.getSetToRun());
+
+        //ensure that Options is set to default stage
+        Config.changeDefaultNotificationPeriod(DEFAULT_NOTIFICATION_PERIOD_STRING);
+        AutoMarkManager.setToRun(false);
     }
 
     @Test

@@ -29,7 +29,7 @@ public class OptionsCommandTest {
             new Alarm(VALID_ALARM_INPUT), new AutoMark(AutoMarkManager.getSetToRun()));
     private static final Options VALID_CHANGE_AUTOMARK = new Options(
             new Alarm(Config.defaultNotificationPeriodToString()), new AutoMark(VALID_AUTOMARK_INPUT));
-    private static final Options VALID_CHANGE_ARGUMENTS = new Options(
+    public static final Options VALID_CHANGE_ARGUMENTS = new Options(
             new Alarm(VALID_ALARM_INPUT), new AutoMark(VALID_AUTOMARK_INPUT));
     private static final Options SAME_AS_DEFAULT = new Options(
             new Alarm(Config.defaultNotificationPeriodToString()), new AutoMark(AutoMarkManager.getSetToRun()));

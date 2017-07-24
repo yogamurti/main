@@ -15,12 +15,5 @@ public class SampleDataTest extends TaskListGuiTest {
         // return a non-existent file location to force test app to load sample data
         return TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
     }
-
-    /*@Test
-    public void addressBook_dataFileDoesNotExist_loadSampleData() throws Exception {
-        commandBox.runCommand(listFloating);
-        Task[] expectedList = SampleDataUtil.getSamplePersons();
-        assertTrue(taskListPanel.isListMatching(expectedList));
-    }*/
 }
 

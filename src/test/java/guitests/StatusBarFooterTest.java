@@ -56,7 +56,7 @@ public class StatusBarFooterTest extends TaskListGuiTest {
     }
 
     @Test
-    public void syncStatus_commandFails_syncStatusRemainsUnchanged() {
+    public void syncStatusCommandFailsSyncStatusRemainsUnchanged() {
         assertFalse(commandBox.runCommand("invalid command")); // invalid command fails
         assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }

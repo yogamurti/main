@@ -1,5 +1,10 @@
 package teamthree.twodo.logic.commands;
 
+import teamthree.twodo.automark.AutoMarkManager;
+import teamthree.twodo.commons.core.Config;
+import teamthree.twodo.commons.core.options.Alarm;
+import teamthree.twodo.commons.core.options.AutoMark;
+import teamthree.twodo.commons.core.options.Options;
 import teamthree.twodo.commons.exceptions.IllegalValueException;
 import teamthree.twodo.logic.commands.exceptions.CommandException;
 import teamthree.twodo.logic.parser.exceptions.ParseException;
@@ -85,6 +90,10 @@ public class UndoCommand extends Command {
         case UnmarkCommand.COMMAND_WORD_FAST:
             return undoUnmarkCommand();
 
+        case OptionsCommand.COMMAND_WORD:
+        case OptionsCommand.COMMAND_WORD_FAST:
+            return undoOptionsCommand();
+
         default:
             //For Previous Command like find, list which cannot be undone
             String message = MESSAGE_INVALID_PREVIOUS_COMMAND.concat(previousCommandWord);
@@ -93,9 +102,42 @@ public class UndoCommand extends Command {
     }
 
     /**
+     * Restore previous options settings and store {@code edittedOptions} for RedoCommand
+     */
+    private CommandResult undoOptionsCommand() {
+        undoHistory.addToOptionsHistory(getDefaultOption());
+        Options edittedOptions = history.getOptionsHistory().pop();
+        assert edittedOptions != null;
+        Options currentOptions = updateOptions(edittedOptions);
+        fullMessage = MESSAGE_SUCCESS.concat(OptionsCommand.MESSAGE_UPDATE_OPTIONS_SUCCESS);
+        return new CommandResult(String.format(fullMessage, currentOptions));
+    }
+
+    private Options getDefaultOption() {
+        Alarm alarm = new Alarm(Config.defaultNotificationPeriodToString());
+        AutoMark autoMark = new AutoMark(AutoMarkManager.getSetToRun());
+        return new Options(alarm, autoMark);
+    }
+
+    private Options updateOptions(Options editedOptions) {
+        Options currentOption = getDefaultOption();
+        if (!editedOptions.getAlarm().equals(currentOption.getAlarm())) {
+            Config.changeDefaultNotificationPeriod(editedOptions.getAlarm().getValue());
+            currentOption.editAlarm(editedOptions.getAlarm());
+            // Checks if the alarm updates were properly executed for both components
+            assert(Config.defaultNotificationPeriodToString() == currentOption.getAlarm().getValue());
+        }
+        if (!editedOptions.getAutoMark().equals(currentOption.getAutoMark())) {
+            AutoMarkManager.setToRun(editedOptions.getAutoMark().getValue());
+            currentOption.editAutoMark(editedOptions.getAutoMark());
+            // Checks if the alarm updates were properly executed for both components
+            assert(AutoMarkManager.getSetToRun() == currentOption.getAutoMark().getValue());
+        }
+        return currentOption;
+    }
+
+    /**
      * Mark task that was marked and store {@code taskToUnmark} for RedoCommand
-     * @return  a Command Result to inform users of that the Unmark command has been undone
-     * @throws TaskNotFoundException if the task to be marked cannot be found in the model
      */
     private CommandResult undoUnmarkCommand() throws TaskNotFoundException {
         ReadOnlyTask taskToMark = history.getUnmarkHistory().pop(); //Retrieve Task to mark
@@ -107,8 +149,6 @@ public class UndoCommand extends Command {
 
     /**
      * Unmark task that was marked and store {@code taskToUnmark} for RedoCommand
-     * @return  a Command Result to inform users of that the unmark command has been undone
-     * @throws TaskNotFoundException if the task to be unmarked cannot be found in the model
      */
     private CommandResult undoMarkCommand() throws TaskNotFoundException {
         ReadOnlyTask taskToUnmark = history.getMarkHistory().pop();
@@ -120,7 +160,6 @@ public class UndoCommand extends Command {
 
     /**
      * Restores Original TaskLIst before Clear Command
-     * @return  a Command Result to inform users of that the clear command has been undone
      */
     private CommandResult undoClearCommand() {
         ReadOnlyTaskList taskBook = history.getClearHistory().pop();
@@ -131,7 +170,6 @@ public class UndoCommand extends Command {
 
     /**
      * Add back Deleted Tag and Stores {@code tag} and {@code taskList} for RedoCommand
-     * @return  a Command Result to inform users of that the delete Tag command has been undone
      */
     private CommandResult undoDeleteTagCommand() {
         ReadOnlyTaskList taskList = history.getDelTagHistory().pop();
@@ -145,8 +183,6 @@ public class UndoCommand extends Command {
 
     /**
      * Add back Deleted Task and Stores {@code taskToAdd} for RedoCommand
-     * @return a Command Result to inform users of that the delete command has been undone
-     * @throws DuplicateTaskException if there is a duplicate of the deleted task to be added back into the model
      */
     private CommandResult undoDeleteCommand() throws DuplicateTaskException {
         ReadOnlyTask taskToAdd = history.getDeleteHistory().pop();
@@ -158,9 +194,6 @@ public class UndoCommand extends Command {
 
     /**
      * Restores back original Task and Stores {@code originalTask} and {@code edittedTask} for RedoCommand
-     * @return  a Command Result to inform users of that the edit command has been undone
-     * @throws DuplicateTaskException if the edited task already exists in the model
-     * @throws TaskNotFoundException if the target task to be edited is not found in the model
      */
     private CommandResult undoEditCommand() throws DuplicateTaskException, TaskNotFoundException {
         ReadOnlyTask originalTask = history.getBeforeEditHistory().pop();
@@ -202,8 +235,6 @@ public class UndoCommand extends Command {
 
     /**
      * Deleting the task added and stores {@code taskToDelete} for RedoCommand
-     * @return a Command Result to inform users of that the add command has been undone
-     * @throws TaskNotFoundException if the task to be deleted cannot be found in the model
      */
     private CommandResult undoAddCommand() throws TaskNotFoundException {
         ReadOnlyTask taskToDelete = history.getAddHistory().pop();

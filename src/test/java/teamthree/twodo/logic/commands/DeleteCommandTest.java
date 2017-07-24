@@ -26,7 +26,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(new TypicalTask().getTypicalTaskList(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() throws Exception {
+    public void executeValidIndexUnfilteredListSuccess() throws Exception {
 
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_TASK);
@@ -40,7 +40,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
+    public void executeInvalidIndexUnfilteredListFailure() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAndSortedTaskList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -48,7 +48,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws Exception {
+    public void executeValidIndexFilteredListSuccess() throws Exception {
         showFirstTaskOnly(model);
         ReadOnlyTask taskToDelete = model.getFilteredAndSortedTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_TASK);
@@ -62,7 +62,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
+    public void executeInvalidIndexFilteredListThrowsCommandException() throws Exception {
         showFirstTaskOnly(model);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;

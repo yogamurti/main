@@ -323,7 +323,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+    public void executeDeleteIndexNotFoundErrorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand(DeleteCommand.COMMAND_WORD);
     }
 
